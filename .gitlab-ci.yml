@@ -8,65 +8,68 @@
 stages:
   - build
   - test
+  - dockerize
   - deploy
 
-variable: 
-  DOCKER_HOST: tcp://docker:2376
-  DOCKER_TLS_CERTDIR: /certs
-  DOCKER_CERT_PATH: /certs/client
-  DOCKER_DRIVER: overlay2
+variables:
+  PROJECT_NAME: sawatech
+  BACKEND_PATH: aspnet-core
+  FRONTEND_PATH: angular
 
-services:
-  - docker:dind ##2376
-
-before_script:
-  - docker info
-  - docker-compose --version
-
+# Build .NET Backend
 build_backend:
   stage: build
+  image: mcr.microsoft.com/dotnet/sdk:7.0
   script:
-    - cd aspnet-core/src/SawaTech.PropertyMini.HttpApi.Host
-    - docker build -t sawatech-property-mini .
+    - cd $BACKEND_PATH/src/SawaTech.PropertyMini.HttpApi.Host
+    - dotnet restore
+    - dotnet build --configuration Release
   artifacts:
     paths:
-      - aspnet-core/src/SawaTech.PropertyMini.HttpApi.Host/ ##bin/Release/net8.0/SawaTech.PropertyMini.HttpApi.Host.dll
+      - $BACKEND_PATH/src/SawaTech.PropertyMini.HttpApi.Host/bin/
 
-
-
-build_angular:
+# Build Angular Frontend
+build_frontend:
   stage: build
+  image: node:20
   script:
-    - cd angular
-    - docker build -t sawatech-angular .
+    - cd $FRONTEND_PATH
+    - npm ci
+    - npm run build -- --configuration production
   artifacts:
     paths:
-      - angular/dist
+      - $FRONTEND_PATH/dist/
 
-run_tests:
+# Run Tests
+test_backend:
   stage: test
+  image: mcr.microsoft.com/dotnet/sdk:7.0
   script:
-    - cd aspnet-core/src/SawaTech.PropertyMini.HttpApi.Host
+    - cd $BACKEND_PATH/test
     - dotnet test
 
+# Dockerize app
+dockerize:
+  stage: dockerize
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker build -t $PROJECT_NAME-backend $BACKEND_PATH/src/SawaTech.PropertyMini.HttpApi.Host
+    - docker build -t $PROJECT_NAME-frontend $FRONTEND_PATH
+    - docker-compose up -d
+
+# Local Deploy (dev machine with SSH access)
 deploy_local:
   stage: deploy
-  script:
-    - cp .env.ci .env
-    - docker-compose down --remove-orphans
-    - docker-compose up -d --build
-    - docker exec -it sawatech-property-mini dotnet ef database update
+  image: alpine:latest
   only:
     - main
-
-after_script:
-  - |
-    if [ "$CI_JOB_STATUS" == "failed" ]; then
-      curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Pipeline failed: $CI_PIPELINE_URL\"}" $SLACK_WEBHOOK_URL
-    fi
-  
-
-# sast:
-#   stage: test
-# include:
-# - template: Security/SAST.gitlab-ci.yml
+  before_script:
+    - apk add --no-cache openssh
+  script:
+    - echo "$SSH_PRIVATE_KEY" > id_rsa && chmod 600 id_rsa
+    - scp -i id_rsa docker-compose.yml user@local-dev-machine:/path/to/deploy
+    - ssh -i id_rsa user@local-dev-machine "cd /path/to/deploy && docker-compose pull && docker-compose up -d"

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SawaTech.PropertyMini.PropertyEntities;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -50,6 +51,12 @@ public class PropertyMiniDbContext :
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
+    
+    // property 
+    public DbSet<Property> Properties { get; set; }
+    public DbSet<PropertyAmenity> PropertyAmenities { get; set; }
+    public DbSet<PropertyFeature> PropertyFeatures { get; set; }
+    public DbSet<PropertyMedia> PropertyMedias { get; set; }
 
     #endregion
 
@@ -76,11 +83,11 @@ public class PropertyMiniDbContext :
 
         /* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(PropertyMiniConsts.DbTablePrefix + "YourEntities", PropertyMiniConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.Entity<Property>(p =>
+        {
+            p.ToTable(PropertyMiniConsts.DbTablePrefix + "Properties", PropertyMiniConsts.DbSchema);
+            p.HasMany(p => p.Amenities).WithMany(a => a.AppProperties);
+            //...
+        });
     }
 }
