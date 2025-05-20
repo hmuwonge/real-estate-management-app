@@ -6,8 +6,67 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
-- test
-sast:
+  - build
+  - test
+  - deploy
+
+variable: 
+  DOCKER_HOST: tcp://docker:2376
+  DOCKER_TLS_CERTDIR: /certs
+  DOCKER_CERT_PATH: /certs/client
+  DOCKER_DRIVER: overlay2
+
+services:
+  - docker:dind ##2376
+
+before_script:
+  - docker info
+  - docker-compose --version
+
+build_backend:
+  stage: build
+  script:
+    - cd aspnet-core/src/SawaTech.PropertyMini.HttpApi.Host
+    - docker build -t sawatech-property-mini .
+  artifacts:
+    paths:
+      - aspnet-core/src/SawaTech.PropertyMini.HttpApi.Host/ ##bin/Release/net8.0/SawaTech.PropertyMini.HttpApi.Host.dll
+
+
+
+build_angular:
+  stage: build
+  script:
+    - cd angular
+    - docker build -t sawatech-angular .
+  artifacts:
+    paths:
+      - angular/dist
+
+run_tests:
   stage: test
-include:
-- template: Security/SAST.gitlab-ci.yml
+  script:
+    - cd aspnet-core/src/SawaTech.PropertyMini.HttpApi.Host
+    - dotnet test
+
+deploy_local:
+  stage: deploy
+  script:
+    - cp .env.ci .env
+    - docker-compose down --remove-orphans
+    - docker-compose up -d --build
+    - docker exec -it sawatech-property-mini dotnet ef database update
+  only:
+    - main
+
+after_script:
+  - |
+    if [ "$CI_JOB_STATUS" == "failed" ]; then
+      curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Pipeline failed: $CI_PIPELINE_URL\"}" $SLACK_WEBHOOK_URL
+    fi
+  
+
+# sast:
+#   stage: test
+# include:
+# - template: Security/SAST.gitlab-ci.yml
