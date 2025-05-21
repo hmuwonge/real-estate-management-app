@@ -8,12 +8,11 @@ public class PropertyDto
     public string Description { get; set; }
     
     //location properties
-    public string Governorate { get; set; }
-    public string District { get; set; }
-    public string Street { get; set; }
+    public string Address { get; set; }
     
     // main property info
     public decimal Price { get; set; }
+    public decimal InsurancePayment { get; set; }
     public float Area { get; set; }
     public int NumberOfRooms { get; set; }
     

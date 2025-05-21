@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SawaTech.PropertyMini.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class IntialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -415,26 +415,6 @@ namespace SawaTech.PropertyMini.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppAddresses",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Governorate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    District = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppAddresses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OpenIddictApplications",
                 columns: table => new
                 {
@@ -756,44 +736,6 @@ namespace SawaTech.PropertyMini.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppProperties",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    PaymentType = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    InsurancePayment = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Area = table.Column<float>(type: "real", nullable: false),
-                    Rooms = table.Column<int>(type: "int", nullable: false),
-                    Latitude = table.Column<double>(type: "float", nullable: false),
-                    Governorate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    district = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Longitude = table.Column<double>(type: "float", nullable: false),
-                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppProperties", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AppProperties_AppAddresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "AppAddresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OpenIddictAuthorizations",
                 columns: table => new
                 {
@@ -839,6 +781,76 @@ namespace SawaTech.PropertyMini.Migrations
                         principalTable: "AbpEntityChanges",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppProperties",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    PaymentType = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    InsurancePayment = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    Area = table.Column<float>(type: "real", nullable: false),
+                    Rooms = table.Column<int>(type: "int", nullable: false),
+                    Latitude = table.Column<double>(type: "float", nullable: false),
+                    Longitude = table.Column<double>(type: "float", nullable: false),
+                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppProperties", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppProperties_AppAccountUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AppAccountUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OpenIddictTokens",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ApplicationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    AuthorizationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Payload = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Properties = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RedemptionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ReferenceId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Subject = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OpenIddictTokens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OpenIddictTokens_OpenIddictApplications_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "OpenIddictApplications",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_OpenIddictTokens_OpenIddictAuthorizations_AuthorizationId",
+                        column: x => x.AuthorizationId,
+                        principalTable: "OpenIddictAuthorizations",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -891,13 +903,13 @@ namespace SawaTech.PropertyMini.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppPropertyMedias",
+                name: "AppPropertyImages",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MediaType = table.Column<int>(type: "int", nullable: false),
-                    PropertyId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Url = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
+                    MediaType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PropertyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -907,46 +919,31 @@ namespace SawaTech.PropertyMini.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppPropertyMedias", x => x.Id);
+                    table.PrimaryKey("PK_AppPropertyImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppPropertyMedias_AppProperties_PropertyId",
+                        name: "FK_AppPropertyImages_AppProperties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "AppProperties",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OpenIddictTokens",
+                name: "PropertyVideo",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ApplicationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    AuthorizationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Payload = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Properties = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RedemptionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ReferenceId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Subject = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false)
+                    Url = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PropertyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OpenIddictTokens", x => x.Id);
+                    table.PrimaryKey("PK_PropertyVideo", x => x.Url);
                     table.ForeignKey(
-                        name: "FK_OpenIddictTokens_OpenIddictApplications_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalTable: "OpenIddictApplications",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_OpenIddictTokens_OpenIddictAuthorizations_AuthorizationId",
-                        column: x => x.AuthorizationId,
-                        principalTable: "OpenIddictAuthorizations",
-                        principalColumn: "Id");
+                        name: "FK_PropertyVideo_AppProperties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "AppProperties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -1168,9 +1165,9 @@ namespace SawaTech.PropertyMini.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppProperties_AddressId",
+                name: "IX_AppProperties_OwnerId",
                 table: "AppProperties",
-                column: "AddressId");
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppPropertyAmenities_PropertyId",
@@ -1183,8 +1180,8 @@ namespace SawaTech.PropertyMini.Migrations
                 column: "PropertyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppPropertyMedias_PropertyId",
-                table: "AppPropertyMedias",
+                name: "IX_AppPropertyImages_PropertyId",
+                table: "AppPropertyImages",
                 column: "PropertyId");
 
             migrationBuilder.CreateIndex(
@@ -1216,6 +1213,12 @@ namespace SawaTech.PropertyMini.Migrations
                 name: "IX_OpenIddictTokens_ReferenceId",
                 table: "OpenIddictTokens",
                 column: "ReferenceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PropertyVideo_PropertyId",
+                table: "PropertyVideo",
+                column: "PropertyId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -1294,22 +1297,22 @@ namespace SawaTech.PropertyMini.Migrations
                 name: "AbpUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AppAccountUsers");
-
-            migrationBuilder.DropTable(
                 name: "AppPropertyAmenities");
 
             migrationBuilder.DropTable(
                 name: "AppPropertyFeatures");
 
             migrationBuilder.DropTable(
-                name: "AppPropertyMedias");
+                name: "AppPropertyImages");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictTokens");
+
+            migrationBuilder.DropTable(
+                name: "PropertyVideo");
 
             migrationBuilder.DropTable(
                 name: "AbpEntityChanges");
@@ -1324,22 +1327,22 @@ namespace SawaTech.PropertyMini.Migrations
                 name: "AbpRoles");
 
             migrationBuilder.DropTable(
-                name: "AbpUsers");
+                name: "OpenIddictAuthorizations");
 
             migrationBuilder.DropTable(
                 name: "AppProperties");
 
             migrationBuilder.DropTable(
-                name: "OpenIddictAuthorizations");
-
-            migrationBuilder.DropTable(
                 name: "AbpAuditLogs");
 
             migrationBuilder.DropTable(
-                name: "AppAddresses");
+                name: "OpenIddictApplications");
 
             migrationBuilder.DropTable(
-                name: "OpenIddictApplications");
+                name: "AppAccountUsers");
+
+            migrationBuilder.DropTable(
+                name: "AbpUsers");
         }
     }
 }

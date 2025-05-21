@@ -60,7 +60,7 @@ public class PropertyMiniDbContext :
     public DbSet<Property> Properties { get; set; }
     public DbSet<PropertyAmenity> PropertyAmenities { get; set; }
     public DbSet<PropertyFeature> PropertyFeatures { get; set; }
-    public DbSet<PropertyMedia> PropertyMedias { get; set; }
+    public DbSet<PropertyImage> PropertyMedias { get; set; }
 
     #endregion
 
@@ -70,55 +70,85 @@ public class PropertyMiniDbContext :
 
     }
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(builder);
+        base.OnModelCreating(modelBuilder);
 
         /* Include modules to your migration db context */
 
-        builder.ConfigurePermissionManagement();
-        builder.ConfigureSettingManagement();
-        builder.ConfigureBackgroundJobs();
-        builder.ConfigureAuditLogging();
-        builder.ConfigureIdentity();
-        builder.ConfigureOpenIddict();
-        builder.ConfigureFeatureManagement();
-        builder.ConfigureTenantManagement();
+        modelBuilder.ConfigurePermissionManagement();
+        modelBuilder.ConfigureSettingManagement();
+        modelBuilder.ConfigureBackgroundJobs();
+        modelBuilder.ConfigureAuditLogging();
+        modelBuilder.ConfigureIdentity();
+        modelBuilder.ConfigureOpenIddict();
+        modelBuilder.ConfigureFeatureManagement();
+        modelBuilder.ConfigureTenantManagement();
 
         /* Configure your own tables/entities inside here */
 
-        builder.Entity<Property>(p =>
+        modelBuilder.Entity<Property>(p =>
         {
             p.ToTable(PropertyMiniConsts.DbTablePrefix + "Properties", PropertyMiniConsts.DbSchema);
             p.ConfigureByConvention();
-            
+            p.Property(x => x.Price).HasPrecision(18, 2); // Fix for CS1061 and CS0201
+            p.Property(x => x.InsurancePayment).HasPrecision(18, 2); // Fix for CS1061 and CS0201
+            p.HasOne(x => x.Owner)
+                .WithMany(x => x.Properties)
+                .HasForeignKey(x => x.OwnerId)
+                .OnDelete(DeleteBehavior.Restrict); // Fix for CS1061 and CS0201
+            p.HasMany(x => x.PropertyImages)
+                .WithOne(x => x.Property)
+                .HasForeignKey(x => x.PropertyId)
+                .OnDelete(DeleteBehavior.Restrict); // Fix for CS1061 and CS0201
+            p.HasOne(x => x.PropertyVideo)
+                .WithOne(x => x.Property)
+                .HasForeignKey<PropertyVideo>(x => x.PropertyId)
+                .OnDelete(DeleteBehavior.Restrict); // Fix for CS1061 and CS0201
+
         });
 
-        builder.Entity<AccountUser>(a =>
+        modelBuilder.Entity<AccountUser>(a =>
         {
             a.ToTable(PropertyMiniConsts.DbTablePrefix + "AccountUsers", PropertyMiniConsts.DbSchema);
             a.ConfigureAbpUser();
+            a.HasMany(x => x.Properties)
+                .WithOne(x => x.Owner)
+                .HasForeignKey(x => x.OwnerId)
+                .OnDelete(DeleteBehavior.Restrict);
         });
-        
-        builder.Entity<PropertyAmenity>(a =>
+
+        modelBuilder.Entity<PropertyAmenity>(a =>
         {
             a.ToTable(PropertyMiniConsts.DbTablePrefix + "PropertyAmenities", PropertyMiniConsts.DbSchema);
         });
-        
-        builder.Entity<PropertyFeature>(a =>
+
+        modelBuilder.Entity<PropertyFeature>(a =>
         {
             a.ToTable(PropertyMiniConsts.DbTablePrefix + "PropertyFeatures", PropertyMiniConsts.DbSchema);
-        });
-        
-        builder.Entity<Address>(a =>
-        {
-            a.ToTable(PropertyMiniConsts.DbTablePrefix + "Addresses", PropertyMiniConsts.DbSchema);
-        });
-        
-        builder.Entity<PropertyMedia>(a =>
-        {
-            a.ToTable(PropertyMiniConsts.DbTablePrefix + "PropertyMedias", PropertyMiniConsts.DbSchema);
+
         });
 
+        modelBuilder.Entity<PropertyImage>(a =>
+        {
+            a.ToTable(PropertyMiniConsts.DbTablePrefix + "PropertyVideos", PropertyMiniConsts.DbSchema);
+            a.Property(x => x.Url).HasMaxLength(2000);
+            //a.Property(x => x.MediaType).HasConversion<string>();
+            a.HasOne(x => x.Property)
+                .WithMany(x => x.PropertyImages)
+                .HasForeignKey(x => x.PropertyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<PropertyImage>(a =>
+        {
+            a.ToTable(PropertyMiniConsts.DbTablePrefix + "PropertyImages", PropertyMiniConsts.DbSchema);
+            a.Property(x => x.Url).HasMaxLength(2000);
+            a.Property(x => x.MediaType).HasConversion<string>();
+            a.HasOne(x => x.Property)
+                .WithMany(x => x.PropertyImages)
+                .HasForeignKey(x => x.PropertyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
     }
 }

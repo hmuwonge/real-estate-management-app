@@ -24,63 +24,14 @@ namespace SawaTech.PropertyMini.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("SawaTech.PropertyMini.Addresses.Address", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<string>("District")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExtraProperties")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ExtraProperties");
-
-                    b.Property<string>("Governorate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LastModifierId");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppAddresses", (string)null);
-                });
-
             modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.Property", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AddressId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Area")
                         .HasColumnType("real");
@@ -109,11 +60,8 @@ namespace SawaTech.PropertyMini.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
-                    b.Property<string>("Governorate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("InsurancePayment")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("LastModificationTime")
@@ -130,10 +78,14 @@ namespace SawaTech.PropertyMini.Migrations
                     b.Property<double>("Longitude")
                         .HasColumnType("float");
 
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("PaymentType")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Rooms")
@@ -142,10 +94,6 @@ namespace SawaTech.PropertyMini.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -153,13 +101,9 @@ namespace SawaTech.PropertyMini.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<string>("district")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("AppProperties", (string)null);
                 });
@@ -262,7 +206,7 @@ namespace SawaTech.PropertyMini.Migrations
                     b.ToTable("AppPropertyFeatures", (string)null);
                 });
 
-            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyMedia", b =>
+            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyImage", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -295,21 +239,39 @@ namespace SawaTech.PropertyMini.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("LastModifierId");
 
-                    b.Property<int>("MediaType")
-                        .HasColumnType("int");
+                    b.Property<string>("MediaType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("PropertyId")
+                    b.Property<Guid>("PropertyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("AppPropertyMedias", (string)null);
+                    b.ToTable("AppPropertyImages", (string)null);
+                });
+
+            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyVideo", b =>
+                {
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("PropertyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Url");
+
+                    b.HasIndex("PropertyId")
+                        .IsUnique();
+
+                    b.ToTable("PropertyVideo");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -2098,13 +2060,13 @@ namespace SawaTech.PropertyMini.Migrations
 
             modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.Property", b =>
                 {
-                    b.HasOne("SawaTech.PropertyMini.Addresses.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("SawaTech.PropertyMini.Users.AccountUser", "Owner")
+                        .WithMany("Properties")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Address");
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyAmenity", b =>
@@ -2121,11 +2083,26 @@ namespace SawaTech.PropertyMini.Migrations
                         .HasForeignKey("PropertyId");
                 });
 
-            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyMedia", b =>
+            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyImage", b =>
                 {
-                    b.HasOne("SawaTech.PropertyMini.PropertyEntities.Property", null)
-                        .WithMany("Media")
-                        .HasForeignKey("PropertyId");
+                    b.HasOne("SawaTech.PropertyMini.PropertyEntities.Property", "Property")
+                        .WithMany("PropertyImages")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Property");
+                });
+
+            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyVideo", b =>
+                {
+                    b.HasOne("SawaTech.PropertyMini.PropertyEntities.Property", "Property")
+                        .WithOne("PropertyVideo")
+                        .HasForeignKey("SawaTech.PropertyMini.PropertyEntities.PropertyVideo", "PropertyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Property");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
@@ -2285,7 +2262,9 @@ namespace SawaTech.PropertyMini.Migrations
 
                     b.Navigation("Features");
 
-                    b.Navigation("Media");
+                    b.Navigation("PropertyImages");
+
+                    b.Navigation("PropertyVideo");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -2326,6 +2305,11 @@ namespace SawaTech.PropertyMini.Migrations
             modelBuilder.Entity("Volo.Abp.TenantManagement.Tenant", b =>
                 {
                     b.Navigation("ConnectionStrings");
+                });
+
+            modelBuilder.Entity("SawaTech.PropertyMini.Users.AccountUser", b =>
+                {
+                    b.Navigation("Properties");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using SawaTech.PropertyMini.PropertyEntities;
 using Volo.Abp.Identity;
 
 namespace SawaTech.PropertyMini.Users;
@@ -14,6 +16,7 @@ public class AccountUser : IdentityUser
     public string? WhatsApp { get; set; }
     public string? Country { get; set; }
     public string? ProfilePictureUrl { get; set; }
+    public ICollection<Property> Properties { get; set; } = [];
 }
 
 

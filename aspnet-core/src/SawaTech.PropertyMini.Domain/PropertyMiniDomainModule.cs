@@ -60,7 +60,7 @@ public class PropertyMiniDomainModule : AbpModule
 
         Configure<AbpMultiTenancyOptions>(options =>
         {
-            options.IsEnabled = MultiTenancyConsts.IsEnabled;
+            options.IsEnabled = false; //MultiTenancyConsts.IsEnabled;
         });
 
         Configure<IdentityOptions>(op =>
