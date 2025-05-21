@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using SawaTech.PropertyMini.MultiTenancy;
+using SawaTech.PropertyMini.Users;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Emailing;
@@ -60,6 +62,28 @@ public class PropertyMiniDomainModule : AbpModule
         {
             options.IsEnabled = MultiTenancyConsts.IsEnabled;
         });
+
+        Configure<IdentityOptions>(op =>
+        {
+            op.User.RequireUniqueEmail = true;
+        });
+        
+        // Configure<IdentityOptions>(op =>
+        // {
+        //     op.User.Configure = (user) =>
+        //     {
+        //         user.EntityType = typeof(AccountUser);
+        //     };
+        // });
+
+        // Configure<AbpIdentityOptions>(options =>
+        // {
+        //     options.ConfigureIdentity = identity =>
+        //     {
+        //         identity.UserType = typeof(AccountUser); // Your custom user class
+        //         identity.RoleType = typeof(IdentityRole); // Default role class
+        //     };
+        // });
 
 #if DEBUG
         context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());

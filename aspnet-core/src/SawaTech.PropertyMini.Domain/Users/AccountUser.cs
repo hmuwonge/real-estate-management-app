@@ -1,8 +1,9 @@
-﻿using Volo.Abp.Identity;
+﻿using System;
+using Volo.Abp.Identity;
 
 namespace SawaTech.PropertyMini.Users;
 
-public class User : IdentityUser
+public class AccountUser : IdentityUser
 {
     public UserType Type { get; set; }
     public string? CompanyName { get; set; }

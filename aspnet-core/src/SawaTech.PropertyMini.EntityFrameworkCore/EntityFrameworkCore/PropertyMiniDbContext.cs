@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SawaTech.PropertyMini.Addresses;
 using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.Users;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -13,6 +16,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Volo.Abp.Users.EntityFrameworkCore;
 
 namespace SawaTech.PropertyMini.EntityFrameworkCore;
 
@@ -86,8 +90,35 @@ public class PropertyMiniDbContext :
         builder.Entity<Property>(p =>
         {
             p.ToTable(PropertyMiniConsts.DbTablePrefix + "Properties", PropertyMiniConsts.DbSchema);
-            p.HasMany(p => p.Amenities).WithMany(a => a.AppProperties);
-            //...
+            p.ConfigureByConvention();
+            
         });
+
+        builder.Entity<AccountUser>(a =>
+        {
+            a.ToTable(PropertyMiniConsts.DbTablePrefix + "AccountUsers", PropertyMiniConsts.DbSchema);
+            a.ConfigureAbpUser();
+        });
+        
+        builder.Entity<PropertyAmenity>(a =>
+        {
+            a.ToTable(PropertyMiniConsts.DbTablePrefix + "PropertyAmenities", PropertyMiniConsts.DbSchema);
+        });
+        
+        builder.Entity<PropertyFeature>(a =>
+        {
+            a.ToTable(PropertyMiniConsts.DbTablePrefix + "PropertyFeatures", PropertyMiniConsts.DbSchema);
+        });
+        
+        builder.Entity<Address>(a =>
+        {
+            a.ToTable(PropertyMiniConsts.DbTablePrefix + "Addresses", PropertyMiniConsts.DbSchema);
+        });
+        
+        builder.Entity<PropertyMedia>(a =>
+        {
+            a.ToTable(PropertyMiniConsts.DbTablePrefix + "PropertyMedias", PropertyMiniConsts.DbSchema);
+        });
+
     }
 }
