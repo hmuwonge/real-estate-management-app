@@ -29,6 +29,7 @@ using Volo.Abp.Security.Claims;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 
 namespace SawaTech.PropertyMini;
 
@@ -41,7 +42,8 @@ namespace SawaTech.PropertyMini;
     typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpSwashbuckleModule)
+    typeof(AbpSwashbuckleModule),
+    typeof(AbpAspNetCoreAuthenticationJwtBearerModule)
 )]
 public class PropertyMiniHttpApiHostModule : AbpModule
 {
