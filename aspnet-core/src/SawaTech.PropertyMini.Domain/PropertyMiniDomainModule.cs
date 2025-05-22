@@ -85,6 +85,16 @@ public class PropertyMiniDomainModule : AbpModule
         //     };
         // });
 
+        var configuration = context.Services.GetConfiguration();
+
+        context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddAbpJwtBearer(options =>
+            {
+                options.Authority = configuration["AuthServer:Authority"];
+                options.RequireHttpsMetadata = false;
+                options.Audience = configuration["AuthServer:Audience"];
+            });
+
 #if DEBUG
         context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
 #endif
