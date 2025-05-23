@@ -85,15 +85,26 @@ public class PropertyMiniDomainModule : AbpModule
         //     };
         // });
 
-        var configuration = context.Services.GetConfiguration();
+        //var configuration = context.Services.GetConfiguration();
 
-        context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                options.Authority = configuration["AuthServer:Authority"];
-                options.RequireHttpsMetadata = false;
-                options.Audience = configuration["AuthServer:Audience"];
-            });
+        //context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        //    .AddJwtBearer(options =>
+        //    {
+        //        options.Authority = configuration["AuthServer:Authority"];
+        //        options.RequireHttpsMetadata = false;
+        //        options.Audience = configuration["AuthServer:Audience"];
+        //    });
+
+        //Configure<AbpBlobStoringOptions>(options =>
+        //{
+        //    options.Containers.Configure<PropertyGallaryContainer>(container =>
+        //    {
+        //        container.UseFileSystem(fileSystem =>
+        //        {
+        //            fileSystem.BasePath = Path.Combine(Directory.GetCurrentDirectory(), "property-images");
+        //        });
+        //    });
+        //});
 
 #if DEBUG
         context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());

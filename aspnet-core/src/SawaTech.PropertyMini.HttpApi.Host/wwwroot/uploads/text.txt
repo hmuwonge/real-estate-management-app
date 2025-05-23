@@ -1,0 +1,6 @@
+﻿namespace SawaTech.PropertyMini.wwwroot.uploads
+{
+    public class text
+    {
+    }
+}

@@ -31,4 +31,5 @@ public class PropertyDto
     
     public double Latitude { get; set; }
     public double Longitude { get; set; }
+    public List<string?> images { get; set; }
 }

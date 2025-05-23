@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace SawaTech.PropertyMini.Properties;
 
@@ -8,7 +9,9 @@ public class CreateUpdatePropertyDto
     [Required]
     [StringLength(128)]
     public string Title { get; set; }
-    
+
+    public string OwnerId { get; set; }
+
     [Required]
     [StringLength(128)]
     public string Description { get; set; }
@@ -37,8 +40,8 @@ public class CreateUpdatePropertyDto
     public List<string> NearbyPlaces { get; set; }
     
     [Required]
-    public List<string> PhotoUrls { get; set; }
-    public string? VideoUrl { get; set; }
+    public List<IFormFile> PhotoUrls { get; set; }
+    public IFormFile? VideoUrl { get; set; }
     
     [Required]
     public double Latitude { get; set; }
