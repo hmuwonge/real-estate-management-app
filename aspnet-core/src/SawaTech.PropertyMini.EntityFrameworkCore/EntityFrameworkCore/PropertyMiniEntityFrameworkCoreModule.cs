@@ -5,7 +5,7 @@ using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.SqlServer;
-using Volo.Abp.FeatureManagement.EntityFrameworkCore;
+//using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity.EntityFrameworkCore;
 using Volo.Abp.Modularity;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
@@ -17,15 +17,15 @@ namespace SawaTech.PropertyMini.EntityFrameworkCore;
 
 [DependsOn(
     typeof(PropertyMiniDomainModule),
-    typeof(AbpIdentityEntityFrameworkCoreModule),
-    typeof(AbpOpenIddictEntityFrameworkCoreModule),
-    typeof(AbpPermissionManagementEntityFrameworkCoreModule),
-    typeof(AbpSettingManagementEntityFrameworkCoreModule),
+    //typeof(AbpIdentityEntityFrameworkCoreModule),
+    //typeof(AbpOpenIddictEntityFrameworkCoreModule),
+    //typeof(AbpPermissionManagementEntityFrameworkCoreModule),
+    //typeof(AbpSettingManagementEntityFrameworkCoreModule),
     typeof(AbpEntityFrameworkCoreSqlServerModule),
-    typeof(AbpBackgroundJobsEntityFrameworkCoreModule),
-    typeof(AbpAuditLoggingEntityFrameworkCoreModule),
+    typeof(AbpBackgroundJobsEntityFrameworkCoreModule)
+    //typeof(AbpAuditLoggingEntityFrameworkCoreModule),
     //typeof(AbpTenantManagementEntityFrameworkCoreModule),
-    typeof(AbpFeatureManagementEntityFrameworkCoreModule)
+    //typeof(AbpFeatureManagementEntityFrameworkCoreModule)
     )]
 public class PropertyMiniEntityFrameworkCoreModule : AbpModule
 {
