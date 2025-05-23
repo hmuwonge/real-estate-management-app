@@ -1,23 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
+﻿
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using SawaTech.PropertyMini.MultiTenancy;
-using SawaTech.PropertyMini.Users;
-using Volo.Abp.AspNetCore.Authentication.JwtBearer;
-using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Emailing;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
-using Volo.Abp.MultiTenancy;
-using Volo.Abp.OpenIddict;
-using Volo.Abp.PermissionManagement.Identity;
-using Volo.Abp.PermissionManagement.OpenIddict;
-using Volo.Abp.SettingManagement;
-//using Volo.Abp.TenantManagement;
 
 namespace SawaTech.PropertyMini;
 

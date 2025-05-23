@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using AutoMapper;
+using SawaTech.PropertyMini.UserAccount;
 using SawaTech.PropertyMini.Properties;
 using SawaTech.PropertyMini.PropertyEntities;
 using SawaTech.PropertyMini.PropertyFeatures;
+using SawaTech.PropertyMini.Users;
 
 namespace SawaTech.PropertyMini;
 
@@ -29,6 +31,9 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
 
         CreateMap<PropertyFeature, PropertyFeatureDto>();
         CreateMap<CreateUpdatePropertyFeatureDto, PropertyFeature>();
+
+
+        CreateMap<CreateUpdateAccountDto, AccountUser>();
 
     }
 }
