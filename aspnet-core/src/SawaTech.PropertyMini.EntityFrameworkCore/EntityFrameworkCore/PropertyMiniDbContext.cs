@@ -14,19 +14,19 @@ using Volo.Abp.Identity.EntityFrameworkCore;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
-using Volo.Abp.TenantManagement;
-using Volo.Abp.TenantManagement.EntityFrameworkCore;
+//using Volo.Abp.TenantManagement;
+//using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.Abp.Users.EntityFrameworkCore;
 
 namespace SawaTech.PropertyMini.EntityFrameworkCore;
 
 [ReplaceDbContext(typeof(IIdentityDbContext))]
-[ReplaceDbContext(typeof(ITenantManagementDbContext))]
+//[ReplaceDbContext(typeof(ITenantManagementDbContext))]
 [ConnectionStringName("Default")]
 public class PropertyMiniDbContext :
     AbpDbContext<PropertyMiniDbContext>,
-    IIdentityDbContext,
-    ITenantManagementDbContext
+    IIdentityDbContext
+    //ITenantManagementDbContext
 {
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
 
@@ -53,8 +53,8 @@ public class PropertyMiniDbContext :
     public DbSet<IdentityUserDelegation> UserDelegations { get; set; }
     public DbSet<IdentitySession> Sessions { get; set; }
     // Tenant Management
-    public DbSet<Tenant> Tenants { get; set; }
-    public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
+    //public DbSet<Tenant> Tenants { get; set; }
+    //public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
     
     // property 
     public DbSet<Property> Properties { get; set; }
@@ -83,7 +83,7 @@ public class PropertyMiniDbContext :
         modelBuilder.ConfigureIdentity();
         modelBuilder.ConfigureOpenIddict();
         modelBuilder.ConfigureFeatureManagement();
-        modelBuilder.ConfigureTenantManagement();
+        //modelBuilder.ConfigureTenantManagement();
 
         /* Configure your own tables/entities inside here */
 

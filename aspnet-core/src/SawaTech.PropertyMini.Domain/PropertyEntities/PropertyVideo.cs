@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace SawaTech.PropertyMini.PropertyEntities
 {
-    public class PropertyVideo
+    public class PropertyVideo : AuditedAggregateRoot<Guid>
     {
         [Key, ForeignKey("Property")]
         public string Url { get; set; } = string.Empty;

@@ -29,6 +29,12 @@ using Volo.Abp.Security.Claims;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Volo.Abp.BlobStoring;
+using Volo.Abp.BlobStoring.FileSystem;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
 
 namespace SawaTech.PropertyMini;
 
@@ -41,7 +47,12 @@ namespace SawaTech.PropertyMini;
     typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpSwashbuckleModule)
+    typeof(AbpSwashbuckleModule),
+    typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
+
+    //for blob storage module
+    typeof(AbpBlobStoringModule),
+    typeof(AbpBlobStoringFileSystemModule)
 )]
 public class PropertyMiniHttpApiHostModule : AbpModule
 {
@@ -70,15 +81,43 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         ConfigureVirtualFileSystem(context);
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
+
+        Configure<AbpBlobStoringOptions>(options =>
+        {
+            options.Containers.Configure<PropertyGalleryContainer>(container =>
+            {
+                container.UseFileSystem(fileSystem =>
+                {
+                    fileSystem.BasePath = "wwwroot/uploads/properties"; //Path.Combine(Directory.GetCurrentDirectory(), "property-images");
+                });
+            });
+        });
+
+
+
+        Configure<FormOptions>(options =>
+        {
+            options.MultipartBodyLengthLimit = 104857600; // 100 MB
+        });
+
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
-        context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
-        context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
-        {
-            options.IsDynamicClaimsEnabled = true;
-        });
+        //context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
+        //context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
+        //{
+        //    options.IsDynamicClaimsEnabled = true;
+        //});
+        var configuration = context.Services.GetConfiguration();
+
+        context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.Authority = configuration["AuthServer:Authority"];
+                options.RequireHttpsMetadata = false;
+                options.Audience = configuration["AuthServer:Audience"];
+            });
     }
 
     private void ConfigureBundles()
@@ -194,6 +233,15 @@ public class PropertyMiniHttpApiHostModule : AbpModule
 
         app.UseCorrelationId();
         app.MapAbpStaticAssets();
+        app.UseStaticFiles();
+
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(
+           Path.Combine(env.ContentRootPath, "wwwroot", "uploads")),
+            RequestPath = "/uploads"
+        });
+
         app.UseRouting();
         app.UseCors();
         app.UseAuthentication();

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using SawaTech.PropertyMini.MultiTenancy;
 using SawaTech.PropertyMini.Users;
+using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Emailing;
@@ -16,7 +17,7 @@ using Volo.Abp.OpenIddict;
 using Volo.Abp.PermissionManagement.Identity;
 using Volo.Abp.PermissionManagement.OpenIddict;
 using Volo.Abp.SettingManagement;
-using Volo.Abp.TenantManagement;
+//using Volo.Abp.TenantManagement;
 
 namespace SawaTech.PropertyMini;
 
@@ -30,7 +31,8 @@ namespace SawaTech.PropertyMini;
     typeof(AbpPermissionManagementDomainOpenIddictModule),
     typeof(AbpPermissionManagementDomainIdentityModule),
     typeof(AbpSettingManagementDomainModule),
-    typeof(AbpTenantManagementDomainModule),
+    //typeof(AbpTenantManagementDomainModule),
+    typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
     typeof(AbpEmailingModule)
 )]
 public class PropertyMiniDomainModule : AbpModule
@@ -59,16 +61,13 @@ public class PropertyMiniDomainModule : AbpModule
             options.Languages.Add(new LanguageInfo("es", "es", "Español"));
         });
 
-        Configure<AbpMultiTenancyOptions>(options =>
-        {
-            options.IsEnabled = false; //MultiTenancyConsts.IsEnabled;
-        });
+        //Configure<AbpMultiTenancyOptions>(options =>
+        //{
+        //    options.IsEnabled = false; //MultiTenancyConsts.IsEnabled;
+        //});
 
-        Configure<IdentityOptions>(op =>
-        {
-            op.User.RequireUniqueEmail = true;
-        });
-        
+
+
         // Configure<IdentityOptions>(op =>
         // {
         //     op.User.Configure = (user) =>
@@ -86,15 +85,26 @@ public class PropertyMiniDomainModule : AbpModule
         //     };
         // });
 
-        var configuration = context.Services.GetConfiguration();
+        //var configuration = context.Services.GetConfiguration();
 
-        context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddAbpJwtBearer(options =>
-            {
-                options.Authority = configuration["AuthServer:Authority"];
-                options.RequireHttpsMetadata = false;
-                options.Audience = configuration["AuthServer:Audience"];
-            });
+        //context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        //    .AddJwtBearer(options =>
+        //    {
+        //        options.Authority = configuration["AuthServer:Authority"];
+        //        options.RequireHttpsMetadata = false;
+        //        options.Audience = configuration["AuthServer:Audience"];
+        //    });
+
+        //Configure<AbpBlobStoringOptions>(options =>
+        //{
+        //    options.Containers.Configure<PropertyGallaryContainer>(container =>
+        //    {
+        //        container.UseFileSystem(fileSystem =>
+        //        {
+        //            fileSystem.BasePath = Path.Combine(Directory.GetCurrentDirectory(), "property-images");
+        //        });
+        //    });
+        //});
 
 #if DEBUG
         context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
