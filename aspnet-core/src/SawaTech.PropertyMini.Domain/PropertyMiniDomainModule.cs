@@ -8,7 +8,7 @@ using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Emailing;
-using Volo.Abp.FeatureManagement;
+//using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
@@ -23,17 +23,17 @@ namespace SawaTech.PropertyMini;
 
 [DependsOn(
     typeof(PropertyMiniDomainSharedModule),
-    typeof(AbpAuditLoggingDomainModule),
-    typeof(AbpBackgroundJobsDomainModule),
-    typeof(AbpFeatureManagementDomainModule),
-    typeof(AbpIdentityDomainModule),
-    typeof(AbpOpenIddictDomainModule),
-    typeof(AbpPermissionManagementDomainOpenIddictModule),
-    typeof(AbpPermissionManagementDomainIdentityModule),
-    typeof(AbpSettingManagementDomainModule),
+    // typeof(AbpAuditLoggingDomainModule),
+    typeof(AbpBackgroundJobsDomainModule)
+    // typeof(AbpFeatureManagementDomainModule),
+    // typeof(AbpIdentityDomainModule),
+    // typeof(AbpOpenIddictDomainModule),
+    // typeof(AbpPermissionManagementDomainOpenIddictModule),
+    // typeof(AbpPermissionManagementDomainIdentityModule),
+    // typeof(AbpSettingManagementDomainModule),
     //typeof(AbpTenantManagementDomainModule),
-    typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
-    typeof(AbpEmailingModule)
+    // typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
+    // typeof(AbpEmailingModule)
 )]
 public class PropertyMiniDomainModule : AbpModule
 {

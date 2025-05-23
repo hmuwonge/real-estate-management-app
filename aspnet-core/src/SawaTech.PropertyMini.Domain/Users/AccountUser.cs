@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using SawaTech.PropertyMini.PropertyEntities;
+using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.Identity;
 
 namespace SawaTech.PropertyMini.Users;
 
-public class AccountUser : IdentityUser
+public class AccountUser : AuditedAggregateRoot<Guid>
 {
     public UserType Type { get; set; }
     public string? CompanyName { get; set; }

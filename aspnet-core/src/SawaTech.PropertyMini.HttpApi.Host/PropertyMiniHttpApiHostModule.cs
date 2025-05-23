@@ -10,14 +10,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SawaTech.PropertyMini.EntityFrameworkCore;
 using SawaTech.PropertyMini.MultiTenancy;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
+//using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
 using Microsoft.OpenApi.Models;
-using OpenIddict.Validation.AspNetCore;
+//using OpenIddict.Validation.AspNetCore;
 using Volo.Abp;
 using Volo.Abp.Account;
-using Volo.Abp.Account.Web;
-using Volo.Abp.AspNetCore.MultiTenancy;
+//using Volo.Abp.Account.Web;
+//using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
@@ -41,14 +41,14 @@ namespace SawaTech.PropertyMini;
 [DependsOn(
     typeof(PropertyMiniHttpApiModule),
     typeof(AbpAutofacModule),
-    typeof(AbpAspNetCoreMultiTenancyModule),
+    // typeof(AbpAspNetCoreMultiTenancyModule),
     typeof(PropertyMiniApplicationModule),
     typeof(PropertyMiniEntityFrameworkCoreModule),
-    typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
-    typeof(AbpAccountWebOpenIddictModule),
+    // typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
+    // typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule),
-    typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
+    // typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
 
     //for blob storage module
     typeof(AbpBlobStoringModule),
@@ -58,15 +58,15 @@ public class PropertyMiniHttpApiHostModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
-        PreConfigure<OpenIddictBuilder>(builder =>
-        {
-            builder.AddValidation(options =>
-            {
-                options.AddAudiences("PropertyMini");
-                options.UseLocalServer();
-                options.UseAspNetCore();
-            });
-        });
+        //PreConfigure<OpenIddictBuilder>(builder =>
+        //{
+        //    builder.AddValidation(options =>
+        //    {
+        //        options.AddAudiences("PropertyMini");
+        //        options.UseLocalServer();
+        //        options.UseAspNetCore();
+        //    });
+        //});
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -74,7 +74,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         var configuration = context.Services.GetConfiguration();
         var hostingEnvironment = context.Services.GetHostingEnvironment();
 
-        ConfigureAuthentication(context);
+        // ConfigureAuthentication(context);
         ConfigureBundles();
         ConfigureUrls(configuration);
         ConfigureConventionalControllers();
@@ -244,8 +244,8 @@ public class PropertyMiniHttpApiHostModule : AbpModule
 
         app.UseRouting();
         app.UseCors();
-        app.UseAuthentication();
-        app.UseAbpOpenIddictValidation();
+        // app.UseAuthentication();
+        // app.UseAbpOpenIddictValidation();
 
         if (MultiTenancyConsts.IsEnabled)
         {
@@ -253,7 +253,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         }
         app.UseUnitOfWork();
         app.UseDynamicClaims();
-        app.UseAuthorization();
+        // app.UseAuthorization();
 
         app.UseSwagger();
         app.UseAbpSwaggerUI(c =>
@@ -265,7 +265,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
             c.OAuthScopes("PropertyMini");
         });
 
-        app.UseAuditing();
+        // app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();
     }
