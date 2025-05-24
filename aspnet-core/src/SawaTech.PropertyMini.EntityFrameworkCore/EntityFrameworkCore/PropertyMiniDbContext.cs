@@ -63,6 +63,7 @@ public class PropertyMiniDbContext :
     public DbSet<AccountUser> AccountUsers {  get; set; }
     public DbSet<Amenity> PropertyAmenities { get; set; }
     public DbSet<PropertyFeature> PropertyFeatures { get; set; }
+    public DbSet<PropertyType> PropertyTypes { get; set; }
     public DbSet<PropertyImage> PropertyMedias { get; set; }
 
     public DbSet<RefreshTokenInfo> RefreshTokens { get; set; }

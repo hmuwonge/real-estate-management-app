@@ -32,12 +32,17 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
                 src=>src.Amenities.Select(name=>new Amenity
                 { Name=name}).ToList()));
 
-        CreateMap<PropertyFeature, PropertyTypeDto>();
-        CreateMap<CreateUpdatePropertyTypeDto, PropertyFeature>();
+        // automapper for property features
+        CreateMap<PropertyFeature, PropertyFeatureDto>();
+        CreateMap<CreateUpdatePropertyFeaturesDto, PropertyFeature>();
 
 
-        CreateMap<PropertyTypeDto, PropertyFeature>(); 
-        CreateMap<PropertyTypeDto, PropertyFeature>();
+        CreateMap<PropertyTypeDto, PropertyType>()
+            .ForMember(dest=>dest.Name, opt=>opt.MapFrom(src=>src.Name))
+            .ForMember(dest=>dest.Id, opt=>opt.MapFrom(src=>src.Id)); 
+
+        CreateMap<CreateUpdatePropertyTypeDto, PropertyType>()
+            .ForMember(dest=>dest.Name, opt=>opt.MapFrom(src=>src.Name));
 
         CreateMap<Amenity, AmenityDto>();
         CreateMap<CreateUpdateAmenityDto, Amenity>();

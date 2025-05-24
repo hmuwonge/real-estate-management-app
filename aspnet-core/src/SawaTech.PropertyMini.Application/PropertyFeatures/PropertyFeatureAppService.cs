@@ -38,7 +38,6 @@ namespace SawaTech.PropertyMini.PropertyFeatures
 
         public async Task<PropertyFeatureDto> CreateAsync(CreateUpdatePropertyFeaturesDto input)
         {
-
             var propertyFeature = new PropertyFeature
             {
                 Name = input.Name,

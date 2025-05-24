@@ -1,8 +1,10 @@
-﻿namespace SawaTech.PropertyMini.PropertyTypes
-{
-    public class PropertyTypeDto
-    {
+﻿using System;
+using Volo.Abp.Application.Dtos;
 
-        public string Name { get; set; } = string.Empty;
+namespace SawaTech.PropertyMini.PropertyTypes
+{
+    public class PropertyTypeDto : AuditedEntityDto<Guid>
+    {
+        public string Name { get; set; }
     }
 }

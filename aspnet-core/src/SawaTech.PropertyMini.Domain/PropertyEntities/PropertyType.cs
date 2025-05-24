@@ -11,6 +11,6 @@ namespace SawaTech.PropertyMini.PropertyEntities
     {
         public string Name { get; set; } = string.Empty;
 
-        public ICollection<Property> Properties { get; set; } = new List<Property>();
+        //public ICollection<Property> Properties { get; set; } = new List<Property>();
     }
 }
