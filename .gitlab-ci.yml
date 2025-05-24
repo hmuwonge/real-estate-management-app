@@ -44,8 +44,8 @@ build_frontend:
   before_script:
     - yarn set version stable
   script:
-    - yarn install --frozen---frozen-lockfile
-    - yarn build ----configuration production
+    - yarn install --frozen-lockfile
+    - yarn build --configuration production
   artifacts:
     paths:
       - $FRONTEND_PATH/dist/
