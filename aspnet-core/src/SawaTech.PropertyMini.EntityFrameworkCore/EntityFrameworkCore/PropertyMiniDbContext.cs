@@ -10,7 +10,7 @@ using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
-using Volo.Abp.FeatureManagement.EntityFrameworkCore;
+//using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
@@ -22,12 +22,12 @@ using Volo.Abp.Users.EntityFrameworkCore;
 
 namespace SawaTech.PropertyMini.EntityFrameworkCore;
 
-[ReplaceDbContext(typeof(IIdentityDbContext))]
+//[ReplaceDbContext(typeof(IIdentityDbContext))]
 //[ReplaceDbContext(typeof(ITenantManagementDbContext))]
 [ConnectionStringName("Default")]
 public class PropertyMiniDbContext :
-    AbpDbContext<PropertyMiniDbContext>,
-    IIdentityDbContext
+    AbpDbContext<PropertyMiniDbContext>
+    // IIdentityDbContext
     //ITenantManagementDbContext
 {
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
@@ -46,14 +46,14 @@ public class PropertyMiniDbContext :
      */
 
     //Identity
-    public DbSet<IdentityUser> Users { get; set; }
-    public DbSet<IdentityRole> Roles { get; set; }
-    public DbSet<IdentityClaimType> ClaimTypes { get; set; }
-    public DbSet<OrganizationUnit> OrganizationUnits { get; set; }
-    public DbSet<IdentitySecurityLog> SecurityLogs { get; set; }
-    public DbSet<IdentityLinkUser> LinkUsers { get; set; }
-    public DbSet<IdentityUserDelegation> UserDelegations { get; set; }
-    public DbSet<IdentitySession> Sessions { get; set; }
+    // public DbSet<IdentityUser> Users { get; set; }
+    // public DbSet<IdentityRole> Roles { get; set; }
+    // public DbSet<IdentityClaimType> ClaimTypes { get; set; }
+    // public DbSet<OrganizationUnit> OrganizationUnits { get; set; }
+    // public DbSet<IdentitySecurityLog> SecurityLogs { get; set; }
+    // public DbSet<IdentityLinkUser> LinkUsers { get; set; }
+    // public DbSet<IdentityUserDelegation> UserDelegations { get; set; }
+    // public DbSet<IdentitySession> Sessions { get; set; }
     // Tenant Management
     //public DbSet<Tenant> Tenants { get; set; }
     //public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
@@ -82,13 +82,13 @@ public class PropertyMiniDbContext :
 
         /* Include modules to your migration db context */
 
-        modelBuilder.ConfigurePermissionManagement();
-        modelBuilder.ConfigureSettingManagement();
+        //modelBuilder.ConfigurePermissionManagement();
+        //modelBuilder.ConfigureSettingManagement();
         modelBuilder.ConfigureBackgroundJobs();
-        modelBuilder.ConfigureAuditLogging();
-        modelBuilder.ConfigureIdentity();
-        modelBuilder.ConfigureOpenIddict();
-        modelBuilder.ConfigureFeatureManagement();
+        //modelBuilder.ConfigureAuditLogging();
+        //modelBuilder.ConfigureIdentity();
+        //modelBuilder.ConfigureOpenIddict();
+        //modelBuilder.ConfigureFeatureManagement();
         //modelBuilder.ConfigureTenantManagement();
 
         /* Configure your own tables/entities inside here */
