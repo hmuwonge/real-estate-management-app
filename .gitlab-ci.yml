@@ -19,7 +19,7 @@ variables:
 # Build .NET Backend
 build_backend:
   stage: build
-  image: mcr.microsoft.com/dotnet/sdk:7.0
+  image: mcr.microsoft.com/dotnet/sdk:9.0
   script:
     - cd $BACKEND_PATH/src/SawaTech.PropertyMini.HttpApi.Host
     - dotnet restore
@@ -43,7 +43,7 @@ build_frontend:
 # Run Tests
 test_backend:
   stage: test
-  image: mcr.microsoft.com/dotnet/sdk:7.0
+  image: mcr.microsoft.com/dotnet/sdk:9.0
   script:
     - cd $BACKEND_PATH/test
     - dotnet test
