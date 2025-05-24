@@ -42,7 +42,6 @@ build_frontend:
   stage: build
   image: node:20
   before_script:
-    - npm install -g yarn
     - yarn set version stable
   script:
     - yarn install --frozen---frozen-lockfile
