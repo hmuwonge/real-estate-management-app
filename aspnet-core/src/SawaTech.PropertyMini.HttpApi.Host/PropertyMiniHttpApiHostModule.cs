@@ -9,8 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SawaTech.PropertyMini.EntityFrameworkCore;
 using SawaTech.PropertyMini.MultiTenancy;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
+// using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
+// using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
 using Volo.Abp;
@@ -41,10 +41,10 @@ namespace SawaTech.PropertyMini;
 [DependsOn(
     typeof(PropertyMiniHttpApiModule),
     typeof(AbpAutofacModule),
-    typeof(AbpAspNetCoreMultiTenancyModule),
+    //typeof(AbpAspNetCoreMultiTenancyModule),
     typeof(PropertyMiniApplicationModule),
     typeof(PropertyMiniEntityFrameworkCoreModule),
-    typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
+    // typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule),
@@ -58,15 +58,15 @@ public class PropertyMiniHttpApiHostModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
-        PreConfigure<OpenIddictBuilder>(builder =>
-        {
-            builder.AddValidation(options =>
-            {
-                options.AddAudiences("PropertyMini");
-                options.UseLocalServer();
-                options.UseAspNetCore();
-            });
-        });
+        //PreConfigure<OpenIddictBuilder>(builder =>
+        //{
+        //    builder.AddValidation(options =>
+        //    {
+        //        options.AddAudiences("PropertyMini");
+        //        options.UseLocalServer();
+        //        options.UseAspNetCore();
+        //    });
+        //});
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -75,7 +75,6 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         var hostingEnvironment = context.Services.GetHostingEnvironment();
 
         ConfigureAuthentication(context);
-        ConfigureBundles();
         ConfigureUrls(configuration);
         ConfigureConventionalControllers();
         ConfigureVirtualFileSystem(context);
@@ -111,13 +110,6 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         //});
         var configuration = context.Services.GetConfiguration();
 
-        //context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        //    .AddJwtBearer(options =>
-        //    {
-        //        options.Authority = configuration["AuthServer:Authority"];
-        //        options.RequireHttpsMetadata = false;
-        //        options.Audience = configuration["AuthServer:Audience"];
-        //    });
 
         context.Services.Configure<JwtSection>(configuration.GetSection("JwtSection"));
         var jwtSection = configuration.GetSection(nameof(JwtSection)).Get<JwtSection>();
@@ -132,33 +124,18 @@ public class PropertyMiniHttpApiHostModule : AbpModule
             options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
             {
                 ValidateIssuer = true,
-                ValidIssuer = configuration["AuthServer:Authority"],
+                ValidIssuer = configuration["AuthServer:Authority"],  //jwtSection!.Issuer,
                 ValidateAudience = true,
-                ValidAudience = configuration["AuthServer:Audience"],
+                ValidAudience = configuration["AuthServer:Audience"],//jwtSection.Audience 
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.Key!))
-                //IssuerSigningKeyResolver = (string token, SecurityToken securityToken, string kid, TokenValidationParameters validationParameters) =>
-                //{
-                //    return new List<SecurityKey>();
-                //}
+                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.Key!))
+                
             };
         });
     }
 
-    private void ConfigureBundles()
-    {
-        Configure<AbpBundlingOptions>(options =>
-        {
-            options.StyleBundles.Configure(
-                LeptonXLiteThemeBundles.Styles.Global,
-                bundle =>
-                {
-                    bundle.AddFiles("/global-styles.css");
-                }
-            );
-        });
-    }
+   
 
     private void ConfigureUrls(IConfiguration configuration)
     {
@@ -271,7 +248,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         app.UseRouting();
         app.UseCors();
         app.UseAuthentication();
-        app.UseAbpOpenIddictValidation();
+
 
         if (MultiTenancyConsts.IsEnabled)
         {

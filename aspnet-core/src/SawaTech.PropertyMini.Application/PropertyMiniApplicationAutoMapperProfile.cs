@@ -5,6 +5,9 @@ using SawaTech.PropertyMini.Properties;
 using SawaTech.PropertyMini.PropertyEntities;
 using SawaTech.PropertyMini.PropertyFeatures;
 using SawaTech.PropertyMini.Users;
+using SawaTech.PropertyMini.Amenities;
+using SawaTech.PropertyMini.PropertyAmenities;
+using SawaTech.PropertyMini.PropertyTypes;
 
 namespace SawaTech.PropertyMini;
 
@@ -26,14 +29,18 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
 
         CreateMap<CreateUpdatePropertyDto, Property>()
             .ForMember(dest=>dest.Amenities,opt=>opt.MapFrom(
-                src=>src.Amenities.Select(name=>new PropertyAmenity
+                src=>src.Amenities.Select(name=>new Amenity
                 { Name=name}).ToList()));
 
-        CreateMap<PropertyFeature, PropertyFeatureDto>();
-        CreateMap<CreateUpdatePropertyFeatureDto, PropertyFeature>();
+        CreateMap<PropertyFeature, PropertyTypeDto>();
+        CreateMap<CreateUpdatePropertyTypeDto, PropertyFeature>();
 
 
-        CreateMap<CreateUpdateAccountDto, AccountUser>();
+        CreateMap<PropertyTypeDto, PropertyFeature>(); 
+        CreateMap<PropertyTypeDto, PropertyFeature>();
+
+        CreateMap<Amenity, AmenityDto>();
+        CreateMap<CreateUpdateAmenityDto, Amenity>();
 
     }
 }

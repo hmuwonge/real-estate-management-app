@@ -9,6 +9,8 @@ namespace SawaTech.PropertyMini.UserAccount
         [MinLength(3)]
         public string UserName { get; set; } = null!;
 
+        public string UserType { get; set; } = string.Empty;
+
         //[DataType(DataType.Password)]
         //[Required]
         //public string? Password { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using SawaTech.PropertyMini.PropertyTypes;
 using Volo.Abp.Application.Services;
 
 namespace SawaTech.PropertyMini.PropertyFeatures
@@ -9,8 +10,8 @@ namespace SawaTech.PropertyMini.PropertyFeatures
     {
         Task<List<PropertyFeatureDto>> GetListAsync();
         Task<PropertyFeatureDto> GetAsync(Guid id);
-        Task<PropertyFeatureDto> CreateAsync(CreateUpdatePropertyFeatureDto input);
-        Task<PropertyFeatureDto> UpdateAsync(Guid id, CreateUpdatePropertyFeatureDto input);
+        Task<PropertyFeatureDto> CreateAsync(CreateUpdatePropertyFeaturesDto input);
+        Task<PropertyFeatureDto> UpdateAsync(Guid id, CreateUpdatePropertyFeaturesDto input);
         Task DeleteAsync(Guid id);
     }
    

@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Emailing;
 using Volo.Abp.FeatureManagement;
@@ -12,14 +13,14 @@ namespace SawaTech.PropertyMini;
 
 [DependsOn(
     typeof(PropertyMiniDomainSharedModule),
-    typeof(AbpAuditLoggingDomainModule),
+    //typeof(AbpAuditLoggingDomainModule),
     typeof(AbpBackgroundJobsDomainModule),
     typeof(AbpFeatureManagementDomainModule),
     typeof(AbpIdentityDomainModule),
-    typeof(AbpOpenIddictDomainModule),
-    typeof(AbpPermissionManagementDomainOpenIddictModule),
-    typeof(AbpPermissionManagementDomainIdentityModule),
-    typeof(AbpSettingManagementDomainModule),
+    //typeof(AbpOpenIddictDomainModule),
+    //typeof(AbpPermissionManagementDomainOpenIddictModule),
+    //typeof(AbpPermissionManagementDomainIdentityModule),
+    //typeof(AbpSettingManagementDomainModule),
     //typeof(AbpTenantManagementDomainModule),
     typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
     typeof(AbpEmailingModule)

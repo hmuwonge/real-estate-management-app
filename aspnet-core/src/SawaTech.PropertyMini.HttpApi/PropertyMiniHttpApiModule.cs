@@ -17,8 +17,8 @@ namespace SawaTech.PropertyMini;
     typeof(AbpIdentityHttpApiModule),
     typeof(AbpPermissionManagementHttpApiModule),
     typeof(AbpTenantManagementHttpApiModule),
-    typeof(AbpFeatureManagementHttpApiModule),
-    typeof(AbpSettingManagementHttpApiModule)
+    typeof(AbpFeatureManagementHttpApiModule)
+    //typeof(AbpSettingManagementHttpApiModule)
     )]
 public class PropertyMiniHttpApiModule : AbpModule
 {

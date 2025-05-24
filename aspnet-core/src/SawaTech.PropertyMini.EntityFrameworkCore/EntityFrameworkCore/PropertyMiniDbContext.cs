@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection.Emit;
+using Microsoft.EntityFrameworkCore;
 using SawaTech.PropertyMini.Addresses;
+using SawaTech.PropertyMini.Amenities;
 using SawaTech.PropertyMini.PropertyEntities;
 using SawaTech.PropertyMini.Users;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -58,9 +60,12 @@ public class PropertyMiniDbContext :
     
     // property 
     public DbSet<Property> Properties { get; set; }
-    public DbSet<PropertyAmenity> PropertyAmenities { get; set; }
+    public DbSet<AccountUser> AccountUsers {  get; set; }
+    public DbSet<Amenity> PropertyAmenities { get; set; }
     public DbSet<PropertyFeature> PropertyFeatures { get; set; }
     public DbSet<PropertyImage> PropertyMedias { get; set; }
+
+    public DbSet<RefreshTokenInfo> RefreshTokens { get; set; }
 
     #endregion
 
@@ -111,14 +116,14 @@ public class PropertyMiniDbContext :
         modelBuilder.Entity<AccountUser>(a =>
         {
             a.ToTable(PropertyMiniConsts.DbTablePrefix + "AccountUsers", PropertyMiniConsts.DbSchema);
-            a.ConfigureAbpUser();
+            
             a.HasMany(x => x.Properties)
                 .WithOne(x => x.Owner)
                 .HasForeignKey(x => x.OwnerId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
-        modelBuilder.Entity<PropertyAmenity>(a =>
+        modelBuilder.Entity<Amenity>(a =>
         {
             a.ToTable(PropertyMiniConsts.DbTablePrefix + "PropertyAmenities", PropertyMiniConsts.DbSchema);
         });
@@ -148,6 +153,16 @@ public class PropertyMiniDbContext :
             a.HasOne(x => x.Property)
                 .WithMany(x => x.PropertyImages)
                 .HasForeignKey(x => x.PropertyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<PropertyType>(a =>
+        {
+            a.ToTable(PropertyMiniConsts.DbTablePrefix + "PropertyTypes", PropertyMiniConsts.DbSchema);
+            a.Property(x => x.Name).HasMaxLength(200);
+            a.HasMany(x => x.Properties)
+                .WithOne(x => x.PropertyType)
+                .HasForeignKey(x => x.Type)
                 .OnDelete(DeleteBehavior.Restrict);
         });
     }
