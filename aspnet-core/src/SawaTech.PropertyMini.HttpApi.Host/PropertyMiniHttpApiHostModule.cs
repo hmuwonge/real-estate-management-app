@@ -4,14 +4,13 @@ using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SawaTech.PropertyMini.EntityFrameworkCore;
 using SawaTech.PropertyMini.MultiTenancy;
-//using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
+// using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
+// using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
 using Microsoft.OpenApi.Models;
 //using OpenIddict.Validation.AspNetCore;
 using Volo.Abp;
@@ -23,9 +22,7 @@ using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
-using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
-using Volo.Abp.Security.Claims;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
@@ -35,17 +32,21 @@ using Volo.Abp.BlobStoring;
 using Volo.Abp.BlobStoring.FileSystem;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using SawaTech.PropertyMini.Helpers;
+using Volo.Abp.Security.Claims;
 
 namespace SawaTech.PropertyMini;
 
 [DependsOn(
     typeof(PropertyMiniHttpApiModule),
     typeof(AbpAutofacModule),
-    // typeof(AbpAspNetCoreMultiTenancyModule),
+    //typeof(AbpAspNetCoreMultiTenancyModule),
     typeof(PropertyMiniApplicationModule),
     typeof(PropertyMiniEntityFrameworkCoreModule),
     // typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
-    // typeof(AbpAccountWebOpenIddictModule),
+    typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule),
     // typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
@@ -74,8 +75,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         var configuration = context.Services.GetConfiguration();
         var hostingEnvironment = context.Services.GetHostingEnvironment();
 
-        // ConfigureAuthentication(context);
-        ConfigureBundles();
+        ConfigureAuthentication(context);
         ConfigureUrls(configuration);
         ConfigureConventionalControllers();
         ConfigureVirtualFileSystem(context);
@@ -105,34 +105,38 @@ public class PropertyMiniHttpApiHostModule : AbpModule
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
         //context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
-        //context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
-        //{
-        //    options.IsDynamicClaimsEnabled = true;
-        //});
+        context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
+        {
+            options.IsDynamicClaimsEnabled = true;
+        });
         var configuration = context.Services.GetConfiguration();
 
-        context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                options.Authority = configuration["AuthServer:Authority"];
-                options.RequireHttpsMetadata = false;
-                options.Audience = configuration["AuthServer:Audience"];
-            });
-    }
 
-    private void ConfigureBundles()
-    {
-        Configure<AbpBundlingOptions>(options =>
+        context.Services.Configure<JwtSection>(configuration.GetSection("JwtSection"));
+        var jwtSection = configuration.GetSection(nameof(JwtSection)).Get<JwtSection>();
+
+
+        context.Services.AddAuthentication(options =>
         {
-            options.StyleBundles.Configure(
-                LeptonXLiteThemeBundles.Styles.Global,
-                bundle =>
-                {
-                    bundle.AddFiles("/global-styles.css");
-                }
-            );
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidIssuer = configuration["AuthServer:Authority"],  //jwtSection!.Issuer,
+                ValidateAudience = true,
+                ValidAudience = configuration["AuthServer:Audience"],//jwtSection.Audience 
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.Key!))
+                
+            };
         });
     }
+
+   
 
     private void ConfigureUrls(IConfiguration configuration)
     {
@@ -244,8 +248,8 @@ public class PropertyMiniHttpApiHostModule : AbpModule
 
         app.UseRouting();
         app.UseCors();
-        // app.UseAuthentication();
-        // app.UseAbpOpenIddictValidation();
+        app.UseAuthentication();
+
 
         if (MultiTenancyConsts.IsEnabled)
         {

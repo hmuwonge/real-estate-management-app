@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SawaTech.PropertyMini.PropertyFeatures
+namespace SawaTech.PropertyMini.PropertyTypes
 {
     public class PropertyFeatureDto
     {
-
+        public Guid Id { get; set; }
         public string Name { get; set; }
-        public string IconUrl { get; set; }
     }
 }

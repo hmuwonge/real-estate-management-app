@@ -13,14 +13,16 @@
 # EXPOSE 80
 
 # Stage 1: Build Angular app
-FROM node:18-alpine AS build
+FROM node:20-alpine AS build
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+COPY package.json yarn.lock ./
+RUN npm install -g yarn && yarn install --frozen-lockfile
+
 COPY . .
+RUN yarn build --configuration production
 
 ARG configuration=production
-RUN npm run build -- --output-path=dist/SawaTech --configuration=$configuration
+RUN yarn build -- --output-path=dist/SawaTech --configuration=$configuration
 # RUN npm run build -- --output-path=dist --configuration=production
 
 # Stage 2: Serve with Nginx

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
+using SawaTech.PropertyMini.PropertyEntities;
 
 namespace SawaTech.PropertyMini.Properties;
 

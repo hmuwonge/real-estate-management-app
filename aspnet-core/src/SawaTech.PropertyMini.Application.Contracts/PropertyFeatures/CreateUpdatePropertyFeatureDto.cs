@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SawaTech.PropertyMini.PropertyFeatures
 {
-    public class CreateUpdatePropertyFeatureDto
+    public class CreateUpdatePropertyFeaturesDto
     {
         [Required]
         public required string Name { get; set; }

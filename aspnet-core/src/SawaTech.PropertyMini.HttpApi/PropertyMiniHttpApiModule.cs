@@ -12,13 +12,13 @@ using Volo.Abp.TenantManagement;
 namespace SawaTech.PropertyMini;
 
 [DependsOn(
-    typeof(PropertyMiniApplicationContractsModule)
-    // typeof(AbpAccountHttpApiModule),
-    // typeof(AbpIdentityHttpApiModule),
-    // typeof(AbpPermissionManagementHttpApiModule),
-    // typeof(AbpTenantManagementHttpApiModule),
-    // typeof(AbpFeatureManagementHttpApiModule),
-    // typeof(AbpSettingManagementHttpApiModule)
+    typeof(PropertyMiniApplicationContractsModule),
+    typeof(AbpAccountHttpApiModule),
+    typeof(AbpIdentityHttpApiModule),
+    typeof(AbpPermissionManagementHttpApiModule),
+    typeof(AbpTenantManagementHttpApiModule),
+    typeof(AbpFeatureManagementHttpApiModule)
+    //typeof(AbpSettingManagementHttpApiModule)
     )]
 public class PropertyMiniHttpApiModule : AbpModule
 {

@@ -19,10 +19,10 @@ namespace SawaTech.PropertyMini;
     //typeof(AbpAuditLoggingDomainSharedModule),
     typeof(AbpBackgroundJobsDomainSharedModule)
     //typeof(AbpFeatureManagementDomainSharedModule),
-    //typeof(AbpIdentityDomainSharedModule),
-    //typeof(AbpOpenIddictDomainSharedModule),
-    //typeof(AbpPermissionManagementDomainSharedModule),
-    //typeof(AbpSettingManagementDomainSharedModule)
+    typeof(AbpIdentityDomainSharedModule),
+    typeof(AbpOpenIddictDomainSharedModule),
+    typeof(AbpPermissionManagementDomainSharedModule)
+    // typeof(AbpSettingManagementDomainSharedModule)
     //typeof(AbpTenantManagementDomainSharedModule)    
     )]
 public class PropertyMiniDomainSharedModule : AbpModule
