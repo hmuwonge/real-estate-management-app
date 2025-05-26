@@ -40,7 +40,7 @@ public class PublicPropertiesAppService: ApplicationService, IPublicPropertyAppS
         var query = await _repository.GetQueryableAsync();
         
         var sql = "EXEC sp_FilterProperties @GovernorateId, @PropertType,@MinPrice, @MaxPrice,@MinArea, @MaxArea";
-        var result = await _dbContext.AppProperties
+        var result = await _dbContext.Properties
             .FromSqlRaw(sql,
                 new SqlParameter("@GovernorateId", filter.GovernorateId ?? (object)DBNull.Value),
                 new SqlParameter("@PropertType", filter.Type ?? (object)DBNull.Value),
