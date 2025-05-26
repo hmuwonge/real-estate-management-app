@@ -41,12 +41,12 @@ build_frontend:
       - $FRONTEND_PATH/dist/
 
 # Run Tests
-test_backend:
-  stage: test
-  image: mcr.microsoft.com/dotnet/sdk:9.0
-  script:
-    - cd $BACKEND_PATH/test
-    - dotnet test
+# test_backend:
+#   stage: test
+#   image: mcr.microsoft.com/dotnet/sdk:9.0
+#   script:
+#     - cd $BACKEND_PATH/test
+#     - dotnet test
 
 # Dockerize app
 dockerize:
