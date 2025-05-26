@@ -63,7 +63,7 @@ public class PropertyMiniDbContext : AbpDbContext<PropertyMiniDbContext>, IIdent
     public DbSet<Property> Properties { get; set; }
     public DbSet<AccountUser> AccountUsers { get; set; }
     public DbSet<Amenity> PropertyAmenities { get; set; }
-    public DbSet<PropertyFeature> PropertyFeatures { get; set; }
+    public DbSet<Feature> Features { get; set; }
     public DbSet<PropertyType> PropertyTypes { get; set; }
     public DbSet<PropertyImage> PropertyMedias { get; set; }
     public DbSet<Governorate> Governorates { get; set; }
@@ -72,6 +72,7 @@ public class PropertyMiniDbContext : AbpDbContext<PropertyMiniDbContext>, IIdent
 
     public DbSet<RefreshTokenInfo> RefreshTokens { get; set; }
     public DbSet<PropertyNearbyPlace> PropertyNearbyPlaces { get; set; }
+    public DbSet<PropertyFeature> PropertyFeatures { get; set; }
 
     #endregion
 
@@ -167,7 +168,7 @@ public class PropertyMiniDbContext : AbpDbContext<PropertyMiniDbContext>, IIdent
                 .HasForeignKey(x => x.NearbyPlaceId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
-        modelBuilder.Entity<PropertyFeature>(a =>
+        modelBuilder.Entity<Feature>(a =>
         {
             a.ToTable(
                 PropertyMiniConsts.DbTablePrefix + "PropertyFeatures",
@@ -224,6 +225,15 @@ public class PropertyMiniDbContext : AbpDbContext<PropertyMiniDbContext>, IIdent
                 PropertyMiniConsts.DbSchema
             );
             j.HasKey(x => new { x.PropertyId, x.NearbyPlaceId });
+        });
+        
+        modelBuilder.Entity<PropertyFeature>(j =>
+        {
+            j.ToTable(
+                PropertyMiniConsts.DbTablePrefix + "PropertyFeatures",
+                PropertyMiniConsts.DbSchema
+            );
+            j.HasKey(x => new { x.PropertyId, x.FeatureId });
         });
 
         modelBuilder.Entity<PropertyAmenity>(pa =>

@@ -11,21 +11,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9f27306-c951-4355-bf25-39c0ce74982e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/Properties/PropertyGovernorateDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PropertyAmenities/SinglePropertyAmenityDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/Feature.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SawaTech.PropertyMini/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SawaTech.PropertyMini/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/Properties/CreateUpdatePropertyDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/Properties/CreateUpdatePropertyDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/Properties/PropertyDetailDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/Properties/PropertyDetailDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/Properties/PropertyDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/Properties/PropertyDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PropertyTypes/IPropertyTypeAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PropertyTypes/IPropertyTypeAppService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PropertyTypes/PropertTypeDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PropertyTypes/PropertyTypeDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PublicProperties/IPublicPropertyAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PublicProperties/IPublicPropertyAppService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyFeatures/PropertyFeatureAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyFeatures/PropertyFeatureAppService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyMiniApplicationAutoMapperProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyMiniApplicationAutoMapperProfile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyTypes/PropertyTypeAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyTypes/PropertyTypeAppService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PublicProperties/PublicPropertiesAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PublicProperties/PublicPropertiesAppService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyAppDataSeederContributor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyAppDataSeederContributor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/Property.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/Property.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/PropertyType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/PropertyType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/PropertyFeature.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/PropertyFeature.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/EntityFrameworkCore/PropertyMiniDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/EntityFrameworkCore/PropertyMiniDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/PropertyMiniDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/PropertyMiniDbContextModelSnapshot.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +156,7 @@
       <workItem from="1748032943621" duration="10941000" />
       <workItem from="1748115562933" duration="6180000" />
       <workItem from="1748167231495" duration="27589000" />
-      <workItem from="1748241589548" duration="23319000" />
+      <workItem from="1748241589548" duration="24062000" />
     </task>
     <servers />
   </component>

@@ -61,8 +61,8 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
             );
 
         // automapper for property features
-        CreateMap<PropertyFeature, PropertyFeatureDto>();
-        CreateMap<CreateUpdatePropertyFeaturesDto, PropertyFeature>();
+        CreateMap<Feature, PropertyFeatureDto>();
+        CreateMap<CreateUpdatePropertyFeaturesDto, Feature>();
 
         CreateMap<Governorate, GovernorateDto>();
         CreateMap<Governorate, PropertyGovernorateDto>().ForMember(dest=>dest.Name, opt=>opt.MapFrom(src=>src.Name));

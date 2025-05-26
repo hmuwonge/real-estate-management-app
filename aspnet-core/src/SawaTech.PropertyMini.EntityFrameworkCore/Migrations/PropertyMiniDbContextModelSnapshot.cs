@@ -307,7 +307,7 @@ namespace SawaTech.PropertyMini.Migrations
                     b.ToTable("PropertyAmenity");
                 });
 
-            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyFeature", b =>
+            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.Feature", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -2293,7 +2293,7 @@ namespace SawaTech.PropertyMini.Migrations
 
             modelBuilder.Entity("PropertyPropertyFeature", b =>
                 {
-                    b.HasOne("SawaTech.PropertyMini.PropertyEntities.PropertyFeature", null)
+                    b.HasOne("SawaTech.PropertyMini.PropertyEntities.Feature", null)
                         .WithMany()
                         .HasForeignKey("FeaturesId")
                         .OnDelete(DeleteBehavior.Cascade)
