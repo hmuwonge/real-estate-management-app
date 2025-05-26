@@ -15,5 +15,7 @@ namespace SawaTech.PropertyMini.PropertyEntities
         public string Url { get; set; } = string.Empty;
         public Guid PropertyId { get; set; }
         public Property Property { get; set; } = null!;
+
+       
     }
 }

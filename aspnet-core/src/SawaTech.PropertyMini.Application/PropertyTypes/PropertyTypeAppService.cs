@@ -19,7 +19,7 @@ namespace SawaTech.PropertyMini.PropertyTypes
             _repository = repository;
         }
 
-        public async Task<PropertyTypeDto> CreateAsync(CreateUpdatePropertyTypeDto input)
+        public async Task<PropertTypeDto> CreateAsync(CreateUpdatePropertyTypeDto input)
         {
             //var propertyType = ObjectMapper.Map<CreateUpdatePropertyTypeDto, PropertyType>(input);
             var propertyType = new PropertyType
@@ -28,12 +28,11 @@ namespace SawaTech.PropertyMini.PropertyTypes
             };
             await _repository.InsertAsync(propertyType);
 
-            return ObjectMapper.Map<PropertyType, PropertyTypeDto>(propertyType);
+            return ObjectMapper.Map<PropertyType, PropertTypeDto>(propertyType);
         }
 
         public async Task DeleteAsync(Guid id)
         {
-
             var propertyType = await _repository.GetAsync(id);
             if (propertyType == null)
             {
@@ -42,26 +41,26 @@ namespace SawaTech.PropertyMini.PropertyTypes
             await _repository.DeleteAsync(propertyType);
         }
 
-        public  async Task<PropertyTypeDto> GetAsync(Guid id)
+        public  async Task<PropertTypeDto> GetAsync(Guid id)
         {
 
             var propertyType = await _repository.GetAsync(id);
-            return ObjectMapper.Map<PropertyType, PropertyTypeDto>(propertyType);
+            return ObjectMapper.Map<PropertyType, PropertTypeDto>(propertyType);
         }
 
-        public async Task<List<PropertyTypeDto>> GetListAsync()
+        public async Task<List<PropertTypeDto>> GetListAsync()
         {
 
             var propertyTypes = await _repository.GetListAsync(); // Await the Task to get the actual List<PropertyType>
-            return ObjectMapper.Map<List<PropertyType>, List<PropertyTypeDto>>(propertyTypes);
+            return ObjectMapper.Map<List<PropertyType>, List<PropertTypeDto>>(propertyTypes);
         }
 
-        public async Task<PropertyTypeDto> UpdateAsync(Guid id, CreateUpdatePropertyTypeDto input)
+        public async Task<PropertTypeDto> UpdateAsync(Guid id, CreateUpdatePropertyTypeDto input)
         {
 
             var propertyType = await _repository.GetAsync(id);
             ObjectMapper.Map(input, propertyType);
-            return ObjectMapper.Map<PropertyType, PropertyTypeDto>(propertyType);
+            return ObjectMapper.Map<PropertyType, PropertTypeDto>(propertyType);
         }
     }
     

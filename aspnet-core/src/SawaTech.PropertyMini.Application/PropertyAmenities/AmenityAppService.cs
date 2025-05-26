@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using SawaTech.PropertyMini.Amenities;
 using SawaTech.PropertyMini.PropertyEntities;
 using Volo.Abp.Application.Services;
@@ -11,15 +12,22 @@ using Volo.Abp.ObjectMapping;
 
 namespace SawaTech.PropertyMini.PropertyAmenities
 {
+    [Authorize]
     public class AmenityAppService: ApplicationService, IAmenityAppService
     {
         private readonly IRepository<Amenity, Guid> _repository;
 
+        public AmenityAppService(IRepository<Amenity, Guid> repository)
+        {
+            _repository = repository;
+        }
+
         public async  Task<AmenityDto> CreateAsync(CreateUpdateAmenityDto input)
         {
-            var propertyType = ObjectMapper.Map<CreateUpdateAmenityDto, Amenity>(input);
-            await _repository.InsertAsync(propertyType);
-            return ObjectMapper.Map<Amenity, AmenityDto>(propertyType);
+            
+            var amenity = ObjectMapper.Map<CreateUpdateAmenityDto, Amenity>(input);
+            await _repository.InsertAsync(amenity);
+            return ObjectMapper.Map<Amenity, AmenityDto>(amenity);
         }
 
         public Task DeleteAsync(Guid id)
@@ -35,8 +43,8 @@ namespace SawaTech.PropertyMini.PropertyAmenities
 
         public async Task<List<AmenityDto>> GetListAsync()
         {
-            var propertyTypes = await _repository.GetListAsync(); // Await the Task to get the actual List<Amenity>
-            return ObjectMapper.Map<List<Amenity>, List<AmenityDto>>(propertyTypes);
+            var amenities = await _repository.GetListAsync(); // Await the Task to get the actual List<Amenity>
+            return ObjectMapper.Map<List<Amenity>, List<AmenityDto>>(amenities);
         }
 
         public async Task<AmenityDto> UpdateAsync(Guid id, CreateUpdateAmenityDto input)

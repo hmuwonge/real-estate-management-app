@@ -12,7 +12,7 @@ using Volo.Abp.Domain.Repositories;
 namespace SawaTech.PropertyMini.PropertyFeatures
 {
     [Authorize]
-    public class PropertyFeatureAppService: ApplicationService, IPropertyFeatureAppService
+    public class PropertyFeatureAppService : ApplicationService, IPropertyFeatureAppService
     {
         private readonly IRepository<PropertyFeature, Guid> _repository;
 
@@ -21,17 +21,16 @@ namespace SawaTech.PropertyMini.PropertyFeatures
             _repository = repository;
         }
 
-
         public async Task<List<PropertyFeatureDto>> GetListAsync()
         {
-
             var propertyFeatures = await _repository.GetListAsync();
-            return ObjectMapper.Map<List<PropertyFeature>, List<PropertyFeatureDto>>(propertyFeatures);
+            return ObjectMapper.Map<List<PropertyFeature>, List<PropertyFeatureDto>>(
+                propertyFeatures
+            );
         }
 
         public async Task<PropertyFeatureDto> GetAsync(Guid id)
         {
-
             var propertyFeature = await _repository.GetAsync(id);
             return ObjectMapper.Map<PropertyFeature, PropertyFeatureDto>(propertyFeature);
         }
@@ -41,15 +40,17 @@ namespace SawaTech.PropertyMini.PropertyFeatures
             var propertyFeature = new PropertyFeature
             {
                 Name = input.Name,
-                IconUrl = input.IconUrl
+                IconUrl = input.IconUrl,
             };
             await _repository.InsertAsync(propertyFeature);
             return ObjectMapper.Map<PropertyFeature, PropertyFeatureDto>(propertyFeature);
         }
 
-        public async Task<PropertyFeatureDto> UpdateAsync(Guid id, CreateUpdatePropertyFeaturesDto input)
+        public async Task<PropertyFeatureDto> UpdateAsync(
+            Guid id,
+            CreateUpdatePropertyFeaturesDto input
+        )
         {
-
             var propertyFeature = await _repository.GetAsync(id);
             propertyFeature.Name = input.Name;
             propertyFeature.IconUrl = input.IconUrl;
@@ -59,7 +60,6 @@ namespace SawaTech.PropertyMini.PropertyFeatures
 
         public async Task DeleteAsync(Guid id)
         {
-
             var propertyFeature = await _repository.GetAsync(id);
             if (propertyFeature == null)
             {
@@ -68,5 +68,4 @@ namespace SawaTech.PropertyMini.PropertyFeatures
             await _repository.DeleteAsync(propertyFeature);
         }
     }
-    
 }

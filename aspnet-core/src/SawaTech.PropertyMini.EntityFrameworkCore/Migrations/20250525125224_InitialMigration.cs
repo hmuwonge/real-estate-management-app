@@ -421,6 +421,42 @@ namespace SawaTech.PropertyMini.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppGovernorates",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppGovernorates", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppNearbyPlaces",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppNearbyPlaces", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AppPropertyFeatures",
                 columns: table => new
                 {
@@ -759,6 +795,7 @@ namespace SawaTech.PropertyMini.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GovernorateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PaymentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -770,6 +807,7 @@ namespace SawaTech.PropertyMini.Migrations
                     Rooms = table.Column<int>(type: "int", nullable: false),
                     Latitude = table.Column<double>(type: "float", nullable: false),
                     Longitude = table.Column<double>(type: "float", nullable: false),
+                    PropertyTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -787,11 +825,17 @@ namespace SawaTech.PropertyMini.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AppProperties_AppPropertyTypes_Type",
-                        column: x => x.Type,
+                        name: "FK_AppProperties_AppGovernorates_GovernorateId",
+                        column: x => x.GovernorateId,
+                        principalTable: "AppGovernorates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppProperties_AppPropertyTypes_PropertyTypeId",
+                        column: x => x.PropertyTypeId,
                         principalTable: "AppPropertyTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -893,6 +937,30 @@ namespace SawaTech.PropertyMini.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppPropertyNearbyPlaces",
+                columns: table => new
+                {
+                    PropertyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    NearbyPlaceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppPropertyNearbyPlaces", x => new { x.PropertyId, x.NearbyPlaceId });
+                    table.ForeignKey(
+                        name: "FK_AppPropertyNearbyPlaces_AppNearbyPlaces_NearbyPlaceId",
+                        column: x => x.NearbyPlaceId,
+                        principalTable: "AppNearbyPlaces",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AppPropertyNearbyPlaces_AppProperties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "AppProperties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PropertyPropertyFeature",
                 columns: table => new
                 {
@@ -917,7 +985,7 @@ namespace SawaTech.PropertyMini.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PropertyVideo",
+                name: "PropertyVideos",
                 columns: table => new
                 {
                     Url = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -932,9 +1000,9 @@ namespace SawaTech.PropertyMini.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PropertyVideo", x => x.Url);
+                    table.PrimaryKey("PK_PropertyVideos", x => x.Url);
                     table.ForeignKey(
-                        name: "FK_PropertyVideo_AppProperties_PropertyId",
+                        name: "FK_PropertyVideos_AppProperties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "AppProperties",
                         principalColumn: "Id",
@@ -1184,14 +1252,19 @@ namespace SawaTech.PropertyMini.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppProperties_GovernorateId",
+                table: "AppProperties",
+                column: "GovernorateId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AppProperties_OwnerId",
                 table: "AppProperties",
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppProperties_Type",
+                name: "IX_AppProperties_PropertyTypeId",
                 table: "AppProperties",
-                column: "Type");
+                column: "PropertyTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppPropertyAmenities_PropertyId",
@@ -1204,6 +1277,11 @@ namespace SawaTech.PropertyMini.Migrations
                 column: "PropertyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppPropertyNearbyPlaces_NearbyPlaceId",
+                table: "AppPropertyNearbyPlaces",
+                column: "NearbyPlaceId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
                 table: "OpenIddictApplications",
                 column: "ClientId");
@@ -1211,7 +1289,7 @@ namespace SawaTech.PropertyMini.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictAuthorizations_ApplicationId_Status_Subject_Type",
                 table: "OpenIddictAuthorizations",
-                columns: new[] { "ApplicationId", "Status", "Subject", "Type" });
+                columns: new[] { "ApplicationId", "Status", "Subject", "PropertyType" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictScopes_Name",
@@ -1221,7 +1299,7 @@ namespace SawaTech.PropertyMini.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictTokens_ApplicationId_Status_Subject_Type",
                 table: "OpenIddictTokens",
-                columns: new[] { "ApplicationId", "Status", "Subject", "Type" });
+                columns: new[] { "ApplicationId", "Status", "Subject", "PropertyType" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictTokens_AuthorizationId",
@@ -1239,8 +1317,8 @@ namespace SawaTech.PropertyMini.Migrations
                 column: "PropertiesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PropertyVideo_PropertyId",
-                table: "PropertyVideo",
+                name: "IX_PropertyVideos_PropertyId",
+                table: "PropertyVideos",
                 column: "PropertyId",
                 unique: true);
         }
@@ -1324,6 +1402,9 @@ namespace SawaTech.PropertyMini.Migrations
                 name: "AppPropertyImages");
 
             migrationBuilder.DropTable(
+                name: "AppPropertyNearbyPlaces");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
 
             migrationBuilder.DropTable(
@@ -1333,7 +1414,7 @@ namespace SawaTech.PropertyMini.Migrations
                 name: "PropertyPropertyFeature");
 
             migrationBuilder.DropTable(
-                name: "PropertyVideo");
+                name: "PropertyVideos");
 
             migrationBuilder.DropTable(
                 name: "RefreshTokens");
@@ -1349,6 +1430,9 @@ namespace SawaTech.PropertyMini.Migrations
 
             migrationBuilder.DropTable(
                 name: "AbpUsers");
+
+            migrationBuilder.DropTable(
+                name: "AppNearbyPlaces");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictAuthorizations");
@@ -1367,6 +1451,9 @@ namespace SawaTech.PropertyMini.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppAccountUsers");
+
+            migrationBuilder.DropTable(
+                name: "AppGovernorates");
 
             migrationBuilder.DropTable(
                 name: "AppPropertyTypes");
