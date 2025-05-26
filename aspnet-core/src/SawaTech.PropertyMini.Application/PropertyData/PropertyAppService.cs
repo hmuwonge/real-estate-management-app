@@ -31,6 +31,7 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
     private readonly IRepository<Governorate, Guid> _governorateRepository;
     private readonly IUnitOfWorkManager _unitOfWorkManager;
     private readonly IRepository<PropertyType, Guid> _propertyTypeRepository;
+    private readonly IRepository<Feature, Guid> _propertyFeaturesRepository;
 
     private readonly IRepository<PropertyVideo, Guid> _propertViedoRepository;
     public PropertyAppService(
@@ -42,6 +43,7 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
         IRepository<AccountUser, Guid> accountUserRepository,
         IRepository<Governorate, Guid> governorateRepository,
         IRepository<PropertyType, Guid> propertyTypeRepository, 
+        IRepository<Feature, Guid> propertyFeaturesRepository,
         IUnitOfWorkManager unitOfWorkManager
     )
     {
@@ -54,6 +56,7 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
         _governorateRepository = governorateRepository;
         _unitOfWorkManager = unitOfWorkManager;
         _propertyTypeRepository = propertyTypeRepository;
+        _propertyFeaturesRepository = propertyFeaturesRepository;
     }
 
     public async Task<ListResultDto<PropertyDto>> GetListAsync(
@@ -195,6 +198,20 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
                     property.PropertyAmenities = amenities.Select(a=>new PropertyAmenity
                     {
                         AmenityId = a.Id
+                    }).ToList();
+                }
+                
+                
+                //save property related features
+                if (input.Features?.Count > 0)
+                {
+                    var featureGuids = input.Features.Select(Guid.Parse).ToList();
+                    var features = await _propertyFeaturesRepository.GetListAsync(
+                        a => featureGuids.Contains(a.Id));
+                    
+                    property.PropertyFeatures = features.Select(a=>new Feature
+                    {
+                        FeatureId = a.Id
                     }).ToList();
                 }
                 Console.WriteLine($" Property being saved::{property}" );

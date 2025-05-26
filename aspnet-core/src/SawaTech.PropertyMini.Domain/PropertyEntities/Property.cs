@@ -36,7 +36,7 @@ public class Property : AuditedAggregateRoot<Guid>
     public double Longitude { get; set; }
 
     [JsonIgnore]
-    public List<PropertyFeature> Features { get; } = [];
+    public List<Feature> Features { get; } = [];
 
     [JsonIgnore]
     public virtual ICollection<PropertyAmenity> PropertyAmenities { get; set; } = [];
