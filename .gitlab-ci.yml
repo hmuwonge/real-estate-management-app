@@ -34,8 +34,8 @@ build_frontend:
   image: node:20
   script:
     - cd $FRONTEND_PATH
-    - npm ci
-    - yarn build -- --configuration production
+    - yarn install --imutable
+    - yarn build --configuration production
   artifacts:
     paths:
       - $FRONTEND_PATH/dist/
