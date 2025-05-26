@@ -22,7 +22,7 @@ public class Property : AuditedAggregateRoot<Guid>
     public AccountUser Owner { get; set; } = null!;
     public string Description { get; set; } = string.Empty;
     public Guid PropertyTypeId { get; set; }
-    public PropertyTypeDto Type { get; set; }
+    public PropertyTypeDto? Type { get; set; }
     public string PaymentType { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;

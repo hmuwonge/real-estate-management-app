@@ -23,10 +23,10 @@ public class PublicPropertiesAppService: ApplicationService, IPublicPropertyAppS
         _repository = repository;
         _dbContext = dbContext;
     }
-    public async Task<List<PropertyDetailDto>> GetPublicPropertyListAsync()
+    public async Task<IEnumerable<PropertyDto>> GetPublicPropertyListAsync()
     {
-       var properties = await _repository.GetListAsync();
-       return ObjectMapper.Map<List<Property>, List<PropertyDetailDto>>(properties);
+       var properties = await _repository.WithDetailsAsync(x=>x.PropertyType!);
+       return ObjectMapper.Map<IEnumerable<Property>, IEnumerable<PropertyDto>>(properties);
     }
 
     public async Task<PropertyDto> GetPublicPropertyAsync(Guid id)

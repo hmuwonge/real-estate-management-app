@@ -24,7 +24,7 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
             .ForMember(dest => dest.Rooms, opt => opt.MapFrom(src => src.Rooms))
              .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.PropertyImages))
             .ForMember(dest => dest.PropertType, 
-                opt => opt.MapFrom(src => src.PropertyType))
+                opt => opt.MapFrom(src => src.Type))
             .ForMember(
                 dest => dest.Images,
                 opt => opt.MapFrom(src => src.PropertyImages.Select(x => x.Url))
