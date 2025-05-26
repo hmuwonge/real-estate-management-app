@@ -23,7 +23,8 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
         CreateMap<Property, PropertyDto>()
             .ForMember(dest => dest.Rooms, opt => opt.MapFrom(src => src.Rooms))
              .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.PropertyImages))
-            .ForMember(dest => dest.PropertType, opt => opt.MapFrom(src => src.PropertyType))
+            .ForMember(dest => dest.PropertType, 
+                opt => opt.MapFrom(src => src.PropertyType))
             .ForMember(
                 dest => dest.Images,
                 opt => opt.MapFrom(src => src.PropertyImages.Select(x => x.Url))

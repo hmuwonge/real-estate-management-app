@@ -120,6 +120,9 @@ public class PropertyMiniDbContext : AbpDbContext<PropertyMiniDbContext>, IIdent
                 .WithOne(x => x.Property)
                 .HasForeignKey<PropertyVideo>(x => x.PropertyId)
                 .OnDelete(DeleteBehavior.Restrict); // Fix for CS1061 and CS0201
+            p.HasOne(x => x.PropertyType)
+                .WithMany()
+                .HasForeignKey(x => x.PropertyTypeId);
         });
 
         modelBuilder.Entity<AccountUser>(a =>
