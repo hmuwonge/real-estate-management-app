@@ -28,6 +28,9 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
                 dest => dest.Images,
                 opt => opt.MapFrom(src => src.PropertyImages.Select(x => x.Url))
             );
+
+        CreateMap<Property, PropertyDetailDto>()
+            .ForMember(dest=>dest.Amenities, opt => opt.MapFrom(src=>src.Amenities));
         // .ForMember(
         //     dest => dest.images,
         //     opt => opt.MapFrom(src => src.PropertyImages.Select(x => x.Url))

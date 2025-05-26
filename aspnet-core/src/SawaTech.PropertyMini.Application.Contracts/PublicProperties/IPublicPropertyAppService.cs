@@ -7,6 +7,6 @@ namespace SawaTech.PropertyMini.PublicProperties;
 
 public interface IPublicPropertyAppService
 {
-    Task<List<PropertyDto>> GetPublicPropertyListAsync();
+    Task<List<PropertyDetailDto>> GetPublicPropertyListAsync();
     Task<PropertyDto> GetPublicPropertyAsync(Guid id);
 }

@@ -9,7 +9,7 @@ namespace SawaTech.PropertyMini.Properties;
 public class CreateUpdatePropertyDto
 {
     [Required]
-    public Guid PropertyTypeId { get; set; }
+    public Guid PropertyTypeId { get; set; } = Guid.NewGuid();
 
     [Required]
     public Guid GovernorateId { get; set; }
@@ -23,7 +23,7 @@ public class CreateUpdatePropertyDto
 
     [Required]
     [StringLength(2000)]
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     //location properties
     public string? Address { get; set; } =string.Empty;

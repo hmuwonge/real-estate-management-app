@@ -21,6 +21,7 @@ public class Property : AuditedAggregateRoot<Guid>
 
     public AccountUser Owner { get; set; } = null!;
     public string Description { get; set; } = string.Empty;
+    public Guid PropertyTypeId { get; set; }
     public Guid Type { get; set; }
     public string PaymentType { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;

@@ -23,10 +23,10 @@ public class PublicPropertiesAppService: ApplicationService, IPublicPropertyAppS
         _repository = repository;
         _dbContext = dbContext;
     }
-    public async Task<List<PropertyDto>> GetPublicPropertyListAsync()
+    public async Task<List<PropertyDetailDto>> GetPublicPropertyListAsync()
     {
        var properties = await _repository.GetListAsync();
-       return ObjectMapper.Map<List<Property>, List<PropertyDto>>(properties);
+       return ObjectMapper.Map<List<Property>, List<PropertyDetailDto>>(properties);
     }
 
     public async Task<PropertyDto> GetPublicPropertyAsync(Guid id)
@@ -40,7 +40,7 @@ public class PublicPropertiesAppService: ApplicationService, IPublicPropertyAppS
         var query = await _repository.GetQueryableAsync();
         
         var sql = "EXEC sp_FilterProperties @GovernorateId, @PropertType,@MinPrice, @MaxPrice,@MinArea, @MaxArea";
-        var result = await _dbContext.Properties
+        var result = await _dbContext.AppProperties
             .FromSqlRaw(sql,
                 new SqlParameter("@GovernorateId", filter.GovernorateId ?? (object)DBNull.Value),
                 new SqlParameter("@PropertType", filter.Type ?? (object)DBNull.Value),

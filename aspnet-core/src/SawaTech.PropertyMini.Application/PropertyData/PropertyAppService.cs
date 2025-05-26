@@ -147,7 +147,8 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
             Latitude = input.Latitude,
             Longitude = input.Longitude,
             InsurancePayment = input.InsurancePayment,
-            Type =  input.PropertyTypeId, // PropertyType {Id = input.PropertyTypeId}
+            // Type = guidType , // PropertyType {Id = input.PropertyTypeId}
+            PropertyTypeId = input.PropertyTypeId,
             OwnerId = input.OwnerId,
             // Governorate= new Governorate {Id = input.GovernorateId},
             GovernorateId = input.GovernorateId,
@@ -156,6 +157,9 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
         
         var images = input.PhotoUrls;
         var video = input.VideoUrl;
+        
+        Console.WriteLine($" Property being saved::{property}" );
+        // await _repository.InsertAsync(property, autoSave: true);
 
         using (var uow = _unitOfWorkManager.Begin(requiresNew: true))
         {
@@ -181,7 +185,7 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
                     //     await _propertyImageRepository.InsertAsync(propertyImage);
                     // }
                 }
-
+        
                 if (input.Amenities?.Count > 0)
                 {
                     var amenityGuids = input.Amenities.Select(Guid.Parse).ToList();
@@ -193,9 +197,9 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
                         AmenityId = a.Id
                     }).ToList();
                 }
-                
+                Console.WriteLine($" Property being saved::{property}" );
                 await _repository.InsertAsync(property, autoSave: true);
-
+        
             }
             catch (Exception e)
             {

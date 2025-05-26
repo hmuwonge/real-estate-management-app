@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SawaTech.PropertyMini.Governorates;
 
 namespace SawaTech.PropertyMini.PropertyEntities
 {
@@ -14,8 +15,8 @@ namespace SawaTech.PropertyMini.PropertyEntities
         public int Rooms { get; set; }
         public PropertyImageDto MainImage { get; set; }
         public PropertyOwnerDto Owner { get; set; }
-        public string Governorate { get; set; }
-        public string PropertyType { get; set; }
+        public Governorate Governorate { get; set; }
+        public PropertyType PropertyType { get; set; }
         public DateTime CreationTime { get; set; }
     }
 }
