@@ -6,7 +6,9 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SawaTech.PropertyMini.EntityFrameworkCore;
+using SawaTech.PropertyMini.Governorates;
 using SawaTech.PropertyMini.Properties;
+using SawaTech.PropertyMini.PropertyEntities;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Property = SawaTech.PropertyMini.PropertyEntities.Property;
@@ -23,16 +25,26 @@ public class PublicPropertiesAppService: ApplicationService, IPublicPropertyAppS
         _repository = repository;
         _dbContext = dbContext;
     }
-    public async Task<IEnumerable<PropertyDto>> GetPublicPropertyListAsync()
+    public async Task<List<PropertyListDto>> GetPublicPropertyListAsync()
     {
-       var properties = await _repository.WithDetailsAsync(x=>x.PropertyType!);
-       return ObjectMapper.Map<IEnumerable<Property>, IEnumerable<PropertyDto>>(properties);
+       var properties =await  _dbContext.Properties.Include(x => x.PropertyType).ToListAsync();
+       
+       return ObjectMapper.Map<List<Property>, List<PropertyListDto>>(properties);
     }
 
-    public async Task<PropertyDto> GetPublicPropertyAsync(Guid id)
+    public async Task<PropertyDetailDto> GetPublicPropertyAsync(Guid id)
     {
-        var property = await _repository.GetAsync(id);
-        return ObjectMapper.Map<Property, PropertyDto>(property);
+        var property = await _dbContext.Properties.Include(p=>p.PropertyAmenities)
+            .ThenInclude(p=>p.Amenity)
+            .Include(p=>p.PropertyImages)
+            .Include(p=>p.Features)
+            .Include(p=>p.PropertyType)
+            .Include(p=>p.PropertyNearbyPlaces)
+            .ThenInclude(p=>p.NearbyPlace)
+            .Include(p=>p.Owner)
+            // .Include(p=>p.Governorate)
+            .FirstOrDefaultAsync(p => p.Id == id);
+        return ObjectMapper.Map<Property, PropertyDetailDto>(property);
     }
 
     public async Task<List<PropertyDto>> GetFilteredPropertiesAsync(PropertyFilterDto filter)

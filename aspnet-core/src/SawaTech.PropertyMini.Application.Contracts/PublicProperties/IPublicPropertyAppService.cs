@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SawaTech.PropertyMini.Properties;
+using SawaTech.PropertyMini.PropertyEntities;
 
 namespace SawaTech.PropertyMini.PublicProperties;
 
 public interface IPublicPropertyAppService
 {
-    Task<IEnumerable<PropertyDto>> GetPublicPropertyListAsync();
-    Task<PropertyDto> GetPublicPropertyAsync(Guid id);
+    Task<List<PropertyListDto>> GetPublicPropertyListAsync();
+    Task<PropertyDetailDto> GetPublicPropertyAsync(Guid id);
 }

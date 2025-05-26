@@ -130,7 +130,7 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
         return ObjectMapper.Map<Property, PropertyDto>(property);
     }
 
-    public async Task<PropertyDto> CreateAsync( CreateUpdatePropertyDto input)
+    public async Task<PropertyDto> CreateAsync([FromForm] CreateUpdatePropertyDto input)
     {
         await ValidateRelationships(input);
         // var property = ObjectMapper.Map<CreateUpdatePropertyDto, Property>(input);
@@ -147,8 +147,8 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
             Latitude = input.Latitude,
             Longitude = input.Longitude,
             InsurancePayment = input.InsurancePayment,
-            // Type = guidType , // PropertyType {Id = input.PropertyTypeId}
             PropertyTypeId = input.PropertyTypeId,
+            Type = input.PropertyTypeId,
             OwnerId = input.OwnerId,
             // Governorate= new Governorate {Id = input.GovernorateId},
             GovernorateId = input.GovernorateId,
@@ -168,22 +168,22 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
                 if (images?.Count > 0)
                 {
                     // save property images/photos
-                    // foreach (var image in images)
-                    // {
-                    //     var blobName =
-                    //         $"images/{property.Id}/{Guid.NewGuid()}{Path.GetExtension(image.FileName)}"; // $"/{property.Id}/gallery/{Guid.NewGuid()}_{image.FileName}";
-                    //     using var stream = image.OpenReadStream();
-                    //
-                    //     await _blobContainer.SaveAsync(blobName, stream, overrideExisting: true);
-                    //
-                    //     var propertyImage = new PropertyImage
-                    //     {
-                    //         Url = blobName,
-                    //         MediaType = MediaTypeEnum.Image,
-                    //         PropertyId = property.Id,
-                    //     };
-                    //     await _propertyImageRepository.InsertAsync(propertyImage);
-                    // }
+                    foreach (var image in images)
+                    {
+                        var blobName =
+                            $"images/{property.Id}/{Guid.NewGuid()}{Path.GetExtension(image.FileName)}"; // $"/{property.Id}/gallery/{Guid.NewGuid()}_{image.FileName}";
+                        using var stream = image.OpenReadStream();
+                    
+                        await _blobContainer.SaveAsync(blobName, stream, overrideExisting: true);
+                    
+                        var propertyImage = new PropertyImage
+                        {
+                            Url = blobName,
+                            MediaType = MediaTypeEnum.Image,
+                            PropertyId = property.Id,
+                        };
+                        await _propertyImageRepository.InsertAsync(propertyImage);
+                    }
                 }
         
                 if (input.Amenities?.Count > 0)

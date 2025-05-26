@@ -9,6 +9,7 @@ using SawaTech.PropertyMini.PropertyFeatures;
 using SawaTech.PropertyMini.PropertyTypes;
 using SawaTech.PropertyMini.UserAccount;
 using SawaTech.PropertyMini.Users;
+using PropertyTypeDto = SawaTech.PropertyMini.PropertyTypes.PropertyTypeDto;
 
 namespace SawaTech.PropertyMini;
 
@@ -23,15 +24,28 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
         CreateMap<Property, PropertyDto>()
             .ForMember(dest => dest.Rooms, opt => opt.MapFrom(src => src.Rooms))
              .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.PropertyImages))
-            .ForMember(dest => dest.PropertType, 
-                opt => opt.MapFrom(src => src.Type))
+            .ForMember(dest => dest.PropertyType, 
+                opt => opt.MapFrom(src => src.PropertyType))
             .ForMember(
                 dest => dest.Images,
                 opt => opt.MapFrom(src => src.PropertyImages.Select(x => x.Url))
             );
+        
+        CreateMap<Property, PropertyListDto>()
+            .ForMember(dest => dest.Rooms, opt => opt.MapFrom(src => src.Rooms))
+            .ForMember(dest => dest.PropertyType, 
+                opt => opt.MapFrom(src => src.PropertyType)
+            )
+            .ForMember(dest=>dest.Owner, opt=>opt.MapFrom(src=>src.Owner));
 
         CreateMap<Property, PropertyDetailDto>()
-            .ForMember(dest=>dest.Amenities, opt => opt.MapFrom(src=>src.Amenities));
+            .ForMember(
+                dest => dest.Amenities,
+                opt =>
+                    opt.MapFrom(src =>
+                        src.Amenities
+                    )
+            );
         // .ForMember(
         //     dest => dest.images,
         //     opt => opt.MapFrom(src => src.PropertyImages.Select(x => x.Url))
@@ -51,9 +65,18 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdatePropertyFeaturesDto, PropertyFeature>();
 
         CreateMap<Governorate, GovernorateDto>();
+        CreateMap<Governorate, PropertyGovernorateDto>().ForMember(dest=>dest.Name, opt=>opt.MapFrom(src=>src.Name));
         CreateMap<CreateUpdateGovernorateDto, Governorate>();
 
-        CreateMap<PropertyType, PropertTypeDto>()
+        CreateMap<AccountUser, PropertyOwnerDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UserName))
+            .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+            .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Phone)
+            
+            );
+
+        CreateMap<PropertyType, PropertyTypeDto>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
@@ -61,6 +84,8 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
 
         CreateMap<Amenity, AmenityDto>();
+        CreateMap<Amenity, SinglePropertyAmenityDto>()
+            .ForMember(dest=>dest.Name,opt=>opt.MapFrom(src=>src.Name));
         CreateMap<CreateUpdateAmenityDto, Amenity>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
     }

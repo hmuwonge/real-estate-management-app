@@ -12,10 +12,11 @@ namespace SawaTech.PropertyMini.Properties
         public string Address { get; set; }
         public decimal InsurancePayment { get; set; }
         public string Status { get; set; }
+        public PropertyTypeDto PropertyType { get; set; }
         public string PaymentType { get; set; }
         public List<PropertyImageDto> Images { get; set; }
         public List<PropertyFeatureDto> Features { get; set; }
-        public List<AmenityDto> Amenities { get; set; }
+        public List<SinglePropertyAmenityDto> Amenities { get; set; }
         public List<NearbyPlaceDto> NearbyPlaces { get; set; }
         // public PropertyVideoDto? Video { get; set; }
     }

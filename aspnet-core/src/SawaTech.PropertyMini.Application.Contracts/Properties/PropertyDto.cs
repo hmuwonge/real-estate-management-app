@@ -5,7 +5,9 @@ using SawaTech.PropertyMini.PropertyAmenities;
 using SawaTech.PropertyMini.PropertyEntities;
 using SawaTech.PropertyMini.PropertyFeatures;
 using SawaTech.PropertyMini.PropertyTypes;
+using SawaTech.PropertyMini.Users;
 using Volo.Abp.Application.Dtos;
+using PropertyTypeDto = SawaTech.PropertyMini.PropertyTypes.PropertyTypeDto;
 
 namespace SawaTech.PropertyMini.Properties;
 
@@ -47,11 +49,11 @@ public class PropertyDto : AuditedEntityDto<Guid>
     // Flat relationships (IDs only)
     public Guid OwnerId { get; set; }
     public Guid GovernorateId { get; set; }
-    public Guid TypeId { get; set; }
+    // public Guid TypeId { get; set; }
     
     // Complex objects (when needed)
-    public PropertyOwnerDto Owner { get; set; }
-    public PropertTypeDto PropertType { get; set; }
+    public virtual AccountUser Owner { get; set; }
+    public virtual PropertyType PropertyType { get; set; }
     
     // Collections
     public List<PropertyFeatureDto> Features { get; set; }

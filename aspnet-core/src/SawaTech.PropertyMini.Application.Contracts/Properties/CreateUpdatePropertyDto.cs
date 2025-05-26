@@ -50,12 +50,13 @@ public class CreateUpdatePropertyDto
 
     // amenities
     public List<string>? Amenities { get; set; } = [];
+    public List<string>? Features { get; set; } = [];
 
     //nearby places
     public List<string>? NearbyPlaces { get; set; } = [];
 
     [Required]
-    public List<string>? PhotoUrls { get; set; }
+    public List<IFormFile>? PhotoUrls { get; set; }
     public string? VideoUrl { get; set; }
 
     [Required]
