@@ -1,3 +1,5 @@
+# version: '3.8'
+
 services:
   angular:
     image: sawatech-angular
@@ -9,27 +11,13 @@ services:
 
   backend_api:
     image: sawatech-backend-api
-    build: 
-      context: .
-      dockerfile: aspnet-core/src/SawaTech.PropertyMini.HttpApi.Host/Dockerfile
+    build: ./aspnet-core/src/SawaTech.PropertyMini.HttpApi.Host
     ports:
       - "5000:80"
     env_file:
       - .env.ci
     depends_on:
       - db
-
-  migration_runner:
-    image: sawatech-migration
-    build:
-      context: .
-      dockerfile: aspnet-core/src/SawaTech.PropertyMini.HttpApi.Host/Dockerfile.migrations
-    depends_on:
-      - db
-    working_dir: /src
-    env_file:
-      - .env.ci
-    command: dotnet-ef database update --project ./aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore --startup-project ./aspnet-core/src/SawaTech.PropertyMini.HttpApi.Host
     
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -37,11 +25,25 @@ services:
       - "1433:1433"
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "YourStrong@Passw0rd_CI"
+      SA_PASSWORD: "YourStrong@Passw0rd"
     volumes:
       - mssql_data:/var/opt/mssql/data
-      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
 
 volumes:
   mssql_data:
     driver: local
+# version: "3.9"
+# services:
+#   backend:
+#     image: sawatech-backend
+#     ports:
+#       - "5000:80"
+#     environment:
+#       - ASPNETCORE_ENVIRONMENT=Development
+
+#   frontend:
+#     image: sawatech-frontend
+#     ports:
+#       - "4200:80"
+#     depends_on:
+#       - backend

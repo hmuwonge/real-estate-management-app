@@ -12,11 +12,11 @@ using SawaTech.PropertyMini.MultiTenancy;
 // using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
 // using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
 using Microsoft.OpenApi.Models;
-using OpenIddict.Validation.AspNetCore;
+//using OpenIddict.Validation.AspNetCore;
 using Volo.Abp;
 using Volo.Abp.Account;
-using Volo.Abp.Account.Web;
-using Volo.Abp.AspNetCore.MultiTenancy;
+//using Volo.Abp.Account.Web;
+//using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
@@ -34,7 +34,6 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Asp.Versioning;
 using SawaTech.PropertyMini.Helpers;
 using Volo.Abp.Security.Claims;
 
@@ -50,7 +49,7 @@ namespace SawaTech.PropertyMini;
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule),
-    typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
+    // typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
 
     //for blob storage module
     typeof(AbpBlobStoringModule),
@@ -93,18 +92,6 @@ public class PropertyMiniHttpApiHostModule : AbpModule
                 });
             });
         });
-        
-        // API versioning
-       ConfigureApiVersion(context);
-        
-        // context.Services
-        
-        //optional : Explorer support for swagger
-        // context.Services.AddVersionedApiExplorer(options =>
-        // {
-        //     options.GroupNameFormat = "'v'1.0";
-        //     options.SubstituteApiVersionInUrl = true;
-        // });
 
 
 
@@ -112,17 +99,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         {
             options.MultipartBodyLengthLimit = 104857600; // 100 MB
         });
-    }
 
-    private void ConfigureApiVersion(ServiceConfigurationContext context)
-    {
-        context.Services.AddAbpApiVersioning(options =>
-        {
-            options.DefaultApiVersion = new ApiVersion(1.0);
-            options.AssumeDefaultVersionWhenUnspecified = true;
-            options.ReportApiVersions = true;
-            options.ApiVersionReader = new UrlSegmentApiVersionReader();
-        });
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
@@ -280,7 +257,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         }
         app.UseUnitOfWork();
         app.UseDynamicClaims();
-        app.UseAuthorization();
+        // app.UseAuthorization();
 
         app.UseSwagger();
         app.UseAbpSwaggerUI(c =>
@@ -292,7 +269,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
             c.OAuthScopes("PropertyMini");
         });
 
-        app.UseAuditing();
+        // app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();
     }

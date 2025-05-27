@@ -33,7 +33,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/51f2b97a38f3439b9014f4e07b4dbc6d34600/42/684c0ad7/IdentityUser.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6871bd29b67a4091b6ee39a0736fe36b2d800/cb/ab54517e/IIdentityDbContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d6188aaf08a9421dab51c8264eb2f3cc4400/57/38847818/BackgroundJobsDbContextModelCreatingExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ca0ac70a81b14df2be54e75a2669ab698e00/_40f34/IApplicationService.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -145,9 +144,6 @@
       <workItem from="1747755425357" duration="13405000" />
       <workItem from="1748029833003" duration="1286000" />
       <workItem from="1748032943621" duration="10941000" />
-      <workItem from="1748115562933" duration="6180000" />
-      <workItem from="1748167231495" duration="27589000" />
-      <workItem from="1748241589548" duration="29547000" />
     </task>
     <servers />
   </component>

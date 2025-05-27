@@ -10,6 +10,6 @@ namespace SawaTech.PropertyMini.PropertyAmenities
     public class CreateUpdateAmenityDto
     {
         [Required]
-        public  string Name { get; set; } = default!;
+        public required string Name { get; set; } = default!;
     }
 }

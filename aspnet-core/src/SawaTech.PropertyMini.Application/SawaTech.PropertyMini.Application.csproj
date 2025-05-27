@@ -11,7 +11,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SawaTech.PropertyMini.Domain\SawaTech.PropertyMini.Domain.csproj" />
     <ProjectReference Include="..\SawaTech.PropertyMini.Application.Contracts\SawaTech.PropertyMini.Application.Contracts.csproj" />
-    <ProjectReference Include="..\SawaTech.PropertyMini.EntityFrameworkCore\SawaTech.PropertyMini.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>
