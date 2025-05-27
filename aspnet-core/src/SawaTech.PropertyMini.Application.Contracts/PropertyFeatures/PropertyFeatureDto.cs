@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SawaTech.PropertyMini.PropertyFeatures
+namespace SawaTech.PropertyMini.PropertyTypes
 {
     public class PropertyFeatureDto
     {

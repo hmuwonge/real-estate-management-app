@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet,RouterLink } from '@angular/router';
-// import { AppointmentListComponent } from "./appointment-list/appointment-list.component";
 
 @Component({
+  standalone: false,
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet,RouterLink],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  template: `
+    <abp-loader-bar />
+    <abp-dynamic-layout />
+    <abp-internet-status />
+  `,
 })
-export class AppComponent {
-  title = 'Appointment';
-}
+export class AppComponent {}
