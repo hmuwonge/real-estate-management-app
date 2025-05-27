@@ -1,309 +1,395 @@
-<div class="row mb-3">
-  <div class="col-xl-6 col-12 d-flex">
-    <div class="card h-lg-100 w-100 overflow-hidden">
-      <div class="card-body">
-        <div class="starting-content">
-          @if(!hasLoggedIn){
-          <h3>Welcome</h3>
-          <p class="lead text-muted mb-2">
-            {{ '::LongWelcomeMessage' | abpLocalization }}
-          </p>
-          <a (click)="login()" class="px-4 btn btn-primary mb-4" role="button"
-            ><i class="fa fa-sign-in"></i> {{ 'AbpAccount::Login' | abpLocalization }}</a
-          >
-          }
-
-          <h3>Getting Started</h3>
-          <ng-container
-            *ngTemplateOutlet="
-              startingContentTemplate;
-              context: {
-                $implicit: {
-                  description:
-                    'Learn how to create and run a new web application using the application startup template.',
-                  href: 'https://abp.io/docs/latest/get-started',
-                  label: 'Getting Started'
-                }
-              }
-            "
-          ></ng-container>
-
-          <h4>Web Application Development Tutorial</h4>
-          <ng-container
-            *ngTemplateOutlet="
-              startingContentTemplate;
-              context: {
-                $implicit: {
-                  description:
-                    'Learn how to build an ABP based web application named Acme.BookStore.',
-                  href: 'https://abp.io/docs/latest/tutorials/book-store/part-01?UI=NG&DB=EF',
-                  label: 'Explore Tutorial'
-                }
-              }
-            "
-          ></ng-container>
-
-          <h4>Customize Lepton Theme</h4>
-          <p class="text-muted mb-2">Learn how to customize LeptonX Theme as you wish.</p>
-          <a
-            href="https://abp.io/docs/latest/framework/ui/angular/theming"
-            class="btn btn-primary soft mb-5 mb-xl-0"
-            target="_blank"
-            >Customize Lepton</a
-          >
-        </div>
-
-        <img class="card-bg-image" src="assets/images/getting-started/bg-01.png" />
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-md-6 d-flex">
-    <div class="row">
-      <ng-container
-        *ngTemplateOutlet="
-          visitLinkTemplate;
-          context: {
-            $implicit: {
-              label: 'Visit Support',
-              description:
-                'You can check for similar problems and solutions, or open a new topic to discuss your specific issue.',
-              href: 'https://abp.io/support/questions',
-              card: 'card overflow-hidden',
-              imgClass: '',
-              imgSrc: 'assets/images/getting-started/img-support.png',
-              logo: 'abp-support abp-logo mb-2'
-            }
-          }
-        "
-      ></ng-container>
-      <ng-container
-        *ngTemplateOutlet="
-          visitLinkTemplate;
-          context: {
-            $implicit: {
-              label: 'Visit Blog',
-              description:
-                'You can find content on .NET development, cross-platform, ASP.NET application templates, ABP-related news, and more.',
-              href: 'https://abp.io/blog',
-              card: 'card h-md-100 overflow-hidden',
-              imgClass: 'margin-bottom: -24px',
-              imgSrc: 'assets/images/getting-started/img-blog.png',
-              logo: 'abp-blog abp-logo mb-2'
-            }
-          }
-        "
-      ></ng-container>
-    </div>
-  </div>
-  <div class="col-xl-3 col-md-6 d-flex">
-    <div class="card h-100 overflow-hidden">
-      <div class="card-body">
-        <div class="abp-community abp-logo mb-2"></div>
-        <p class="lead text-muted">
-          A unique community platform for
-          <span class="fw-bold">ABP Lovers!</span>
-        </p>
-        <p class="text-muted mb-2">
-          Explore all ABP users' experiences with the ABP Framework, discover articles and videos on
-          how to use ABP, and join raffles for a chance to win surprise gifts!
-        </p>
-        <a class="btn btn-brand soft mb-3" href="https://abp.io/community/" target="_blank"
-          >Join ABP Community</a
+ <!-- Hero -->
+    <section
+      class="relative h-[400px] md:h-[500px] bg-cover bg-center text-white mb-32 md:mb-40"
+      style="background-image: url('./images/pexels-davidmcbee-1546168.jpg')"
+    >
+      <div
+        class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-center px-4"
+      >
+        <h1
+          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 px-2"
         >
+          The Best Way To Buy/Rent Your Next Property
+        </h1>
+        <p class="mb-6 text-base md:text-lg max-w-2xl">
+          With the most complete source of homes for sale & rent, and where you
+          need them.
+        </p>
       </div>
-      <img class="mt-3" src="assets/images/getting-started/img-community.png" />
-    </div>
-  </div>
-</div>
-<div class="row">
-  <ng-container
-    *ngTemplateOutlet="
-      tableTemplate;
-      context: {
-        $implicit: {
-          title: 'More from ABP.IO',
-          items: [
-            {
-              iconType: 'icon',
-              style: true,
-              icon: 'bi bi-check fs-4',
-              iconClass: 'rounded-circle me-2 flex-center bg-brand soft',
-              title: 'Latest Release Logs',
-              link: 'https://github.com/abpframework/abp/releases',
-            },
-            {
-              iconType: 'icon',
-              style: true,
-              icon: 'bi bi-check fs-4',
-              iconClass: 'rounded-circle me-2 flex-center bg-brand soft',
-              title: 'Video Courses',
-              link: 'https://abp.io/video-courses/essentials',
-            },
-            {
-              iconType: 'icon',
-              style: true,
-              icon: 'bi bi-check fs-4',
-              iconClass: 'rounded-circle me-2 flex-center bg-brand soft',
-              title: 'Samples',
-              link: 'https://abp.io/docs/latest/Samples/Index',
-            },
-            {
-              iconType: 'icon',
-              style: true,
-              icon: 'bi bi-check fs-4',
-              iconClass: 'rounded-circle me-2 flex-center bg-brand soft',
-              title: 'Books',
-              link: 'https://abp.io/books',
-            },
-            {
-              iconType: 'icon',
-              style: true,
-              icon: 'bi bi-check fs-4',
-              iconClass: 'rounded-circle me-2 flex-center bg-brand soft',
-              title: 'FAQ',
-              link: 'https://abp.io/faq',
-            },
-          ]
-        }
-      }
-    "
-  ></ng-container>
-  <div class="col-xl-6 col-lg-8 d-flex">
-    <div class="card">
-      <div class="card-body d-flex">
-        <div class="row align-items-center">
-          <div class="col-md-8">
-            <p class="text-muted mb-0">THE OFFICIAL GUIDE</p>
-            <h3>Mastering ABP Framework</h3>
-            <p class="text-muted">
-              Written by the creator of the ABP Framework, this book will help you gain a complete
-              understanding of the framework and modern web application development techniques.
-            </p>
-            <div class="d-md-flex mb-2 mb-md-0">
-              <a
-                href="https://www.amazon.com/gp/product/B097Z2DM8Q"
-                target="_blank"
-                class="btn btn-primary soft me-md-2 mb-2 mb-md-0"
+
+      <!-- Search Box -->
+      <div
+        class="absolute -bottom-20 sm:-bottom-24 md:-bottom-40 left-1/2 transform -translate-x-1/2 w-full px-4 max-w-4xl"
+      >
+        <div class="relative">
+          <div class="bg-white shadow-md p-4 md:p-6 mb-10 rounded-lg">
+            <!-- Property Type Tabs -->
+            <div
+              class="flex md:flex-row flex-col justify-center space-x-2 sm:space-x-4 mb-3 md:mb-4"
+            >
+              <button
+                class="text-white bg-purple-600 rounded-md font-semibold text-sm md:text-base px-2 py-1 md:px-4 md:py-2"
               >
-                Buy on Amazon US
-              </a>
-              <a
-                href="https://www.packtpub.com/product/mastering-abp-framework/9781801079242"
-                target="_blank"
-                class="btn btn-primary soft mb-2 mb-md-0"
+                For Sale
+              </button>
+              <button
+                class="text-gray-600 text-sm md:text-base px-2 py-1 md:px-4 md:py-2"
               >
-                Buy on PACKT
-              </a>
+                For Rent
+              </button>
+              <button
+                class="text-gray-600 text-sm md:text-base px-2 py-1 md:px-4 md:py-2"
+              >
+                For Shared
+              </button>
+            </div>
+
+            <div class="my-4">
+              <input
+                type="text"
+                placeholder="Enter City"
+                class="w-full px-3 py-2 border border-purple-400 text-gray-300 focus-ring: rounded-lg text-sm md:text-base"
+              />
+            </div>
+
+            <!-- Search Filters -->
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4"
+            >
+              <div>
+                <input
+                  type="text"
+                  placeholder="Enter City"
+                  class="w-full px-3 py-2 border rounded-lg text-sm md:text-base"
+                />
+              </div>
+              <div>
+                <select
+                  class="w-full px-3 py-2 border rounded-lg text-sm text-gray-600 md:text-base"
+                >
+                  <option>Property Type</option>
+                  <option>House</option>
+                  <option>Apartment</option>
+                  <option>Villa</option>
+                </select>
+              </div>
+              <div>
+                <select
+                  class="w-full px-3 py-2 border rounded-lg text-sm text-gray-600 md:text-base"
+                >
+                  <option>Price Range</option>
+                  <option>$0 - $500,000</option>
+                  <option>$500,000 - $1M</option>
+                  <option>$1M+</option>
+                </select>
+              </div>
+              <div>
+                <select
+                  class="w-full px-3 py-2 border rounded-lg text-gray-600 text-sm md:text-base"
+                >
+                  <option>Beds</option>
+                  <option>1+</option>
+                  <option>2+</option>
+                  <option>3+</option>
+                </select>
+              </div>
             </div>
           </div>
-          <div class="col">
-            <img src="assets/images/getting-started/book.png" />
+
+          <!-- Results Button -->
+          <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
+            <button
+              class="bg-purple-600 text-white px-6 py-2 rounded-lg shadow-lg text-sm md:text-base w-40 md:w-60"
+            >
+              Results
+            </button>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <ng-container
-    *ngTemplateOutlet="
-      tableTemplate;
-      context: {
-        $implicit: {
-          title: 'Follow us on Social Media',
-          items: [
-            {
-              title: 'X.com',
-              icon: 'logo-x me-2',
-              link: 'https://twitter.com/abpframework'
-            },
-            {
-              iconType: 'image',
-              icon: 'assets/images/getting-started/discord.svg',
-              title: 'Discord',
-              link: 'https://abp.io/community/discord'
-            },
-            {
-              iconType: 'image',
-              icon: 'assets/images/getting-started/stack-overflow.svg',
-              title: 'Stack Overflow',
-              link: 'https://stackoverflow.com/questions/tagged/abp'
-            },
-            {
-              iconType: 'image',
-              icon: 'assets/images/getting-started/youtube.svg',
-              title: 'YouTube',
-              link: 'https://www.youtube.com/@Volosoft'
-            },
-            {
-              iconType: 'image',
-              icon: 'assets/images/getting-started/instagram.svg',
-              title: 'Instagram',
-              link: 'https://www.instagram.com/abpframework/'
-            }
-          ]
-        }
-      }
-    "
-  ></ng-container>
-</div>
+    </section>
 
-<ng-template #startingContentTemplate let-context>
-  <p class="lead text-muted mb-2" [innerHTML]="context.description"></p>
-  <a [href]="context.href" class="btn btn-brand mb-4" target="_blank">{{ context.label }}</a>
-</ng-template>
+    <!-- Explore Homes -->
+    <section class="py-8 md:py-12 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8">
+          <h2 class="text-xl md:text-2xl font-bold mb-2">
+            Explore homes in UK
+          </h2>
+          <p class="text-gray-600 text-sm md:text-base">
+            Find a variety of properties across major cities
+          </p>
+        </div>
 
-<ng-template #visitLinkTemplate let-context>
-  <div class="col-12 d-flex">
-    <div [class]="context.card">
-      <div class="card-body pb-0">
-        <div [class]="context.logo"></div>
-        <p class="text-muted mb-2" [innerHTML]="context.description"></p>
-        <a [href]="context.href" class="btn btn-brand soft" target="_blank">{{ context.label }}</a>
-        <img [class]="context.imgClass" [src]="context.imgSrc" />
-      </div>
-    </div>
-  </div>
-</ng-template>
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+        >
+          <!-- Property Card 1 -->
+          <div
+            class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
+          >
+            <div class="relative">
+              <span
+                class="absolute top-3 right-3 bg-white/90 text-gray-800 px-2 py-1 rounded text-xs font-medium shadow-sm"
+              >
+                Rent
+              </span>
+              <img
+                src="./images/pexels-davidmcbee-1546168.jpg"
+                alt="Property"
+                class="h-48 w-full object-cover"
+              />
+            </div>
+            <div class="p-4 md:p-6">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="text-lg font-bold text-gray-900">$3,000</h3>
+              </div>
+              <p class="text-gray-600 text-sm mb-3">
+                200 Street, London, United Kingdom
+              </p>
+              <div class="flex justify-between items-center">
+                <button
+                  class="px-3 py-1 md:px-4 md:py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm md:text-base"
+                >
+                  View Home
+                </button>
+                <div class="flex space-x-3 text-gray-700 text-sm">
+                  <span class="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    </svg>
+                    2 Beds
+                  </span>
+                  <span class="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                    2 Baths
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
 
-<ng-template #tableTemplate let-context>
-  <div class="col-xl-3 col-lg-4">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title text-body">{{ context.title }}</div>
-      </div>
-      <div class="card-body pt-0">
-        <div class="table-responsive">
-          <table class="table mb-0">
-            <tbody>
-              @for(item of context.items; track $index; let last = $last){
-              <tr>
-                <td class="ps-0 d-flex" [class.border-bottom-0]="last">
-                  @if(item.icon){
-                  <div
-                    [ngClass]="item.iconClass"
-                    [style]="item.style ? 'width: 20px; height: 20px' : ''"
-                  >
-                    @if(item.iconType === 'image'){
-                    <img [src]="item.icon" class="me-2" />
-                    }@else if(item.iconType === 'icon'){
-                    <i [class]="item.icon"></i>
-                    }@else{
-                    <div [class]="item.icon"></div>
-                    }
-                  </div>
-                  }
-                  <div>{{ item.title }}</div>
-                </td>
-                <td class="text-end pe-0 opacity-25" [class.border-bottom-0]="last">
-                  <a [href]="item.link" target="_blank">
-                    <i class="bi bi-box-arrow-up-right text-dark"></i>
-                  </a>
-                </td>
-              </tr>
-              }
-            </tbody>
-          </table>
+          <!-- Property Card 2 (same as card 1) -->
+          <div
+            class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
+          >
+            <div class="relative">
+              <span
+                class="absolute top-3 right-3 bg-white/90 text-gray-800 px-2 py-1 rounded text-xs font-medium shadow-sm"
+              >
+                Rent
+              </span>
+              <img
+                src="./images/pexels-davidmcbee-1546168.jpg"
+                alt="Property"
+                class="h-48 w-full object-cover"
+              />
+            </div>
+            <div class="p-4 md:p-6">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="text-lg font-bold text-gray-900">$3,000</h3>
+              </div>
+              <p class="text-gray-600 text-sm mb-3">
+                200 Street, London, United Kingdom
+              </p>
+              <div class="flex justify-between items-center">
+                <button
+                  class="px-3 py-1 md:px-4 md:py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm md:text-base"
+                >
+                  View Home
+                </button>
+                <div class="flex space-x-3 text-gray-700 text-sm">
+                  <span class="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    </svg>
+                    2 Beds
+                  </span>
+                  <span class="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                    2 Baths
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Property Card 3 (same as card 1) -->
+          <div
+            class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
+          >
+            <div class="relative">
+              <span
+                class="absolute top-3 right-3 bg-white/90 text-gray-800 px-2 py-1 rounded text-xs font-medium shadow-sm"
+              >
+                Rent
+              </span>
+              <img
+                src="./images/pexels-davidmcbee-1546168.jpg"
+                alt="Property"
+                class="h-48 w-full object-cover"
+              />
+            </div>
+            <div class="p-4 md:p-6">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="text-lg font-bold text-gray-900">$3,000</h3>
+              </div>
+              <p class="text-gray-600 text-sm mb-3">
+                200 Street, London, United Kingdom
+              </p>
+              <div class="flex justify-between items-center">
+                <button
+                  class="px-3 py-1 md:px-4 md:py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm md:text-base"
+                >
+                  View Home
+                </button>
+                <div class="flex space-x-3 text-gray-700 text-sm">
+                  <span class="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    </svg>
+                    2 Beds
+                  </span>
+                  <span class="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                    2 Baths
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</ng-template>
+    </section>
+
+    <!-- Most Searched -->
+    <section class="py-8 md:py-12 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">
+          Most Searched In London
+        </h2>
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+        >
+          <!-- Property Listing -->
+          <div class="border rounded shadow hover:shadow-lg transition">
+            <img
+              src="./images/pexels-davidmcbee-1546168.jpg"
+              alt="Property"
+              class="h-40 md:h-48 w-full object-cover"
+            />
+            <div class="p-3 md:p-4">
+              <h3 class="text-base md:text-lg font-semibold">$3,000</h3>
+              <p class="text-xs md:text-sm text-gray-600">2 Beds • 2 Baths</p>
+            </div>
+          </div>
+          <!-- Repeat for other listings -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Map Section -->
+    <section
+      class="relative bg-purple-800 text-white py-12 md:py-16 rounded-xl md:rounded-2xl md:h-[470px] h-60 mx-auto md:max-w-7xl my-6 px-4"
+    >
+      <div class="absolute inset-0 overflow-hidden rounded-xl md:rounded-2xl">
+        <img
+          src="./images/pexels-davidmcbee-1546168.jpg"
+          alt="Map"
+          class="w-full h-full object-cover md:opacity-20"
+        />
+      </div>
+
+      <div
+        class="relative h-full md:flex flex-col md:flex-row hidden md:block items-center justify-center gap-6 md:gap-12 text-center md:text-left"
+      >
+        <div class="md:basis-1/2 lg:basis-2/5 px-4">
+          <h3 class="text-2xl md:text-3xl font-bold mb-4">
+            Show Nearby Places
+          </h3>
+        </div>
+
+        <div class="md:basis-1/2 lg:basis-3/5 px-4">
+          <p class="text-lg md:text-xl mb-6 max-w-md mx-auto md:mx-0">
+            You can move the place near to your current place by letting us use
+            your location
+          </p>
+          <button
+            class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors opacity-90"
+          >
+            View Results On Map
+          </button>
+        </div>
+      </div>
+    </section>

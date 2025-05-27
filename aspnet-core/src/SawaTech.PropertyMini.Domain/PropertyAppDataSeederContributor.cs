@@ -12,9 +12,9 @@ namespace SawaTech.PropertyMini
 
     public class PropertyAppDataSeederContributor : IDataSeedContributor
     {
-        private readonly IRepository<PropertyFeature, Guid> _propertyFeatureRepository;
+        private readonly IRepository<Feature, Guid> _propertyFeatureRepository;
 
-        public PropertyAppDataSeederContributor(IRepository<PropertyFeature,Guid> repository) 
+        public PropertyAppDataSeederContributor(IRepository<Feature,Guid> repository) 
         {
             _propertyFeatureRepository = repository;
         }
@@ -23,7 +23,7 @@ namespace SawaTech.PropertyMini
             if (await _propertyFeatureRepository.GetCountAsync() <= 0) 
             {
                 await _propertyFeatureRepository.InsertAsync(
-                    new PropertyFeature
+                    new Feature
                     {
                         Name = "Jacuzzi",
                         IconUrl = "hhhhh"
@@ -32,7 +32,7 @@ namespace SawaTech.PropertyMini
                     );
 
                 await _propertyFeatureRepository.InsertAsync(
-                     new PropertyFeature
+                     new Feature
                      {
                          Name = "Garage",
                          IconUrl = "hhhhh"
@@ -41,7 +41,7 @@ namespace SawaTech.PropertyMini
                      );
 
                 await _propertyFeatureRepository.InsertAsync(
-                   new PropertyFeature
+                   new Feature
                    {
                        Name = "Big Garden",
                        IconUrl = "hhhhh"
@@ -50,7 +50,7 @@ namespace SawaTech.PropertyMini
                    );
 
                 await _propertyFeatureRepository.InsertAsync(
-                   new PropertyFeature
+                   new Feature
                    {
                        Name = "Heater",
                        IconUrl = "hhhhh"

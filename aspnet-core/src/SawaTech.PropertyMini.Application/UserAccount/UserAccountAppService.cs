@@ -137,7 +137,7 @@ namespace SawaTech.PropertyMini.UserAccount
             //    {
             //        new System.Security.Claims.Claim("id", checkUser.Id.ToString()),
             //        new System.Security.Claims.Claim("email", checkUser.Email),
-            //        new System.Security.Claims.Claim("type", checkUser.Type)
+            //        new System.Security.Claims.Claim("type", checkUser.PropertType)
             //    }),
             //    Expires = DateTime.UtcNow.AddHours(1),
             //    SigningCredentials = credentials

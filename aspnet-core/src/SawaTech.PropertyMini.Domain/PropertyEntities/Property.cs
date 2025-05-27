@@ -6,17 +6,25 @@ using SawaTech.PropertyMini.Amenities;
 using SawaTech.PropertyMini.Properties;
 using SawaTech.PropertyMini.Users;
 using Volo.Abp.Domain.Entities.Auditing;
+using SawaTech.PropertyMini.NearbyPlaces;
+using SawaTech.PropertyMini.Governorates;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace SawaTech.PropertyMini.PropertyEntities;
 
-public class Property: AuditedAggregateRoot<Guid>
+public class Property : AuditedAggregateRoot<Guid>
 {
     public string Title { get; set; } = string.Empty;
     public Guid OwnerId { get; set; }
-    public AccountUser Owner { get; set; } = null!;
-    public string Description { get; set; } = string.Empty;
-    public Guid Type { get; set; }
-    public string PaymentType { get; set; } = string.Empty;
+    public Guid GovernorateId { get; set; }
+
+    public AccountUser Owner { get;} = null!;
+    public string? Description { get; set; } = string.Empty;
+    public Guid PropertyTypeId { get; set; }
+    
+    public PropertyType? PropertyType { get;}
+    public string? PaymentType { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
     public decimal Price { get; set; }
@@ -27,13 +35,23 @@ public class Property: AuditedAggregateRoot<Guid>
     public double Longitude { get; set; }
 
     [JsonIgnore]
-    public List<PropertyFeature> Features { get; } = [];
+    public virtual ICollection<PropertyAmenity> PropertyAmenities { get; set; } = [];
+    
+    [JsonIgnore]
+    public virtual ICollection<PropertyFeature> PropertyFeatures { get; set; } = [];
+
+    [NotMapped]
+    public List<Amenity>? Amenities => PropertyAmenities?.Select(pa => pa.Amenity).ToList();
+    
+    [NotMapped]
+    public List<Feature>? Features => PropertyFeatures?.Select(pa => pa.Feature).ToList();
 
     [JsonIgnore]
-    public List<Amenity> Amenities { get;} = [];
-    [JsonIgnore]
     public List<PropertyImage> PropertyImages { get; } = [];
+
     [JsonIgnore]
     public PropertyVideo? PropertyVideo { get; set; }
-    public PropertyType PropertyType { get; set; } = null!;
+
+    public virtual ICollection<PropertyNearbyPlace> PropertyNearbyPlaces { get; set; } = null!;
+    public Governorate Governorate { get; set; } = null!;
 }

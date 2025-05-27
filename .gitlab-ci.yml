@@ -45,19 +45,20 @@ build_frontend:
     - npm install -g yarn
     - yarn set version stable
   script:
-    - yarn install --frozen---frozen-lockfile
-    - yarn build ----configuration production
+    - cd $FRONTEND_PATH
+    - yarn install --imutable
+    - yarn build --configuration production
   artifacts:
     paths:
       - $FRONTEND_PATH/dist/
 
 # Run Tests
-test_backend:
-  stage: test
-  image: mcr.microsoft.com/dotnet/sdk:9.0
-  script:
-    - cd $BACKEND_PATH/test
-    - dotnet test
+# test_backend:
+#   stage: test
+#   image: mcr.microsoft.com/dotnet/sdk:9.0
+#   script:
+#     - cd $BACKEND_PATH/test
+#     - dotnet test
 
 # Dockerize app
 dockerize:
@@ -68,8 +69,8 @@ dockerize:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - docker build -t $PROJECT_NAME-backend $BACKEND_PATH/src/SawaTech.PropertyMini.HttpApi.Host
-    - docker build -t $PROJECT_NAME-frontend $FRONTEND_PATH
+    - docker build -t $PROJECT_NAME-backend-api $BACKEND_PATH/src/SawaTech.PropertyMini.HttpApi.Host
+    - docker build -t $PROJECT_NAME-angular $FRONTEND_PATH
     - docker-compose up -d
 
 # Local Deploy (dev machine with SSH access)

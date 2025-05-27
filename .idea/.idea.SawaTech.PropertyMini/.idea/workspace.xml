@@ -12,13 +12,17 @@
   <component name="ChangeListManager">
     <list default="true" id="e9f27306-c951-4355-bf25-39c0ce74982e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SawaTech.PropertyMini/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SawaTech.PropertyMini/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PropertyTypes/CreateUpdatePropertyTypeDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PropertyTypes/CreateUpdatePropertyTypeDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PropertyTypes/PropertyTypeDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PropertyTypes/PropertyTypeDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyFeatures/PropertyFeatureAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyFeatures/PropertyFeatureAppService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyMiniApplicationAutoMapperProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyMiniApplicationAutoMapperProfile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyTypes/PropertyTypeAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyTypes/PropertyTypeAppService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.DbMigrator/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.DbMigrator/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/Property.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/Property.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/EntityFrameworkCore/PropertyMiniDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/EntityFrameworkCore/PropertyMiniDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.HttpApi.Host/PropertyMiniHttpApiHostModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.HttpApi.Host/PropertyMiniHttpApiHostModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/20250525125224_InitialMigration.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/20250525125224_InitialMigration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/20250525125307_Add_FilterProcedure.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/20250525125307_Add_FilterProcedure.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/20250525182827_Add_PropertyAmenity.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/20250525182827_Add_PropertyAmenity.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/PropertyMiniDbContextModelSnapshot.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +35,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="property-crud-10" />
+        <entry key="$PROJECT_DIR$" value="a05f608d11862679cd374949b119509bc70d31ce" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,6 +44,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/51f2b97a38f3439b9014f4e07b4dbc6d34600/42/684c0ad7/IdentityUser.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6871bd29b67a4091b6ee39a0736fe36b2d800/cb/ab54517e/IIdentityDbContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d6188aaf08a9421dab51c8264eb2f3cc4400/57/38847818/BackgroundJobsDbContextModelCreatingExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ca0ac70a81b14df2be54e75a2669ab698e00/_40f34/IApplicationService.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -61,7 +66,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "refactor-auth",
+    "git-widget-placeholder": "crud-fix",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -151,6 +156,9 @@
       <workItem from="1747755425357" duration="13405000" />
       <workItem from="1748029833003" duration="1286000" />
       <workItem from="1748032943621" duration="10941000" />
+      <workItem from="1748115562933" duration="6180000" />
+      <workItem from="1748167231495" duration="27589000" />
+      <workItem from="1748241589548" duration="29547000" />
     </task>
     <servers />
   </component>
