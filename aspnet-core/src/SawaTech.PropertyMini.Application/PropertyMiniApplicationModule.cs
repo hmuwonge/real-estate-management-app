@@ -11,13 +11,13 @@ namespace SawaTech.PropertyMini;
 
 [DependsOn(
     typeof(PropertyMiniDomainModule),
-    typeof(AbpAccountApplicationModule),
-    typeof(PropertyMiniApplicationContractsModule),
-    typeof(AbpIdentityApplicationModule),
-    typeof(AbpPermissionManagementApplicationModule),
+    // typeof(AbpAccountApplicationModule),
+    typeof(PropertyMiniApplicationContractsModule)
+    // typeof(AbpIdentityApplicationModule),
+    // typeof(AbpPermissionManagementApplicationModule),
     //typeof(AbpTenantManagementApplicationModule),
-    typeof(AbpFeatureManagementApplicationModule)
-    //typeof(AbpSettingManagementApplicationModule)
+    // typeof(AbpFeatureManagementApplicationModule),
+    // typeof(AbpSettingManagementApplicationModule)
     )]
 public class PropertyMiniApplicationModule : AbpModule
 {

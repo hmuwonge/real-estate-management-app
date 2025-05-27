@@ -12,7 +12,7 @@ using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
-using Volo.Abp.FeatureManagement.EntityFrameworkCore;
+//using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
@@ -24,7 +24,7 @@ using Volo.Abp.Users.EntityFrameworkCore;
 
 namespace SawaTech.PropertyMini.EntityFrameworkCore;
 
-[ReplaceDbContext(typeof(IIdentityDbContext))]
+//[ReplaceDbContext(typeof(IIdentityDbContext))]
 //[ReplaceDbContext(typeof(ITenantManagementDbContext))]
 [ConnectionStringName("Default")]
 public class PropertyMiniDbContext : AbpDbContext<PropertyMiniDbContext>, IIdentityDbContext
@@ -85,13 +85,13 @@ public class PropertyMiniDbContext : AbpDbContext<PropertyMiniDbContext>, IIdent
 
         /* Include modules to your migration db context */
 
-        modelBuilder.ConfigurePermissionManagement();
-        modelBuilder.ConfigureSettingManagement();
+        //modelBuilder.ConfigurePermissionManagement();
+        //modelBuilder.ConfigureSettingManagement();
         modelBuilder.ConfigureBackgroundJobs();
-        modelBuilder.ConfigureAuditLogging();
-        modelBuilder.ConfigureIdentity();
-        modelBuilder.ConfigureOpenIddict();
-        modelBuilder.ConfigureFeatureManagement();
+        //modelBuilder.ConfigureAuditLogging();
+        //modelBuilder.ConfigureIdentity();
+        //modelBuilder.ConfigureOpenIddict();
+        //modelBuilder.ConfigureFeatureManagement();
         //modelBuilder.ConfigureTenantManagement();
 
         /* Configure your own tables/entities inside here */

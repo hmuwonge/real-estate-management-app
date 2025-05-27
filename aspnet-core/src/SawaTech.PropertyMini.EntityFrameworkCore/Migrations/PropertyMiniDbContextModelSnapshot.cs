@@ -633,38 +633,13 @@ namespace SawaTech.PropertyMini.Migrations
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ApplicationName")
-                        .HasMaxLength(96)
-                        .HasColumnType("nvarchar(96)")
-                        .HasColumnName("ApplicationName");
+                    b.Property<string>("CompanyEmail")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("BrowserInfo")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnName("BrowserInfo");
-
-                    b.Property<string>("ClientId")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)")
-                        .HasColumnName("ClientId");
-
-                    b.Property<string>("ClientIpAddress")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)")
-                        .HasColumnName("ClientIpAddress");
-
-                    b.Property<string>("ClientName")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)")
-                        .HasColumnName("ClientName");
-
-                    b.Property<string>("Comments")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("Comments");
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -673,224 +648,51 @@ namespace SawaTech.PropertyMini.Migrations
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
 
-                    b.Property<string>("CorrelationId")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)")
-                        .HasColumnName("CorrelationId");
-
-                    b.Property<string>("Exceptions")
+                    b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ExecutionDuration")
-                        .HasColumnType("int")
-                        .HasColumnName("ExecutionDuration");
-
-                    b.Property<DateTime>("ExecutionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ExtraProperties")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ExtraProperties");
-
-                    b.Property<string>("HttpMethod")
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)")
-                        .HasColumnName("HttpMethod");
-
-                    b.Property<int?>("HttpStatusCode")
-                        .HasColumnType("int")
-                        .HasColumnName("HttpStatusCode");
-
-                    b.Property<Guid?>("ImpersonatorTenantId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ImpersonatorTenantId");
-
-                    b.Property<string>("ImpersonatorTenantName")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)")
-                        .HasColumnName("ImpersonatorTenantName");
-
-                    b.Property<Guid?>("ImpersonatorUserId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ImpersonatorUserId");
-
-                    b.Property<string>("ImpersonatorUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("ImpersonatorUserName");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("TenantId");
-
-                    b.Property<string>("TenantName")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)")
-                        .HasColumnName("TenantName");
-
-                    b.Property<string>("Url")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("Url");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UserId");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("UserName");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TenantId", "ExecutionTime");
-
-                    b.HasIndex("TenantId", "UserId", "ExecutionTime");
-
-                    b.ToTable("AbpAuditLogs", (string)null);
-                });
-
-            modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AuditLogId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("AuditLogId");
-
-                    b.Property<int>("ExecutionDuration")
-                        .HasColumnType("int")
-                        .HasColumnName("ExecutionDuration");
-
-                    b.Property<DateTime>("ExecutionTime")
+                    b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2")
-                        .HasColumnName("ExecutionTime");
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<string>("Department")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExtraProperties")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
-                    b.Property<string>("MethodName")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)")
-                        .HasColumnName("MethodName");
+                    b.Property<string>("JobPosition")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Parameters")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)")
-                        .HasColumnName("Parameters");
-
-                    b.Property<string>("ServiceName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("ServiceName");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuditLogId");
-
-                    b.HasIndex("TenantId", "ServiceName", "MethodName", "ExecutionTime");
-
-                    b.ToTable("AbpAuditLogActions", (string)null);
-                });
-
-            modelBuilder.Entity("Volo.Abp.AuditLogging.EntityChange", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AuditLogId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("AuditLogId");
-
-                    b.Property<DateTime>("ChangeTime")
+                    b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("datetime2")
-                        .HasColumnName("ChangeTime");
+                        .HasColumnName("LastModificationTime");
 
-                    b.Property<byte>("ChangeType")
-                        .HasColumnType("tinyint")
-                        .HasColumnName("ChangeType");
-
-                    b.Property<string>("EntityId")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)")
-                        .HasColumnName("EntityId");
-
-                    b.Property<Guid?>("EntityTenantId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("EntityTypeFullName")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)")
-                        .HasColumnName("EntityTypeFullName");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ExtraProperties");
-
-                    b.Property<Guid?>("TenantId")
+                    b.Property<Guid?>("LastModifierId")
                         .HasColumnType("uniqueidentifier")
-                        .HasColumnName("TenantId");
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfilePictureUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WhatsApp")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuditLogId");
-
-                    b.HasIndex("TenantId", "EntityTypeFullName", "EntityId");
-
-                    b.ToTable("AbpEntityChanges", (string)null);
-                });
-
-            modelBuilder.Entity("Volo.Abp.AuditLogging.EntityPropertyChange", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("EntityChangeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("NewValue")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnName("NewValue");
-
-                    b.Property<string>("OriginalValue")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnName("OriginalValue");
-
-                    b.Property<string>("PropertyName")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)")
-                        .HasColumnName("PropertyName");
-
-                    b.Property<string>("PropertyTypeFullName")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)")
-                        .HasColumnName("PropertyTypeFullName");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EntityChangeId");
-
-                    b.ToTable("AbpEntityPropertyChanges", (string)null);
+                    b.ToTable("AppAccountUsers", (string)null);
                 });
 
             modelBuilder.Entity("Volo.Abp.BackgroundJobs.BackgroundJobRecord", b =>

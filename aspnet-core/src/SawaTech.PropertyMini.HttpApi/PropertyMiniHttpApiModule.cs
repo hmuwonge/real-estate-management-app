@@ -1,11 +1,11 @@
-﻿using Localization.Resources.AbpUi;
+﻿//using Localization.Resources.AbpUi;
 using SawaTech.PropertyMini.Localization;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
-using Volo.Abp.PermissionManagement.HttpApi;
+//using Volo.Abp.PermissionManagement.HttpApi;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 
@@ -29,13 +29,13 @@ public class PropertyMiniHttpApiModule : AbpModule
 
     private void ConfigureLocalization()
     {
-        Configure<AbpLocalizationOptions>(options =>
-        {
-            options.Resources
-                .Get<PropertyMiniResource>()
-                .AddBaseTypes(
-                    typeof(AbpUiResource)
-                );
-        });
+        //Configure<AbpLocalizationOptions>(options =>
+        //{
+        //    options.Resources
+        //        .Get<PropertyMiniResource>()
+        //        .AddBaseTypes(
+        //            typeof(AbpUiResource)
+        //        );
+        //});
     }
 }

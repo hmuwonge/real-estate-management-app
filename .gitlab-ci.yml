@@ -15,6 +15,15 @@ variables:
   PROJECT_NAME: sawatech
   BACKEND_PATH: aspnet-core
   FRONTEND_PATH: angular
+  YARN_CACHE_FOLDER: "$CI_PROJECT_DIR/.yarn-cache"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - $FRONTEND_PATH/node_modules/
+    - $YARN_CACHE_FOLDER/
+
+# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
 
 # Build .NET Backend
 build_backend:
@@ -32,6 +41,9 @@ build_backend:
 build_frontend:
   stage: build
   image: node:20
+  before_script:
+    - npm install -g yarn
+    - yarn set version stable
   script:
     - cd $FRONTEND_PATH
     - yarn install --imutable
@@ -73,3 +85,20 @@ deploy_local:
     - echo "$SSH_PRIVATE_KEY" > id_rsa && chmod 600 id_rsa
     - scp -i id_rsa docker-compose.yml user@local-dev-machine:/path/to/deploy
     - ssh -i id_rsa user@local-dev-machine "cd /path/to/deploy && docker-compose pull && docker-compose up -d"
+
+# Deploy to production
+deploy_prod:
+  stage: deploy
+  image: alpine:latest
+  only:
+    - main
+  before_script:
+    - apk add --no-cache openssh-client docker-cli
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+    - echo "$DOCKER_CONFIG" > ~/.docker/config.json
+  script:
+    - ssh -o StrictHostKeyChecking=no user@server "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
+    - ssh -o StrictHostKeyChecking=no user@server "docker pull $CI_REGISTRY_IMAGE/backend:latest"
+    - ssh -o StrictHostKeyChecking=no user@server "docker pull $CI_REGISTRY_IMAGE/frontend:latest"
+    - ssh -o StrictHostKeyChecking=no user@server "docker-compose -f /path/to/docker-compose.yml up -d"

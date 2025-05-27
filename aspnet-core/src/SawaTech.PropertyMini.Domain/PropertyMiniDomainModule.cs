@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Emailing;
-using Volo.Abp.FeatureManagement;
+//using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
@@ -22,8 +22,8 @@ namespace SawaTech.PropertyMini;
     //typeof(AbpPermissionManagementDomainIdentityModule),
     //typeof(AbpSettingManagementDomainModule),
     //typeof(AbpTenantManagementDomainModule),
-    typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
-    typeof(AbpEmailingModule)
+    // typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
+    // typeof(AbpEmailingModule)
 )]
 public class PropertyMiniDomainModule : AbpModule
 {
