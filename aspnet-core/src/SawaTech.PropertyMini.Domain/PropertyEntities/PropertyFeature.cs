@@ -1,13 +1,14 @@
-﻿using System;
-using SawaTech.PropertyMini.NearbyPlaces;
+using System;
+using System.Collections.Generic;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace SawaTech.PropertyMini.PropertyEntities;
 
-public class PropertyFeature
+public class PropertyFeature: AuditedAggregateRoot<Guid>
 {
-    public Guid PropertyId { get; set; }
-    public Property Property { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string IconUrl { get; set; } = string.Empty;
 
-    public Guid FeatureId { get; set; }
-    public Feature Feature { get; set; }
+    public ICollection <Property> Properties
+    { get; set; } = new List<Property>();
 }

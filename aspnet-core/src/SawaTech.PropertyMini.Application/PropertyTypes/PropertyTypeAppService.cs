@@ -33,6 +33,7 @@ namespace SawaTech.PropertyMini.PropertyTypes
 
         public async Task DeleteAsync(Guid id)
         {
+
             var propertyType = await _repository.GetAsync(id);
             if (propertyType == null)
             {
@@ -50,12 +51,14 @@ namespace SawaTech.PropertyMini.PropertyTypes
 
         public async Task<List<PropertyTypeDto>> GetListAsync()
         {
+
             var propertyTypes = await _repository.GetListAsync(); // Await the Task to get the actual List<PropertyType>
             return ObjectMapper.Map<List<PropertyType>, List<PropertyTypeDto>>(propertyTypes);
         }
 
         public async Task<PropertyTypeDto> UpdateAsync(Guid id, CreateUpdatePropertyTypeDto input)
         {
+
             var propertyType = await _repository.GetAsync(id);
             ObjectMapper.Map(input, propertyType);
             return ObjectMapper.Map<PropertyType, PropertyTypeDto>(propertyType);

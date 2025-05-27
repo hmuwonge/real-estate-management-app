@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Governorates\" />
     <Folder Include="Features\" />
     <Folder Include="Amenities\" />
     <Folder Include="NearByPlaces\" />
