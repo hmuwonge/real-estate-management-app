@@ -19,13 +19,12 @@ public class Property : AuditedAggregateRoot<Guid>
     public Guid OwnerId { get; set; }
     public Guid GovernorateId { get; set; }
 
-    public AccountUser Owner { get; set; } = null!;
-    public string Description { get; set; } = string.Empty;
+    public AccountUser Owner { get;} = null!;
+    public string? Description { get; set; } = string.Empty;
     public Guid PropertyTypeId { get; set; }
-    public Guid Type { get; set; }
     
-    public PropertyType? PropertyType { get; set; }
-    public string PaymentType { get; set; } = string.Empty;
+    public PropertyType? PropertyType { get;}
+    public string? PaymentType { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
     public decimal Price { get; set; }
@@ -36,21 +35,22 @@ public class Property : AuditedAggregateRoot<Guid>
     public double Longitude { get; set; }
 
     [JsonIgnore]
-    public List<Feature> Features { get; } = [];
-
-    [JsonIgnore]
     public virtual ICollection<PropertyAmenity> PropertyAmenities { get; set; } = [];
+    
+    [JsonIgnore]
+    public virtual ICollection<PropertyFeature> PropertyFeatures { get; set; } = [];
 
     [NotMapped]
     public List<Amenity>? Amenities => PropertyAmenities?.Select(pa => pa.Amenity).ToList();
+    
+    [NotMapped]
+    public List<Feature>? Features => PropertyFeatures?.Select(pa => pa.Feature).ToList();
 
     [JsonIgnore]
     public List<PropertyImage> PropertyImages { get; } = [];
 
     [JsonIgnore]
     public PropertyVideo? PropertyVideo { get; set; }
-
-    // public virtual  PropertyType PropertyType { get; set; }
 
     public virtual ICollection<PropertyNearbyPlace> PropertyNearbyPlaces { get; set; } = null!;
     public Governorate Governorate { get; set; } = null!;

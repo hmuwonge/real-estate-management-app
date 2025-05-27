@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { AppointmentListComponent } from "./appointment-list/appointment-list.component";
+import { RouterOutlet,RouterLink } from '@angular/router';
+// import { AppointmentListComponent } from "./appointment-list/appointment-list.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AppointmentListComponent],
+  imports: [RouterOutlet,RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

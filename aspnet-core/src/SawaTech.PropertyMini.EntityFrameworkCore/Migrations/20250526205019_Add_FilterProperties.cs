@@ -5,16 +5,16 @@
 namespace SawaTech.PropertyMini.Migrations
 {
     /// <inheritdoc />
-    public partial class Add_FilterProcedure : Migration
+    public partial class Add_FilterProperties : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-  migrationBuilder.Sql(
+            migrationBuilder.Sql(
                 @"
                     CREATE PROCEDURE sp_FilterProperties
                 @GovernorateId UNIQUEIDENTIFIER = NULL,
-                @PropertyType UNIQUEIDENTIFIER = NULL,
+                @PropertyTypeId UNIQUEIDENTIFIER = NULL,
                 @MinPrice DECIMAL(18,2) = NULL,
                 @MaxPrice DECIMAL(18,2) = NULL,
                 @MinArea FLOAT = NULL,
@@ -24,9 +24,9 @@ namespace SawaTech.PropertyMini.Migrations
             AS
             BEGIN
                 SELECT *
-                FROM Properties
+                FROM AppProperties
                 WHERE (@GovernorateId IS NULL OR GovernorateId = @GovernorateId)
-                AND (@PropertyType IS NULL OR PropertyType = @PropertyType)
+                AND (@PropertyTypeId IS NULL OR PropertyTypeId = @PropertyTypeId)
                 AND (@MinPrice IS NULL OR Price >= @MinPrice)
                 AND (@MaxPrice IS NULL OR Price <= @MaxPrice)
                 AND (@MinArea IS NULL OR Area >= @MinArea)

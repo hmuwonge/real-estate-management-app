@@ -151,7 +151,6 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
             Longitude = input.Longitude,
             InsurancePayment = input.InsurancePayment,
             PropertyTypeId = input.PropertyTypeId,
-            Type = input.PropertyTypeId,
             OwnerId = input.OwnerId,
             // Governorate= new Governorate {Id = input.GovernorateId},
             GovernorateId = input.GovernorateId,
@@ -209,7 +208,7 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
                     var features = await _propertyFeaturesRepository.GetListAsync(
                         a => featureGuids.Contains(a.Id));
                     
-                    property.PropertyFeatures = features.Select(a=>new Feature
+                    property.PropertyFeatures = features.Select(a=>new PropertyFeature
                     {
                         FeatureId = a.Id
                     }).ToList();

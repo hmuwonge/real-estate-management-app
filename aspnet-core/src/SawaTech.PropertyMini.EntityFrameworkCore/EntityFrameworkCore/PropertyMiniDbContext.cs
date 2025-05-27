@@ -168,7 +168,7 @@ public class PropertyMiniDbContext : AbpDbContext<PropertyMiniDbContext>, IIdent
                 .HasForeignKey(x => x.NearbyPlaceId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
-        modelBuilder.Entity<Feature>(a =>
+        modelBuilder.Entity<PropertyFeature>(a =>
         {
             a.ToTable(
                 PropertyMiniConsts.DbTablePrefix + "PropertyFeatures",
