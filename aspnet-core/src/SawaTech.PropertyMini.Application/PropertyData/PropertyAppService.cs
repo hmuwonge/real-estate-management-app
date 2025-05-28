@@ -21,43 +21,20 @@ using static Volo.Abp.Http.MimeTypes;
 
 namespace SawaTech.PropertyMini.PropertyData;
 
-public class PropertyAppService : ApplicationService, IPropertyAppService, ITransientDependency
-{
-    private readonly IRepository<Property, Guid> _repository;
-    private readonly IBlobContainer<PropertyGalleryContainer> _blobContainer;
-    private readonly IRepository<PropertyImage, Guid> _propertyImageRepository;
-    private readonly IRepository<Amenity, Guid> _propertyAmenityRepository;
-    private readonly IRepository<AccountUser, Guid> _accountUserRepository;
-    private readonly IRepository<Governorate, Guid> _governorateRepository;
-    private readonly IUnitOfWorkManager _unitOfWorkManager;
-    private readonly IRepository<PropertyType, Guid> _propertyTypeRepository;
-    private readonly IRepository<Feature, Guid> _propertyFeaturesRepository;
-
-    private readonly IRepository<PropertyVideo, Guid> _propertViedoRepository;
-    public PropertyAppService(
-        IRepository<Property, Guid> repository,
-        IBlobContainer<PropertyGalleryContainer> blobContainer,
-        IRepository<PropertyImage, Guid> propertyImageRepository,
+public class PropertyAppService(
+    IRepository<Property, Guid> repository,
+    IBlobContainer<PropertyGalleryContainer> blobContainer,
+    IRepository<PropertyImage, Guid> propertyImageRepository,
     IRepository<PropertyVideo, Guid> propertyVideoRepository,
-        IRepository<Amenity, Guid> propertyAmenityRepository,
-        IRepository<AccountUser, Guid> accountUserRepository,
-        IRepository<Governorate, Guid> governorateRepository,
-        IRepository<PropertyType, Guid> propertyTypeRepository, 
-        IRepository<Feature, Guid> propertyFeaturesRepository,
-        IUnitOfWorkManager unitOfWorkManager
-    )
-    {
-        _repository = repository;
-        _blobContainer = blobContainer;
-        _propertyImageRepository = propertyImageRepository;
-        _propertViedoRepository = propertyVideoRepository;
-        _propertyAmenityRepository = propertyAmenityRepository;
-        _accountUserRepository = accountUserRepository;
-        _governorateRepository = governorateRepository;
-        _unitOfWorkManager = unitOfWorkManager;
-        _propertyTypeRepository = propertyTypeRepository;
-        _propertyFeaturesRepository = propertyFeaturesRepository;
-    }
+    IRepository<Amenity, Guid> propertyAmenityRepository,
+    IRepository<AccountUser, Guid> accountUserRepository,
+    IRepository<Governorate, Guid> governorateRepository,
+    IRepository<PropertyType, Guid> propertyTypeRepository,
+    IRepository<Feature, Guid> propertyFeaturesRepository,
+    IUnitOfWorkManager unitOfWorkManager)
+    : ApplicationService, IPropertyAppService, ITransientDependency
+{
+    private readonly IRepository<PropertyVideo, Guid> _propertViedoRepository = propertyVideoRepository;
 
     public async Task<ListResultDto<PropertyDto>> GetListAsync(
         PropertyFilterDto? filterDto = null,
@@ -67,7 +44,7 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
     )
     {
         // 1. Get base queryable
-        var queryable = (await _repository.GetQueryableAsync()).AsQueryable();
+        var queryable = (await repository.GetQueryableAsync()).AsQueryable();
 
         // 2. Apply filters
         if (filterDto != null)
@@ -129,7 +106,7 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
 
     public async Task<PropertyDto> GetAsync(Guid id)
     {
-        var property = await _repository.GetAsync(id);
+        var property = await repository.GetAsync(id);
         return ObjectMapper.Map<Property, PropertyDto>(property);
     }
 
@@ -163,7 +140,7 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
         Console.WriteLine($" Property being saved::{property}" );
         // await _repository.InsertAsync(property, autoSave: true);
 
-        using (var uow = _unitOfWorkManager.Begin(requiresNew: true))
+        using (var uow = unitOfWorkManager.Begin(requiresNew: true))
         {
             try
             {
@@ -174,9 +151,9 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
                     {
                         var blobName =
                             $"images/{property.Id}/{Guid.NewGuid()}{Path.GetExtension(image.FileName)}"; // $"/{property.Id}/gallery/{Guid.NewGuid()}_{image.FileName}";
-                        using var stream = image.OpenReadStream();
+                        await using var stream = image.OpenReadStream();
                     
-                        await _blobContainer.SaveAsync(blobName, stream, overrideExisting: true);
+                        await blobContainer.SaveAsync(blobName, stream, overrideExisting: true);
                     
                         var propertyImage = new PropertyImage
                         {
@@ -184,14 +161,14 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
                             MediaType = MediaTypeEnum.Image,
                             PropertyId = property.Id,
                         };
-                        await _propertyImageRepository.InsertAsync(propertyImage);
+                        await propertyImageRepository.InsertAsync(propertyImage);
                     }
                 }
         
                 if (input.Amenities?.Count > 0)
                 {
                     var amenityGuids = input.Amenities.Select(Guid.Parse).ToList();
-                    var amenities = await _propertyAmenityRepository.GetListAsync(
+                    var amenities = await propertyAmenityRepository.GetListAsync(
                         a => amenityGuids.Contains(a.Id));
                     
                     property.PropertyAmenities = amenities.Select(a=>new PropertyAmenity
@@ -205,7 +182,7 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
                 if (input.Features?.Count > 0)
                 {
                     var featureGuids = input.Features.Select(Guid.Parse).ToList();
-                    var features = await _propertyFeaturesRepository.GetListAsync(
+                    var features = await propertyFeaturesRepository.GetListAsync(
                         a => featureGuids.Contains(a.Id));
                     
                     property.PropertyFeatures = features.Select(a=>new PropertyFeature
@@ -214,7 +191,7 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
                     }).ToList();
                 }
                 Console.WriteLine($" Property being saved::{property}" );
-                await _repository.InsertAsync(property, autoSave: true);
+                await repository.InsertAsync(property, autoSave: true);
         
             }
             catch (Exception e)
@@ -242,43 +219,43 @@ public class PropertyAppService : ApplicationService, IPropertyAppService, ITran
 
     public async Task<PropertyDto> UpdateAsync(Guid id, CreateUpdatePropertyDto input)
     {
-        var property = await _repository.GetAsync(id);
+        var property = await repository.GetAsync(id);
         ObjectMapper.Map(input, property);
-        await _repository.UpdateAsync(property);
+        await repository.UpdateAsync(property);
         return ObjectMapper.Map<Property, PropertyDto>(property);
     }
 
     public async Task DeleteAsync(Guid id)
     {
-        await _repository.DeleteAsync(id);
+        await repository.DeleteAsync(id);
     }
 
     public async Task<Stream> GetImageAsync(string blobName)
     {
-        return await _blobContainer.GetAsync(blobName);
+        return await blobContainer.GetAsync(blobName);
     }
 
     public async Task<Stream> GetVideoAsync(string blobName)
     {
-        return await _blobContainer.GetAsync(blobName);
+        return await blobContainer.GetAsync(blobName);
     }
 
     private async Task ValidateRelationships(CreateUpdatePropertyDto input)
     {
         
         //validate property types
-        if (!await _propertyTypeRepository.AnyAsync(x=>x.Id == input.PropertyTypeId))
+        if (!await propertyTypeRepository.AnyAsync(x=>x.Id == input.PropertyTypeId))
         {
             throw new UserFriendlyException(" Invalid Property PropertType specified");
         }
         
         // validate owner exists
-        if (!await _accountUserRepository.AnyAsync(x=>x.Id == input.OwnerId))
+        if (!await accountUserRepository.AnyAsync(x=>x.Id == input.OwnerId))
         {
             throw new UserFriendlyException(" Invalid Owner specified");
         }
         
-        if (!await _governorateRepository.AnyAsync(x=>x.Id == input.GovernorateId))
+        if (!await governorateRepository.AnyAsync(x=>x.Id == input.GovernorateId))
         {
             throw new UserFriendlyException(" Invalid Governorate specified");
         }

@@ -273,11 +273,6 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         app.UseCors();
         app.UseAuthentication();
 
-
-        if (MultiTenancyConsts.IsEnabled)
-        {
-            app.UseMultiTenancy();
-        }
         app.UseUnitOfWork();
         app.UseDynamicClaims();
         app.UseAuthorization();

@@ -10,8 +10,8 @@ namespace SawaTech.PropertyMini.UserAccount
 {
     public interface IUserAccountAppService: IApplicationService
     {
-        Task<GeneralResponse> RegisterAsync(CreateUpdateAccountDto user);
-        Task<LoginResponse> LoginAsync(LoginDto user);
+        Task<GeneralResponse> RegisterAsync(CreateUpdateAccountDto? user);
+        Task<LoginResponse> LoginAsync(LoginDto? user);
         Task<LoginResponse> RefreshTokenAsync(RefreshTokenDto user);
     }
    

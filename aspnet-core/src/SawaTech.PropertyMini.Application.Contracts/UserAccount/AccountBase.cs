@@ -12,7 +12,7 @@ namespace SawaTech.PropertyMini.UserAccount
         [DataType(DataType.EmailAddress)]
         [EmailAddress]
         [Required]
-        public string? Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [DataType(DataType.Password)]
         [Required]

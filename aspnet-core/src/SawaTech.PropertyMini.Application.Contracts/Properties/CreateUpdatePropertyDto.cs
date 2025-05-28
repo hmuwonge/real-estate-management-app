@@ -16,7 +16,7 @@ public class CreateUpdatePropertyDto
 
     [Required]
     [StringLength(128, MinimumLength = 5)]
-    public string? Title { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
 
     [Required]
     public Guid OwnerId { get; set; }

@@ -20,23 +20,13 @@ using static Volo.Abp.Identity.Settings.IdentitySettingNames;
 
 namespace SawaTech.PropertyMini.UserAccount
 {
-    public class UserAccountAppService:ApplicationService, IUserAccountAppService
+    public class UserAccountAppService(
+        IOptions<JwtSection> config,
+        IRepository<AccountUser, Guid> userAccountRepository,
+        IRepository<RefreshTokenInfo, Guid> userRefreshTokenRepository)
+        : ApplicationService, IUserAccountAppService
     {
-        private readonly IOptions<JwtSection> _config;
-        private readonly IRepository<AccountUser, Guid> _userAccountRepository;
-        private readonly IRepository<RefreshTokenInfo, Guid> _userRefreshTokenRepository;
-
-        public UserAccountAppService(
-            IOptions<JwtSection> config, IRepository<AccountUser, Guid> userAccountRepository,
-            IRepository<RefreshTokenInfo, Guid> userRefreshTokenRepository)
-        {
-            _config = config;
-            _userAccountRepository = userAccountRepository;
-            _userRefreshTokenRepository = userRefreshTokenRepository;
-        }
-
-
-        public async Task<GeneralResponse> RegisterAsync(CreateUpdateAccountDto user)
+        public async Task<GeneralResponse> RegisterAsync(CreateUpdateAccountDto? user)
         {
             if (user is null) return new GeneralResponse(false, "Model is empty");
             
@@ -60,19 +50,19 @@ namespace SawaTech.PropertyMini.UserAccount
                 Country = user.Country,
                 Password = BCrypt.Net.BCrypt.HashPassword(user.Password),
             };
-            await _userAccountRepository.InsertAsync(userAccount);
+            await userAccountRepository.InsertAsync(userAccount);
             return new GeneralResponse(true,"Account created successfully");
         }
 
         private async Task<AccountUser?> FindUserByEmail(string userEmail)
         {
             if (string.IsNullOrEmpty(userEmail)) return null;
-           return await _userAccountRepository.FirstOrDefaultAsync(
-               x => x.Email != null  && x.Email.ToLower() == userEmail!.ToLower()
+           return await userAccountRepository.FirstOrDefaultAsync(
+               x => x.Email.ToLower() == userEmail!.ToLower()
                );
 
         }
-        public async Task<LoginResponse> LoginAsync(LoginDto user)
+        public async Task<LoginResponse> LoginAsync(LoginDto? user)
         {
             if (user is null) return new LoginResponse(false,null, "Model is empty");
 
@@ -86,13 +76,13 @@ namespace SawaTech.PropertyMini.UserAccount
             var token = GenerateJwtToken(checkUser);
             var refreshToken = GenerateRefreshToken();
 
-            var findUser = await _userRefreshTokenRepository.FirstOrDefaultAsync(
+            var findUser = await userRefreshTokenRepository.FirstOrDefaultAsync(
                 x=>x.UserId == checkUser.Id);
 
             if (findUser is not null)
             {
                 findUser!.Token = refreshToken;
-                await _userRefreshTokenRepository.UpdateAsync(findUser);
+                await userRefreshTokenRepository.UpdateAsync(findUser);
             }
             else
             {
@@ -102,7 +92,7 @@ namespace SawaTech.PropertyMini.UserAccount
                     Token = refreshToken
                     //ExpirationDate = DateTime.UtcNow.AddDays(30) // Set expiration date for 30 days
                 };
-                await _userRefreshTokenRepository.InsertAsync(refreshTokenInfo);
+                await userRefreshTokenRepository.InsertAsync(refreshTokenInfo);
             }
 
             var userData = new Payload
@@ -124,19 +114,19 @@ namespace SawaTech.PropertyMini.UserAccount
         private string GenerateJwtToken(AccountUser checkUser)
         {
 
-            Console.WriteLine($"Check user result for {_config.Value}");
+            Console.WriteLine($"Check user result for {config.Value}");
             if (checkUser == null)
             {
                 throw new ArgumentNullException(nameof(checkUser));
             }
 
-            if (string.IsNullOrWhiteSpace(_config?.Value?.Key))
+            if (string.IsNullOrWhiteSpace(config?.Value?.Key))
                 throw new InvalidOperationException("JWT Key is not configured");
 
             if (string.IsNullOrWhiteSpace(checkUser.Email)) throw new ArgumentException("User email cannot be null or empty");
 
 
-                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.Value.Key));
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Value.Key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             //var tokenDescriptor = new SecurityTokenDescriptor
@@ -165,8 +155,8 @@ namespace SawaTech.PropertyMini.UserAccount
             };
 
             var token = new JwtSecurityToken(
-                issuer: _config.Value.Issuer,
-                audience: _config.Value.Audience,
+                issuer: config.Value.Issuer,
+                audience: config.Value.Audience,
                 claims: userClaims,
                 expires: DateTime.Now.AddDays(30),
                 signingCredentials: credentials
