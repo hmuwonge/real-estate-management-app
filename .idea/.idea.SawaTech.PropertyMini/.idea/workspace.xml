@@ -10,9 +10,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9f27306-c951-4355-bf25-39c0ce74982e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SawaTech.PropertyMini/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SawaTech.PropertyMini/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="e9f27306-c951-4355-bf25-39c0ce74982e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,10 +22,35 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="a05f608d11862679cd374949b119509bc70d31ce" />
+        <entry key="$PROJECT_DIR$" value="crud-fix" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="loginRegister" />
+                    <option name="lastUsedInstant" value="1748411677" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="crud-fix" />
+                    <option name="lastUsedInstant" value="1748411676" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/51f2b97a38f3439b9014f4e07b4dbc6d34600/42/684c0ad7/IdentityUser.cs" root0="FORCE_HIGHLIGHTING" />
@@ -55,7 +78,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "9d6b2539",
+    "git-widget-placeholder": "loginRegister",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
