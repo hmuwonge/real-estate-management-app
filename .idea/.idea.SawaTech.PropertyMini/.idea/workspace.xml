@@ -12,17 +12,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e9f27306-c951-4355-bf25-39c0ce74982e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SawaTech.PropertyMini/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SawaTech.PropertyMini/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.DbMigrator/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.DbMigrator/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/Property.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/Property.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/EntityFrameworkCore/PropertyMiniDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/EntityFrameworkCore/PropertyMiniDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/20250525125224_InitialMigration.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/20250525125224_InitialMigration.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/20250525125307_Add_FilterProcedure.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/20250525125307_Add_FilterProcedure.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/20250525182827_Add_PropertyAmenity.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/20250525182827_Add_PropertyAmenity.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.EntityFrameworkCore/Migrations/PropertyMiniDbContextModelSnapshot.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +55,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "crud-fix",
+    "git-widget-placeholder": "9d6b2539",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

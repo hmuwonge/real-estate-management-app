@@ -11,5 +11,6 @@ namespace SawaTech.PropertyMini.PropertyEntities
         public string Url { get; set; }
         public bool IsMain { get; set; }
         public int SortOrder { get; set; }
+        public string FullUrl { get; set; } // computed URL
     }
 }

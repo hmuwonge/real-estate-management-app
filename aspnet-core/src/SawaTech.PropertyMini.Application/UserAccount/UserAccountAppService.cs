@@ -74,13 +74,13 @@ namespace SawaTech.PropertyMini.UserAccount
         }
         public async Task<LoginResponse> LoginAsync(LoginDto user)
         {
-            if (user is null) return new LoginResponse(false, "Model is empty");
+            if (user is null) return new LoginResponse(false,null, "Model is empty");
 
             var checkUser = await FindUserByEmail(user.Email!);
-            if (checkUser == null) return new LoginResponse(false, $"{user.Email} User not registered");
+            if (checkUser == null) return new LoginResponse(false,null,"","", $"{user.Email} User not registered");
 
             if (!BCrypt.Net.BCrypt.Verify(user.Password!, checkUser.Password!))
-                return new LoginResponse(false, "Invalid password");
+                return new LoginResponse(false, null, "", "", "Invalid password");
 
             // Generate JWT token
             var token = GenerateJwtToken(checkUser);
@@ -105,7 +105,15 @@ namespace SawaTech.PropertyMini.UserAccount
                 await _userRefreshTokenRepository.InsertAsync(refreshTokenInfo);
             }
 
-            return new LoginResponse(true, "Logged in successfully", token, refreshToken);
+            var userData = new Payload
+            (
+                UserName: checkUser.UserName,
+                UserType: checkUser.Type,
+                Email: checkUser.Email,
+                Id: checkUser.Id
+            );
+
+            return new LoginResponse(true, userData, token, refreshToken,"Logged in successfully");
         }
 
         private static string GenerateRefreshToken()
