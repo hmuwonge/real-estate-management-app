@@ -26,7 +26,7 @@ namespace SawaTech.PropertyMini.UserAccount
         IRepository<RefreshTokenInfo, Guid> userRefreshTokenRepository)
         : ApplicationService, IUserAccountAppService
     {
-        public async Task<GeneralResponse> RegisterAsync(CreateUpdateAccountDto? user)
+        public async Task<GeneralResponse> RegisterAsync([FromForm] CreateUpdateAccountDto? user, [FromForm] IFormFile? profilePicture)
         {
             if (user is null) return new GeneralResponse(false, "Model is empty");
             
@@ -50,6 +50,16 @@ namespace SawaTech.PropertyMini.UserAccount
                 Country = user.Country,
                 Password = BCrypt.Net.BCrypt.HashPassword(user.Password),
             };
+            
+            if (profilePicture != null)
+            {
+                var filePath = Path.Combine("wwwroot", "uploads", profilePicture.FileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await profilePicture.CopyToAsync(stream);
+                }
+                userAccount.ProfilePicture = filePath;
+            }
             await userAccountRepository.InsertAsync(userAccount);
             return new GeneralResponse(true,"Account created successfully");
         }

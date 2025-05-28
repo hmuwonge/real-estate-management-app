@@ -39,13 +39,13 @@ export class UsersService {
     this.currentUser = null;
   }
 
-  register(email: string, password: string, userType: string): Observable<any> {
+  register(formData:FormData): Observable<any> {
     const url = `${this.baseURL}app/user-account/register`;
 
-    if (!email || !password || !userType) {
-      throw new Error('Email, password, and user type are required for registration.');
+    if (!formData) {
+      throw new Error('Form data is required for registration.');
     }
-    return this.http.post<any>(url, { email, password, userType });
+    return this.http.post<any>(url, formData);
   }
 
   setAuthStatus(isAuthenticated: boolean, userType: string, userName: string, accessToken?: string): void {

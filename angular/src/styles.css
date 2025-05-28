@@ -5,9 +5,6 @@
 
 @import "tailwindcss";
 
-@import 'ngx-toastr/toastr';
-@import 'ngx-toastr/toastr-bs5-alert';
-
 .bg-primary{
   color: #725DB4
 }

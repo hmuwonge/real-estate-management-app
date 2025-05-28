@@ -17,12 +17,16 @@ export class LoginComponent {
   isLoading: boolean = false;
   errorMessage: string | null =null;
 
-  constructor(private userService: UsersService, private fb: FormBuilder,private router:Router) {
+
+  constructor(private userService: UsersService,
+     private fb: FormBuilder,private router:Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
+
+
 
 login(event: Event): void {
   event.preventDefault();
