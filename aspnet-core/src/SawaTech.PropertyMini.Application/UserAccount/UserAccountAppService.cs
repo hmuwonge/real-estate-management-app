@@ -208,7 +208,10 @@ namespace SawaTech.PropertyMini.UserAccount
             throw new NotImplementedException();
         }
 
-
+        public Task<GeneralResponse> UpdateAsync([FromForm] CreateUpdateAccountDto? user)
+        {
+            throw new NotImplementedException();
+        }
     }
   
 }

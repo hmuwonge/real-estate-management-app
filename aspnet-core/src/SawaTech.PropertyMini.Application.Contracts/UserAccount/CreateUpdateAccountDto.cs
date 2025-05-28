@@ -5,6 +5,7 @@ namespace SawaTech.PropertyMini.UserAccount
 {
     public class CreateUpdateAccountDto: AccountBase
     {
+
         [Required]
         [MaxLength(100)]
         [MinLength(3)]
