@@ -89,9 +89,7 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateAmenityDto, Amenity>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
 
-        CreateMap<PropertyImage, PropertyImageDto>()
-    .ForMember(dest => dest.FullUrl, opt =>
-        opt.MapFrom(src => $"{_blobSettings.BaseUrl}{src.Url}"));
+       
 
     }
 }

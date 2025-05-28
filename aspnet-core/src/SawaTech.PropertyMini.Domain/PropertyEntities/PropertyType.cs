@@ -8,7 +8,7 @@ namespace SawaTech.PropertyMini.PropertyEntities
 {
     public class PropertyType:AuditedAggregateRoot<Guid>
     {
-        public string Name { get; set; }
-        
+        public string Name { get; set; } = string.Empty;
+
     }
 }
