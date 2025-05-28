@@ -31,6 +31,7 @@ public class PropertyAppService(
     IRepository<Governorate, Guid> governorateRepository,
     IRepository<PropertyType, Guid> propertyTypeRepository,
     IRepository<Feature, Guid> propertyFeaturesRepository,
+    IHttpContextAccessor httpContextAccessor,
     IUnitOfWorkManager unitOfWorkManager)
     : ApplicationService, IPropertyAppService, ITransientDependency
 {
@@ -112,6 +113,7 @@ public class PropertyAppService(
 
     public async Task<PropertyDto> CreateAsync([FromForm] CreateUpdatePropertyDto input)
     {
+        var httpContext = httpContextAccessor.HttpContext;
         await ValidateRelationships(input);
         // var property = ObjectMapper.Map<CreateUpdatePropertyDto, Property>(input);
 
@@ -144,26 +146,63 @@ public class PropertyAppService(
         {
             try
             {
+                var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+
+                if (!Directory.Exists(uploadsPath))
+                    Directory.CreateDirectory(uploadsPath);
+
+                var request = httpContextAccessor.HttpContext?.Request;
+                var baseUrl = $"{request?.Scheme}://{request?.Host}";
                 if (images?.Count > 0)
                 {
                     // save property images/photos
                     foreach (var image in images)
                     {
-                        var blobName =
-                            $"images/{property.Id}/{Guid.NewGuid()}{Path.GetExtension(image.FileName)}"; // $"/{property.Id}/gallery/{Guid.NewGuid()}_{image.FileName}";
-                        await using var stream = image.OpenReadStream();
-                    
-                        await blobContainer.SaveAsync(blobName, stream, overrideExisting: true);
+                        var fileName = Path.GetFileName(image.FileName);
+                        var uniqueFileName = $"{Guid.NewGuid()}_{fileName}";
+                        var filePath = Path.Combine(uploadsPath, uniqueFileName);
+
+                        await using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await image.CopyToAsync(stream);
+                        }
+
+                        var fullUrl = $"{baseUrl}/uploads/{uniqueFileName}";
                     
                         var propertyImage = new PropertyImage
                         {
-                            Url = blobName,
+                            Url = fullUrl,
                             MediaType = MediaTypeEnum.Image,
                             PropertyId = property.Id,
                         };
                         await propertyImageRepository.InsertAsync(propertyImage);
                     }
                 }
+                
+                // Save video
+                if (video != null)
+                {
+                    var fileName = Path.GetFileName(video.FileName);
+                    var uniqueFileName = $"{Guid.NewGuid()}_{fileName}";
+                    var filePath = Path.Combine(uploadsPath, uniqueFileName);
+
+                    await using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await video.CopyToAsync(stream);
+                    }
+
+                    var fullUrl = $"{baseUrl}/uploads/videos/{uniqueFileName}";
+
+                    var propertyVideo = new PropertyVideo
+                    {
+                        PropertyId = property.Id,
+                        Url = fullUrl
+                    };
+
+                    property.PropertyVideo = propertyVideo;
+                    await repository.UpdateAsync(property);
+                }
+
         
                 if (input.Amenities?.Count > 0)
                 {

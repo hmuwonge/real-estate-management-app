@@ -73,7 +73,7 @@ namespace SawaTech.PropertyMini.UserAccount
 
                 // Save the file to disk
                 var filePath = Path.Combine(uploadsPath, uniqueFileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                await using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await profilePicture.CopyToAsync(stream);
                 }

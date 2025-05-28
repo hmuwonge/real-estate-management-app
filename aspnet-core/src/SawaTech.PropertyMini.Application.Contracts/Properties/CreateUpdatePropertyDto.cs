@@ -57,7 +57,7 @@ public class CreateUpdatePropertyDto
 
     [Required]
     public List<IFormFile>? PhotoUrls { get; set; }
-    public string? VideoUrl { get; set; }
+    public IFormFile? VideoUrl { get; set; }
 
     [Required]
     public double Latitude { get; set; }
