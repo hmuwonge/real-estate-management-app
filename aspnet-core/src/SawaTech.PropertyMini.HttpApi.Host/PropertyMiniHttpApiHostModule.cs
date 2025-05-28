@@ -198,7 +198,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
             });
     }
 
-    private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
+    private static void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
     {
         context.Services.AddCors(options =>
         {
@@ -239,22 +239,17 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         app.MapAbpStaticAssets();
         app.UseStaticFiles();
 
-        app.UseStaticFiles(new StaticFileOptions
-        {
-            FileProvider = new PhysicalFileProvider(
-           Path.Combine(env.ContentRootPath, "wwwroot", "uploads")),
-            RequestPath = "/uploads"
-        });
+        //app.UseStaticFiles(new StaticFileOptions
+        //{
+        //    FileProvider = new PhysicalFileProvider(
+        //   Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads")),
+        //    RequestPath = "/uploads"
+        //});
 
         app.UseRouting();
         app.UseCors();
         app.UseAuthentication();
 
-
-        if (MultiTenancyConsts.IsEnabled)
-        {
-            app.UseMultiTenancy();
-        }
         app.UseUnitOfWork();
         app.UseDynamicClaims();
         // app.UseAuthorization();

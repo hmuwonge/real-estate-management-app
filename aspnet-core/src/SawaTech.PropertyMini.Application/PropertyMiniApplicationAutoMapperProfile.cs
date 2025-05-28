@@ -45,7 +45,12 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
             .ForMember(dest=>dest.Name, opt=>opt.MapFrom(src=>src.Name));
 
         CreateMap<Amenity, AmenityDto>();
-        CreateMap<CreateUpdateAmenityDto, Amenity>();
+        CreateMap<Amenity, SinglePropertyAmenityDto>()
+            .ForMember(dest=>dest.Name,opt=>opt.MapFrom(src=>src.Name));
+        CreateMap<CreateUpdateAmenityDto, Amenity>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
+
+       
 
     }
 }

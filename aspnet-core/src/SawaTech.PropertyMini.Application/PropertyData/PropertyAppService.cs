@@ -16,24 +16,20 @@ using static Volo.Abp.Http.MimeTypes;
 
 namespace SawaTech.PropertyMini.PropertyData;
 
-public class PropertyAppService : ApplicationService,IPropertyAppService,ITransientDependency
+public class PropertyAppService(
+    IRepository<Property, Guid> repository,
+    IBlobContainer<PropertyGalleryContainer> blobContainer,
+    IRepository<PropertyImage, Guid> propertyImageRepository,
+    IRepository<PropertyVideo, Guid> propertyVideoRepository,
+    IRepository<Amenity, Guid> propertyAmenityRepository,
+    IRepository<AccountUser, Guid> accountUserRepository,
+    IRepository<Governorate, Guid> governorateRepository,
+    IRepository<PropertyType, Guid> propertyTypeRepository,
+    IRepository<Feature, Guid> propertyFeaturesRepository,
+    IUnitOfWorkManager unitOfWorkManager)
+    : ApplicationService, IPropertyAppService, ITransientDependency
 {
-    private readonly IRepository<Property, Guid> _repository;
-    private readonly IBlobContainer<PropertyGalleryContainer> _blobContainer;
-    private readonly IRepository<PropertyImage, Guid> _propertyImageRepository;
-    //private readonly IRepository<PropertyVideo, Guid> _propertViedoRepository;
-    public PropertyAppService(
-        IRepository<Property, Guid> repository,
-        IBlobContainer<PropertyGalleryContainer> blobContainer,
-        IRepository<PropertyImage, Guid> propertyImageRepository
-        //IRepository<PropertyVideo, Guid> propertyVideoRepository
-        )
-    {
-        _repository = repository;
-        _blobContainer = blobContainer;
-        _propertyImageRepository = propertyImageRepository;
-        //_propertViedoRepository = propertyVideoRepository;
-    }
+    private readonly IRepository<PropertyVideo, Guid> _propertViedoRepository = propertyVideoRepository;
 
     public async Task<ListResultDto<PropertyDto>> GetListAsync(
     PropertyFilterDto? filterDto = null,
@@ -41,7 +37,7 @@ public class PropertyAppService : ApplicationService,IPropertyAppService,ITransi
     bool sortDescending = false,int? maxResults=10)
     {
         // 1. Get base queryable
-        var queryable = (await _repository.GetQueryableAsync()).AsQueryable();
+        var queryable = (await repository.GetQueryableAsync()).AsQueryable();
 
         // 2. Apply filters
         if (filterDto != null)
@@ -102,7 +98,7 @@ public class PropertyAppService : ApplicationService,IPropertyAppService,ITransi
     }
     public async Task<PropertyDto> GetAsync(Guid id)
     {
-        var property = await _repository.GetAsync(id);
+        var property = await repository.GetAsync(id);
         return ObjectMapper.Map<Property, PropertyDto>(property);
     }
     public async Task<PropertyDto> CreateAsync([FromForm]  CreateUpdatePropertyDto input)
@@ -111,24 +107,75 @@ public class PropertyAppService : ApplicationService,IPropertyAppService,ITransi
         await _repository.InsertAsync(property);
 
         var images = input.PhotoUrls;
-        var video =input.VideoUrl;
+        var video = input.VideoUrl;
+        
+        Console.WriteLine($" Property being saved::{property}" );
+        // await _repository.InsertAsync(property, autoSave: true);
 
-        // save property images/photos
-        foreach (var image in images)
+        using (var uow = unitOfWorkManager.Begin(requiresNew: true))
         {
-            var blobName = $"images/{property.Id}/{Guid.NewGuid()}{Path.GetExtension(image.FileName)}"; // $"/{property.Id}/gallery/{Guid.NewGuid()}_{image.FileName}";
-            using var stream = image.OpenReadStream();
-
-            await _blobContainer.SaveAsync(blobName,stream, overrideExisting: true);
-
-            var propertyImage = new PropertyImage
+            try
             {
-                Url = blobName,
-                MediaType = MediaTypeEnum.Image,
-                PropertyId = property.Id
-            };
-            await _propertyImageRepository.InsertAsync(propertyImage);
+                if (images?.Count > 0)
+                {
+                    // save property images/photos
+                    foreach (var image in images)
+                    {
+                        var blobName =
+                            $"images/{property.Id}/{Guid.NewGuid()}{Path.GetExtension(image.FileName)}"; // $"/{property.Id}/gallery/{Guid.NewGuid()}_{image.FileName}";
+                        await using var stream = image.OpenReadStream();
+                    
+                        await blobContainer.SaveAsync(blobName, stream, overrideExisting: true);
+                    
+                        var propertyImage = new PropertyImage
+                        {
+                            Url = blobName,
+                            MediaType = MediaTypeEnum.Image,
+                            PropertyId = property.Id,
+                        };
+                        await propertyImageRepository.InsertAsync(propertyImage);
+                    }
+                }
+        
+                if (input.Amenities?.Count > 0)
+                {
+                    var amenityGuids = input.Amenities.Select(Guid.Parse).ToList();
+                    var amenities = await propertyAmenityRepository.GetListAsync(
+                        a => amenityGuids.Contains(a.Id));
+                    
+                    property.PropertyAmenities = amenities.Select(a=>new PropertyAmenity
+                    {
+                        AmenityId = a.Id
+                    }).ToList();
+                }
+                
+                
+                //save property related features
+                if (input.Features?.Count > 0)
+                {
+                    var featureGuids = input.Features.Select(Guid.Parse).ToList();
+                    var features = await propertyFeaturesRepository.GetListAsync(
+                        a => featureGuids.Contains(a.Id));
+                    
+                    property.PropertyFeatures = features.Select(a=>new PropertyFeature
+                    {
+                        FeatureId = a.Id
+                    }).ToList();
+                }
+                Console.WriteLine($" Property being saved::{property}" );
+                await repository.InsertAsync(property, autoSave: true);
+        
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
+
+        
+
+        
 
         // Save video
         //if (video != null)
@@ -143,25 +190,57 @@ public class PropertyAppService : ApplicationService,IPropertyAppService,ITransi
     }
     public async Task<PropertyDto> UpdateAsync(Guid id, CreateUpdatePropertyDto input)
     {
-        var property = await _repository.GetAsync(id);
+        var property = await repository.GetAsync(id);
         ObjectMapper.Map(input, property);
-        await _repository.UpdateAsync(property);
+        await repository.UpdateAsync(property);
         return ObjectMapper.Map<Property, PropertyDto>(property);
     }
     public async Task DeleteAsync(Guid id)
     {
-        await _repository.DeleteAsync(id);
+        await repository.DeleteAsync(id);
     }
 
     public async Task<Stream> GetImageAsync(string blobName)
     {
-        return await _blobContainer.GetAsync(blobName);
+        return await blobContainer.GetAsync(blobName);
     }
 
     public async Task<Stream> GetVideoAsync(string blobName)
     {
-        return await _blobContainer.GetAsync(blobName);
+        return await blobContainer.GetAsync(blobName);
     }
 
-
+    private async Task ValidateRelationships(CreateUpdatePropertyDto input)
+    {
+        
+        //validate property types
+        if (!await propertyTypeRepository.AnyAsync(x=>x.Id == input.PropertyTypeId))
+        {
+            throw new UserFriendlyException(" Invalid Property PropertType specified");
+        }
+        
+        // validate owner exists
+        if (!await accountUserRepository.AnyAsync(x=>x.Id == input.OwnerId))
+        {
+            throw new UserFriendlyException(" Invalid Owner specified");
+        }
+        
+        if (!await governorateRepository.AnyAsync(x=>x.Id == input.GovernorateId))
+        {
+            throw new UserFriendlyException(" Invalid Governorate specified");
+        }
+        
+        //validate amenities exists
+        // if (input.Amenities?.Count >0)
+        // {
+        //     var amenityGuids = input.Amenities.Select(x => Guid.Parse(x));
+        //     var existingAmenitiesCount = await _propertyAmenityRepository.CountAsync(
+        //         x=>amenityGuids.Contains(x.Id));
+        //
+        //     if (existingAmenitiesCount != amenityGuids.Count())
+        //     {
+        //         throw new UserFriendlyException(" one or more amenities not found");
+        //     }
+        // }
+    }
 }

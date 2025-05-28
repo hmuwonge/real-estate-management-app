@@ -6,9 +6,9 @@ namespace SawaTech.PropertyMini.PropertyEntities;
 
 public class PropertyFeature: AuditedAggregateRoot<Guid>
 {
-    public string Name { get; set; } = string.Empty;
-    public string IconUrl { get; set; } = string.Empty;
+    public Guid PropertyId { get; set; }
+    public Property Property { get; set; } = null!;
 
-    public ICollection <Property> Properties
-    { get; set; } = new List<Property>();
+    public Guid FeatureId { get; set; }
+    public Feature Feature { get; set; } = null!;
 }

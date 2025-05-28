@@ -14,9 +14,16 @@ public class CreateUpdatePropertyDto
     public string OwnerId { get; set; }
 
     [Required]
-    [StringLength(128)]
-    public string Description { get; set; }
-    
+    [StringLength(128, MinimumLength = 5)]
+    public string Title { get; set; } = string.Empty;
+
+    [Required]
+    public Guid OwnerId { get; set; }
+
+    [Required]
+    [StringLength(2000)]
+    public string? Description { get; set; }
+
     //location properties
     public string Address { get; set; }
     

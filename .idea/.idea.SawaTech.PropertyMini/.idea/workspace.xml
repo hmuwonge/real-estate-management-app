@@ -54,7 +54,11 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+<<<<<<< HEAD
     "git-widget-placeholder": "main-fix-backup",
+=======
+    "git-widget-placeholder": "9d6b2539",
+>>>>>>> b5fa2fa6cf77c84fdbf06fb74ab6d1b19469eeb5
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

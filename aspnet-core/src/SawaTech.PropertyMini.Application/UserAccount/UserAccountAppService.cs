@@ -17,27 +17,22 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using static Volo.Abp.Identity.Settings.IdentitySettingNames;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace SawaTech.PropertyMini.UserAccount
 {
-    public class UserAccountAppService:ApplicationService, IUserAccountAppService
+    public class UserAccountAppService(
+        IOptions<JwtSection> config,
+        IHttpContextAccessor httpContextAccessor,
+        IRepository<AccountUser, Guid> userAccountRepository,
+        IRepository<RefreshTokenInfo, Guid> userRefreshTokenRepository)
+        : ApplicationService, IUserAccountAppService
     {
-        private readonly IOptions<JwtSection> _config;
-        private readonly IRepository<AccountUser, Guid> _userAccountRepository;
-        private readonly IRepository<RefreshTokenInfo, Guid> _userRefreshTokenRepository;
-
-        public UserAccountAppService(
-            IOptions<JwtSection> config, IRepository<AccountUser, Guid> userAccountRepository,
-            IRepository<RefreshTokenInfo, Guid> userRefreshTokenRepository)
+        public async Task<GeneralResponse> RegisterAsync([FromForm] CreateUpdateAccountDto? user )
         {
-            _config = config;
-            _userAccountRepository = userAccountRepository;
-            _userRefreshTokenRepository = userRefreshTokenRepository;
-        }
-
-
-        public async Task<GeneralResponse> RegisterAsync(CreateUpdateAccountDto user)
-        {
+            var httpContext = httpContextAccessor.HttpContext;
             if (user is null) return new GeneralResponse(false, "Model is empty");
             
             var checkUser = await FindUserByEmail(user.Email!);
@@ -60,39 +55,72 @@ namespace SawaTech.PropertyMini.UserAccount
                 Country = user.Country,
                 Password = BCrypt.Net.BCrypt.HashPassword(user.Password),
             };
-            await _userAccountRepository.InsertAsync(userAccount);
-            return new GeneralResponse(true,"Account created successfully");
+
+            var profilePicture = user.ProfilePicture;
+
+            if (profilePicture != null)
+            {
+                var fileName = Path.GetFileName(profilePicture.FileName);
+                var uniqueFileName = $"{Guid.NewGuid()}_{fileName}";
+
+                // Ensure the uploads folder exists
+                var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+
+                if (!Directory.Exists(uploadsPath))
+                {
+                    Directory.CreateDirectory(uploadsPath);
+                }
+
+                // Save the file to disk
+                var filePath = Path.Combine(uploadsPath, uniqueFileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await profilePicture.CopyToAsync(stream);
+                }
+
+                // Construct the full URL
+                var request = httpContext.Request;
+                var baseUrl = $"{request.Scheme}://{request.Host}";
+                var relativePath = $"/uploads/{uniqueFileName}";
+                var fullUrl = $"{baseUrl}{relativePath}";
+
+                // Save the full URL to the database
+                userAccount.ProfilePictureUrl = fullUrl;
+            }
+
+            await userAccountRepository.InsertAsync(userAccount);
+            return new GeneralResponse(true,"Account created successfully",userAccount);
         }
 
         private async Task<AccountUser?> FindUserByEmail(string userEmail)
         {
             if (string.IsNullOrEmpty(userEmail)) return null;
-           return await _userAccountRepository.FirstOrDefaultAsync(
-               x => x.Email != null  && x.Email.ToLower() == userEmail!.ToLower()
+           return await userAccountRepository.FirstOrDefaultAsync(
+               x => x.Email.ToLower() == userEmail!.ToLower()
                );
 
         }
-        public async Task<LoginResponse> LoginAsync(LoginDto user)
+        public async Task<LoginResponse> LoginAsync(LoginDto? user)
         {
-            if (user is null) return new LoginResponse(false, "Model is empty");
+            if (user is null) return new LoginResponse(false,null, "Model is empty");
 
             var checkUser = await FindUserByEmail(user.Email!);
-            if (checkUser == null) return new LoginResponse(false, $"{user.Email} User not registered");
+            if (checkUser == null) return new LoginResponse(false,null,"","", $"{user.Email} User not registered");
 
             if (!BCrypt.Net.BCrypt.Verify(user.Password!, checkUser.Password!))
-                return new LoginResponse(false, "Invalid password");
+                return new LoginResponse(false, null, "", "", "Invalid password");
 
             // Generate JWT token
             var token = GenerateJwtToken(checkUser);
             var refreshToken = GenerateRefreshToken();
 
-            var findUser = await _userRefreshTokenRepository.FirstOrDefaultAsync(
+            var findUser = await userRefreshTokenRepository.FirstOrDefaultAsync(
                 x=>x.UserId == checkUser.Id);
 
             if (findUser is not null)
             {
                 findUser!.Token = refreshToken;
-                await _userRefreshTokenRepository.UpdateAsync(findUser);
+                await userRefreshTokenRepository.UpdateAsync(findUser);
             }
             else
             {
@@ -102,10 +130,18 @@ namespace SawaTech.PropertyMini.UserAccount
                     Token = refreshToken
                     //ExpirationDate = DateTime.UtcNow.AddDays(30) // Set expiration date for 30 days
                 };
-                await _userRefreshTokenRepository.InsertAsync(refreshTokenInfo);
+                await userRefreshTokenRepository.InsertAsync(refreshTokenInfo);
             }
 
-            return new LoginResponse(true, "Logged in successfully", token, refreshToken);
+            var userData = new Payload
+            (
+                UserName: checkUser.UserName,
+                UserType: checkUser.Type,
+                Email: checkUser.Email,
+                Id: checkUser.Id
+            );
+
+            return new LoginResponse(true, userData, token, refreshToken,"Logged in successfully");
         }
 
         private static string GenerateRefreshToken()
@@ -116,19 +152,19 @@ namespace SawaTech.PropertyMini.UserAccount
         private string GenerateJwtToken(AccountUser checkUser)
         {
 
-            Console.WriteLine($"Check user result for {_config.Value}");
+            Console.WriteLine($"Check user result for {config.Value}");
             if (checkUser == null)
             {
                 throw new ArgumentNullException(nameof(checkUser));
             }
 
-            if (string.IsNullOrWhiteSpace(_config?.Value?.Key))
+            if (string.IsNullOrWhiteSpace(config?.Value?.Key))
                 throw new InvalidOperationException("JWT Key is not configured");
 
             if (string.IsNullOrWhiteSpace(checkUser.Email)) throw new ArgumentException("User email cannot be null or empty");
 
 
-                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.Value.Key));
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Value.Key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             //var tokenDescriptor = new SecurityTokenDescriptor
@@ -157,8 +193,8 @@ namespace SawaTech.PropertyMini.UserAccount
             };
 
             var token = new JwtSecurityToken(
-                issuer: _config.Value.Issuer,
-                audience: _config.Value.Audience,
+                issuer: config.Value.Issuer,
+                audience: config.Value.Audience,
                 claims: userClaims,
                 expires: DateTime.Now.AddDays(30),
                 signingCredentials: credentials

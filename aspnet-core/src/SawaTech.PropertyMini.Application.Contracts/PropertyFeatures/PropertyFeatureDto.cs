@@ -9,6 +9,6 @@ namespace SawaTech.PropertyMini.PropertyTypes
     public class PropertyFeatureDto
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

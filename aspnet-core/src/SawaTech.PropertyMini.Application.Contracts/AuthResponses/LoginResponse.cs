@@ -8,15 +8,20 @@ namespace SawaTech.PropertyMini.AuthResponses
 {
     public record LoginResponse(
        bool Flag,
-        string Message = null!,
-        //DateTime ExpiresIn,
-        //string? TokenType,
-        //string? UserName,
-        //string Email,
-        //string[] Roles,
-         string AccessToken = null!,
-        string RefreshToken = null!
 
+      //DateTime ExpiresIn,
+      Payload? UserData,
+         //string[] Roles,
+         string AccessToken = null!,
+        string RefreshToken = null!,
+        string Message = null!
 
     );
+
+    public record Payload
+    (string? UserType,
+        string? UserName,
+        string Email,
+        Guid Id
+        );
 }

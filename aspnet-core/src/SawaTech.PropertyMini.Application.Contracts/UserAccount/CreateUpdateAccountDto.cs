@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace SawaTech.PropertyMini.UserAccount
 {
@@ -29,7 +30,7 @@ namespace SawaTech.PropertyMini.UserAccount
         public string? PhoneNumber { get; set; }
         public string? WhatsApp { get; set; }
         public string? Country { get; set; }
-        //public IFormFile? ProfilePicture { get; set; }
+        public IFormFile? ProfilePicture { get; set; }
         public string? CompanyName { get; set; }
         public string? CompanyMail { get; set; }
         public string? Department { get; set; }
