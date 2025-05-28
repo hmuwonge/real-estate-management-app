@@ -32,7 +32,7 @@ constructor(private fb:FormBuilder,private userService:UsersService,
     companyEmail: ['', [Validators.required, Validators.email]],
     department: ['', Validators.required],
     jobPosition: ['', Validators.required]
-    
+
   });
 
   this.countries=countries;
@@ -77,6 +77,7 @@ onSubmit(): void {
   formData.append('username',username);
   formData.append('phone',phone);
   formData.append('password',password);
+  formData.append('confirmPassword',rePassword);
   formData.append('whatsapp',whatsapp);
   formData.append('email',email);
   formData.append('country',country);
@@ -88,18 +89,26 @@ onSubmit(): void {
 
   console.log(formData.getAll);
 
-  // this.userService.register(formData).subscribe({
-  //   next:(response:any)=>{
-  //     this.isLoading=false;
-  //     console.log('Registration successful:',response);
-  //     this.router.navigate(['/login']);
-  //   },
-  //   error:(error:any)=>{
-  //     this.isLoading=false;
-  //     this.errorMessage=error.error?.message||'Registration failed. Please try again.';
-  //     console.error('Registration failed:',error);
-  //   }
-  // })
+  this.userService.register(formData).subscribe({
+    next:(response:any)=>{
+      this.isLoading=false;
+      // console.log('Registration successful:',response);
+      // this.router.navigate(['/auth/login']);
+
+      if(response.error)
+      {
+        this.errorMessage=response.error.message||'Registration failed. Please try again.';
+        return;
+      }
+
+      this.router.navigate(['/auth/login']);
+    },
+    error:(error:any)=>{
+      this.isLoading=false;
+      this.errorMessage=error.error?.details||'Registration failed. Please try again.';
+      console.error('Registration failed:',error.error?.message || error);
+    }
+  })
 }
 
 get usernameFormControl(): FormControl {

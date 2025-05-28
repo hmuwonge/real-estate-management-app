@@ -8,5 +8,5 @@ namespace SawaTech.PropertyMini.AuthResponses
 {
     public record GeneralResponse
     (
-        bool Flag, string? Message);
+        bool Flag, string? Message, object? Payload =null);
 }

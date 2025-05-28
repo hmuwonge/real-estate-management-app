@@ -17,17 +17,22 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using static Volo.Abp.Identity.Settings.IdentitySettingNames;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace SawaTech.PropertyMini.UserAccount
 {
     public class UserAccountAppService(
         IOptions<JwtSection> config,
+        IHttpContextAccessor httpContextAccessor,
         IRepository<AccountUser, Guid> userAccountRepository,
         IRepository<RefreshTokenInfo, Guid> userRefreshTokenRepository)
         : ApplicationService, IUserAccountAppService
     {
-        public async Task<GeneralResponse> RegisterAsync([FromForm] CreateUpdateAccountDto? user, [FromForm] IFormFile? profilePicture)
+        public async Task<GeneralResponse> RegisterAsync([FromForm] CreateUpdateAccountDto? user )
         {
+            var httpContext = httpContextAccessor.HttpContext;
             if (user is null) return new GeneralResponse(false, "Model is empty");
             
             var checkUser = await FindUserByEmail(user.Email!);
@@ -50,18 +55,41 @@ namespace SawaTech.PropertyMini.UserAccount
                 Country = user.Country,
                 Password = BCrypt.Net.BCrypt.HashPassword(user.Password),
             };
-            
+
+            var profilePicture = user.ProfilePicture;
+
             if (profilePicture != null)
             {
-                var filePath = Path.Combine("wwwroot", "uploads", profilePicture.FileName);
+                var fileName = Path.GetFileName(profilePicture.FileName);
+                var uniqueFileName = $"{Guid.NewGuid()}_{fileName}";
+
+                // Ensure the uploads folder exists
+                var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+
+                if (!Directory.Exists(uploadsPath))
+                {
+                    Directory.CreateDirectory(uploadsPath);
+                }
+
+                // Save the file to disk
+                var filePath = Path.Combine(uploadsPath, uniqueFileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await profilePicture.CopyToAsync(stream);
                 }
-                userAccount.ProfilePicture = filePath;
+
+                // Construct the full URL
+                var request = httpContext.Request;
+                var baseUrl = $"{request.Scheme}://{request.Host}";
+                var relativePath = $"/uploads/{uniqueFileName}";
+                var fullUrl = $"{baseUrl}{relativePath}";
+
+                // Save the full URL to the database
+                userAccount.ProfilePictureUrl = fullUrl;
             }
+
             await userAccountRepository.InsertAsync(userAccount);
-            return new GeneralResponse(true,"Account created successfully");
+            return new GeneralResponse(true,"Account created successfully",userAccount);
         }
 
         private async Task<AccountUser?> FindUserByEmail(string userEmail)

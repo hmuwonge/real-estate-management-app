@@ -8,7 +8,7 @@ namespace SawaTech.PropertyMini;
 [Dependency(ReplaceServices = true)]
 public class PropertyMiniBrandingProvider : DefaultBrandingProvider
 {
-    private IStringLocalizer<PropertyMiniResource> _localizer;
+    private readonly IStringLocalizer<PropertyMiniResource> _localizer;
 
     public PropertyMiniBrandingProvider(IStringLocalizer<PropertyMiniResource> localizer)
     {
