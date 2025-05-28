@@ -43,8 +43,8 @@ public class PropertyDto : AuditedEntityDto<Guid>
     // public double Longitude { get; set; }
     // public List<string>? images { get; set; }
     
-    public string Title { get; set; }
-    public string Description { get; set; }
+    public required string Title { get; set; }
+    public required string Description { get; set; }
     
     // Flat relationships (IDs only)
     public Guid OwnerId { get; set; }
@@ -52,13 +52,13 @@ public class PropertyDto : AuditedEntityDto<Guid>
     // public Guid TypeId { get; set; }
     
     // Complex objects (when needed)
-    public virtual AccountUser Owner { get; set; }
-    public virtual PropertyType PropertyType { get; set; }
+    public virtual AccountUser Owner { get; set; } = null!;
+    public virtual PropertyType PropertyType { get; set; } = null!;
     
     // Collections
-    public List<PropertyFeatureDto> Features { get; set; }
-    public List<Amenity> Amenities { get; set; }
-    public List<string> Images { get; set; }
+    public List<PropertyFeatureDto> Features { get; set; } = null!;
+    public List<Amenity> Amenities { get; set; } = null!;
+    public List<string> Images { get; set; } = [];
     
     // Location
     public decimal Price { get; set; }

@@ -15,26 +15,21 @@ using Property = SawaTech.PropertyMini.PropertyEntities.Property;
 
 namespace SawaTech.PropertyMini.PublicProperties;
 
-public class PublicPropertiesAppService: ApplicationService, IPublicPropertyAppService
+public class PublicPropertiesAppService(
+    IRepository<Property, Guid> repository,
+    PropertyMiniDbContext dbContext)
+    : ApplicationService, IPublicPropertyAppService
 {
-    private readonly IRepository<Property, Guid>    _repository;
-    private readonly PropertyMiniDbContext _dbContext;
-    public PublicPropertiesAppService(IRepository<Property, Guid>    repository,
-        PropertyMiniDbContext dbContext)
-    {
-        _repository = repository;
-        _dbContext = dbContext;
-    }
     public async Task<List<PropertyListDto>> GetPublicPropertyListAsync()
     {
-       var properties =await  _dbContext.Properties.Include(x => x.PropertyType).ToListAsync();
+       var properties =await  dbContext.Properties.Include(x => x.PropertyType).ToListAsync();
        
        return ObjectMapper.Map<List<Property>, List<PropertyListDto>>(properties);
     }
 
     public async Task<PropertyDetailDto> GetPublicPropertyAsync(Guid id)
     {
-        var property = await _dbContext.Properties.Include(p=>p.PropertyAmenities)
+        var property = await dbContext.Properties.Include(p=>p.PropertyAmenities)
             .ThenInclude(p=>p.Amenity)
             .Include(p=>p.PropertyImages)
             .Include(p=>p.Features)
@@ -49,10 +44,10 @@ public class PublicPropertiesAppService: ApplicationService, IPublicPropertyAppS
 
     public async Task<List<PropertyDto>> GetFilteredPropertiesAsync(PropertyFilterDto filter)
     {
-        var query = await _repository.GetQueryableAsync();
+        var query = await repository.GetQueryableAsync();
         
         var sql = "EXEC sp_FilterProperties @GovernorateId, @PropertType,@MinPrice, @MaxPrice,@MinArea, @MaxArea";
-        var result = await _dbContext.Properties
+        var result = await dbContext.Properties
             .FromSqlRaw(sql,
                 new SqlParameter("@GovernorateId", filter.GovernorateId ?? (object)DBNull.Value),
                 new SqlParameter("@PropertType", filter.Type ?? (object)DBNull.Value),

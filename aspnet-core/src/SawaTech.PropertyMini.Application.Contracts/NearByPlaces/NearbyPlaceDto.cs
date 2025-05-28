@@ -7,6 +7,6 @@ namespace SawaTech.PropertyMini.NearByPlaces
 {
     public class NearbyPlaceDto
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

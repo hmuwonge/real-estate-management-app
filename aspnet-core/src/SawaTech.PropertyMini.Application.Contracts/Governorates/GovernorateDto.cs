@@ -6,7 +6,6 @@ namespace SawaTech.PropertyMini.Governorates
 {
     public class GovernorateDto:  AuditedEntityDto<Guid>
     {
-        [Required]
-        public string? Name { get; set; }
+        [Required] public string Name { get; set; } = string.Empty;
     }
 }

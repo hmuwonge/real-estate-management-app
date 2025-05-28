@@ -8,16 +8,16 @@ namespace SawaTech.PropertyMini.Properties
 {
     public class PropertyDetailDto : PropertyListDto
     {
-        public string Description { get; set; }
-        public string Address { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public string Address { get; set; }= string.Empty;
         public decimal InsurancePayment { get; set; }
-        public string Status { get; set; }
-        public PropertyTypeDto PropertyType { get; set; }
-        public string PaymentType { get; set; }
-        public List<PropertyImageDto> Images { get; set; }
-        public List<PropertyFeatureDto> Features { get; set; }
-        public List<SinglePropertyAmenityDto> Amenities { get; set; }
-        public List<NearbyPlaceDto> NearbyPlaces { get; set; }
+        public string Status { get; set; }= string.Empty;
+        public new PropertyTypeDto PropertyType { get; set; }= null!;
+        public string PaymentType { get; set; }= string.Empty;
+        public List<PropertyImageDto> Images { get; set; }= null!;
+        public List<PropertyFeatureDto> Features { get; set; }= null!;
+        public List<SinglePropertyAmenityDto> Amenities { get; set; } = null!;
+        public List<NearbyPlaceDto> NearbyPlaces { get; set; }= null!;
         // public PropertyVideoDto? Video { get; set; }
     }
 }

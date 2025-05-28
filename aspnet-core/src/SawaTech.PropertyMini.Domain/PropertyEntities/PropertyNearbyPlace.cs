@@ -9,10 +9,10 @@ namespace SawaTech.PropertyMini.PropertyEntities
     public class PropertyNearbyPlace
     {
         public Guid PropertyId { get; set; }
-        public Property Property { get; set; }
+        public Property Property { get; set; }= null!;
 
         public Guid NearbyPlaceId { get; set; }
-        public NearbyPlace NearbyPlace { get; set; }
+        public NearbyPlace NearbyPlace { get; set; }= null!;
     }
 
     

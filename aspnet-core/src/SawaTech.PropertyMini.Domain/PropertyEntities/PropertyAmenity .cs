@@ -12,7 +12,7 @@ namespace SawaTech.PropertyMini.PropertyEntities
         public Guid PropertyId { get; set; }
         public Guid AmenityId { get; set; }
 
-        public virtual Property Property { get; set; }
-        public virtual Amenity Amenity { get; set; }
+        public virtual Property Property { get; set; } = null!;
+        public virtual Amenity Amenity { get; set; } = null!;
     }
 }

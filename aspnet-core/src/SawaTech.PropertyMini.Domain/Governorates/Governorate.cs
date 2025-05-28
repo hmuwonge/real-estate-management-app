@@ -9,7 +9,7 @@ namespace SawaTech.PropertyMini.Governorates
 {
     public class Governorate : AuditedAggregateRoot<Guid>
     {
-        public string Name { get; set; }
+        public required string Name { get; set; }
         public ICollection<Property> Property { get; set; } = [];
     }
 }

@@ -9,6 +9,6 @@ namespace SawaTech.PropertyMini.Governorates
     public class CreateUpdateGovernorateDto
     {
         [Required]
-        public string? Name { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
     }
 }
