@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
 namespace SawaTech.PropertyMini.UserAccount
 {
     public class CreateUpdateAccountDto: AccountBase
     {
-
+        public Guid Id { get; set; } 
         [Required]
         [MaxLength(100)]
         [MinLength(3)]

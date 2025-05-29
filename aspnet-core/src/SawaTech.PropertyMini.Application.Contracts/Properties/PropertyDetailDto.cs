@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using SawaTech.PropertyMini.NearByPlaces;
 using SawaTech.PropertyMini.PropertyAmenities;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 using SawaTech.PropertyMini.PropertyFeatures;
 
 namespace SawaTech.PropertyMini.Properties

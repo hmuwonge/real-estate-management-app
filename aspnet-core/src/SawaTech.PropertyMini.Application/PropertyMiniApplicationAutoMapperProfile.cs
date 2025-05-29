@@ -4,12 +4,14 @@ using SawaTech.PropertyMini.Amenities;
 using SawaTech.PropertyMini.Governorates;
 using SawaTech.PropertyMini.Properties;
 using SawaTech.PropertyMini.PropertyAmenities;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 using SawaTech.PropertyMini.PropertyFeatures;
 using SawaTech.PropertyMini.PropertyTypes;
 using SawaTech.PropertyMini.UserAccount;
 using SawaTech.PropertyMini.Users;
 using PropertyTypeDto = SawaTech.PropertyMini.PropertyTypes.PropertyTypeDto;
+using SawaTech.PropertyMini.NearbyPlaces;
+using SawaTech.PropertyMini.NearByPlaces;
 
 namespace SawaTech.PropertyMini;
 
@@ -24,12 +26,8 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
         CreateMap<Property, PropertyDto>()
             .ForMember(dest => dest.Rooms, opt => opt.MapFrom(src => src.Rooms))
              .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.PropertyImages))
-            .ForMember(dest => dest.PropertyType, 
-                opt => opt.MapFrom(src => src.PropertyType))
-            .ForMember(
-                dest => dest.Images,
-                opt => opt.MapFrom(src => src.PropertyImages.Select(x => x.Url))
-            );
+            .ForMember(dest => dest.PropertyType,
+                opt => opt.MapFrom(src => src.PropertyType));
         
         CreateMap<Property, PropertyListDto>()
             .ForMember(dest => dest.Rooms, opt => opt.MapFrom(src => src.Rooms))
@@ -50,6 +48,13 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
         //     dest => dest.images,
         //     opt => opt.MapFrom(src => src.PropertyImages.Select(x => x.Url))
         // );
+
+        CreateMap<AccountUser, PropertyOwnerDto>()
+            .ForMember(dest=>dest.Name, opt=>opt.MapFrom(src=>src.UserName));
+
+        CreateMap<PropertyImage, PropertyImageDto>()
+           .ForMember(dest => dest.Url, opt => opt.MapFrom(src => src.Url));
+
 
         CreateMap<CreateUpdatePropertyDto, Property>()
             .ForMember(
@@ -84,12 +89,19 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
 
         CreateMap<Amenity, AmenityDto>();
-        CreateMap<Amenity, SinglePropertyAmenityDto>()
-            .ForMember(dest=>dest.Name,opt=>opt.MapFrom(src=>src.Name));
+
+        CreateMap<Amenity, SinglePropertyAmenityDto>();
+
         CreateMap<CreateUpdateAmenityDto, Amenity>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
 
-       
+        CreateMap<CreateUpdateNearbyPlace, NearbyPlace>();
+
+        CreateMap<PropertyNearbyPlace, NearbyPlaceDto>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.NearbyPlace.Name))
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.NearbyPlace.Id));
+
+        CreateMap<Governorate, GovernorateDetailDto>();
 
     }
 }

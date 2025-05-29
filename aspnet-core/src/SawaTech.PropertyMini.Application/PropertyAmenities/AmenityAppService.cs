@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using SawaTech.PropertyMini.Amenities;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.ObjectMapping;
 
 namespace SawaTech.PropertyMini.PropertyAmenities
 {
-    [Authorize]
+    //[Authorize]
     public class AmenityAppService: ApplicationService, IAmenityAppService
     {
         private readonly IRepository<Amenity, Guid> _repository;

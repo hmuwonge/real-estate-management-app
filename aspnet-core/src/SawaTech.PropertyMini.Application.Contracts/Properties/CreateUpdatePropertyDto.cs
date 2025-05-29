@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 
 namespace SawaTech.PropertyMini.Properties;
 
@@ -54,6 +54,9 @@ public class CreateUpdatePropertyDto
 
     //nearby places
     public List<string>? NearbyPlaces { get; set; } = [];
+
+    [Required]
+    public required IFormFile MainImage {  get; set; }
 
     [Required]
     public List<IFormFile>? PhotoUrls { get; set; }

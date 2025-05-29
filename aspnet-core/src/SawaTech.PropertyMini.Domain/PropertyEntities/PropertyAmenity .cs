@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using SawaTech.PropertyMini.Amenities;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace SawaTech.PropertyMini.PropertyEntities
+namespace SawaTech.PropertyMini.PublicProperties
 {
     public class PropertyAmenity: AuditedAggregateRoot<Guid>
     {

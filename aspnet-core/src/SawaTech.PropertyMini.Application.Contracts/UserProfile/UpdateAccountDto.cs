@@ -10,6 +10,15 @@ namespace SawaTech.PropertyMini.UserProfile
 {
     public class UpdateAccountDto
     {
+        //[Required]
+        public Guid Id { get; set; }
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
+
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = String.Empty;
+
         [MaxLength(100), MinLength(3)]
         public string? UserName { get; set; } = null!;
 

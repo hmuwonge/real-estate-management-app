@@ -11,7 +11,7 @@ using SawaTech.PropertyMini.Users;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Data;
 using Volo.Abp.Domain.Repositories;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
@@ -20,6 +20,8 @@ using static Volo.Abp.Identity.Settings.IdentitySettingNames;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
+using SawaTech.PropertyMini.UserProfile;
 
 namespace SawaTech.PropertyMini.UserAccount
 {
@@ -27,16 +29,18 @@ namespace SawaTech.PropertyMini.UserAccount
         IOptions<JwtSection> config,
         IHttpContextAccessor httpContextAccessor,
         IRepository<AccountUser, Guid> userAccountRepository,
-        IRepository<RefreshTokenInfo, Guid> userRefreshTokenRepository)
+        IRepository<RefreshTokenInfo, Guid> userRefreshTokenRepository
+        )
         : ApplicationService, IUserAccountAppService
+
     {
+        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
         public async Task<GeneralResponse> RegisterAsync([FromForm] CreateUpdateAccountDto? user )
         {
             var httpContext = httpContextAccessor.HttpContext;
             if (user is null) return new GeneralResponse(false, "Model is empty");
             
             var checkUser = await FindUserByEmail(user.Email!);
-            Console.WriteLine($"Check user result for {user.Email}: {checkUser?.Email ?? "null"}");
             if (checkUser != null) return new GeneralResponse(false, "User already registered");
 
 
@@ -208,10 +212,63 @@ namespace SawaTech.PropertyMini.UserAccount
             throw new NotImplementedException();
         }
 
-        public Task<GeneralResponse> UpdateAsync([FromForm] CreateUpdateAccountDto? user)
+        [Authorize]
+        public async Task<GeneralResponse> UpdateAsync([FromForm] UpdateAccountDto? dto)
         {
-            throw new NotImplementedException();
+            if (dto is null) return new GeneralResponse(false, "Invalid model");
+
+            var user = await userAccountRepository.FindAsync(dto.Id);
+            if (user == null) return new GeneralResponse(false, "User not found");
+
+            user.UserName = dto.UserName;
+            user.Phone = dto.PhoneNumber;
+            user.WhatsApp = dto.WhatsApp;
+            user.Country = dto.Country;
+            user.CompanyName = dto.CompanyName;
+            user.CompanyEmail = dto.CompanyMail;
+            user.Department = dto.Department;
+            user.JobPosition = dto.JobPosition;
+
+            var profilePicture = dto.ProfilePicture;
+
+            if (profilePicture != null)
+            {
+                var fileName = Path.GetFileName(profilePicture.FileName);
+                var uniqueFileName = $"{Guid.NewGuid()}_{fileName}";
+                var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+
+                if (!Directory.Exists(uploadsPath))
+                    Directory.CreateDirectory(uploadsPath);
+
+                var filePath = Path.Combine(uploadsPath, uniqueFileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await profilePicture.CopyToAsync(stream);
+                }
+
+                var request = _httpContextAccessor.HttpContext!.Request;
+                var baseUrl = $"{request.Scheme}://{request.Host}";
+                user.ProfilePictureUrl = $"{baseUrl}/uploads/{uniqueFileName}";
+            }
+
+            // update the password if it is not null
+            if (dto.Password is not null )
+            {
+                user.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            }
+
+            await userAccountRepository.UpdateAsync(user);
+            return new GeneralResponse(true, "Profile updated successfully", user);
+        }
+
+        public async Task<GeneralResponse> GetUserProfile(Guid userId)
+        {
+            var user = await userAccountRepository.GetAsync(userId);
+
+            return new GeneralResponse(true, "success",user);
+
         }
     }
-  
 }
+  
+

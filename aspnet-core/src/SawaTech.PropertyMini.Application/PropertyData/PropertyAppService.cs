@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SawaTech.PropertyMini.Amenities;
+using SawaTech.PropertyMini.AuthResponses;
 using SawaTech.PropertyMini.Governorates;
+using SawaTech.PropertyMini.NearbyPlaces;
 using SawaTech.PropertyMini.Properties;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 using SawaTech.PropertyMini.Users;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -31,8 +33,10 @@ public class PropertyAppService(
     IRepository<Governorate, Guid> governorateRepository,
     IRepository<PropertyType, Guid> propertyTypeRepository,
     IRepository<Feature, Guid> propertyFeaturesRepository,
-    IHttpContextAccessor httpContextAccessor,
-    IUnitOfWorkManager unitOfWorkManager)
+    IRepository<NearbyPlace, Guid> propertyNearbyPlacesRepository,
+    IHttpContextAccessor httpContextAccessor
+    //IUnitOfWorkManager unitOfWorkManager
+    )
     : ApplicationService, IPropertyAppService, ITransientDependency
 {
     private readonly IRepository<PropertyVideo, Guid> _propertViedoRepository = propertyVideoRepository;
@@ -67,15 +71,6 @@ public class PropertyAppService(
             if (filterDto.MaxPrice.HasValue)
                 queryable = queryable.Where(p => p.Price <= filterDto.MaxPrice.Value);
 
-            //if(filterDto.PropertType.HasValue)
-            //{
-            //    queryable = queryable.Where(p => p.PropertType == filterDto.PropertType.Value);
-            //}
-
-            //if (filterDto.Status.HasValue)
-            //{
-            //    queryable = queryable.Where(p => p.Status == filterDto.Status.Value);
-            //}
         }
 
         // 4. Apply maxResults if specified
@@ -111,48 +106,63 @@ public class PropertyAppService(
         return ObjectMapper.Map<Property, PropertyDto>(property);
     }
 
-    public async Task<PropertyDto> CreateAsync([FromForm] CreateUpdatePropertyDto input)
+    public async Task<GeneralResponse> CreateAsync([FromForm] CreateUpdatePropertyDto input)
     {
-        var httpContext = httpContextAccessor.HttpContext;
-        await ValidateRelationships(input);
-        // var property = ObjectMapper.Map<CreateUpdatePropertyDto, Property>(input);
-
-        var guidType = Guid.Parse(input.PropertyTypeId.ToString());
-        var property = new Property
+        try
         {
-            Title = input.Title,
-            Description = input.Description,
-            Price = input.Price,
-            PaymentType = input.PaymentType,
-            Area = input.Area,
-            Rooms = input.Rooms,
-            Latitude = input.Latitude,
-            Longitude = input.Longitude,
-            InsurancePayment = input.InsurancePayment,
-            PropertyTypeId = input.PropertyTypeId,
-            OwnerId = input.OwnerId,
-            // Governorate= new Governorate {Id = input.GovernorateId},
-            GovernorateId = input.GovernorateId,
-        };
-        
-        
-        var images = input.PhotoUrls;
-        var video = input.VideoUrl;
-        
-        Console.WriteLine($" Property being saved::{property}" );
-        // await _repository.InsertAsync(property, autoSave: true);
+            await ValidateRelationships(input);
 
-        using (var uow = unitOfWorkManager.Begin(requiresNew: true))
-        {
+            var property = new Property
+            {
+                Title = input.Title,
+                Description = input.Description,
+                Price = input.Price,
+                PaymentType = input.PaymentType,
+                Area = input.Area,
+                Rooms = input.Rooms,
+                Latitude = input.Latitude,
+                Longitude = input.Longitude,
+                InsurancePayment = input.InsurancePayment,
+                PropertyTypeId = input.PropertyTypeId,
+                OwnerId = input.OwnerId,
+                // Governorate= new Governorate {Id = input.GovernorateId},
+                GovernorateId = input.GovernorateId,
+            };
+
+            var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+
+            if (!Directory.Exists(uploadsPath))
+                Directory.CreateDirectory(uploadsPath);
+
+            var request = httpContextAccessor.HttpContext?.Request;
+            var baseUrl = $"{request?.Scheme}://{request?.Host}";
+
+            var mainImage = input.MainImage;
+            //set and store main property image
+            var mainFileName = Path.GetFileName(input.MainImage.FileName);
+            var mainUniqueFileName = $"{Guid.NewGuid()}_{mainFileName}";
+            var mainFilePath = Path.Combine(uploadsPath, mainUniqueFileName);
+
+            var mainStream = new FileStream(mainFilePath, FileMode.Create);
+            {
+                await mainImage.CopyToAsync(mainStream);
+            }
+
+            var mainImageFullUrl = $"{baseUrl}/uploads/{mainUniqueFileName}";
+            property.MainImage = mainImageFullUrl;
+
+
+            var images = input.PhotoUrls;
+            var video = input.VideoUrl;
+
+
+            await repository.InsertAsync(property, autoSave: true);
+
+            //using (var uow = unitOfWorkManager.Begin(requiresNew: true))
+            //{
             try
             {
-                var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-
-                if (!Directory.Exists(uploadsPath))
-                    Directory.CreateDirectory(uploadsPath);
-
-                var request = httpContextAccessor.HttpContext?.Request;
-                var baseUrl = $"{request?.Scheme}://{request?.Host}";
+                // check if we have some images
                 if (images?.Count > 0)
                 {
                     // save property images/photos
@@ -168,7 +178,7 @@ public class PropertyAppService(
                         }
 
                         var fullUrl = $"{baseUrl}/uploads/{uniqueFileName}";
-                    
+
                         var propertyImage = new PropertyImage
                         {
                             Url = fullUrl,
@@ -178,7 +188,7 @@ public class PropertyAppService(
                         await propertyImageRepository.InsertAsync(propertyImage);
                     }
                 }
-                
+
                 // Save video
                 if (video != null)
                 {
@@ -203,57 +213,64 @@ public class PropertyAppService(
                     await repository.UpdateAsync(property);
                 }
 
-        
+
                 if (input.Amenities?.Count > 0)
                 {
                     var amenityGuids = input.Amenities.Select(Guid.Parse).ToList();
                     var amenities = await propertyAmenityRepository.GetListAsync(
                         a => amenityGuids.Contains(a.Id));
-                    
-                    property.PropertyAmenities = amenities.Select(a=>new PropertyAmenity
+
+                    property.PropertyAmenities = amenities.Select(a => new PropertyAmenity
                     {
                         AmenityId = a.Id
                     }).ToList();
                 }
-                
-                
+
+
                 //save property related features
                 if (input.Features?.Count > 0)
                 {
                     var featureGuids = input.Features.Select(Guid.Parse).ToList();
                     var features = await propertyFeaturesRepository.GetListAsync(
                         a => featureGuids.Contains(a.Id));
-                    
-                    property.PropertyFeatures = features.Select(a=>new PropertyFeature
+
+                    property.PropertyFeatures = [.. features.Select(a=>new PropertyFeature
                     {
                         FeatureId = a.Id
-                    }).ToList();
+                    })];
                 }
-                Console.WriteLine($" Property being saved::{property}" );
-                await repository.InsertAsync(property, autoSave: true);
-        
+
+
+                //save property related nearby places
+                if (input.NearbyPlaces?.Count > 0)
+                {
+                    var nearbyGuids = input.NearbyPlaces.Select(Guid.Parse).ToList();
+                    var places = await propertyNearbyPlacesRepository.GetListAsync(
+                        a => nearbyGuids.Contains(a.Id));
+
+                    property.PropertyNearbyPlaces = [.. places.Select(a=>new PropertyNearbyPlace
+                    {
+                        NearbyPlaceId = a.Id
+                    })];
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
+            //}
+
+            var result=  ObjectMapper.Map<Property, PropertyDetailDto>(property);
+            return new GeneralResponse(true, "Succesfully created new property", result);
+        }
+        catch (Exception e)
+        {
+            //Console.WriteLine(e);
+            return new GeneralResponse(false, e.Message, e.StackTrace);
         }
 
-        
-
-        
-
-        // Save video
-        // if (video != null)
-        // {
-        //     string blobName = $"videos/{property.Id}/{Guid.NewGuid()}_{video.FileName}";
-        //     using var stream = video.OpenReadStream();
-        //     await _blobContainer.SaveAsync(blobName, stream, overrideExisting: true);
-        //     property.PropertyVideo = blobName;
-        // }
-
-        return ObjectMapper.Map<Property, PropertyDto>(property);
+       
     }
 
     public async Task<PropertyDto> UpdateAsync(Guid id, CreateUpdatePropertyDto input)
@@ -312,4 +329,5 @@ public class PropertyAppService(
         //     }
         // }
     }
+
 }

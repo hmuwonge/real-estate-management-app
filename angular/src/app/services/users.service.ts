@@ -9,16 +9,19 @@ import { LoginResponse } from './../models/AuthenticationResponse';
 })
 export class UsersService {
   private baseURL: string = environment.baseURL;
-  public isAuthenticated: boolean =false;
+  // public isAuthenticated: boolean =false;
   public isAgent: boolean = false;
   public currentUser: string | null ="";
   public accessToken: string | null = null;
+  public userId: string | null = null;
+  public userProfile: object | null = null;
 
   constructor(private http: HttpClient) {
-    this.isAuthenticated = !!localStorage.getItem('accessToken');
+    // this.isAuthenticated = !!localStorage.getItem('accessToken');
     const isUserTypeValue = localStorage.getItem('userType');
     this.isAgent = isUserTypeValue !=null && isUserTypeValue !== undefined && isUserTypeValue.toLowerCase() === 'agent';
     this.currentUser = localStorage.getItem('userName');
+    this.userId = localStorage.getItem('userId');
   }
 
   login(email: string, password: string): Observable<LoginResponse> {
@@ -34,7 +37,9 @@ export class UsersService {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userType');
     localStorage.removeItem('userName');
-    this.isAuthenticated = false;
+    localStorage.removeItem('userId');
+    this.accessToken = null;
+    this.isAuthenticated();
     this.isAgent = false;
     this.currentUser = null;
   }
@@ -48,20 +53,54 @@ export class UsersService {
     return this.http.post<any>(url, formData);
   }
 
-  setAuthStatus(isAuthenticated: boolean, userType: string, userName: string, accessToken?: string): void {
-    this.isAuthenticated = isAuthenticated;
+  setAuthStatus(isAuth: boolean, userType: string, userName: string, accessToken?: string): void {
+    // this.isAuthenticated = isAuthenticated;
     this.isAgent = userType.toLowerCase() === 'agent';
     this.currentUser = userName;
 
-    if (isAuthenticated) {
+    if (isAuth) {
        if (!accessToken) {
         throw new Error('Access token is required when authenticating');
       }
       localStorage.setItem('accessToken', accessToken); // Replace with actual token
       localStorage.setItem('userType', userType);
       localStorage.setItem('userName', userName);
+      localStorage.setItem('userId', this.userId || ''); // Ensure userId is set if available
     } else {
       this.logout();
+    }
+  }
+
+  getCurrentUserProfile(): Observable<any> {
+    const url = `${this.baseURL}app/user-account/user-profile/${this.userId}`;
+    return this.http.get<any>(url);
+  }
+
+  updateProfile(formData: FormData): Observable<any> {
+    const url = `${this.baseURL}app/user-account`;
+    return this.http.put<any>(url, formData);
+  }
+
+  isAuthenticated(): boolean {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken)      return false;
+
+    const tokenExpired = this.isTokenExpired(accessToken);
+    if (tokenExpired) {
+      this.logout();
+      return false;
+    }
+    return true;
+  }
+
+  private isTokenExpired(token: string): boolean {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const expirationTime = payload.exp * 1000; // Convert to milliseconds
+      return Date.now() > expirationTime;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return true; // Assume expired if there's an error
     }
   }
 }

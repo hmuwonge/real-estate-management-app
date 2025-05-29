@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace SawaTech.PropertyMini.PropertyEntities;
+namespace SawaTech.PropertyMini.PublicProperties;
 
 public class Feature: AuditedAggregateRoot<Guid>
 {

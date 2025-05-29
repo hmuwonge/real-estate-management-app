@@ -1,7 +1,7 @@
 ﻿using System;
 using SawaTech.PropertyMini.NearbyPlaces;
 
-namespace SawaTech.PropertyMini.PropertyEntities;
+namespace SawaTech.PropertyMini.PublicProperties;
 
 public class PropertyFeature
 {

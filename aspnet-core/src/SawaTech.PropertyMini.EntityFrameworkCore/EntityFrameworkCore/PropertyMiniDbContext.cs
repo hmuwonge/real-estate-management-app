@@ -4,7 +4,7 @@ using SawaTech.PropertyMini.Addresses;
 using SawaTech.PropertyMini.Amenities;
 using SawaTech.PropertyMini.Governorates;
 using SawaTech.PropertyMini.NearbyPlaces;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 using SawaTech.PropertyMini.Users;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;

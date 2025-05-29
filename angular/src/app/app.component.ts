@@ -16,7 +16,7 @@ export class AppComponent {
 
   constructor(public usersService: UsersService) {
     // Initialize the user service to check authentication status
-    this.usersService.isAuthenticated = !!localStorage.getItem('accessToken');
+    this.usersService.isAuthenticated //= !!localStorage.getItem('accessToken');
     const isUserTypeValue = localStorage.getItem('userType');
     this.usersService.isAgent = isUserTypeValue != null && isUserTypeValue !== undefined && isUserTypeValue.toLowerCase() === 'agent';
     this.usersService.currentUser = localStorage.getItem('userName');

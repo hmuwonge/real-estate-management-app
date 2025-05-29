@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 using SawaTech.PropertyMini.PropertyTypes;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
 namespace SawaTech.PropertyMini.PropertyFeatures
 {
-    [Authorize]
+    //[Authorize]
     public class PropertyFeatureAppService : ApplicationService, IPropertyFeatureAppService
     {
         private readonly IRepository<Feature, Guid> _repository;

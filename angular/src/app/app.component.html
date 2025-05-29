@@ -27,7 +27,7 @@
           </div>
 
           <div class="md:hidden">
-            <button class="text-gray-700 focus:outline-none">
+            <button type="button" class="text-gray-700 focus:outline-none">
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
                   stroke-linecap="round"
@@ -40,18 +40,18 @@
           </div>
         </div>
 
-        <div *ngIf="usersService.isAuthenticated && usersService.isAgent">
+        <div *ngIf="usersService.isAuthenticated() && usersService.isAgent">
           <div class="flex flex-row">
             <div class="flex flex-col">
               <span class="text-base font-bold">{{ usersService.currentUser }}</span>
-              <span class="text-sm cursor-pointer" (click)="usersService.logout()"> Edit Profile </span>
+              <span class="text-sm cursor-pointer" [routerLink]="['/auth/profile']"> Edit Profile </span>
             </div>
           </div>
         </div>
 
         <div
           class="border-l-2 border-gray-200"
-          *ngIf="!usersService.isAuthenticated && !usersService.isAgent"
+          *ngIf="!usersService.isAuthenticated() && !usersService.isAgent"
         >
           <button
             [routerLink]="['/auth/login']"

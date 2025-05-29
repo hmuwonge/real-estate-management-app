@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using SawaTech.PropertyMini.Amenities;
 using SawaTech.PropertyMini.PropertyAmenities;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 using SawaTech.PropertyMini.PropertyFeatures;
 using SawaTech.PropertyMini.PropertyTypes;
 using SawaTech.PropertyMini.Users;

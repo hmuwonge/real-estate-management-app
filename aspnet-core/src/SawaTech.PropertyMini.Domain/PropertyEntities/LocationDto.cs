@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SawaTech.PropertyMini.PropertyEntities
+namespace SawaTech.PropertyMini.PublicProperties
 {
     public class LocationDto
     {

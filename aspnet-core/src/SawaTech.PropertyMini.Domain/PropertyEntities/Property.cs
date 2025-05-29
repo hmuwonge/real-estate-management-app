@@ -11,7 +11,7 @@ using SawaTech.PropertyMini.Governorates;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace SawaTech.PropertyMini.PropertyEntities;
+namespace SawaTech.PropertyMini.PublicProperties;
 
 public class Property : AuditedAggregateRoot<Guid>
 {
@@ -27,6 +27,7 @@ public class Property : AuditedAggregateRoot<Guid>
     public string? PaymentType { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
+    public string MainImage { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public decimal InsurancePayment { get; set; }
     public float Area { get; set; }
@@ -41,7 +42,7 @@ public class Property : AuditedAggregateRoot<Guid>
     public virtual ICollection<PropertyFeature> PropertyFeatures { get; set; } = [];
 
     [NotMapped]
-    public List<Amenity>? Amenities => PropertyAmenities?.Select(pa => pa.Amenity).ToList();
+    public List<Amenity>? Amenities => PropertyAmenities?.Select(static pa => pa.Amenity).ToList();
     
     [NotMapped]
     public List<Feature>? Features => PropertyFeatures?.Select(pa => pa.Feature).ToList();
