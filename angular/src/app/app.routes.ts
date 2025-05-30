@@ -5,6 +5,8 @@ import { LoginComponent } from './components/login/login.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { PropertyDetailsComponent } from './components/property-details/property-details.component';
+import { BuyPropertiesComponent } from './components/buy-properties/buy-properties.component';
+import { RentPropertiesComponent } from './components/rent-properties/rent-properties.component';
 
 export const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -26,6 +28,17 @@ export const routes: Routes = [
   },
   {
     path: 'property/:id', component: PropertyDetailsComponent,
-  }
+  },
+  {
+    path: 'buy-properties', component: BuyPropertiesComponent,
+  },
+  {
+    path: 'rent-properties', component: RentPropertiesComponent,  
+  },
+  {
+    path: 'auth/manage-properties/:id', component: UserProfileComponent,
+    canActivate: [AuthGuardService],
+    data: { role: 'agent', expectedRole: 'agent' }
+  },
 
 ];

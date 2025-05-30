@@ -7,7 +7,7 @@
     <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center space-x-4">
-          <img src="logo-placeholder.png" alt="SAWATECH" class="h-8" />
+          <img src="images/mainLogo.svg" alt="SAWATECH" class="h-8" />
           <div class="hidden md:flex items-center space-x-1">
             <a
               [routerLink]="['/']"
@@ -15,15 +15,22 @@
               >Home</a
             >
             <a
-              href="#"
+              [routerLink]="['/buy-properties']" activeLink="bg-purple-600"
               class="px-4 py-2 text-gray-700 hover:text-blue-600 border-r border-gray-200 last:border-r-0"
               >Buy</a
             >
             <a
-              href="#"
+              [routerLink]="['/rent-properties']" activeLink="bg-purple-600"
               class="px-4 py-2 text-gray-700 hover:text-blue-600 border-r border-gray-200 last:border-r-0"
               >Rent</a
             >
+           
+            
+            <a
+            [routerLink]="['/auth/manage-properties']"
+            class="px-4 py-2 text-gray-700 hover:text-blue-600 border-r border-gray-200 last:border-r-0"
+            >Manage Properties</a
+          >
           </div>
 
           <div class="md:hidden">

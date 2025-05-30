@@ -1,65 +1,86 @@
-
+<div class="my-8">
+  <div class="text-center"><h2 class="text-2xl font-semibold">Buy Your Perfct Property</h2></div>
   <!-- Filter Bar -->
-  <div class="w-full bg-white shadow p-4 flex flex-wrap justify-center gap-2">
-    <select class="px-4 py-2 border rounded text-sm text-gray-600">
+  <div class="w-full bg-blue-50 max-w-5xl rounded mx-auto shadow p-2 border-2 border-blue-300 flex flex-wrap justify-center gap-6">
+    <select
+      class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+    >
       <option>Region</option>
     </select>
-    <select class="px-4 py-2 border rounded text-sm text-gray-600">
+    <select
+      class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+    >
       <option>For Buy</option>
     </select>
-    <select class="px-4 py-2 border rounded text-sm text-gray-600">
+    <select
+      class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+    >
       <option>Price</option>
     </select>
-    <select class="px-4 py-2 border rounded text-sm text-gray-600">
+    <select
+      class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+    >
       <option>Area</option>
     </select>
-    <select class="px-4 py-2 border rounded text-sm text-gray-600">
+    <select
+      class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+    >
       <option>Type</option>
     </select>
-    <select class="px-4 py-2 border rounded text-sm text-gray-600">
+    <select
+      class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+    >
       <option>More</option>
     </select>
     <button class="bg-purple-700 text-white px-6 py-2 rounded">Search</button>
   </div>
 
   <!-- Main Layout -->
-  <div class="flex h-[90vh] overflow-hidden">
+  <div class="flex h-[90vh] overflow-hidden shadow-sm">
     <!-- Map Section -->
     <div class="w-1/2 h-full">
       <img src="REPLACE_WITH_MAP_IMAGE.png" alt="Map" class="w-full h-full object-cover" />
     </div>
 
     <!-- Listings Section -->
-    <div class="w-1/2 overflow-y-scroll p-6">
+    <div class="w-1/2 overflow-y-scroll p-6 shadow-lg" style="height: 90vh">
       <div class="flex justify-between items-center mb-4">
         <div>
           <h2 class="text-lg font-semibold">Kansas Rental Buildings</h2>
           <p class="text-sm text-gray-500">112 Results</p>
         </div>
-        <select class="px-3 py-1 border rounded text-sm">
-          <option>Name</option>
-        </select>
+
+        <div class="flex items-center gap-2">
+          <p>Sort by:</p>
+          <select class="px-3 py-1 border rounded text-sm">
+            <option>Name</option>
+          </select>
+        </div>
       </div>
 
       <!-- Grid of Property Cards -->
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-3 gap-4">
         <!-- Card Start -->
         <div class="bg-white rounded shadow overflow-hidden">
           <div class="relative">
-            <img src="REPLACE_WITH_PROPERTY_IMAGE.jpg" alt="Property" class="w-full h-40 object-cover" />
-            <span class="absolute top-2 right-2 bg-purple-600 text-white text-xs px-2 py-1 rounded">Rent</span>
+            <img
+              src="REPLACE_WITH_PROPERTY_IMAGE.jpg"
+              alt="Property"
+              class="w-full h-40 object-cover"
+            />
+            <span class="absolute top-2 right-2 bg-purple-600 text-white text-xs px-2 py-1 rounded"
+              >Rent</span
+            >
             <!-- Or use "20%" tag if applicable -->
           </div>
           <div class="p-4">
+            <div class="flex justify-between items-center">
             <p class="text-lg font-semibold">3.000$</p>
             <p class="text-sm text-gray-500">London, United Kingdom</p>
+            </div>
             <div class="flex gap-4 mt-2 text-sm text-gray-600">
-              <div class="flex items-center gap-1">
-                <span>🛏</span> 2 Beds
-              </div>
-              <div class="flex items-center gap-1">
-                <span>🛁</span> 2 Baths
-              </div>
+              <div class="flex items-center gap-1"><span>🛏</span> 2 Beds</div>
+              <div class="flex items-center gap-1"><span>🛁</span> 2 Baths</div>
             </div>
           </div>
         </div>
@@ -67,4 +88,4 @@
       </div>
     </div>
   </div>
-
+</div>
