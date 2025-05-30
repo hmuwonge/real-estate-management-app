@@ -9,5 +9,6 @@ namespace SawaTech.PropertyMini.NearByPlaces
     public class CreateUpdateNearbyPlace
     {
         public required string Name { get; set; }
+        public string Icon { get; set; } = string.Empty;
     }
 }
