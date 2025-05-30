@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text.Json.Serialization;
 using SawaTech.PropertyMini.Addresses;
 using SawaTech.PropertyMini.Amenities;
+using SawaTech.PropertyMini.Governorates;
+using SawaTech.PropertyMini.NearbyPlaces;
 using SawaTech.PropertyMini.Properties;
 using SawaTech.PropertyMini.Users;
 using Volo.Abp.Domain.Entities.Auditing;
-using SawaTech.PropertyMini.NearbyPlaces;
-using SawaTech.PropertyMini.Governorates;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace SawaTech.PropertyMini.PublicProperties;
 
@@ -19,7 +19,7 @@ public class Property : AuditedAggregateRoot<Guid>
     public Guid OwnerId { get; set; }
     public Guid GovernorateId { get; set; }
 
-    public AccountUser Owner { get;} = null!;
+    public AccountUser Owner { get; } = null!;
     public string? Description { get; set; } = string.Empty;
     public Guid PropertyTypeId { get; set; }
 
@@ -37,13 +37,13 @@ public class Property : AuditedAggregateRoot<Guid>
 
     [JsonIgnore]
     public virtual ICollection<PropertyAmenity> PropertyAmenities { get; set; } = [];
-    
+
     [JsonIgnore]
     public virtual ICollection<PropertyFeature> PropertyFeatures { get; set; } = [];
 
     [NotMapped]
     public List<Amenity>? Amenities => PropertyAmenities?.Select(static pa => pa.Amenity).ToList();
-    
+
     [NotMapped]
     public List<Feature>? Features => PropertyFeatures?.Select(pa => pa.Feature).ToList();
 

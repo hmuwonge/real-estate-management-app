@@ -1,0 +1,9 @@
+s
+(SawaTech.PropertyMini.DbMigrator.Programobject?
+	Program()2SawaTech.PropertyMini.DbMigrator.Program.Program()Ê
+=SawaTech.PropertyMini.DbMigrator.PropertyMiniDbMigratorModuleVolo.Abp.Modularity.AbpModuleobject~
+PropertyMiniDbMigratorModule()\SawaTech.PropertyMini.DbMigrator.PropertyMiniDbMigratorModule.PropertyMiniDbMigratorModule()È
+8SawaTech.PropertyMini.DbMigrator.DbMigratorHostedServiceobject+Microsoft.Extensions.Hosting.IHostedService¡
+ÅDbMigratorHostedService(Microsoft.Extensions.Hosting.IHostApplicationLifetime, Microsoft.Extensions.Configuration.IConfiguration)∫SawaTech.PropertyMini.DbMigrator.DbMigratorHostedService.DbMigratorHostedService(Microsoft.Extensions.Hosting.IHostApplicationLifetime, Microsoft.Extensions.Configuration.IConfiguration)ô
+.StartAsync(System.Threading.CancellationToken)gSawaTech.PropertyMini.DbMigrator.DbMigratorHostedService.StartAsync(System.Threading.CancellationToken)ó
+-StopAsync(System.Threading.CancellationToken)fSawaTech.PropertyMini.DbMigrator.DbMigratorHostedService.StopAsync(System.Threading.CancellationToken)

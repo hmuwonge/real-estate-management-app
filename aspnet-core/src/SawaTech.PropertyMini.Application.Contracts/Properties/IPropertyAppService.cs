@@ -16,5 +16,4 @@ public interface IPropertyAppService: IApplicationService
     Task<GeneralResponse> CreateAsync(CreateUpdatePropertyDto input);
     Task<PropertyDto> UpdateAsync(Guid id, CreateUpdatePropertyDto input);
     Task DeleteAsync(Guid id);
-    //Task<PagedResultDto<PropertyDto>> GetListAsync(PagedAndSortedResultRequestDto input, PropertyFilterDto filter = null);
 }

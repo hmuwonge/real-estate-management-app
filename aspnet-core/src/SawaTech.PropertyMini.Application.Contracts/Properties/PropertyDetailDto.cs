@@ -16,8 +16,7 @@ namespace SawaTech.PropertyMini.Properties
         public string PaymentType { get; set; }= string.Empty;
         public List<PropertyImageDto> Images { get; set; }= null!;
         public List<PropertyFeatureDto> Features { get; set; }= null!;
-        public List<SinglePropertyAmenityDto> Amenities { get; set; } = null!;
+        public new List<SinglePropertyAmenityDto> Amenities { get; set; } = null!;
         public List<NearbyPlaceDto> NearbyPlaces { get; set; }= null!;
-        // public PropertyVideoDto? Video { get; set; }
     }
 }

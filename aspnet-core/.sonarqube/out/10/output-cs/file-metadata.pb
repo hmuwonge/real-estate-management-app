@@ -1,0 +1,19 @@
+Ø
+£D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\obj\Debug\net9.0\SawaTech.PropertyMini.Application.AssemblyInfo.csutf-8¨
+†D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.csutf-8è
+ÖD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\UserProfile\UserProfileAppService.csutf-8ê
+ÜD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\UserProfile\IUserProflieAppService.csutf-8è
+ÖD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\UserAccount\UserAccountAppService.csutf-8ô
+èD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PublicProperties\PublicPropertiesAppService.csutf-8í
+àD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PublicProperties\PropertyFilterInput.csutf-8í
+àD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyTypes\PropertyTypeAppService.csutf-8É
+zD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyMiniAppService.csutf-8ã
+ÅD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyMiniApplicationModule.csutf-8ñ
+åD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyMiniApplicationAutoMapperProfile.csutf-8Ö
+|D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyGalleryContainer.csutf-8ò
+éD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyFeatures\PropertyFeatureAppService.csutf-8ç
+ÉD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyData\PropertyAppService.csutf-8ë
+áD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyAmenities\AmenityAppService.csutf-8Ñ
+{D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\Properties\AssemblyInfo.csutf-8ë
+áD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\NearbyPlaces\NearbyPlacesAppService.csutf-8î
+äD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\GovernoratesApp\GovernoratesAppService.csutf-8

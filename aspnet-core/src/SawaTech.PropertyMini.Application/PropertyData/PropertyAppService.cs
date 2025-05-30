@@ -106,6 +106,20 @@ public class PropertyAppService(
         return ObjectMapper.Map<Property, PropertyDto>(property);
     }
 
+    private static async Task<string> SaveMainImageAsync(IFormFile mainImage, string uploadsPath, string baseUrl)
+    {
+        var mainFileName = Path.GetFileName(mainImage.FileName);
+        var mainUniqueFileName = $"{Guid.NewGuid()}_{mainFileName}";
+        var mainFilePath = Path.Combine(uploadsPath, mainUniqueFileName);
+
+        await using (var mainStream = new FileStream(mainFilePath, FileMode.Create))
+        {
+            await mainImage.CopyToAsync(mainStream);
+        }
+
+        return $"{baseUrl}/uploads/{mainUniqueFileName}";
+    }
+
     public async Task<GeneralResponse> CreateAsync([FromForm] CreateUpdatePropertyDto input)
     {
         try
@@ -125,7 +139,6 @@ public class PropertyAppService(
                 InsurancePayment = input.InsurancePayment,
                 PropertyTypeId = input.PropertyTypeId,
                 OwnerId = input.OwnerId,
-                // Governorate= new Governorate {Id = input.GovernorateId},
                 GovernorateId = input.GovernorateId,
             };
 
@@ -137,35 +150,18 @@ public class PropertyAppService(
             var request = httpContextAccessor.HttpContext?.Request;
             var baseUrl = $"{request?.Scheme}://{request?.Host}";
 
-            var mainImage = input.MainImage;
-            //set and store main property image
-            var mainFileName = Path.GetFileName(input.MainImage.FileName);
-            var mainUniqueFileName = $"{Guid.NewGuid()}_{mainFileName}";
-            var mainFilePath = Path.Combine(uploadsPath, mainUniqueFileName);
-
-            var mainStream = new FileStream(mainFilePath, FileMode.Create);
-            {
-                await mainImage.CopyToAsync(mainStream);
-            }
-
-            var mainImageFullUrl = $"{baseUrl}/uploads/{mainUniqueFileName}";
-            property.MainImage = mainImageFullUrl;
-
+            // Extracted nested block into SaveMainImageAsync method
+            property.MainImage = await SaveMainImageAsync(input.MainImage, uploadsPath, baseUrl);
 
             var images = input.PhotoUrls;
             var video = input.VideoUrl;
 
-
             await repository.InsertAsync(property, autoSave: true);
 
-            //using (var uow = unitOfWorkManager.Begin(requiresNew: true))
-            //{
             try
             {
-                // check if we have some images
                 if (images?.Count > 0)
                 {
-                    // save property images/photos
                     foreach (var image in images)
                     {
                         var fileName = Path.GetFileName(image.FileName);
@@ -189,7 +185,6 @@ public class PropertyAppService(
                     }
                 }
 
-                // Save video
                 if (video != null)
                 {
                     var fileName = Path.GetFileName(video.FileName);
@@ -213,7 +208,6 @@ public class PropertyAppService(
                     await repository.UpdateAsync(property);
                 }
 
-
                 if (input.Amenities?.Count > 0)
                 {
                     var amenityGuids = input.Amenities.Select(Guid.Parse).ToList();
@@ -226,32 +220,28 @@ public class PropertyAppService(
                     }).ToList();
                 }
 
-
-                //save property related features
                 if (input.Features?.Count > 0)
                 {
                     var featureGuids = input.Features.Select(Guid.Parse).ToList();
                     var features = await propertyFeaturesRepository.GetListAsync(
                         a => featureGuids.Contains(a.Id));
 
-                    property.PropertyFeatures = [.. features.Select(a=>new PropertyFeature
+                    property.PropertyFeatures = features.Select(a => new PropertyFeature
                     {
                         FeatureId = a.Id
-                    })];
+                    }).ToList();
                 }
 
-
-                //save property related nearby places
                 if (input.NearbyPlaces?.Count > 0)
                 {
                     var nearbyGuids = input.NearbyPlaces.Select(Guid.Parse).ToList();
                     var places = await propertyNearbyPlacesRepository.GetListAsync(
                         a => nearbyGuids.Contains(a.Id));
 
-                    property.PropertyNearbyPlaces = [.. places.Select(a=>new PropertyNearbyPlace
+                    property.PropertyNearbyPlaces = places.Select(a => new PropertyNearbyPlace
                     {
                         NearbyPlaceId = a.Id
-                    })];
+                    }).ToList();
                 }
             }
             catch (Exception e)
@@ -259,18 +249,14 @@ public class PropertyAppService(
                 Console.WriteLine(e);
                 throw;
             }
-            //}
 
-            var result=  ObjectMapper.Map<Property, PropertyDetailDto>(property);
-            return new GeneralResponse(true, "Succesfully created new property", result);
+            var result = ObjectMapper.Map<Property, PropertyDetailDto>(property);
+            return new GeneralResponse(true, "Successfully created new property", result);
         }
         catch (Exception e)
         {
-            //Console.WriteLine(e);
             return new GeneralResponse(false, e.Message, e.StackTrace);
         }
-
-       
     }
 
     public async Task<PropertyDto> UpdateAsync(Guid id, CreateUpdatePropertyDto input)
@@ -329,5 +315,24 @@ public class PropertyAppService(
         //     }
         // }
     }
+    private async Task<string> SaveFileAsync(IFormFile file, string uploadsPath, string baseUrl, string subFolder = "")
+    {
+        var fileName = Path.GetFileName(file.FileName);
+        var uniqueFileName = $"{Guid.NewGuid()}_{fileName}";
+        var filePath = Path.Combine(uploadsPath, subFolder, uniqueFileName);
+
+        if (!string.IsNullOrEmpty(subFolder) && !Directory.Exists(Path.Combine(uploadsPath, subFolder)))
+        {
+            Directory.CreateDirectory(Path.Combine(uploadsPath, subFolder));
+        }
+
+        await using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await file.CopyToAsync(stream);
+        }
+
+        return $"{baseUrl}/uploads/{subFolder}/{uniqueFileName}".TrimEnd('/');
+    }
+
 
 }

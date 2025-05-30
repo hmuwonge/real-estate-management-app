@@ -14,11 +14,6 @@ namespace SawaTech.PropertyMini.UserAccount
 
         public string UserType { get; set; } = string.Empty;
 
-        //[DataType(DataType.Password)]
-        //[Required]
-        //public string? Password { get; set; }
-
-
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]
         [Required]

@@ -37,7 +37,12 @@ namespace SawaTech.PropertyMini.UserProfile
             var user = await _userAccountRepository.FindAsync(userId.Value);
             if (user == null) return new GeneralResponse(false, "User not found");
 
-            user.UserName = dto.UserName;
+            // Fix for CS8601: Ensure dto.UserName is not null before assignment
+            if (dto.UserName != null)
+            {
+                user.UserName = dto.UserName;
+            }
+
             user.Phone = dto.PhoneNumber;
             user.WhatsApp = dto.WhatsApp;
             user.Country = dto.Country;

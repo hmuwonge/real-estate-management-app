@@ -56,7 +56,7 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
            .ForMember(dest => dest.Url, opt => opt.MapFrom(src => src.Url));
 
 
-        CreateMap<CreateUpdatePropertyDto, Property>()
+        _ = CreateMap<CreateUpdatePropertyDto, Property>()
             .ForMember(
                 dest => dest.Amenities,
                 opt =>
@@ -102,6 +102,12 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.NearbyPlace.Id));
 
         CreateMap<Governorate, GovernorateDetailDto>();
+
+        //home mappings
+        CreateMap<Property, ExploreHomesDto>()
+           .ForMember(dest => dest.MainImage, opt => opt.MapFrom(src => src.MainImage))
+           .ForMember(dest => dest.Governorate, opt => opt.MapFrom(src => src.Governorate.Name))
+           .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
     }
 }

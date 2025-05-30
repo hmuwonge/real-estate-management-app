@@ -21,7 +21,6 @@ namespace SawaTech.PropertyMini.PropertyTypes
 
         public async Task<PropertyTypeDto> CreateAsync(CreateUpdatePropertyTypeDto input)
         {
-            //var propertyType = ObjectMapper.Map<CreateUpdatePropertyTypeDto, PropertyType>(input);
             var propertyType = new PropertyType
             {
                 Name = input.Name

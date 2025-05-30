@@ -41,10 +41,6 @@ public class CreateUpdatePropertyDto
     [Range(0, 1000)]
     public int Rooms { get; set; }
 
-    // related data
-    // [Required]
-    // public PropertyType PropertType { get; set; }
-
     [Required]
     public PropertyStatus PropertyStatus { get; set; }
 

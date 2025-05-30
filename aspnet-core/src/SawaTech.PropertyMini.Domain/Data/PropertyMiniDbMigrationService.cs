@@ -11,7 +11,6 @@ using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
-//using Volo.Abp.TenantManagement;
 
 namespace SawaTech.PropertyMini.Data;
 
@@ -21,19 +20,15 @@ public class PropertyMiniDbMigrationService : ITransientDependency
 
     private readonly IDataSeeder _dataSeeder;
     private readonly IEnumerable<IPropertyMiniDbSchemaMigrator> _dbSchemaMigrators;
-    //private readonly ITenantRepository _tenantRepository;
-    //private readonly ICurrentTenant _currentTenant;
 
     public PropertyMiniDbMigrationService(
         IDataSeeder dataSeeder,
         IEnumerable<IPropertyMiniDbSchemaMigrator> dbSchemaMigrators,
-        //ITenantRepository tenantRepository,
-        ICurrentTenant currentTenant)
+        ICurrentTenant currentTenant
+    )
     {
         _dataSeeder = dataSeeder;
         _dbSchemaMigrators = dbSchemaMigrators;
-        //_tenantRepository = tenantRepository;
-        //_currentTenant = currentTenant;
 
         Logger = NullLogger<PropertyMiniDbMigrationService>.Instance;
     }
@@ -54,32 +49,7 @@ public class PropertyMiniDbMigrationService : ITransientDependency
 
         Logger.LogInformation($"Successfully completed host database migrations.");
 
-        //var tenants = await _tenantRepository.GetListAsync(includeDetails: true);
-
         var migratedDatabaseSchemas = new HashSet<string>();
-        //foreach (var tenant in tenants)
-        //{
-        //    using (_currentTenant.Change(tenant.Id))
-        //    {
-        //        if (tenant.ConnectionStrings.Any())
-        //        {
-        //            var tenantConnectionStrings = tenant.ConnectionStrings
-        //                .Select(x => x.Value)
-        //                .ToList();
-
-        //            if (!migratedDatabaseSchemas.IsSupersetOf(tenantConnectionStrings))
-        //            {
-        //                await MigrateDatabaseSchemaAsync(tenant);
-
-        //                migratedDatabaseSchemas.AddIfNotContains(tenantConnectionStrings);
-        //            }
-        //        }
-
-        //        await SeedDataAsync(tenant);
-        //    }
-
-        //    Logger.LogInformation($"Successfully completed {tenant.Name} tenant database migrations.");
-        //}
 
         Logger.LogInformation("Successfully completed all database migrations.");
         Logger.LogInformation("You can safely end this process...");
@@ -87,22 +57,24 @@ public class PropertyMiniDbMigrationService : ITransientDependency
 
     private async Task MigrateDatabaseSchemaAsync() //Tenant? tenant = null
     {
-        //Logger.LogInformation(
-        //    $"Migrating schema for {(tenant == null ? "host" : tenant.Name + " tenant")} database...");
-
         foreach (var migrator in _dbSchemaMigrators)
         {
             await migrator.MigrateAsync();
         }
     }
 
-    private async Task SeedDataAsync() //Tenant? tenant = null
+    private async Task SeedDataAsync()
     {
-        //Logger.LogInformation($"Executing {(tenant == null ? "host" : tenant.Name + " tenant")} database seed...");
-
-        await _dataSeeder.SeedAsync(new DataSeedContext() //tenant?.Id
-            .WithProperty(IdentityDataSeedContributor.AdminEmailPropertyName, IdentityDataSeedContributor.AdminEmailDefaultValue)
-            .WithProperty(IdentityDataSeedContributor.AdminPasswordPropertyName, IdentityDataSeedContributor.AdminPasswordDefaultValue)
+        await _dataSeeder.SeedAsync(
+            new DataSeedContext() //tenant?.Id
+                .WithProperty(
+                    IdentityDataSeedContributor.AdminEmailPropertyName,
+                    IdentityDataSeedContributor.AdminEmailDefaultValue
+                )
+                .WithProperty(
+                    IdentityDataSeedContributor.AdminPasswordPropertyName,
+                    IdentityDataSeedContributor.AdminPasswordDefaultValue
+                )
         );
     }
 
@@ -149,7 +121,8 @@ public class PropertyMiniDbMigrationService : ITransientDependency
     private bool MigrationsFolderExists()
     {
         var dbMigrationsProjectFolder = GetEntityFrameworkCoreProjectFolderPath();
-        return dbMigrationsProjectFolder != null && Directory.Exists(Path.Combine(dbMigrationsProjectFolder, "Migrations"));
+        return dbMigrationsProjectFolder != null
+            && Directory.Exists(Path.Combine(dbMigrationsProjectFolder, "Migrations"));
     }
 
     private void AddInitialMigration()
@@ -159,7 +132,10 @@ public class PropertyMiniDbMigrationService : ITransientDependency
         string argumentPrefix;
         string fileName;
 
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        if (
+            RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
+            || RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+        )
         {
             argumentPrefix = "-c";
             fileName = "/bin/bash";
@@ -170,7 +146,8 @@ public class PropertyMiniDbMigrationService : ITransientDependency
             fileName = "cmd.exe";
         }
 
-        var procStartInfo = new ProcessStartInfo(fileName,
+        var procStartInfo = new ProcessStartInfo(
+            fileName,
             $"{argumentPrefix} \"abp create-migration-and-run-migrator \"{GetEntityFrameworkCoreProjectFolderPath()}\"\""
         );
 
@@ -178,9 +155,9 @@ public class PropertyMiniDbMigrationService : ITransientDependency
         {
             Process.Start(procStartInfo);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw new Exception("Couldn't run ABP CLI...");
+            throw new InvalidOperationException("Couldn't run ABP CLI. Ensure the CLI is installed and accessible.", ex);
         }
     }
 
@@ -195,7 +172,8 @@ public class PropertyMiniDbMigrationService : ITransientDependency
 
         var srcDirectoryPath = Path.Combine(slnDirectoryPath, "src");
 
-        return Directory.GetDirectories(srcDirectoryPath)
+        return Directory
+            .GetDirectories(srcDirectoryPath)
             .FirstOrDefault(d => d.EndsWith(".EntityFrameworkCore"));
     }
 
@@ -207,7 +185,12 @@ public class PropertyMiniDbMigrationService : ITransientDependency
         {
             currentDirectory = Directory.GetParent(currentDirectory.FullName);
 
-            if (currentDirectory != null && Directory.GetFiles(currentDirectory.FullName).FirstOrDefault(f => f.EndsWith(".sln")) != null)
+            if (
+                currentDirectory != null
+                && Directory
+                    .GetFiles(currentDirectory.FullName)
+                    .FirstOrDefault(f => f.EndsWith(".sln")) != null
+            )
             {
                 return currentDirectory.FullName;
             }

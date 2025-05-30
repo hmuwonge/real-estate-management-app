@@ -17,7 +17,6 @@ using Property = SawaTech.PropertyMini.PublicProperties.Property;
 namespace SawaTech.PropertyMini.PublicProperties;
 
 public class PublicPropertiesAppService(
-    IRepository<Property, Guid> repository,
     PropertyMiniDbContext dbContext)
     : ApplicationService, IPublicPropertyAppService
 {
@@ -41,28 +40,36 @@ public class PublicPropertiesAppService(
 
     }
 
+
+
     public async Task<GeneralResponse> GetPublicPropertyAsync(Guid id)
     {
         try
         {
             var property = await dbContext.Properties
-           .Include(p => p.PropertyAmenities)
-           .ThenInclude(p => p.Amenity)
-           .Include(p => p.PropertyImages)
-           .Include(p => p.PropertyFeatures)
-           .Include(p => p.PropertyType)
-           .Include(p => p.PropertyNearbyPlaces)
-           .ThenInclude(p => p.NearbyPlace)
-           .Include(p => p.Owner)
-            .Include(p=>p.Governorate)
-           .FirstOrDefaultAsync(p => p.Id == id);
+                .Include(p => p.PropertyAmenities)
+                .ThenInclude(p => p.Amenity)
+                .Include(p => p.PropertyImages)
+                .Include(p => p.PropertyFeatures)
+                .Include(p => p.PropertyType)
+                .Include(p => p.PropertyNearbyPlaces)
+                .ThenInclude(p => p.NearbyPlace)
+                .Include(p => p.Owner)
+                .Include(p => p.Governorate)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (property == null)
+            {
+                return new GeneralResponse(false, "Property not found", null);
+            }
+
             var result = ObjectMapper.Map<Property, PropertyListDto>(property);
             return new GeneralResponse(true, "success", result);
         }
-        catch (Exception ex) { 
+        catch (Exception ex)
+        {
             return new GeneralResponse(false, ex.Message, ex.StackTrace);
         }
-       
     }
 
     public async Task<List<PropertyDto>> GetFilteredPropertiesAsync(PropertyFilterDto filter)
@@ -82,5 +89,21 @@ public class PublicPropertiesAppService(
             ).ToListAsync();
         
         return ObjectMapper.Map<List<Property>, List<PropertyDto>>(result);
+    }
+
+    public async Task<GeneralResponse> GetExploreHomePropertyListAsync()
+    {
+        try
+        {
+            var properties = await dbContext.Properties.Include(p=>p.Governorate).ToListAsync();
+
+
+            var list = ObjectMapper.Map<List<Property>, List<ExploreHomesDto>>(properties);
+            return new GeneralResponse(true, "success", list);
+        }
+        catch (Exception ex)
+        {
+            return new GeneralResponse(false, ex.Message, ex.StackTrace);
+        }
     }
 }

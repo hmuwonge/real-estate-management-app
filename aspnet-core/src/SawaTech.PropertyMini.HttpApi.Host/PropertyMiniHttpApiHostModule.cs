@@ -127,17 +127,19 @@ public class PropertyMiniHttpApiHostModule : AbpModule
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
-        //context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
         context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
         {
             options.IsDynamicClaimsEnabled = true;
         });
         var configuration = context.Services.GetConfiguration();
 
-
         context.Services.Configure<JwtSection>(configuration.GetSection("JwtSection"));
         var jwtSection = configuration.GetSection(nameof(JwtSection)).Get<JwtSection>();
 
+        if (jwtSection?.Key == null)
+        {
+            throw new InvalidOperationException("JwtSection.Key cannot be null. Please ensure it is configured properly in the application settings.");
+        }
 
         context.Services.AddAuthentication(options =>
         {
@@ -148,17 +150,16 @@ public class PropertyMiniHttpApiHostModule : AbpModule
             options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
             {
                 ValidateIssuer = true,
-                ValidIssuer = configuration["AuthServer:Authority"],  //jwtSection!.Issuer,
+                ValidIssuer = configuration["AuthServer:Authority"],
                 ValidateAudience = true,
-                ValidAudience = configuration["AuthServer:Audience"],//jwtSection.Audience 
+                ValidAudience = configuration["AuthServer:Audience"],
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.Key!))
-                
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.Key))
             };
         });
     }
-
+    
    
 
     private void ConfigureUrls(IConfiguration configuration)

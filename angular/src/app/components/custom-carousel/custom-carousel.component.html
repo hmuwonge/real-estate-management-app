@@ -1,0 +1,50 @@
+<!-- custom-carousel.component.html -->
+<div class="relative max-w-7xl mx-auto overflow-hidden rounded-lg shadow-xl"
+     (mouseenter)="stopAutoRotation()"
+     (mouseleave)="startAutoRotation()"
+     (touchstart)="onTouchStart($event)"
+     (touchend)="onTouchEnd($event)">
+
+  <!-- Navigation Buttons -->
+  <button class="absolute top-1/2 left-4 z-10 -translate-y-1/2 bg-white/70 text-gray-800 rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:bg-white/90 transition-all"
+          (click)="prev()">
+    &lt;
+  </button>
+
+  <button class="absolute top-1/2 right-4 z-10 -translate-y-1/2 bg-white/70 text-gray-800 rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:bg-white/90 transition-all"
+          (click)="next()">
+    &gt;
+  </button>
+
+  <!-- Carousel Track -->
+  <div class="relative h-80 overflow-hidden">
+    <div class="flex h-full transition-transform duration-500 ease-in-out"
+         [style.transform]="'translateX(-' + (currentIndex * (100/visibleItems)) + '%)'">
+      <div *ngFor="let item of items"
+           class="flex-shrink-0 w-full px-2"
+           [ngClass]="{
+             'md:w-1/2': visibleItems >= 2,
+             'lg:w-1/3': visibleItems >= 3,
+             'xl:w-1/4': visibleItems >= 3
+           }">
+        <div class="relative h-full">
+          <img [src]="item.imageUrl" [alt]="item.title" class="w-full h-full object-cover rounded">
+          <div class="absolute bottom-0 left-2 right-2 bg-black/50 text-white p-3 text-center rounded-b">
+            <h3 class="text-lg font-medium truncate">{{item.title}}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicators -->
+  <div class="flex justify-center space-x-2 py-4">
+    <span *ngFor="let indicator of getIndicatorArray(); let i = index"
+          class="inline-block w-3 h-3 rounded-full cursor-pointer transition-colors"
+          [ngClass]="{
+            'bg-gray-800': isIndicatorActive(i),
+            'bg-gray-300': !isIndicatorActive(i)
+          }"
+          (click)="goTo(i * visibleItems)"></span>
+  </div>
+</div>

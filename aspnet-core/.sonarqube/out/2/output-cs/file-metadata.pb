@@ -1,0 +1,32 @@
+•
+ôD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\obj\Debug\net9.0\SawaTech.PropertyMini.Domain.AssemblyInfo.csutf-8ß
+õD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.csutf-8~
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\Users\RefreshTokenInfo.csutf-8y
+pD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\Users\AccountUser.csutf-8Ö
+|D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\Settings\PropertyMiniSettings.csutf-8ó
+çD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\Settings\PropertyMiniSettingDefinitionProvider.csutf-8Ä
+wD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyMiniDomainModule.csutf-8z
+qD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyMiniConsts.csutf-8Ü
+}D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyEntities\PropertyVideo.csutf-8à
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyEntities\PropertyTypeDto.csutf-8Ö
+|D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyEntities\PropertyType.csutf-8ä
+ÄD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyEntities\PropertyOwnerDto.csutf-8ç
+ÉD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyEntities\PropertyNearbyPlace.csutf-8ä
+ÄD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyEntities\PropertyImageDto.csutf-8Ü
+}D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyEntities\PropertyImage.csutf-8à
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyEntities\PropertyFeature.csutf-8ä
+ÄD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyEntities\PropertyAmenity .csutf-8Å
+xD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyEntities\Property.csutf-8Ñ
+{D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyEntities\LocationDto.csutf-8Ä
+wD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyEntities\Feature.csutf-8à
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\PropertyAppDataSeederContributor.csutf-8
+vD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\Properties\AssemblyInfo.csutf-8ë
+áD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\OpenIddict\OpenIddictDataSeedContributor.csutf-8Ä
+wD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\NearbyPlaces\NearbyPlace.csutf-8z
+qD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\Helpers\JwtSection.csutf-8Ä
+wD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\Governorates\Governorate.csutf-8å
+ÇD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\Data\PropertyMiniDbMigrationService.csutf-8é
+ÑD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\Data\NullPropertyMiniDbSchemaMigrator.csutf-8ã
+ÅD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\Data\IPropertyMiniDbSchemaMigrator.csutf-8y
+pD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\Amenities\Amenity.csutf-8y
+pD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain\Addresses\Address.csutf-8

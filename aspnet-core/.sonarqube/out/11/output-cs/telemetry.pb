@@ -1,0 +1,1 @@
+­R–D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\test\SawaTech.PropertyMini.Application.Tests\SawaTech.PropertyMini.Application.Tests.csproj¢net9.0òCSharp13

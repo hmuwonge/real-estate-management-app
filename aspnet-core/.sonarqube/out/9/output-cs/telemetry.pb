@@ -1,0 +1,1 @@
+žR‡D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.DbMigrator\SawaTech.PropertyMini.DbMigrator.csproj¢net9.0òCSharp13

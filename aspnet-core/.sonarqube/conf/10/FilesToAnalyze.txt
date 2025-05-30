@@ -1,0 +1,16 @@
+﻿D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\GovernoratesApp\GovernoratesAppService.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\NearbyPlaces\NearbyPlacesAppService.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\Properties\AssemblyInfo.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyAmenities\AmenityAppService.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyData\PropertyAppService.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyFeatures\PropertyFeatureAppService.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyGalleryContainer.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyMiniApplicationAutoMapperProfile.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyMiniApplicationModule.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyMiniAppService.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PropertyTypes\PropertyTypeAppService.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PublicProperties\PropertyFilterInput.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\PublicProperties\PublicPropertiesAppService.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\UserAccount\UserAccountAppService.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\UserProfile\IUserProflieAppService.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application\UserProfile\UserProfileAppService.cs
