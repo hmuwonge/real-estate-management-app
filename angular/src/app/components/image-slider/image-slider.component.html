@@ -20,11 +20,12 @@
   
     <!-- "+N Images" button -->
     <div 
-      class="relative w-36 h-24 cursor-pointer rounded overflow-auto-x"
+      class="relative w-36 h-24 cursor-pointer rounded-lg overflow-auto-x"
       (click)="openModal(previewLimit)"
     >
       <img [src]="images[previewLimit]" class="w-full h-full object-cover " alt="More">
-      <div class="absolute inset-0 bg-transparent bg-opacity-50  flex items-center justify-center text-white font-semibold text-lg">
+      <div class="absolute inset-0 bg-transparent bg-opacity-50  flex items-center justify-center
+       text-white font-semibold text-lg rounded-lg">
         +{{ images.length - previewLimit }} Images
       </div>
     </div>
@@ -55,7 +56,7 @@
   
         <img 
           [src]="images[currentModalIndex]" 
-          class="h-[350px] w-auto object-cover rounded shadow-md"
+          class="h-[350px] w-full object-cover rounded shadow-md"
           alt="Carousel Image"
         />
   
