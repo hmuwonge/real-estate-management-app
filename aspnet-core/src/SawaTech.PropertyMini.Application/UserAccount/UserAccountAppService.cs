@@ -36,7 +36,7 @@ namespace SawaTech.PropertyMini.UserAccount
 
         public async Task<GeneralResponse> RegisterAsync([FromForm] CreateUpdateAccountDto? user)
         {
-            var httpContext = httpContextAccessor.HttpContext;
+            var httpContext = _httpContextAccessor.HttpContext;
             if (httpContext == null)
                 return new GeneralResponse(false, "HttpContext is null");
             if (user is null)

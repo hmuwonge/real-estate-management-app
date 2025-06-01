@@ -62,7 +62,7 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
                 dest => dest.Amenities,
                 opt =>
                     opt.MapFrom(src =>
-                        src.Amenities.Select(name => new Amenity { Name = name }).ToList()
+                        (src.Amenities ?? Enumerable.Empty<string>()).Select(name => new Amenity { Name = name }).ToList()
                     )
             );
 

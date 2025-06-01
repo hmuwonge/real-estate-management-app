@@ -45,7 +45,7 @@ public class CreateUpdatePropertyDto
     public PropertyStatus Status { get; set; }
 
     // amenities
-    public List<string>? Amenities { get; set; } = [];
+    public List<string>? Amenities { get; set; } = new List<string>();
     public List<string>? Features { get; set; } = [];
 
     //nearby places
