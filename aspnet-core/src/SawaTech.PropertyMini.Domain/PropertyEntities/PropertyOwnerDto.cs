@@ -11,6 +11,7 @@ namespace SawaTech.PropertyMini.PublicProperties
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; }= string.Empty;
         public string PhoneNumber { get; set; }= string.Empty;
+        public string WhatsApp { get; set; }= string.Empty;
         public string ProfileImageUrl { get; set; }= string.Empty;
     }
 }

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { UsersService } from '../../services/users.service';
+import { UsersService } from '../../services/users/users.service';
 import { LoginResponse } from '../../models/AuthenticationResponse';
 
 @Component({

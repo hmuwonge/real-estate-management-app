@@ -11,6 +11,6 @@ namespace SawaTech.PropertyMini.PublicProperties
     {
         public Guid Id { get; set; }
         public string MainImage { get; set; } = string.Empty;
-        public GovernorateDetailDto Governorate { get; set; } = null!;
+        public string GovernorateName { get; set; } = null!;
     }
 }

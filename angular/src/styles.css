@@ -6,7 +6,7 @@
 @import "tailwindcss";
 
 .bg-primary{
-  color: #725DB4
+  background-color: #725DB4
 }
 
 .primary{

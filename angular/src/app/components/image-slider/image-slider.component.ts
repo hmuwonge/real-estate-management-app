@@ -5,21 +5,13 @@ import { Component, Input } from '@angular/core';
   selector: 'app-image-slider',
   imports: [CommonModule],
   templateUrl: './image-slider.component.html',
+  standalone: true,
   styleUrl: './image-slider.component.css'
 })
 export class ImageSliderComponent {
-  // @Input() images: string[] = [];
+  @Input() images: string[] = [];
 
-  images = [
-    '../images/slide1.jpg',
-    '../images/slide2.jpg',
-    '../images/slide3.jpg',
-    '../images/slide4.jpg',
-    '../images/slide5.jpg',
-    '../images/slide6.jpg',
-  ];
-
-  isModalOpen = false;
+   isModalOpen = false;
   currentModalIndex = 0;
 
   selectedImage: string = this.images[0];

@@ -8,7 +8,7 @@ namespace SawaTech.PropertyMini.Governorates;
 
 public interface IGovernorateAppService : IApplicationService
 {
-    Task<List<GovernorateDto>> GetListAsync();
+    Task<GeneralResponse> GetListAsync();
     Task<GovernorateDto> GetAsync(Guid id);
     Task<GovernorateDto> CreateAsync(CreateUpdateGovernorateDto input);
     Task<GovernorateDto> UpdateAsync(Guid id, CreateUpdateGovernorateDto input);

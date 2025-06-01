@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, Input, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { HomeProperty } from '../../models/HomeProperty.model';
 
@@ -9,8 +9,9 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-carousel',
-  imports: [CommonModule,NgIcon],
+  imports: [CommonModule, NgIcon],
   templateUrl: './home-carousel.component.html',
+  standalone: true,
   styleUrl: './home-carousel.component.css'
 })
 export class HomeCarouselComponent implements OnInit, OnDestroy {
@@ -22,6 +23,7 @@ export class HomeCarouselComponent implements OnInit, OnDestroy {
   private resizeObserver: ResizeObserver;
   visibleItems = 1;
   arrowRightIcon = featherAirplay;
+  defaultImage: string ='images/nofeatureimage.jpg';
 
   constructor(private router: Router) {
     this.updateVisibleItems();

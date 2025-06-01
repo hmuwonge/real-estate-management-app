@@ -11,9 +11,9 @@ namespace SawaTech.PropertyMini.Properties;
 
 public interface IPropertyAppService: IApplicationService
 {
-    Task<ListResultDto<PropertyDto>> GetListAsync(PropertyFilterDto? filterDto =null, string? sortBy=null, bool sortDescending=false,int? maxResults=10);
-    Task<PropertyDto> GetAsync(Guid id);
+    Task<GeneralResponse> GetListAsync(PropertyFilterDto? filterDto =null, string? sortBy=null, bool sortDescending=false,int? maxResults=10);
+    Task<GeneralResponse> GetAsync(Guid id);
     Task<GeneralResponse> CreateAsync(CreateUpdatePropertyDto input);
-    Task<PropertyDto> UpdateAsync(Guid id, CreateUpdatePropertyDto input);
-    Task DeleteAsync(Guid id);
+    Task<GeneralResponse> UpdateAsync(Guid id, CreateUpdatePropertyDto input);
+    Task<GeneralResponse> DeleteAsync(Guid id);
 }

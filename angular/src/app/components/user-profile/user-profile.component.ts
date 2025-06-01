@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UsersService } from '../../services/users.service';
+import { UsersService } from '../../services/users/users.service';
 import { CommonModule } from '@angular/common';
 import { countries } from 'country-list-json';
 
@@ -8,6 +8,7 @@ import { countries } from 'country-list-json';
   selector: 'app-user-profile',
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './user-profile.component.html',
+  standalone: true,
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent implements OnInit {
@@ -97,6 +98,7 @@ export class UserProfileComponent implements OnInit {
       }
     });
   }
+
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {

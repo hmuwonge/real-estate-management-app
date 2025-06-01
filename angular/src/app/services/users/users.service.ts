@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environment';
-import { LoginResponse } from './../models/AuthenticationResponse';
+import { environment } from '../../../environment';
+import { LoginResponse } from '../../models/AuthenticationResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -81,11 +81,27 @@ export class UsersService {
     return this.http.put<any>(url, formData);
   }
 
+  private isTokenExpired(token: string): boolean {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const expirationTime = payload.exp * 1000; // Convert to milliseconds
+      // console.log('Token expiration time:', new Date(expirationTime));
+      // console.log('Current time:', new Date(Date.now()));
+      return Date.now() > expirationTime;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return true; // Assume expired if there's an error
+    }
+  }
+
   isAuthenticated(): boolean {
     const accessToken = localStorage.getItem('accessToken');
+
+
     if (!accessToken)      return false;
 
     const tokenExpired = this.isTokenExpired(accessToken);
+    // console.log('Token expired:', tokenExpired);
     if (tokenExpired) {
       this.logout();
       return false;
@@ -93,14 +109,5 @@ export class UsersService {
     return true;
   }
 
-  private isTokenExpired(token: string): boolean {
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const expirationTime = payload.exp * 1000; // Convert to milliseconds
-      return Date.now() > expirationTime;
-    } catch (error) {
-      console.error('Error decoding token:', error);
-      return true; // Assume expired if there's an error
-    }
-  }
+
 }

@@ -1,0 +1,19 @@
+
+<div class="p-4">
+  <button (click)="onCreate()" class="bg-primary rounded-md p-2 text-white mb-4">Add Amenity</button>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <app-amenities-list
+      [amenities]="amenities"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+    ></app-amenities-list>
+
+    <app-amenity-form
+      [amenity]="selectedEntity"
+      (formSubmit)="onSubmit($event)"
+      (cancel)="resetForm()"
+    ></app-amenity-form>
+  </div>
+
+</div>

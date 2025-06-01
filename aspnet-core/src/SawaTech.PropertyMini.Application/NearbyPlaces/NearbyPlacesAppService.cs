@@ -62,7 +62,7 @@ namespace SawaTech.PropertyMini.NearbyPlaces
             }
             else
             {
-                return new GeneralResponse(false, "Failed", null);
+                return new GeneralResponse(false, "Failed, Item not found", null);
             }
 
         }

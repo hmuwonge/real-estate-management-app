@@ -1,5 +1,5 @@
 export interface HomeProperty {
   id: string;
-  governorate: string|null;
+  governorateName: string|null;
   mainImage: string|null;
 }

@@ -8,6 +8,7 @@ using SawaTech.PropertyMini.PublicProperties;
 using SawaTech.PropertyMini.PropertyTypes;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using SawaTech.PropertyMini.AuthResponses;
 
 namespace SawaTech.PropertyMini.PropertyFeatures
 {
@@ -35,15 +36,17 @@ namespace SawaTech.PropertyMini.PropertyFeatures
             return ObjectMapper.Map<Feature, PropertyFeatureDto>(propertyFeature);
         }
 
-        public async Task<PropertyFeatureDto> CreateAsync(CreateUpdatePropertyFeaturesDto input)
+        public async Task<GeneralResponse> CreateAsync(CreateUpdatePropertyFeaturesDto input)
         {
+
             var propertyFeature = new Feature
             {
                 Name = input.Name,
                 IconUrl = input.IconUrl,
             };
             await _repository.InsertAsync(propertyFeature);
-            return ObjectMapper.Map<Feature, PropertyFeatureDto>(propertyFeature);
+            var amenity= ObjectMapper.Map<Feature, PropertyFeatureDto>(propertyFeature);
+            return new GeneralResponse(true, "Successfully create amenity", amenity);
         }
 
         public async Task<PropertyFeatureDto> UpdateAsync(

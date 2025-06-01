@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, UrlTree } from '@angular/router';
-import { UsersService } from './users.service';
+import { UsersService } from '../users/users.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class AuthGuardService implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | UrlTree | Promise<boolean> | UrlTree | boolean {
 
-    const isAuthenticated = this.userService.isAuthenticated;
+    const isAuthenticated = this.userService.isAuthenticated.bind(this.userService);
 
     const userType = localStorage.getItem('userType');
 

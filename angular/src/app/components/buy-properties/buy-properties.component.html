@@ -1,90 +1,137 @@
 <div class="my-8">
-  <div class="text-center"><h2 class="text-2xl font-semibold">Buy Your Perfct Property</h2></div>
-  <!-- Filter Bar -->
-  <div class="w-full bg-blue-50 max-w-5xl rounded mx-auto shadow p-2 border-2 border-blue-300 flex flex-wrap justify-center gap-6">
-    <select
-      class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-    >
-      <option>Region</option>
-    </select>
-    <select
-      class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-    >
-      <option>For Buy</option>
-    </select>
-    <select
-      class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-    >
-      <option>Price</option>
-    </select>
-    <select
-      class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-    >
-      <option>Area</option>
-    </select>
-    <select
-      class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-    >
-      <option>Type</option>
-    </select>
-    <select
-      class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-    >
-      <option>More</option>
-    </select>
-    <button class="bg-purple-700 text-white px-6 py-2 rounded">Search</button>
+  <div class="text-center">
+    <h2 class="text-2xl font-semibold">{{ pageTitle }}</h2>
   </div>
 
-  <!-- Main Layout -->
-  <div class="flex h-[90vh] overflow-hidden shadow-sm">
-    <!-- Map Section -->
-    <div class="w-1/2 h-full">
-      <img src="REPLACE_WITH_MAP_IMAGE.png" alt="Map" class="w-full h-full object-cover" />
+  <!-- Filter Bar -->
+  <form [formGroup]="searchForm" (ngSubmit)="searchProperties()" class="w-full bg-blue-50 max-w-6xl
+  rounded mx-auto shadow p-4 border-2 border-blue-300 flex flex-wrap justify-center gap-4">
+    <!-- Region -->
+    <select formControlName="GovernorateId" class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+      <option value="">All Regions</option>
+      <option *ngFor="let region of regions" [value]="region.id">{{region.name}}</option>
+    </select>
+
+    <!-- Buy Status -->
+    <select formControlName="status" class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+      <option value="Rent">For Rent</option>
+      <option value="Sell">For Sell</option>
+    </select>
+
+    <!-- Price Range -->
+<!--    <div class="flex items-center gap-2">-->
+<!--      <input type="number" formControlName="minPrice" placeholder="Min $" class="px-3 py-2 border rounded-sm w-24">-->
+<!--      <span>-</span>-->
+<!--      <input type="number" formControlName="maxPrice" placeholder="Max $" class="px-3 py-2 border rounded-sm w-24">-->
+<!--    </div>-->
+
+    <!-- Area Range -->
+<!--    <div class="flex items-center gap-2">-->
+<!--      <input type="number" formControlName="minArea" placeholder="Min sqft" class="px-3 py-2 border rounded-sm w-24">-->
+<!--      <span>-</span>-->
+<!--      <input type="number" formControlName="maxArea" placeholder="Max sqft" class="px-3 py-2 border rounded-sm w-24">-->
+<!--    </div>-->
+
+    <!-- Property Type -->
+    <select formControlName="type" class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+      <option value="">All Types</option>
+      <option *ngFor="let type of propertyTypes" [value]="type.id">{{type.name}}</option>
+    </select>
+
+      <!-- Price Range -->
+    <select formControlName="priceRange" class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+      <option *ngFor="let range of priceRanges" [value]="range.value">{{range.label}}</option>
+    </select>
+
+    <!-- Area Range -->
+    <select formControlName="areaRange" class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+      <option *ngFor="let range of areaRanges" [value]="range.value">{{range.label}}</option>
+    </select>
+
+    <!-- Search Button -->
+    <div class="flex gap-2">
+      <button type="submit" class="bg-purple-700 text-white px-6 py-2 rounded hover:bg-purple-800">
+        Search
+      </button>
+      <button type="button" (click)="resetFilters()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">
+        Reset
+      </button>
     </div>
+  </form>
+
+  <!-- Main Layout -->
+  <div class="flex h-[90vh] overflow-hidden shadow-sm mt-4">
+    <!-- Map Section -->
+    <div id="map" class="w-1/2 h-full"></div>
 
     <!-- Listings Section -->
-    <div class="w-1/2 overflow-y-scroll p-6 shadow-lg" style="height: 90vh">
+    <div class="w-1/2 overflow-y-auto p-6 shadow-lg" style="height: 90vh">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h2 class="text-lg font-semibold">Kansas Rental Buildings</h2>
-          <p class="text-sm text-gray-500">112 Results</p>
+          <h2 class="text-lg font-semibold">Available Properties</h2>
+          <p class="text-sm text-gray-500">{{totalResults}} Results</p>
         </div>
 
         <div class="flex items-center gap-2">
-          <p>Sort by:</p>
-          <select class="px-3 py-1 border rounded text-sm">
-            <option>Name</option>
+          <p class="text-sm">Sort by:</p>
+          <select  class="px-3 py-1 border rounded text-sm border-gray-300">
+            <option value="true">True</option>
+            <option value="false">False</option>
+<!--            <option>Price: Low to High</option>-->
+<!--            <option>Price: High to Low</option>-->
+<!--            <option>Area: Small to Large</option>-->
+<!--            <option>Area: Large to Small</option>-->
           </select>
         </div>
       </div>
 
-      <!-- Grid of Property Cards -->
-      <div class="grid grid-cols-3 gap-4">
-        <!-- Card Start -->
-        <div class="bg-white rounded shadow overflow-hidden">
+      <!-- Loading Indicator -->
+      <div *ngIf="loading" class="flex justify-center items-center h-64">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+      </div>
+
+      <!-- Properties Grid -->
+      <div *ngIf="!loading" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Property Card -->
+        <div *ngFor="let property of properties" class="bg-white hidden rounded shadow overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+             (click)="centerMapOnProperty(property)">
           <div class="relative">
-            <img
-              src="REPLACE_WITH_PROPERTY_IMAGE.jpg"
-              alt="Property"
-              class="w-full h-40 object-cover"
-            />
-            <span class="absolute top-2 right-2 bg-purple-600 text-white text-xs px-2 py-1 rounded"
-              >Rent</span
-            >
-            <!-- Or use "20%" tag if applicable -->
+            <img [src]="property.mainImage || 'assets/default-property.jpg'" alt="Property" class="w-full h-40 object-cover">
+            <span class="absolute top-2 right-2 bg-purple-600 text-white text-xs px-2 py-1 rounded">
+<!--              {{property.}}-->
+            </span>
           </div>
           <div class="p-4">
             <div class="flex justify-between items-center">
-            <p class="text-lg font-semibold">3.000$</p>
-            <p class="text-sm text-gray-500">London, United Kingdom</p>
+              <p class="text-lg font-semibold">{{property.price | currency}}</p>
+<!--              <p class="text-sm text-gray-500">{{property.address}}</p>-->
             </div>
             <div class="flex gap-4 mt-2 text-sm text-gray-600">
-              <div class="flex items-center gap-1"><span>🛏</span> 2 Beds</div>
-              <div class="flex items-center gap-1"><span>🛁</span> 2 Baths</div>
+              <div class="flex items-center gap-1">
+<!--                <span>🛏</span> {{property.bedrooms}} Beds-->
+              </div>
+              <div class="flex items-center gap-1">
+<!--                <span>🛁</span> {{property.bathrooms}} Baths-->
+              </div>
+              <div class="flex items-center gap-1">
+                <span>📏</span> {{property.area}} sqft
+              </div>
             </div>
           </div>
         </div>
-        <!-- Repeat Card as Needed -->
+
+        <app-property-card
+          *ngFor="let property of properties" (click)="centerMapOnProperty(property)"
+          [property]="property"
+        ></app-property-card>
+
+        <!-- No Results -->
+        <div *ngIf="properties.length === 0" class="col-span-2 text-center py-12">
+          <p class="text-gray-500">No properties found matching your criteria</p>
+          <button (click)="resetFilters()" class="mt-4 text-purple-600 hover:underline">
+            Reset filters
+          </button>
+        </div>
       </div>
     </div>
   </div>

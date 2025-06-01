@@ -42,7 +42,7 @@ public class CreateUpdatePropertyDto
     public int Rooms { get; set; }
 
     [Required]
-    public PropertyStatus PropertyStatus { get; set; }
+    public PropertyStatus Status { get; set; }
 
     // amenities
     public List<string>? Amenities { get; set; } = [];

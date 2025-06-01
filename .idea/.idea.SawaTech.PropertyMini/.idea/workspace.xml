@@ -11,27 +11,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9f27306-c951-4355-bf25-39c0ce74982e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/angular/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/app.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/Utils/HandleResponse.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/Utils/HandleResponse.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/app.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/components/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/components/login/login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/components/user-profile/user-profile.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/components/user-profile/user-profile.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/components/user-profile/user-profile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/components/user-profile/user-profile.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/auth.interceptor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/auth.interceptor.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/components/image-slider/image-slider.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/components/image-slider/image-slider.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/components/property-details/property-details.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/components/property-details/property-details.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/components/property-details/property-details.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/components/property-details/property-details.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/home/home.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/home/home.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/services/auth-guard.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/services/auth-guard.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/services/properties.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/services/properties.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/services/users.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/services/users.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/environment.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/Properties/IPropertyAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/Properties/IPropertyAppService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/UserAccount/CreateUpdateAccountDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/UserAccount/CreateUpdateAccountDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/UserAccount/IUserAccountAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/UserAccount/IUserAccountAppService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/UserProfile/UpdateAccountDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/UserProfile/UpdateAccountDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyAmenities/AmenityAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyAmenities/AmenityAppService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyFeatures/PropertyFeatureAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyFeatures/PropertyFeatureAppService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyMiniApplicationAutoMapperProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyMiniApplicationAutoMapperProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PublicProperties/PropertyListDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PublicProperties/PropertyListDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PublicProperties/PublicPropertiesAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PublicProperties/PublicPropertiesAppService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/UserAccount/UserAccountAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/UserAccount/UserAccountAppService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/Property.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/Property.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/PropertyListDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/PropertyListDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/PropertyOwnerDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/PropertyOwnerDto.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +42,22 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitLabMergeRequestFiltersHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPENED",
+    "assignee": {
+      "type": "org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue",
+      "username": "hmuwonge",
+      "fullname": "MUWONGE HASSAN"
+    }
+  }
+}]]></component>
+  <component name="GitLabMergeRequestsSettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "first": "https://gitlab.com/hmuwonge/sawatech-practical-assignment.git",
+    "second": "8c37c282-a153-4eb5-b11a-51d0eb000b7d"
+  }
+}]]></component>
   <component name="GitToolBoxStore">
     <option name="recentBranches">
       <RecentBranches>
@@ -194,6 +203,7 @@
       <workItem from="1748167231495" duration="27589000" />
       <workItem from="1748241589548" duration="29547000" />
       <workItem from="1748460716834" duration="851000" />
+      <workItem from="1748618705004" duration="170000" />
     </task>
     <servers />
   </component>

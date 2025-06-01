@@ -58,10 +58,11 @@ namespace SawaTech.PropertyMini.GovernoratesApp
             return ObjectMapper.Map<Governorate, GovernorateDto>(governorate);
         }
 
-        public async Task<List<GovernorateDto>> GetListAsync()
+        public async Task<GeneralResponse> GetListAsync()
         {
             var governorates = await repository.GetListAsync();
-            return ObjectMapper.Map<List<Governorate>, List<GovernorateDto>>(governorates);
+            var list = ObjectMapper.Map<List<Governorate>, List<GovernorateDto>>(governorates);
+            return new GeneralResponse(true, "success", list);
         }
 
         public async Task<GovernorateDto> UpdateAsync(Guid id, CreateUpdateGovernorateDto input)

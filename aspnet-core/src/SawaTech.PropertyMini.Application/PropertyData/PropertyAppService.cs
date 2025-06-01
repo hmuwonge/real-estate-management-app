@@ -25,7 +25,6 @@ namespace SawaTech.PropertyMini.PropertyData;
 
 public class PropertyAppService(
     IRepository<Property, Guid> repository,
-    IBlobContainer<PropertyGalleryContainer> blobContainer,
     IRepository<PropertyImage, Guid> propertyImageRepository,
     IRepository<PropertyVideo, Guid> propertyVideoRepository,
     IRepository<Amenity, Guid> propertyAmenityRepository,
@@ -35,13 +34,12 @@ public class PropertyAppService(
     IRepository<Feature, Guid> propertyFeaturesRepository,
     IRepository<NearbyPlace, Guid> propertyNearbyPlacesRepository,
     IHttpContextAccessor httpContextAccessor
-    //IUnitOfWorkManager unitOfWorkManager
     )
     : ApplicationService, IPropertyAppService, ITransientDependency
 {
     private readonly IRepository<PropertyVideo, Guid> _propertViedoRepository = propertyVideoRepository;
 
-    public async Task<ListResultDto<PropertyDto>> GetListAsync(
+    public async Task<GeneralResponse> GetListAsync(
         PropertyFilterDto? filterDto = null,
         string? sortBy = null,
         bool sortDescending = false,
@@ -95,15 +93,18 @@ public class PropertyAppService(
 
         // 4. Execute query and map results
         var properties = await AsyncExecuter.ToListAsync(queryable);
-        return new ListResultDto<PropertyDto>(
+        var results = new ListResultDto<PropertyDto>(
             ObjectMapper.Map<List<Property>, List<PropertyDto>>(properties)
         );
+
+        return new GeneralResponse(true,"Properties retrieved successfully",results);
     }
 
-    public async Task<PropertyDto> GetAsync(Guid id)
+    public async Task<GeneralResponse> GetAsync(Guid id)
     {
         var property = await repository.GetAsync(id);
-        return ObjectMapper.Map<Property, PropertyDto>(property);
+        var results = ObjectMapper.Map<Property, PropertyDto>(property);
+        return new GeneralResponse(true, "Success", results);
     }
 
     private static async Task<string> SaveMainImageAsync(IFormFile mainImage, string uploadsPath, string baseUrl)
@@ -120,7 +121,7 @@ public class PropertyAppService(
         return $"{baseUrl}/uploads/{mainUniqueFileName}";
     }
 
-    public async Task<GeneralResponse> CreateAsync([FromForm] CreateUpdatePropertyDto input)
+    public async Task<  GeneralResponse> CreateAsync([FromForm] CreateUpdatePropertyDto input)
     {
         try
         {
@@ -140,6 +141,7 @@ public class PropertyAppService(
                 PropertyTypeId = input.PropertyTypeId,
                 OwnerId = input.OwnerId,
                 GovernorateId = input.GovernorateId,
+                Status = input.Status.ToString(),
             };
 
             var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
@@ -259,29 +261,28 @@ public class PropertyAppService(
         }
     }
 
-    public async Task<PropertyDto> UpdateAsync(Guid id, CreateUpdatePropertyDto input)
+    public async Task<GeneralResponse> UpdateAsync(Guid id, CreateUpdatePropertyDto input)
     {
         var property = await repository.GetAsync(id);
         ObjectMapper.Map(input, property);
         await repository.UpdateAsync(property);
-        return ObjectMapper.Map<Property, PropertyDto>(property);
+        var data = ObjectMapper.Map<Property, PropertyDto>(property);
+        return new GeneralResponse(true, "Success", data);
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<GeneralResponse> DeleteAsync(Guid id)
     {
-        await repository.DeleteAsync(id);
+        var property = await repository.GetAsync(id);
+        if (property == null)
+        {
+            return new GeneralResponse(false, "Property not found", null);
+        }
+
+        await repository.DeleteAsync(id); // Fix: Removed pattern matching on void return type
+        return new GeneralResponse(true, "Success", null);
     }
 
-    public async Task<Stream> GetImageAsync(string blobName)
-    {
-        return await blobContainer.GetAsync(blobName);
-    }
-
-    public async Task<Stream> GetVideoAsync(string blobName)
-    {
-        return await blobContainer.GetAsync(blobName);
-    }
-
+   
     private async Task ValidateRelationships(CreateUpdatePropertyDto input)
     {
         

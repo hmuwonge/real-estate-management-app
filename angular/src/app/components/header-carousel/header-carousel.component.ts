@@ -6,6 +6,7 @@ import { HeaderSlider } from '../../models/HeaderSlider.mode';
   selector: 'app-header-carousel',
   imports: [CommonModule],
   templateUrl: './header-carousel.component.html',
+  standalone: true,
   styleUrl: './header-carousel.component.css'
 })
 export class HeaderCarouselComponent implements OnInit, OnDestroy {

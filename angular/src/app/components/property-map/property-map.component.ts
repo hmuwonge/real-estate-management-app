@@ -13,6 +13,7 @@ declare global {
   templateUrl: './property-map.component.html',
   styleUrls: ['./property-map.component.css'],
   imports: [GoogleMapsModule],
+  standalone: true
 })
 export class PropertyMapComponent implements OnInit, OnDestroy {
   center: google.maps.LatLngLiteral = { lat: 0, lng: 0 };
@@ -91,7 +92,7 @@ export class PropertyMapComponent implements OnInit, OnDestroy {
   loadGoogleMaps() {
     if (typeof google === 'undefined' || !google.maps) {
       window.initMap = () => this.onMapLoad();
-      
+
       const script = document.createElement('script');
       script.src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}&callback=initMap`;
       script.async = true;
