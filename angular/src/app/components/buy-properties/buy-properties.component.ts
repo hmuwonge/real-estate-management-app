@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PropertyType } from '../../models/PropertyDetails.mode';
 import { Region } from '../../shared/models/region.model';
 import { SimilarProperty } from '../../models/SimilarProperty.model';
 import { PropertiesService } from '../../services/properties/properties.service';
 import * as L from 'leaflet';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { handleResponse } from '../../shared/utils/HandleResponse';
 import { GeneralResponse } from '../../shared/utils/GeneralResponse';
 import { CommonModule } from '@angular/common';
@@ -12,12 +13,12 @@ import { ActivatedRoute } from '@angular/router';
 import { PropertyCardComponent } from '../shared/property-card/property-card.component';
 @Component({
   selector: 'app-buy-properties',
-  imports: [CommonModule, ReactiveFormsModule, PropertyCardComponent],
+  imports: [CommonModule, ReactiveFormsModule, PropertyCardComponent, LeafletModule],
   standalone: true,
   templateUrl: './buy-properties.component.html',
   styleUrl: './buy-properties.component.css'
 })
-export class BuyPropertiesComponent implements OnInit {
+export class BuyPropertiesComponent implements OnInit, OnDestroy {
   searchForm: FormGroup;
   propertyTypes: PropertyType[] = [];
   regions: Region[] = [];
@@ -26,10 +27,20 @@ export class BuyPropertiesComponent implements OnInit {
   markers: L.Marker[] = [];
   loading = false;
   totalResults: number | undefined = 0;
-  sortDescending: boolean | false =true;
-   propertyType: 'buy' | 'rent' = 'buy'; // Default to 'buy'
+  sortDescending: boolean | false = true;
+  propertyType: 'buy' | 'rent' = 'buy'; // Default to 'buy'
   pageTitle = 'Buy Your Perfect Property';
 
+  // Map options
+  mapOptions = {
+    layers: [
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      })
+    ],
+    zoom: 13,
+    center: [51.505, -0.09] as L.LatLngExpression
+  };
   // Predefined options for price and area
   priceRanges = [
     { label: 'Any Price', value: '' },
@@ -55,11 +66,11 @@ export class BuyPropertiesComponent implements OnInit {
   ];
 
 
-    private mapInitialized = false;
+  // private mapInitialized = false;
   constructor(
     private propertiesService: PropertiesService,
     private fb: FormBuilder,
-     private route: ActivatedRoute
+    private route: ActivatedRoute
   ) {
     this.searchForm = this.fb.group({
       GovernorateId: [''],
@@ -87,13 +98,6 @@ export class BuyPropertiesComponent implements OnInit {
       });
     });
 
-    // Initialize map only once
-      if (!this.mapInitialized) {
-        this.initMap();
-        this.mapInitialized = true;
-      }
-
-
     // this.initMap();
     this.loadFilters();
     this.searchProperties();
@@ -103,6 +107,11 @@ export class BuyPropertiesComponent implements OnInit {
     this.pageTitle = this.propertyType === 'rent'
       ? 'Rent Your Perfect Property'
       : 'Buy Your Perfect Property';
+  }
+
+  onMapReady(map: L.Map) {
+    this.map = map;
+    this.updateMapMarkers();
   }
 
 
@@ -167,7 +176,9 @@ export class BuyPropertiesComponent implements OnInit {
       next: (response) => {
         this.properties = response;
         this.totalResults = response?.length;
-        this.updateMapMarkers();
+        if (this.map) {
+          this.updateMapMarkers();
+        }
         this.loading = false;
       },
       error: (err) => {
@@ -177,25 +188,20 @@ export class BuyPropertiesComponent implements OnInit {
     });
   }
 
-   updateMapMarkers(): void {
-    // Clear existing markers
-    this.markers.forEach(marker => this.map.removeLayer(marker));
-    this.markers = [];
+  updateMapMarkers(): void {
+    this.clearMarkers();
 
-    // Add new markers
     this.properties.forEach(property => {
       if (property.latitude && property.longitude) {
         const marker = L.marker([property.latitude, property.longitude])
           .addTo(this.map)
           .bindPopup(`<b>${property.title}</b><br>$${property.price.toLocaleString()}`);
-
         this.markers.push(marker);
       }
     });
 
-    // Fit map to bounds if we have markers
     if (this.markers.length > 0) {
-      const group = new L.FeatureGroup(this.markers);
+      const group = L.featureGroup(this.markers);
       this.map.fitBounds(group.getBounds().pad(0.2));
     }
   }
@@ -211,9 +217,9 @@ export class BuyPropertiesComponent implements OnInit {
     }
   }
 
-  resetFilters(): void {
+ resetFilters(): void {
     this.searchForm.reset({
-      status: 'Sell',
+      status: this.propertyType === 'rent' ? 'Rent' : 'Sell',
       GovernorateId: '',
       type: '',
       priceRange: '',
@@ -221,5 +227,11 @@ export class BuyPropertiesComponent implements OnInit {
       sortDescending: false
     });
     this.searchProperties();
+  }
+
+   ngOnDestroy(): void {
+    if (this.map) {
+      this.map.remove();
+    }
   }
 }

@@ -21,7 +21,7 @@
     <div class="flex h-full transition-transform duration-500 ease-in-out"
          [style.transform]="'translateX(-' + (currentIndex * (100/visibleItems)) + '%)'">
       <div *ngFor="let item of items"
-           class="flex-shrink-0 w-full px-2"
+           class="flex-shrink-0 w-full "
            [ngClass]="{
              'md:w-1/2': visibleItems >= 2,
              'lg:w-1/3': visibleItems >= 3,

@@ -5,7 +5,7 @@
 >
   <div class="relative">
     <span
-      class="absolute top-3 right-3 bg-white/90 text-gray-800 px-2 py-1 rounded text-xs font-medium shadow-sm"
+      class="absolute top-3 right-3 bg-white/90 text-gray-800  py-1 rounded text-xs font-medium shadow-sm"
       [ngClass]="{
         'bg-green-100 text-green-800': property.propertyType === 'Sale',
         'bg-blue-100 text-blue-800': property.propertyType === 'Rent'
@@ -25,7 +25,7 @@
       <h3 class="text-lg font-bold text-gray-900">
         {{ property.price | currency:'USD':'symbol':'1.0-0' }}
       </h3>
-      <span *ngIf="property.isFeatured" class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">
+      <span *ngIf="property.isFeatured" class="bg-yellow-100 text-yellow-800 text-xs  py-1 rounded">
         Featured
       </span>
     </div>
@@ -34,7 +34,7 @@
     </p>
     <div class="flex justify-between items-center">
       <button
-        class="px-0 bottom-0 py-1 md:px-0 md:py-2 bg-white/90 text-gray-800 rounded-md
+        class=" bottom-0 py-1 md: md:py-2 bg-white/90 text-gray-800 rounded-md
            hover:bg-gray-300 text-sm  transition-colors cursor-pointor"
         (click)="navigateToDetails(property)"
       >
