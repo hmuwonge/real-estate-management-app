@@ -30,10 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-<!--    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite" Version="4.1.0-preview*" />-->
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SawaTech.PropertyMini.Application\SawaTech.PropertyMini.Application.csproj" />
     <ProjectReference Include="..\SawaTech.PropertyMini.EntityFrameworkCore\SawaTech.PropertyMini.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\SawaTech.PropertyMini.HttpApi\SawaTech.PropertyMini.HttpApi.csproj" />
@@ -48,6 +44,10 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\uploads\properties\host\property-images\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="dab-options.json.user" />
   </ItemGroup>
 
 </Project>

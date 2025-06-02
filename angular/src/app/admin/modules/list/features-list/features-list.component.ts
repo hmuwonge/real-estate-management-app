@@ -1,17 +1,18 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Amenity } from '../../../../shared/models/amenity.model';
 import { CommonModule } from '@angular/common';
+import { Feature } from '../../../../shared/models/feature.model';
 
 @Component({
-  selector: 'app-amenities-list',
+  selector: 'app-features-list',
   imports: [CommonModule],
-  templateUrl: './amenities-list.component.html',
+  templateUrl: './features-list.component.html',
   standalone: true,
-  styleUrl: './amenities-list.component.css'
+  styleUrl: './features-list.component.css'
 })
-export class AmenitiesListComponent {
-  @Input() amenities: Amenity[] = [];
-  @Output() edit = new EventEmitter<Amenity>();
+export class FeaturesListComponent {
+  @Input() features: Feature[] = [];
+  @Output() edit = new EventEmitter<Feature>();
   @Output() delete = new EventEmitter<string>();
 
 

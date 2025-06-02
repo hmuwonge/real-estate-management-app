@@ -49,7 +49,7 @@ namespace SawaTech.PropertyMini.UserAccount
             // save user
             var userAccount = new AccountUser
             {
-                Type = user.UserType,
+                Type = "Agent",
                 Email = user.Email,
                 UserName = user.UserName,
                 CompanyEmail = user.CompanyMail,
@@ -113,48 +113,55 @@ namespace SawaTech.PropertyMini.UserAccount
 
         public async Task<LoginResponse> LoginAsync(LoginDto? user)
         {
-            if (user is null)
-                return new LoginResponse(false, null, "Model is empty");
+            //try
+            //{
+                if (user is null)
+                    return new LoginResponse(false, null, "Model is empty");
 
-            var checkUser = await FindUserByEmail(user.Email!);
-            if (checkUser == null)
-                return new LoginResponse(false, null, "", "", $"{user.Email} User not registered");
+                var checkUser = await FindUserByEmail(user.Email!);
+                if (checkUser == null)
+                    return new LoginResponse(false, null, "", "", $"{user.Email} User not registered");
 
-            if (!BCrypt.Net.BCrypt.Verify(user.Password!, checkUser.Password!))
-                return new LoginResponse(false, null, "", "", "Invalid password");
+                if (!BCrypt.Net.BCrypt.Verify(user.Password!, checkUser.Password!))
+                    return new LoginResponse(false, null, "", "", "Invalid password");
 
-            // Generate JWT token
-            var token = GenerateJwtToken(checkUser);
-            var refreshToken = GenerateRefreshToken();
+                // Generate JWT token
+                var token = GenerateJwtToken(checkUser);
+                var refreshToken = GenerateRefreshToken();
 
-            var findUser = await userRefreshTokenRepository.FirstOrDefaultAsync(x =>
-                x.UserId == checkUser.Id
-            );
+                var findUser = await userRefreshTokenRepository.FirstOrDefaultAsync(x =>
+                    x.UserId == checkUser.Id
+                );
 
-            if (findUser is not null)
-            {
-                findUser!.Token = refreshToken;
-                await userRefreshTokenRepository.UpdateAsync(findUser);
-            }
-            else
-            {
-                var refreshTokenInfo = new RefreshTokenInfo
+                if (findUser is not null)
                 {
-                    UserId = checkUser.Id,
-                    Token = refreshToken,
-                    //ExpirationDate = DateTime.UtcNow.AddDays(30) // Set expiration date for 30 days
-                };
-                await userRefreshTokenRepository.InsertAsync(refreshTokenInfo);
-            }
+                    findUser!.Token = refreshToken;
+                    await userRefreshTokenRepository.UpdateAsync(findUser);
+                }
+                else
+                {
+                    var refreshTokenInfo = new RefreshTokenInfo
+                    {
+                        UserId = checkUser.Id,
+                        Token = refreshToken,
+                        //ExpirationDate = DateTime.UtcNow.AddDays(30) // Set expiration date for 30 days
+                    };
+                    await userRefreshTokenRepository.InsertAsync(refreshTokenInfo);
+                }
 
-            var userData = new Payload(
-                UserName: checkUser.UserName,
-                UserType: checkUser.Type,
-                Email: checkUser.Email,
-                Id: checkUser.Id
-            );
+                var userData = new Payload(
+                    UserName: checkUser.UserName,
+                    UserType: checkUser.Type,
+                    Email: checkUser.Email,
+                    Id: checkUser.Id
+                );
 
-            return new LoginResponse(true, userData, token, refreshToken, "Logged in successfully");
+                return new LoginResponse(true, userData, token, refreshToken, "Logged in successfully");
+            //}catch(Exception ex)
+            //{
+            //    //throw ex.Message ;
+            //}
+          
         }
 
         private static string GenerateRefreshToken()

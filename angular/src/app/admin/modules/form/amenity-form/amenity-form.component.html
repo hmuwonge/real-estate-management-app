@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6 bg-white p-6 rounded-lg shadow">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6 bg-white p-6  border border-gray-200 rounded-lg shadow">
   <div>
     <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
     <input
@@ -6,7 +6,7 @@
       id="name"
       formControlName="name"
       placeholder="Enter amenity name"
-      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+      class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm p-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
     >
     <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="mt-1 text-sm text-red-600">
       Name is required (max 50 characters)
@@ -30,6 +30,7 @@
     >
       Cancel
     </button>
+    <!-- {{amenity?.name}} -->
     <button
       type="submit"
       [disabled]="form.invalid"

@@ -12,7 +12,7 @@ namespace SawaTech.PropertyMini.PropertyAmenities
         Task<AmenityDto> GetAsync(Guid id);
         Task<GeneralResponse> CreateAsync(CreateUpdateAmenityDto input);
         Task<AmenityDto> UpdateAsync(Guid id, CreateUpdateAmenityDto input);
-        Task DeleteAsync(Guid id);
+        Task<GeneralResponse> DeleteAsync(Guid id);
     }
    
 }

@@ -34,6 +34,8 @@ export abstract class BaseCrudComponent<T extends BaseEntity> implements OnInit{
 
   onDelete(id: string) {
     this.entities = this.entities.filter(e => e.id !== id);
+
+    // console.log(this.entities)
   }
 
   onSubmita(entity: T) {

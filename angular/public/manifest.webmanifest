@@ -1,6 +1,6 @@
 {
-  "name": "Appointment",
-  "short_name": "Appointment",
+  "name": "PropertyMini",
+  "short_name": "PropertyMini",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

@@ -54,7 +54,7 @@ export class LoginComponent {
           return;
         }
 
-        this.userService.setAuthStatus(true, response.userData?.userType, response.userData?.userName, response.accessToken);
+        this.userService.setAuthStatus(true, response.userData, response.accessToken);
 
 
         // if (this.userService.isAgent) {

@@ -9,7 +9,7 @@ namespace SawaTech.PropertyMini.PropertyFeatures
 {
     public interface IPropertyFeatureAppService : IApplicationService
     {
-        Task<List<PropertyFeatureDto>> GetListAsync();
+        Task<GeneralResponse> GetListAsync();
         Task<PropertyFeatureDto> GetAsync(Guid id);
         Task<GeneralResponse> CreateAsync(CreateUpdatePropertyFeaturesDto input);
         Task<PropertyFeatureDto> UpdateAsync(Guid id, CreateUpdatePropertyFeaturesDto input);

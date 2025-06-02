@@ -1,6 +1,15 @@
 
-<div class="p-4">
-  <button (click)="onCreate()" class="bg-primary rounded-md p-2 text-white mb-4">Add Amenity</button>
+<div class="py-6 max-h-svh mx-auto">
+  <h2 class=" text-purple-700 mb-4 font-bold text-lg"> Amenity</h2>
+
+  <div *ngIf="errorMessage !== null" class="w-full p-4 bg-red-500">
+    <p>{{errorMessage}}</p>
+  </div>
+
+   <div *ngIf="successMessage !== null" class="w-60 p-4 bg-green-200 rounded-md text-600">
+    <p>{{successMessage}}</p>
+  </div>
+
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <app-amenities-list

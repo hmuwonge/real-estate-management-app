@@ -12,6 +12,7 @@ import { ManagePropertiesComponent } from './components/manage-properties/manage
 import { AgentDashboardComponent } from './components/agent-dashboard/agent-dashboard.component';
 import { AmenitiesComponent } from './admin/modules/amenities/amenities.component';
 import { CreatePropertyComponent } from './admin/modules/properties/create-property/create-property.component';
+import { FeaturesComponent } from './admin/modules/features/features.component';
 
 export const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -49,12 +50,18 @@ export const routes: Routes = [
     data: { role: 'agent', expectedRole: 'agent' }
   },
    {
-    path: 'auth/dashboard/properties', component: CreatePropertyComponent,
+    path: 'auth/dashboard/create-property', component: CreatePropertyComponent,
     canActivate: [AuthGuardService],
     data: { role: 'agent', expectedRole: 'agent' }
   },
   {
     path: 'auth/dashboard/amenities', component: AmenitiesComponent,
+    canActivate: [AuthGuardService],
+    data: { role: 'agent', expectedRole: 'agent' }
+  },
+
+  {
+    path: 'auth/dashboard/features', component: FeaturesComponent,
     canActivate: [AuthGuardService],
     data: { role: 'agent', expectedRole: 'agent' }
   },

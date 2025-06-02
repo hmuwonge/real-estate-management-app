@@ -15,25 +15,43 @@ export class AuthGuardService implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | UrlTree | Promise<boolean> | UrlTree | boolean {
 
-    const isAuthenticated = this.userService.isAuthenticated.bind(this.userService);
+    // Get user data from localStorage
+    const user = localStorage.getItem('user');
 
-    const userType = localStorage.getItem('userType');
+    if (!user) {
+      this.router.navigate(['/auth/login'], {
+        queryParams: { returnUrl: state.url }
+      });
+      return false;
+    }
 
-    // check if user is authenticated and has a user type
-    if (isAuthenticated() && userType) {
-      console.log('AuthGuard: User is authenticated:', isAuthenticated());
-      console.log('AuthGuard: User type:', userType);
-      console.log('AuthGuard: Route data:', route.data);
-      // Check if the route has an expected role and if it matches the user's role
-      if (route.data['expectedRole'] && route.data['expectedRole'] !== userType.toLowerCase()) {
-        this.router.navigate(['/unauthorized']);
+    try {
+      const decodedUser = JSON.parse(user);
+      const userType = decodedUser.userType;
+
+      // Check if user is authenticated (using your service)
+      const isAuthenticated = this.userService.isAuthenticated();
+
+      if (isAuthenticated && userType) {
+        // Check route role requirements
+        if (route.data['expectedRole'] &&
+          route.data['expectedRole'] !== userType.toLowerCase()) {
+          this.router.navigate(['/unauthorized']);
+          return false;
+        }
+        return true;
+      } else {
+        this.router.navigate(['/auth/login'], {
+          queryParams: { returnUrl: state.url }
+        });
         return false;
       }
-      return true;
 
-    } else {
+    } catch (error) {
+      console.error('Error parsing user data:', error);
       this.router.navigate(['/auth/login'], {
-         queryParams: { returnUrl: state.url } });
+        queryParams: { returnUrl: state.url }
+      });
       return false;
     }
   }

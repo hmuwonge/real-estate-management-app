@@ -6,7 +6,7 @@ import { handleResponse } from '../../../shared/utils/HandleResponse';
 import { SimilarProperty } from '../../../models/SimilarProperty.model';
 import { AmenitiesListComponent } from '../list/amenities-list/amenities-list.component';
 import { AmenityFormComponent } from '../form/amenity-form/amenity-form.component';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { GeneralResponse } from '../../../shared/utils/GeneralResponse';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -14,13 +14,15 @@ import { BaseService } from '../../../services/base/base.service';
 
 @Component({
   selector: 'app-amenities',
-  imports: [AmenitiesListComponent, AmenityFormComponent],
+  imports: [AmenitiesListComponent, AmenityFormComponent,CommonModule],
   templateUrl: './amenities.component.html',
   standalone: true,
   styleUrl: './amenities.component.css'
 })
 export class AmenitiesComponent extends BaseCrudComponent<Amenity> {
   amenities: Amenity[]=[]
+  errorMessage: string | null=null;
+  successMessage: string | null=null;
 
   constructor(private amenitiesService: AmenitiesService) {
     super();
@@ -51,6 +53,8 @@ export class AmenitiesComponent extends BaseCrudComponent<Amenity> {
     }
 
   override onSubmit(formData: FormData) {
+
+    console.log(formData)
     this.getService().create(formData).pipe(
       handleResponse(),
       catchError(err => {
@@ -58,9 +62,35 @@ export class AmenitiesComponent extends BaseCrudComponent<Amenity> {
         return throwError(err);
       })
     ).subscribe({
-      next: (res) => console.log('Successful creation:', res),
+      next: (res) => {
+        console.log(res)
+      
+        this.successMessage = "success"
+      },
       error: (err) => console.error('Creation failed:', err),
-      complete: () => console.log('Create observable completed')
+      complete: () => {
+        this.successMessage=null;
+          this.loadEntities()
+      }
+    });
+  }
+
+  override onDelete(id: string): void {
+     this.getService().delete(id).pipe(
+      handleResponse(),
+      catchError(err => {
+        console.error('Full error:', err);
+        return throwError(err);
+      })
+    ).subscribe({
+      next: (res) => console.log('Successful creation:', res),
+      error: (err) => {
+        if(err)
+          this.errorMessage = err
+      },
+      complete: () => {
+        this.errorMessage =null;
+      }
     });
   }
 

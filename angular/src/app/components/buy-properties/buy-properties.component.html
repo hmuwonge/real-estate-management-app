@@ -33,7 +33,8 @@
 <!--    </div>-->
 
     <!-- Property Type -->
-    <select formControlName="type" class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+    <select formControlName="type" class="px-4 py-2 border border-gray-300 rounded-sm focus:ring-2
+     focus:ring-purple-500 focus:border-transparent">
       <option value="">All Types</option>
       <option *ngFor="let type of propertyTypes" [value]="type.id">{{type.name}}</option>
     </select>

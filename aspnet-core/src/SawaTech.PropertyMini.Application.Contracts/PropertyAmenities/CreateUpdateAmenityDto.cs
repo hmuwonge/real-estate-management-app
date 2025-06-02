@@ -12,6 +12,7 @@ namespace SawaTech.PropertyMini.PropertyAmenities
     {
         [Required]
         public  string Name { get; set; } = default!;
-        public  IFormFile Icon { get; set; } = null!;
+
+        public  IFormFile? Icon { get; set; }
     }
 }

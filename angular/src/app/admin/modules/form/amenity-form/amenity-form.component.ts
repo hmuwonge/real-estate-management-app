@@ -11,6 +11,7 @@ import { IconPickerModule } from 'ngx-icon-picker';
   standalone: true,
   styleUrl: './amenity-form.component.css'
 })
+
 export class AmenityFormComponent implements OnInit{
 @Input() amenity: Amenity |null=null;
 @Output() formSubmit = new EventEmitter<FormData>();
@@ -29,6 +30,8 @@ export class AmenityFormComponent implements OnInit{
       name: ['', [Validators.required, Validators.maxLength(50)]],
       icon: ['']
     });
+
+    console.log(this.form)
   }
 
   ngOnInit() {
@@ -69,6 +72,7 @@ export class AmenityFormComponent implements OnInit{
   }
 
   onCancel() {
+    console.log('cancel')
     this.cancel.emit();
   }
 }

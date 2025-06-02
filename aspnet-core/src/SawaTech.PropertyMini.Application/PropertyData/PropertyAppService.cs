@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SawaTech.PropertyMini.Amenities;
@@ -23,6 +24,7 @@ using static Volo.Abp.Http.MimeTypes;
 
 namespace SawaTech.PropertyMini.PropertyData;
 
+[Authorize]
 public class PropertyAppService(
     IRepository<Property, Guid> repository,
     IRepository<PropertyImage, Guid> propertyImageRepository,
@@ -98,6 +100,45 @@ public class PropertyAppService(
         );
 
         return new GeneralResponse(true,"Properties retrieved successfully",results);
+    }
+
+    public async Task<GeneralResponse> GetUserListAsync(Guid id,int? maxResults = 10
+   )
+    {
+        try
+        {
+            // 1. Get base queryable
+            var queryable = (await repository.GetQueryableAsync()).AsQueryable();
+
+            // 2. Apply filters
+            if (id != Guid.Empty)
+            {
+
+                // Rooms filter (updated with proper validation)
+                {
+                    queryable = queryable.Where(p => p.OwnerId == id);
+                }
+
+            }
+
+            // 4. Apply maxResults if specified
+            if (maxResults.HasValue && maxResults > 0)
+            {
+                queryable = queryable.Take(maxResults.Value);
+            }
+
+
+            // 4. Execute query and map results
+            var properties = await AsyncExecuter.ToListAsync(queryable);
+            var results = ObjectMapper.Map<List<Property>, List<PropertyDto>>(properties);
+
+            return new GeneralResponse(true, "Properties retrieved successfully", results);
+        }
+        catch (Exception ex)
+        {
+            return new GeneralResponse(false, ex.Message, ex.StackTrace);
+        }
+      
     }
 
     public async Task<GeneralResponse> GetAsync(Guid id)

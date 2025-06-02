@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Amenity } from '../../../../shared/models/amenity.model';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IconPickerModule } from 'ngx-icon-picker';
 import { Feature } from '../../../../shared/models/feature.model';
 
 @Component({
-  selector: 'app-amenity-form',
+  selector: 'app-feature-form',
   imports: [CommonModule, IconPickerModule, ReactiveFormsModule, FormsModule],
   templateUrl: './feature-form.component.html',
   standalone: true,

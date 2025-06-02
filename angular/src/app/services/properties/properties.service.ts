@@ -29,7 +29,14 @@ export class PropertiesService {
   }
 
   getSimilarProperties(propertyId: string):Observable<GeneralResponse<SimilarProperty[]>>{
-    const url =`${this.baseURL}app/public-properties/similar-properties/${encodeURIComponent(propertyId)}?maxResults=4`;
+    const url =`${this.baseURL}app/property/similar-properties/${encodeURIComponent(propertyId)}?maxResults=4`;
+    return this.http.get<any>(url);
+  }
+
+
+  getUserProperties(id:string):Observable<GeneralResponse<SimilarProperty[]>>{
+
+    const url =`${this.baseURL}app/property/${encodeURIComponent(id)}/user-list?maxResults=4`;
     return this.http.get<any>(url);
   }
 

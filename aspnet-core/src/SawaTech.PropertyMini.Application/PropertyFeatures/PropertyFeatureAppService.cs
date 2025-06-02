@@ -9,6 +9,10 @@ using SawaTech.PropertyMini.PropertyTypes;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using SawaTech.PropertyMini.AuthResponses;
+using SawaTech.PropertyMini.Amenities;
+using SawaTech.PropertyMini.PropertyAmenities;
+using Volo.Abp.ObjectMapping;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace SawaTech.PropertyMini.PropertyFeatures
 {
@@ -16,18 +20,36 @@ namespace SawaTech.PropertyMini.PropertyFeatures
     public class PropertyFeatureAppService : ApplicationService, IPropertyFeatureAppService
     {
         private readonly IRepository<Feature, Guid> _repository;
+        private readonly IMemoryCache _memoryCache;
 
-        public PropertyFeatureAppService(IRepository<Feature, Guid> repository)
+        public PropertyFeatureAppService(IRepository<Feature, Guid> repository, IMemoryCache memoryCache)
         {
             _repository = repository;
+            _memoryCache = memoryCache;
         }
 
-        public async Task<List<PropertyFeatureDto>> GetListAsync()
+        public async Task<GeneralResponse> GetListAsync()
         {
-            var propertyFeatures = await _repository.GetListAsync();
-            return ObjectMapper.Map<List<Feature>, List<PropertyFeatureDto>>(
-                propertyFeatures
-            );
+            try
+            {
+                const string cacheKey = "PublicFeatureList";
+
+                if (!_memoryCache.TryGetValue(cacheKey, out List<PropertyFeatureDto>? cachedList)) // Use nullable type for cachedList  
+                {
+                    var features = await _repository.GetListAsync();
+                    cachedList = ObjectMapper.Map<List<Feature>, List<PropertyFeatureDto>>(features);
+
+                    // Cache for 5 minutes  
+                    _memoryCache.Set(cacheKey, cachedList, TimeSpan.FromMinutes(5));
+                }
+
+                return new GeneralResponse(true, "Success", cachedList);
+            }
+            catch (Exception ex)
+            {
+                return new GeneralResponse(false, ex.Message, ex.StackTrace);
+            }
+          
         }
 
         public async Task<PropertyFeatureDto> GetAsync(Guid id)

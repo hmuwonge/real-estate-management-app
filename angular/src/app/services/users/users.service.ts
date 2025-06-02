@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environment';
-import { LoginResponse } from '../../models/AuthenticationResponse';
+import { LoginResponse, UserData } from '../../models/AuthenticationResponse';
+import { UserModel } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class UsersService {
   constructor(private http: HttpClient) {
     // this.isAuthenticated = !!localStorage.getItem('accessToken');
     const isUserTypeValue = localStorage.getItem('userType');
-    this.isAgent = isUserTypeValue !=null && isUserTypeValue !== undefined && isUserTypeValue.toLowerCase() === 'agent';
+    this.isAgent = isUserTypeValue != null && true && isUserTypeValue.toLowerCase() === 'agent';
     this.currentUser = localStorage.getItem('userName');
     this.userId = localStorage.getItem('userId');
   }
@@ -53,19 +54,19 @@ export class UsersService {
     return this.http.post<any>(url, formData);
   }
 
-  setAuthStatus(isAuth: boolean, userType: string, userName: string, accessToken?: string): void {
+  setAuthStatus(isAuth: boolean, user: UserData, accessToken?: string): void {
     // this.isAuthenticated = isAuthenticated;
-    this.isAgent = userType.toLowerCase() === 'agent';
-    this.currentUser = userName;
+    this.isAgent = user?.userType.toLowerCase() === 'agent';
+    this.currentUser = user?.userName;
 
     if (isAuth) {
        if (!accessToken) {
         throw new Error('Access token is required when authenticating');
       }
       localStorage.setItem('accessToken', accessToken); // Replace with actual token
-      localStorage.setItem('userType', userType);
-      localStorage.setItem('userName', userName);
-      localStorage.setItem('userId', this.userId || ''); // Ensure userId is set if available
+      localStorage.setItem('user', JSON.stringify(user))
+      // localStorage.setItem('userName', user.userName);
+      // localStorage.setItem('userId', user.userId|| ''); // Ensure userId is set if available
     } else {
       this.logout();
     }
@@ -109,5 +110,9 @@ export class UsersService {
     return true;
   }
 
+  getCurrentUser() {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
 
 }

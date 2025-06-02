@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Appointment:build:production"
+              "buildTarget": "PropertyMini:build:production"
             },
             "development": {
-              "buildTarget": "Appointment:build:development"
+              "buildTarget": "PropertyMini:build:development"
             }
           },
           "defaultConfiguration": "development"

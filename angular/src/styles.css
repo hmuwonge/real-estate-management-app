@@ -4,7 +4,6 @@
 @tailwind utilities; */
 
 @import "tailwindcss";
-
 .bg-primary{
   background-color: #725DB4
 }

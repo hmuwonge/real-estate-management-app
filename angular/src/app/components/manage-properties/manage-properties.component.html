@@ -1,5 +1,5 @@
 
-<div class="bg-gray-50 p-6 font-sans">
+<div class="bg-gray-50 p-6 font-sans mx-auto">
 
   <h1 class="text-xl font-semibold mb-6 border-b pb-2">Manage Your Estates</h1>
 
@@ -15,7 +15,7 @@
     <!-- Cards Grid -->
     <div class="grid grid-cols-5 gap-4">
       <!-- Create New Estate Card -->
-      <div class="flex items-center justify-center h-48 bg-purple-700 text-white rounded-lg cursor-pointer">
+      <div [routerLink]="['/auth/dashboard/create-property']" class="flex items-center justify-center h-48 bg-purple-700 text-white rounded-lg cursor-pointer">
         <div class="text-center">
           <div class="text-4xl">＋</div>
           <div class="text-sm font-medium mt-2">Create New Estate</div>

@@ -146,14 +146,13 @@ export class UserProfileComponent implements OnInit {
         }
         this.successMessage = 'Profile updated successfully!';
         // Optionally update the current user info
-        if (response.data) {
-          this.userService.setAuthStatus(
-            true,
-            response.data.userType || 'user',
-            response.data.username,
-            response.data.accessToken
-          );
-        }
+        // if (response.data) {
+        //   this.userService.setAuthStatus(
+        //     true,
+        //     response.data
+        //     response.data.accessToken
+        //   );
+        // }
       },
       error: (error: any) => {
         this.isLoading = false;

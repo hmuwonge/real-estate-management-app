@@ -1,40 +1,38 @@
 import { Component } from '@angular/core';
 import { BaseCrudComponent } from '../../../core/base/base-crud/base-crud.component';
-import { Amenity } from '../../../shared/models/amenity.model';
-import { AmenitiesService } from '../../../services/amenities/amenities.service';
 import { handleResponse } from '../../../shared/utils/HandleResponse';
-import { SimilarProperty } from '../../../models/SimilarProperty.model';
-import { AmenitiesListComponent } from '../list/amenities-list/amenities-list.component';
-import { AmenityFormComponent } from '../form/amenity-form/amenity-form.component';
-import { NgIf } from '@angular/common';
-import { GeneralResponse } from '../../../shared/utils/GeneralResponse';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { BaseService } from '../../../services/base/base.service';
 import { Feature } from '../../../shared/models/feature.model';
+import { FeaturesService } from '../../../services/features/features.service';
+import { FeaturesListComponent } from '../list/features-list/features-list.component';
+import { FeatureFormComponent } from '../form/features-form/feature-form.component';
 
 @Component({
   selector: 'app-amenities',
-  imports: [AmenitiesListComponent, AmenityFormComponent],
+  imports: [FeaturesListComponent, FeatureFormComponent],
   templateUrl: './features.component.html',
   standalone: true,
   styleUrl: './features.component.css'
 })
-export class FeaturesComponent extends BaseCrudComponent<Amenity> {
+export class FeaturesComponent extends BaseCrudComponent<Feature> {
   features: Feature[]=[]
 
-  constructor(private amenitiesService: AmenitiesService) {
+  constructor(private featuresServices
+    : FeaturesService) {
     super();
   }
 
-  protected override getService(): BaseService<Amenity> {
-    return this.amenitiesService;
+  protected override getService(): BaseService<Feature> {
+    return this.featuresServices
+    ;
   }
 
   override loadEntities() {
-    this.getService().getAll().pipe(handleResponse<Amenity[]>())
+    this.getService().getAll().pipe(handleResponse<Feature[]>())
       .subscribe({
-        next:(response: Amenity[]) => {
+        next:(response: Feature[]) => {
           if (!response || response.length === 0) {
             console.error('No similar properties found for the given ID:', response);
             // this.isLoading = false; // Set loading state to false if no data is found
