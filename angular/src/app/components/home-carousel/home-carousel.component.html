@@ -27,25 +27,10 @@
       class="flex h-full transition-transform duration-500 ease-in-out"
       [style.transform]="'translateX(-' + currentIndex * (100 / visibleItems) + '%)'"
     >
-      <!-- <div *ngFor="let item of items"
-           class="flex-shrink-0 w-full "
-           [ngClass]="{
-             'md:w-1/2': visibleItems >= 2,
-             'lg:w-1/3': visibleItems >= 3,
-             'xl:w-1/4': visibleItems >= 3
-           }">
-        <div class="relative h-full">
-          <img [src]="item.mainImage" [alt]="item.governorate" class="w-full h-full object-cover rounded">
-          <div class="absolute bottom-0 left-2 right-2 bg-black/50 text-white p-3 text-center rounded-b">
-            <h3 class="text-lg font-medium truncate">{{item.governorate}}</h3>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- property-card.component.html -->
+      <!-- Property Cards -->
       <div
         *ngFor="let property of items"
-        class="flex-shrink-0 w-full mb-6 gap-4"
+        class="flex-shrink-0 w-full px-2"
         [ngClass]="{
           'md:w-1/2': visibleItems >= 2,
           'lg:w-1/3': visibleItems >= 3,
@@ -53,13 +38,14 @@
         }"
       >
         <div
-          class="bg-blue-400 rounded-lg overflow-hidden shadow-md hover:shadow-lg 
-          transition-shadow duration-300 h-full flex gap-6 flex-col"
+          class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg
+          transition-shadow duration-300 h-full flex flex-col mx-auto"
+          style="max-width: 95%;"
         >
           <!-- Property Image with Badge -->
           <div class="relative flex-grow-0">
             <span
-              class="absolute top-3 left-3 text-white py-1 rounded text-2xl 
+              class="absolute top-3 left-3 text-white py-1 rounded text-2xl
               font-medium shadow-sm"
               [ngClass]="{
                 'bg-green-100 text-green-800': property.governorateName === 'Sale',
@@ -70,104 +56,24 @@
             </span>
             <img
               [src]="property.mainImage || defaultImage"
-              [alt]="property.governorateName || property.governorateName" 
-
-              class="w-full h-full object-cover"
+              [alt]="property.governorateName || property.governorateName"
+              class="w-full h-48 object-cover"
             />
           </div>
 
-          <div class="flex justify-between items-center mt-auto p-4">
+          <div class="flex justify-between items-center p-4 mt-auto">
             <button
-              class="bottom-2 py-1 md:px-4 md:py-2 bg-white/90 text-gray-800 rounded-md hover:bg-gray-300 text-sm transition-colors cursor-pointor"
+              class="py-1 px-3 md:px-4 md:py-2 bg-white/90 text-gray-800 rounded-md hover:bg-gray-300 text-sm transition-colors cursor-pointer"
               (click)="viewProperty(property)"
             >
               <div class="flex items-center space-x-2">
                 View Home
-
                 <ng-icon name="arrowRightIcon" size="16px" color="white" />
               </div>
             </button>
-            <!-- <button
-          *ngIf="showSaveButton"
-          class="p-2 text-gray-500 hover:text-red-500 transition-colors"
-          (click)="toggleSave(property)"
-        >
-          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-          </svg>
-        </button> -->
           </div>
-
-          <!-- Property Details -->
-          <!-- <div class="p-4 md:p-6 flex-grow">
-      <div class="flex justify-between items-start mb-2">
-        <h3 class="text-lg font-bold text-gray-900">
-          {{ property.price | currency:property.currency }}
-          <span *ngIf="property.type === 'Rent'" class="text-sm font-normal">/month</span>
-        </h3>
-        <span *ngIf="property.featured" class="bg-yellow-100 text-yellow-800 text-xs  py-1 rounded">
-          Featured
-        </span>
-      </div>
-
-      <p class="text-gray-600 text-sm mb-3">
-        {{ property.address || (property.governorate + ', ' + property.city) }}
-      </p>
-
-      <div class="flex flex-wrap gap-2 mb-4 text-sm text-gray-700">
-        <span class="flex items-center">
-          <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-          </svg>
-          {{ property.bedrooms }} Beds
-        </span>
-        <span class="flex items-center">
-          <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-          </svg>
-          {{ property.bathrooms }} Baths
-        </span>
-        <span *ngIf="property.area" class="flex items-center">
-          <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
-          </svg>
-          {{ property.area }} sq.ft
-        </span>
-      </div>
-
-      <div class="flex justify-between items-center mt-auto">
-        <button
-          class=" py-1 md:px-4 md:py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm  transition-colors"
-          (click)="viewProperty(property)"
-        >
-          View Details
-        </button>
-        <button
-          *ngIf="showSaveButton"
-          class="p-2 text-gray-500 hover:text-red-500 transition-colors"
-          (click)="toggleSave(property)"
-        >
-          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-          </svg>
-        </button>
-      </div>
-    </div> -->
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Indicators -->
-  <!-- <div class="flex justify-center space-x-2 py-4">
-    <span
-      *ngFor="let indicator of getIndicatorArray(); let i = index"
-      class="inline-block w-3 h-3 rounded-full cursor-pointer transition-colors"
-      [ngClass]="{
-        'bg-gray-800': isIndicatorActive(i),
-        'bg-gray-300': !isIndicatorActive(i)
-      }"
-      (click)="goTo(i * visibleItems)"
-    ></span>
-  </div> -->
 </div>
