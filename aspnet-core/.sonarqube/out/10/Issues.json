@@ -1,0 +1,998 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "4.13.0.0",
+        "fileVersion": "4.13.0-3.25210.5 (fe188fa9)",
+        "semanticVersion": "4.13.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "CS9113",
+          "level": "warning",
+          "message": "Parameter 'repository' is unread.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PublicProperties/PublicPropertiesAppService.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 33,
+                  "endLine": 20,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS9124",
+          "level": "warning",
+          "message": "Parameter 'IHttpContextAccessor httpContextAccessor' is captured into the state of the enclosing type and its value is also used to initialize a field, property, or event.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/UserAccount/UserAccountAppService.cs",
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 70,
+                  "endLine": 37,
+                  "endColumn": 89
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'source' in 'PropertyListDto IObjectMapper.Map<Property, PropertyListDto>(Property source)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PublicProperties/PublicPropertiesAppService.cs",
+                "region": {
+                  "startLine": 61,
+                  "startColumn": 70,
+                  "endLine": 61,
+                  "endColumn": 78
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/UserProfile/UserProfileAppService.cs",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 29,
+                  "endLine": 40,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8602",
+          "level": "warning",
+          "message": "Dereference of a possibly null reference.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/UserAccount/UserAccountAppService.cs",
+                "region": {
+                  "startLine": 86,
+                  "startColumn": 31,
+                  "endLine": 86,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/UserAccount/UserAccountAppService.cs",
+                "region": {
+                  "startLine": 223,
+                  "startColumn": 29,
+                  "endLine": 223,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'source' in 'IEnumerable<Amenity> Enumerable.Select<string, Amenity>(IEnumerable<string> source, Func<string, Amenity> selector)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyMiniApplicationAutoMapperProfile.cs",
+                "region": {
+                  "startLine": 64,
+                  "startColumn": 25,
+                  "endLine": 64,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 162,
+                  "startColumn": 13,
+                  "endLine": 162,
+                  "endColumn": 16
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 262,
+                  "startColumn": 13,
+                  "endLine": 262,
+                  "endColumn": 16
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 269,
+                  "startColumn": 13,
+                  "endLine": 269,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 320,
+                  "startColumn": 9,
+                  "endLine": 320,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyMiniApplicationAutoMapperProfile.cs",
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 9,
+                  "endLine": 50,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyTypes/PropertyTypeAppService.cs",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 13,
+                  "endLine": 24,
+                  "endColumn": 101
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/UserAccount/UserAccountAppService.cs",
+                "region": {
+                  "startLine": 175,
+                  "startColumn": 13,
+                  "endLine": 175,
+                  "endColumn": 16
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S107",
+          "level": "warning",
+          "message": "Constructor has 11 parameters, which is greater than the 7 authorized.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 32,
+                  "endLine": 39,
+                  "endColumn": 6
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private field '_propertViedoRepository'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 5,
+                  "endLine": 42,
+                  "endColumn": 105
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S112",
+          "level": "warning",
+          "message": "'System.Exception' should not be thrown by user code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/GovernoratesApp/GovernoratesAppService.cs",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 23,
+                  "endLine": 29,
+                  "endColumn": 70
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S112",
+          "level": "warning",
+          "message": "'System.Exception' should not be thrown by user code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyTypes/PropertyTypeAppService.cs",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 23,
+                  "endLine": 39,
+                  "endColumn": 66
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S112",
+          "level": "warning",
+          "message": "'System.Exception' should not be thrown by user code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyFeatures/PropertyFeatureAppService.cs",
+                "region": {
+                  "startLine": 66,
+                  "startColumn": 23,
+                  "endLine": 66,
+                  "endColumn": 66
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1862",
+          "level": "note",
+          "message": "Prefer using 'string.Equals(string, StringComparison)' to perform a case-insensitive comparison, but keep in mind that this might cause subtle changes in behavior, so make sure to conduct thorough testing after applying the suggestion, or if culturally sensitive comparison is not required, consider using 'StringComparison.OrdinalIgnoreCase'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/UserAccount/UserAccountAppService.cs",
+                "region": {
+                  "startLine": 103,
+                  "startColumn": 21,
+                  "endLine": 103,
+                  "endColumn": 62
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "LeftOffendingMethod": "ToLower",
+              "RightOffendingMethod": "ToLower"
+            }
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 51,
+                  "endLine": 44,
+                  "endColumn": 63
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 9,
+                  "endLine": 55,
+                  "endColumn": 11
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 57,
+                  "startColumn": 13,
+                  "endLine": 57,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 63,
+                  "startColumn": 13,
+                  "endLine": 63,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 63,
+                  "startColumn": 42,
+                  "endLine": 63,
+                  "endColumn": 44
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 13,
+                  "endLine": 68,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 13,
+                  "endLine": 71,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 77,
+                  "startColumn": 9,
+                  "endLine": 77,
+                  "endColumn": 11
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 77,
+                  "startColumn": 33,
+                  "endLine": 77,
+                  "endColumn": 35
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 83,
+                  "startColumn": 81,
+                  "endLine": 83,
+                  "endColumn": 87
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 83,
+                  "startColumn": 51,
+                  "endLine": 83,
+                  "endColumn": 52
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 86,
+                  "startColumn": 17,
+                  "endLine": 86,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 90,
+                  "startColumn": 17,
+                  "endLine": 90,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+2 (incl 1 for nesting)",
+              "10": "+2 (incl 1 for nesting)",
+              "11": "+2 (incl 1 for nesting)",
+              "2": "+2 (incl 1 for nesting)",
+              "3": "+1",
+              "4": "+2 (incl 1 for nesting)",
+              "5": "+2 (incl 1 for nesting)",
+              "6": "+1",
+              "7": "+1",
+              "8": "+1",
+              "9": "+2 (incl 1 for nesting)"
+            }
+          }
+        },
+        {
+          "ruleId": "S927",
+          "level": "warning",
+          "message": "Rename parameter 'dto' to 'user' to match the interface declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/UserProfile/UserProfileAppService.cs",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 85,
+                  "endLine": 28,
+                  "endColumn": 88
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2681",
+          "level": "warning",
+          "message": "This line will not be executed conditionally; only the first line of this 4-line block will be. The rest will execute unconditionally.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/UserAccount/UserAccountAppService.cs",
+                "region": {
+                  "startLine": 171,
+                  "startColumn": 17,
+                  "endLine": 171,
+                  "endColumn": 102
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/UserAccount/UserAccountAppService.cs",
+                "region": {
+                  "startLine": 168,
+                  "startColumn": 61,
+                  "endLine": 168,
+                  "endColumn": 127
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": null
+            }
+          }
+        },
+        {
+          "ruleId": "S2589",
+          "level": "warning",
+          "message": "Remove this unnecessary check for null.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/UserAccount/UserAccountAppService.cs",
+                "region": {
+                  "startLine": 165,
+                  "startColumn": 43,
+                  "endLine": 165,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1510",
+          "level": "note",
+          "message": "Use 'ArgumentNullException.ThrowIfNull' instead of explicitly throwing a new exception instance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/UserAccount/UserAccountAppService.cs",
+                "region": {
+                  "startLine": 160,
+                  "startColumn": 13,
+                  "endLine": 163,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/UserAccount/UserAccountAppService.cs",
+                "region": {
+                  "startLine": 160,
+                  "startColumn": 17,
+                  "endLine": 160,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1199",
+          "level": "warning",
+          "message": "Extract this nested code block into a separate method.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/src/SawaTech.PropertyMini.Application/PropertyData/PropertyAppService.cs",
+                "region": {
+                  "startLine": 147,
+                  "startColumn": 13,
+                  "endLine": 147,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CA1510": {
+          "id": "CA1510",
+          "shortDescription": "Use ArgumentNullException throw helper",
+          "fullDescription": "Throw helpers are simpler and more efficient than an if block constructing a new exception instance.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1510",
+          "properties": {
+            "category": "Maintainability",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1862": {
+          "id": "CA1862",
+          "shortDescription": "Use the 'StringComparison' method overloads to perform case-insensitive string comparisons",
+          "fullDescription": "Avoid calling 'ToLower', 'ToUpper', 'ToLowerInvariant' and 'ToUpperInvariant' to perform case-insensitive string comparisons, as in 'string.ToLower() == string.ToLower()', because they lead to an allocation. Instead, use 'string.Equals(string, StringComparison)' to perform case-insensitive comparisons. Switching to using an overload that takes a 'StringComparison' might cause subtle changes in behavior, so it's important to conduct thorough testing after applying the suggestion. Additionally, if a culturally sensitive comparison is not required, consider using 'StringComparison.OrdinalIgnoreCase'.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1862",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CS8601": {
+          "id": "CS8601",
+          "shortDescription": "Possible null reference assignment.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8601)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8602": {
+          "id": "CS8602",
+          "shortDescription": "Dereference of a possibly null reference.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8602)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8604": {
+          "id": "CS8604",
+          "shortDescription": "Possible null reference argument.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8604)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS9113": {
+          "id": "CS9113",
+          "shortDescription": "Parameter is unread.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS9113)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS9124": {
+          "id": "CS9124",
+          "shortDescription": "Parameter is captured into the state of the enclosing type and its value is also used to initialize a field, property, or event.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS9124)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "S107": {
+          "id": "S107",
+          "shortDescription": "Methods should not have too many parameters",
+          "fullDescription": "Methods with a long parameter list are difficult to use because maintainers must figure out the role of each parameter and keep track of their position.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-107",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S112": {
+          "id": "S112",
+          "shortDescription": "General or reserved exceptions should never be thrown",
+          "fullDescription": "This rule raises an issue when a general or reserved exception is thrown.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-112",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1144": {
+          "id": "S1144",
+          "shortDescription": "Unused private types or members should be removed",
+          "fullDescription": "This rule raises an issue when a private/internal type or member is never referenced in the code.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1144",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1199": {
+          "id": "S1199",
+          "shortDescription": "Nested code blocks should not be used",
+          "fullDescription": "Nested code blocks create new scopes where variables declared within are inaccessible from the outside, and their lifespan ends with the block.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1199",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S125": {
+          "id": "S125",
+          "shortDescription": "Sections of code should not be commented out",
+          "fullDescription": "Commented-out code distracts the focus from the actual executed code. It creates a noise that increases maintenance code. And because it is never executed, it quickly becomes out of date and invalid.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-125",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2589": {
+          "id": "S2589",
+          "shortDescription": "Boolean expressions should not be gratuitous",
+          "fullDescription": "Gratuitous boolean expressions are conditions that do not change the evaluation of a program. This issue can indicate logical errors and affect the correctness of an application, as well as its maintainability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2589",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2681": {
+          "id": "S2681",
+          "shortDescription": "Multiline blocks should be enclosed in curly braces",
+          "fullDescription": "Having inconsistent indentation and omitting curly braces from a control structure, such as an if statement or for loop, is misleading and can induce bugs.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2681",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S3776": {
+          "id": "S3776",
+          "shortDescription": "Cognitive Complexity of methods should not be too high",
+          "fullDescription": "This rule raises an issue when the code cognitive complexity of a function is above a certain threshold.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3776",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S927": {
+          "id": "S927",
+          "shortDescription": "Parameter names should match base declaration and other partial definitions",
+          "fullDescription": "Parameters are part of the method signature and its identity.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-927",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

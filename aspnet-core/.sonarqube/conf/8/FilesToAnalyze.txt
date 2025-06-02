@@ -1,0 +1,7 @@
+﻿D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\test\SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp\ClientDemoService.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\test\SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp\ConsoleTestAppHostedService.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\test\SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp\Program.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\test\SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp\PropertyMiniConsoleApiClientModule.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\test\SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp\appsettings.json
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\test\SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp\appsettings.secrets.json
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\test\SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp\obj\Debug\net9.0\apphost.exe

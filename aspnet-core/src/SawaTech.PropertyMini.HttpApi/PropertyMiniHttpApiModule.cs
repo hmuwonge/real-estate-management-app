@@ -1,23 +1,23 @@
 ﻿//using Localization.Resources.AbpUi;
 using SawaTech.PropertyMini.Localization;
 using Volo.Abp.Account;
-using Volo.Abp.FeatureManagement;
+//using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 //using Volo.Abp.PermissionManagement.HttpApi;
-using Volo.Abp.SettingManagement;
-using Volo.Abp.TenantManagement;
+//using Volo.Abp.SettingManagement;
+//using Volo.Abp.TenantManagement;
 
 namespace SawaTech.PropertyMini;
 
 [DependsOn(
     typeof(PropertyMiniApplicationContractsModule),
-    typeof(AbpAccountHttpApiModule),
-    typeof(AbpIdentityHttpApiModule),
-    typeof(AbpPermissionManagementHttpApiModule),
-    typeof(AbpTenantManagementHttpApiModule),
-    typeof(AbpFeatureManagementHttpApiModule)
+    //typeof(AbpAccountHttpApiModule),
+    typeof(AbpIdentityHttpApiModule)
+    //typeof(AbpPermissionManagementHttpApiModule)
+    //typeof(AbpTenantManagementHttpApiModule),
+    //typeof(AbpFeatureManagementHttpApiModule)
     //typeof(AbpSettingManagementHttpApiModule)
     )]
 public class PropertyMiniHttpApiModule : AbpModule

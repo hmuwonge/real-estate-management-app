@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.Identity;

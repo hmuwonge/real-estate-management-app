@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "4.13.0.0",
+        "fileVersion": "4.13.0-3.25210.5 (fe188fa9)",
+        "semanticVersion": "4.13.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "CA1816",
+          "level": "note",
+          "message": "Change PropertyMiniEntityFrameworkCoreFixture.Dispose() to call GC.SuppressFinalize(object). This will prevent derived types that introduce a finalizer from needing to re-implement 'IDisposable' to call it.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/test/SawaTech.PropertyMini.EntityFrameworkCore.Tests/EntityFrameworkCore/PropertyMiniEntityFrameworkCoreFixture.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 17,
+                  "endLine": 7,
+                  "endColumn": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1859",
+          "level": "note",
+          "message": "Change return type of method 'CreateDatabaseAndGetConnection' from 'Microsoft.Data.Sqlite.SqliteConnection' to 'Volo.Abp.EntityFrameworkCore.Sqlite.AbpUnitTestSqliteConnection' for improved performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/PROJECTS/.NET/ABP%20Framework/SawaTech%20assign/aspnet-core/test/SawaTech.PropertyMini.EntityFrameworkCore.Tests/EntityFrameworkCore/PropertyMiniEntityFrameworkCoreTestModule.cs",
+                "region": {
+                  "startLine": 66,
+                  "startColumn": 37,
+                  "endLine": 66,
+                  "endColumn": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CA1816": {
+          "id": "CA1816",
+          "shortDescription": "Dispose methods should call SuppressFinalize",
+          "fullDescription": "A method that is an implementation of Dispose does not call GC.SuppressFinalize; or a method that is not an implementation of Dispose calls GC.SuppressFinalize; or a method calls GC.SuppressFinalize and passes something other than this (Me in Visual Basic).",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1816",
+          "properties": {
+            "category": "Usage",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1859": {
+          "id": "CA1859",
+          "shortDescription": "Use concrete types when possible for improved performance",
+          "fullDescription": "Using concrete types avoids virtual or interface call overhead and enables inlining.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1859",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

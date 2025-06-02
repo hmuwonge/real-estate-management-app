@@ -1,0 +1,5 @@
+﻿D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.DbMigrator\DbMigratorHostedService.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.DbMigrator\Program.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.DbMigrator\PropertyMiniDbMigratorModule.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.DbMigrator\appsettings.json
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.DbMigrator\appsettings.secrets.json

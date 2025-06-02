@@ -1,0 +1,13 @@
+™
++SawaTech.PropertyMini.Models.Test.TestModelobjectF
+TestModel()7SawaTech.PropertyMini.Models.Test.TestModel.TestModel()@
+Name.get4SawaTech.PropertyMini.Models.Test.TestModel.Name.get@
+Name.set4SawaTech.PropertyMini.Models.Test.TestModel.Name.setJ
+BirthDate.get9SawaTech.PropertyMini.Models.Test.TestModel.BirthDate.getJ
+BirthDate.set9SawaTech.PropertyMini.Models.Test.TestModel.BirthDate.set…
+8SawaTech.PropertyMini.Controllers.PropertyMiniController)Volo.Abp.AspNetCore.Mvc.AbpControllerBase'Microsoft.AspNetCore.Mvc.ControllerBaseobjectm
+PropertyMiniController()QSawaTech.PropertyMini.Controllers.PropertyMiniController.PropertyMiniController()ã
+/SawaTech.PropertyMini.PropertyMiniHttpApiModuleVolo.Abp.Modularity.AbpModuleobject¸
+BConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)rSawaTech.PropertyMini.PropertyMiniHttpApiModule.ConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)b
+ConfigureLocalization()GSawaTech.PropertyMini.PropertyMiniHttpApiModule.ConfigureLocalization()j
+PropertyMiniHttpApiModule()KSawaTech.PropertyMini.PropertyMiniHttpApiModule.PropertyMiniHttpApiModule()

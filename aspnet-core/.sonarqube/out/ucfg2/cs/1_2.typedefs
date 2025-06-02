@@ -1,0 +1,13 @@
+«
+7SawaTech.PropertyMini.Localization.PropertyMiniResourceobjecth
+PropertyMiniResource()NSawaTech.PropertyMini.Localization.PropertyMiniResource.PropertyMiniResource()®
+/SawaTech.PropertyMini.Properties.PropertyStatusSystem.EnumSystem.ValueTypeobjectT
+PropertyStatus()@SawaTech.PropertyMini.Properties.PropertyStatus.PropertyStatus()Â
+4SawaTech.PropertyMini.Properties.PropertyPaymentTypeSystem.EnumSystem.ValueTypeobjectc
+PropertyPaymentType()JSawaTech.PropertyMini.Properties.PropertyPaymentType.PropertyPaymentType()ª
+.SawaTech.PropertyMini.Properties.MediaTypeEnumSystem.EnumSystem.ValueTypeobjectQ
+MediaTypeEnum()>SawaTech.PropertyMini.Properties.MediaTypeEnum.MediaTypeEnum()Þ
+4SawaTech.PropertyMini.PropertyMiniDomainSharedModuleVolo.Abp.Modularity.AbpModuleobjectÃ
+EPreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)zSawaTech.PropertyMini.PropertyMiniDomainSharedModule.PreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)½
+BConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)wSawaTech.PropertyMini.PropertyMiniDomainSharedModule.ConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)y
+ PropertyMiniDomainSharedModule()USawaTech.PropertyMini.PropertyMiniDomainSharedModule.PropertyMiniDomainSharedModule()

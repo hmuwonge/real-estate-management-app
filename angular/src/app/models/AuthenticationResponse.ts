@@ -1,6 +1,7 @@
-interface UserData {
+export interface UserData {
     userType: string;
     userName: string;
+    userId: string;
     email: string;
 }
 

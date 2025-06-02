@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using SawaTech.PropertyMini.NearbyPlaces;
 
-namespace SawaTech.PropertyMini.PropertyEntities
+namespace SawaTech.PropertyMini.PublicProperties
 {
     public class PropertyNearbyPlace
     {
+        public string Icon { get; set; } = string.Empty;
         public Guid PropertyId { get; set; }
         public Property Property { get; set; }= null!;
 

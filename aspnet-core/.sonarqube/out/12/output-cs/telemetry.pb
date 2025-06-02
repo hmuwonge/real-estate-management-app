@@ -1,0 +1,1 @@
+½R¦D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\test\SawaTech.PropertyMini.EntityFrameworkCore.Tests\SawaTech.PropertyMini.EntityFrameworkCore.Tests.csproj¢net9.0òCSharp13

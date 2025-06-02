@@ -1,0 +1,1 @@
+°R™D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\SawaTech.PropertyMini.EntityFrameworkCore.csproj¢net9.0òCSharp13

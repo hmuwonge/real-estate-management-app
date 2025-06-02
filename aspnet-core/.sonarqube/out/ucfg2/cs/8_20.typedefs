@@ -1,0 +1,14 @@
+™
+;SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp.ProgramobjectR
+	Program()ESawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp.Program.Program()Þ
+OSawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp.ConsoleTestAppHostedServiceobject+Microsoft.Extensions.Hosting.IHostedServiceñ
+NConsoleTestAppHostedService(Microsoft.Extensions.Configuration.IConfiguration)žSawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp.ConsoleTestAppHostedService.ConsoleTestAppHostedService(Microsoft.Extensions.Configuration.IConfiguration)°
+.StartAsync(System.Threading.CancellationToken)~SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp.ConsoleTestAppHostedService.StartAsync(System.Threading.CancellationToken)®
+-StopAsync(System.Threading.CancellationToken)}SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp.ConsoleTestAppHostedService.StopAsync(System.Threading.CancellationToken)›
+ESawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp.ClientDemoServiceobject1Volo.Abp.DependencyInjection.ITransientDependency¶
+6ClientDemoService(Volo.Abp.Account.IProfileAppService)|SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp.ClientDemoService.ClientDemoService(Volo.Abp.Account.IProfileAppService)^
+
+RunAsync()PSawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp.ClientDemoService.RunAsync()Ž
+VSawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp.PropertyMiniConsoleApiClientModuleVolo.Abp.Modularity.AbpModuleobjectæ
+EPreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)œSawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp.PropertyMiniConsoleApiClientModule.PreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)£
+$PropertyMiniConsoleApiClientModule(){SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp.PropertyMiniConsoleApiClientModule.PropertyMiniConsoleApiClientModule()

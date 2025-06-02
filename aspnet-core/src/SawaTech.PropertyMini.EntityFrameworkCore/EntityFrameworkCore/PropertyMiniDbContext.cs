@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using SawaTech.PropertyMini.Addresses;
 using SawaTech.PropertyMini.Amenities;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.Governorates;
+using SawaTech.PropertyMini.NearbyPlaces;
+using SawaTech.PropertyMini.PublicProperties;
 using SawaTech.PropertyMini.Users;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -16,19 +18,13 @@ using Volo.Abp.Identity.EntityFrameworkCore;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
-//using Volo.Abp.TenantManagement;
-//using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.Abp.Users.EntityFrameworkCore;
 
 namespace SawaTech.PropertyMini.EntityFrameworkCore;
 
-//[ReplaceDbContext(typeof(IIdentityDbContext))]
-//[ReplaceDbContext(typeof(ITenantManagementDbContext))]
+[ReplaceDbContext(typeof(IIdentityDbContext))]
 [ConnectionStringName("Default")]
-public class PropertyMiniDbContext :
-    AbpDbContext<PropertyMiniDbContext>
-    // IIdentityDbContext
-    //ITenantManagementDbContext
+public class PropertyMiniDbContext : AbpDbContext<PropertyMiniDbContext>, IIdentityDbContext
 {
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
 
@@ -85,11 +81,10 @@ public class PropertyMiniDbContext :
         //modelBuilder.ConfigurePermissionManagement();
         //modelBuilder.ConfigureSettingManagement();
         modelBuilder.ConfigureBackgroundJobs();
-        //modelBuilder.ConfigureAuditLogging();
-        //modelBuilder.ConfigureIdentity();
-        //modelBuilder.ConfigureOpenIddict();
-        //modelBuilder.ConfigureFeatureManagement();
-        //modelBuilder.ConfigureTenantManagement();
+        modelBuilder.ConfigureAuditLogging();
+        modelBuilder.ConfigureIdentity();
+        modelBuilder.ConfigureOpenIddict();
+        modelBuilder.ConfigureFeatureManagement();
 
         /* Configure your own tables/entities inside here */
 

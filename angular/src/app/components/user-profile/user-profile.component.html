@@ -1,0 +1,359 @@
+<div
+  class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8"
+  *ngIf="!isLoading; else loading"
+>
+  <div class="max-w-7xl w-full">
+
+    <div class="bg-white px-6 sm:px-8 lg:px-10 py-6">
+      <h1 class="text-3xl font-bold text-start text-gray-800 mb-8">Edit Profile</h1>
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Account Information Section -->
+          <div class="space-y-4  md:p-6 py-2 rounded-2xl border-2 border-purple-400">
+            <div *ngIf="currentProfileImage" class="flex justify-center">
+              <img
+                [src]="currentProfileImage"
+                alt="Profile"
+                class="w-32 h-32 rounded-full object-cover"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Profile Picture</label>
+              <div class="flex items-center justify-between">
+                <input
+                  type="file"
+                  (change)="onFileSelected($event)"
+                  class="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                />
+              </div>
+
+              <!-- {{currentUser}} -->
+
+              <!-- <div class="flex items-center gap-4">
+                  <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt="">
+                  <div class="font-medium dark:text-white">
+                      <div>{{currentUser?.userName}}</div>
+                      <div class="text-sm text-gray-500 dark:text-gray-400">Joined in August 2014</div>
+                  </div>
+              </div> -->
+
+              <div class="flex items-center gap-4 mb-6 p-4 bg-gray-50 rounded-lg dark:bg-gray-800">
+                <img
+                  class="w-16 h-16 rounded-full"
+                  [src]="currentProfileImage || 'assets/default-profile.png'"
+                  alt="Profile picture"
+                />
+                <div class="font-medium dark:text-white">
+                  <div class="text-xl">
+                    <!-- {{currentUser?.userName || 'Loading...'}} -->
+                    ffff
+                  </div>
+                  <div class="text-sm text-gray-500 dark:text-gray-400">
+                    Member since
+                    <!-- {{currentUser?.createdAt | date:'MMMM yyyy' || 'Loading...'}} -->
+                  </div>
+                </div>
+                <div class="ml-auto">
+                  <input
+                    type="file"
+                    id="profilePicture"
+                    accept="image/*"
+                    (change)="onFileSelected($event)"
+                    class="hidden"
+                  />
+                  <label
+                    for="profilePicture"
+                    class="cursor-pointer text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                  >
+                    Change Photo
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+              <input
+                type="text"
+                formControlName="username"
+                placeholder="username"
+                class="w-full  py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+
+              <div
+                *ngIf="
+                  usernameFormControl.invalid &&
+                  (usernameFormControl.dirty || usernameFormControl.touched)
+                "
+              >
+                <div *ngIf="usernameFormControl.errors?.['required']" class="text-red-500 text-sm">
+                  Username is required.
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <input
+                type="password"
+                formControlName="password"
+                placeholder="Password"
+                class="w-full  py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+
+              <!-- <div
+                  *ngIf="passwordFormControl.invalid && (passwordFormControl.dirty || passwordFormControl.touched)"
+                >
+                  <div *ngIf="passwordFormControl.errors?.['required']" class="text-red-500 text-sm">
+                    Password is required.
+                  </div>
+                  <div *ngIf="passwordFormControl.errors?.['minlength']" class="text-red-500 text-sm">
+                    Password must be at least 6 characters long.
+                  </div>
+                </div> -->
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Re-Password</label>
+              <input
+                type="password"
+                formControlName="rePassword"
+                placeholder="Re-enter Password"
+                class="w-full  py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+
+              <!-- <div
+                  *ngIf="rePasswordFormControl.invalid && (rePasswordFormControl.dirty || rePasswordFormControl.touched)"
+                >
+                  <div *ngIf="rePasswordFormControl.errors?.['required']" class="text-red-500 text-sm">
+                    Re-password is required.
+                  </div>
+                  <div *ngIf="rePasswordFormControl.errors?.['minlength']" class="text-red-500 text-sm">
+                    Re-password must be at least 6 characters long.
+                  </div>
+                </div> -->
+            </div>
+          </div>
+
+          <div
+            class="rounded-2xl border-2 border-purple-400 p-6 grid grid-cols-2 grid-span-2 md:col-span-2 lg:col-span-2"
+          >
+            <!-- Contact Information Section -->
+            <div
+              class="space-y-4  md:px-4 py-2 border-r md:border-r-0 lg:border-r border-gray-200"
+            >
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input
+                  type="email"
+                  formControlName="email"
+                  placeholder="user@gmail.com"
+                  class="w-full  py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+
+                <div
+                  *ngIf="
+                    emailFormControl.invalid && (emailFormControl.dirty || emailFormControl.touched)
+                  "
+                >
+                  <div *ngIf="emailFormControl.errors?.['required']" class="text-red-500 text-sm">
+                    Email is required.
+                  </div>
+                  <div *ngIf="emailFormControl.errors?.['email']" class="text-red-500 text-sm">
+                    Please enter a valid email address.
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                <input
+                  type="tel"
+                  formControlName="phone"
+                  placeholder="+44 20 xxx xxxx"
+                  class="w-full  py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+
+                <div
+                  *ngIf="
+                    phoneFormControl.invalid && (phoneFormControl.dirty || phoneFormControl.touched)
+                  "
+                >
+                  <div *ngIf="phoneFormControl.errors?.['required']" class="text-red-500 text-sm">
+                    Phone is required.
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Whatsapp</label>
+                <input
+                  type="tel"
+                  formControlName="whatsapp"
+                  placeholder="+44 77 xxx xxxx"
+                  class="w-full  py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+
+                <div
+                  *ngIf="
+                    whatsappFormControl.invalid &&
+                    (whatsappFormControl.dirty || whatsappFormControl.touched)
+                  "
+                >
+                  <div
+                    *ngIf="whatsappFormControl.errors?.['required']"
+                    class="text-red-500 text-sm"
+                  >
+                    Whatsapp is required.
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                <select
+                  formControlName="country"
+                  class="w-full  py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option>Select Country</option>
+                  <option *ngFor="let country of countries" [value]="country.name">
+                    {{ country.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Company Information Section -->
+            <div class="space-y-4  md:px-4 py-2">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Company name</label>
+                <input
+                  type="text"
+                  formControlName="companyName"
+                  placeholder="Company"
+                  class="w-full  py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+
+                <div
+                  *ngIf="
+                    companyNameFormControl.invalid &&
+                    (companyNameFormControl.dirty || companyNameFormControl.touched)
+                  "
+                >
+                  <div
+                    *ngIf="companyNameFormControl.errors?.['required']"
+                    class="text-red-500 text-sm"
+                  >
+                    Company name is required.
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Company Email</label>
+                <input
+                  type="email"
+                  formControlName="companyEmail"
+                  placeholder="Enter company email"
+                  class="w-full  py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+
+                <div
+                  *ngIf="
+                    companyEmailFormControl.invalid &&
+                    (companyEmailFormControl.dirty || companyEmailFormControl.touched)
+                  "
+                >
+                  <div
+                    *ngIf="companyEmailFormControl.errors?.['required']"
+                    class="text-red-500 text-sm"
+                  >
+                    Company email is required.
+                  </div>
+                  <div
+                    *ngIf="companyEmailFormControl.errors?.['email']"
+                    class="text-red-500 text-sm"
+                  >
+                    Please enter a valid email address.
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                <input
+                  type="text"
+                  formControlName="department"
+                  placeholder="Department"
+                  class="w-full  py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+
+                <div
+                  *ngIf="
+                    departmentFormControl.invalid &&
+                    (departmentFormControl.dirty || departmentFormControl.touched)
+                  "
+                >
+                  <div
+                    *ngIf="departmentFormControl.errors?.['required']"
+                    class="text-red-500 text-sm"
+                  >
+                    Department is required.
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Job position</label>
+                <input
+                  type="text"
+                  formControlName="jobPosition"
+                  placeholder="Job Title"
+                  class="w-full  py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+
+                <div
+                  *ngIf="
+                    jobPositionFormControl.invalid &&
+                    (jobPositionFormControl.dirty || jobPositionFormControl.touched)
+                  "
+                >
+                  <div
+                    *ngIf="jobPositionFormControl.errors?.['required']"
+                    class="text-red-500 text-sm"
+                  >
+                    Job position is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="errorMessage" class="text-sm text-red-600">
+          {{ errorMessage }}
+        </div>
+
+        <div *ngIf="successMessage" class="text-sm text-green-600">
+          {{ successMessage }}
+        </div>
+
+        <div class="pt-6 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 mx-auto">
+          <button
+            type="submit"
+            class="w-full cursor-pointer bg-purple-700 text-white py-2 px-4 rounded-md hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 font-medium"
+
+          >
+            <span *ngIf="isLoading">Updating...</span>
+            <span *ngIf="!isLoading">Update Profile</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    Loading profile data...
+  </div>
+</ng-template>

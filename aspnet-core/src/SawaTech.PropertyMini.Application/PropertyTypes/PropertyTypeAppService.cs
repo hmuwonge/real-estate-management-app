@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.ObjectMapping;
@@ -21,7 +21,6 @@ namespace SawaTech.PropertyMini.PropertyTypes
 
         public async Task<PropertyTypeDto> CreateAsync(CreateUpdatePropertyTypeDto input)
         {
-            //var propertyType = ObjectMapper.Map<CreateUpdatePropertyTypeDto, PropertyType>(input);
             var propertyType = new PropertyType
             {
                 Name = input.Name

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 
 namespace SawaTech.PropertyMini.Properties;
 
@@ -33,24 +33,24 @@ public class CreateUpdatePropertyDto
     public decimal InsurancePayment { get; set; }
     public float Area { get; set; }
     public int Rooms { get; set; }
-    
-    // related data
+
     [Required]
-    public PropertyType Type { get; set; }
-    
-    [Required]
-    public PropertyStatus PropertyStatus { get; set; }
-    
+    public PropertyStatus Status { get; set; }
+
     // amenities
-    public List<string> Amenities { get; set; }
-    
+    public List<string>? Amenities { get; set; } = new List<string>();
+    public List<string>? Features { get; set; } = [];
+
     //nearby places
-    public List<string> NearbyPlaces { get; set; }
-    
+    public List<string>? NearbyPlaces { get; set; } = [];
+
     [Required]
-    public List<IFormFile> PhotoUrls { get; set; }
+    public required IFormFile MainImage {  get; set; }
+
+    [Required]
+    public List<IFormFile>? PhotoUrls { get; set; }
     public IFormFile? VideoUrl { get; set; }
-    
+
     [Required]
     public double Latitude { get; set; }
     [Required]

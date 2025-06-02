@@ -1,0 +1,13 @@
+﻿D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\EntityFrameworkCore\EntityFrameworkCorePropertyMiniDbSchemaMigrator.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\EntityFrameworkCore\PropertyMiniDbContext.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\EntityFrameworkCore\PropertyMiniDbContextFactory.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\EntityFrameworkCore\PropertyMiniEfCoreEntityExtensionMappings.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\EntityFrameworkCore\PropertyMiniEntityFrameworkCoreModule.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\Migrations\20250526204918_InitialMigration.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\Migrations\20250526204918_InitialMigration.Designer.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\Migrations\20250526205019_Add_FilterProperties.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\Migrations\20250526205019_Add_FilterProperties.Designer.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\Migrations\20250528205724_Add_MainImageToPropertyEntity.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\Migrations\20250528205724_Add_MainImageToPropertyEntity.Designer.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\Migrations\PropertyMiniDbContextModelSnapshot.cs
+D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.EntityFrameworkCore\Properties\AssemblyInfo.cs
