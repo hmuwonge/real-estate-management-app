@@ -7,6 +7,8 @@
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
   - build
+  # - test
+  # - dockerize
   - deploy
 
 variables:
@@ -24,9 +26,7 @@ build_backend:
     - dotnet build --configuration Release
   artifacts:
     paths:
-      - publish_output
-
-      # - $BACKEND_PATH/src/SawaTech.PropertyMini.HttpApi.Host/bin/
+      - $BACKEND_PATH/src/SawaTech.PropertyMini.HttpApi.Host/bin/
 
 # Build Angular Frontend
 build_frontend:
@@ -49,31 +49,17 @@ build_frontend:
 #     - dotnet test
 
 # Dockerize app
-# dockerize:
-#   stage: dockerize
-#   image: docker:latest
-#   services:
-#     - docker:dind
-#   before_script:
-#     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-#   script:
-#     - docker build -t $PROJECT_NAME-backend-api $BACKEND_PATH/src/SawaTech.PropertyMini.HttpApi.Host
-#     - docker build -t $PROJECT_NAME-angular $FRONTEND_PATH
-#     - docker-compose up -d
-
-deploy:
-  stage: deploy
-  image: mcr.microsoft.com/dotnet/sdk:9.0
-  dependencies:
-    - build
+dockerize:
+  stage: dockerize
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - echo "Saving publish profile..."
-    - echo "$AZURE_WEBAPP_PUBLISH_PROFILE" > azure.publish
-    - echo "Deploying to Azure..."
-    - dotnet publish --output publish_output
-    - dotnet msbuild src/SawaTech.PropertyMini.HttpApi.Host/SawaTech.PropertyMini.HttpApi.Host.csproj /p:DeployOnBuild=true /p:PublishProfile=azure.publish
-  only:
-    - main  # Or your deployment branch
+    - docker build -t $PROJECT_NAME-backend-api $BACKEND_PATH/src/SawaTech.PropertyMini.HttpApi.Host
+    - docker build -t $PROJECT_NAME-angular $FRONTEND_PATH
+    - docker-compose up -d
 
 # Local Deploy (dev machine with SSH access)
 deploy_local:
