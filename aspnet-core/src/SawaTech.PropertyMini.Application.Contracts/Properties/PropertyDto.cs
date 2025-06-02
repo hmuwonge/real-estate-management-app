@@ -28,7 +28,7 @@ public class PropertyDto : AuditedEntityDto<Guid>
     public List<PropertyFeatureDto> Features { get; set; } = null!;
     public List<Amenity> Amenities { get; set; } = null!;
     public List<string> Images { get; set; } = [];
-    public string? mainImage { get; set; }
+    public string? MainImage { get; set; }
     
     // Location
     public decimal Price { get; set; }

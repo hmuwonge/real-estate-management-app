@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SawaTech.PropertyMini.AuthResponses;
 using SawaTech.PropertyMini.PublicProperties;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
@@ -47,10 +48,11 @@ namespace SawaTech.PropertyMini.PropertyTypes
             return ObjectMapper.Map<PropertyType, PropertyTypeDto>(propertyType);
         }
 
-        public async Task<List<PropertyTypeDto>> GetListAsync()
+        public async Task<GeneralResponse> GetListAsync()
         {
             var propertyTypes = await _repository.GetListAsync(); // Await the Task to get the actual List<PropertyType>
-            return ObjectMapper.Map<List<PropertyType>, List<PropertyTypeDto>>(propertyTypes);
+            var results =  ObjectMapper.Map<List<PropertyType>, List<PropertyTypeDto>>(propertyTypes);
+            return new GeneralResponse(true, "Success", results);
         }
 
         public async Task<PropertyTypeDto> UpdateAsync(Guid id, CreateUpdatePropertyTypeDto input)

@@ -130,9 +130,9 @@ public class PropertyAppService(
 
             // 4. Execute query and map results
             var properties = await AsyncExecuter.ToListAsync(queryable);
-            var results = ObjectMapper.Map<List<Property>, List<PropertyDto>>(properties);
+            var results = ObjectMapper.Map<List<Property>, List<PropertyListDto>>(properties);
 
-            return new GeneralResponse(true, "Properties retrieved successfully", results);
+            return new GeneralResponse(true, "Success", results);
         }
         catch (Exception ex)
         {

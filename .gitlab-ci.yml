@@ -7,8 +7,8 @@
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
   - build
-  # - test
-  # - dockerize
+  - test
+  - dockerize
   - deploy
 
 variables:
