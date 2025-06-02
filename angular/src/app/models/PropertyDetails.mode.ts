@@ -26,10 +26,12 @@ export interface Owner {
 }
 
 export interface Governorate {
+  id: string;
   name: string;
 }
 
 export interface Features {
+  id: string;
   name: string;
   icon: string|null;
 }

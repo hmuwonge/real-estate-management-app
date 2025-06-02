@@ -10,22 +10,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9f27306-c951-4355-bf25-39c0ce74982e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/angular/src/app/Utils/HandleResponse.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/Utils/HandleResponse.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/app.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/auth.interceptor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/auth.interceptor.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/components/image-slider/image-slider.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/components/image-slider/image-slider.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/components/property-details/property-details.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/components/property-details/property-details.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/components/property-details/property-details.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/components/property-details/property-details.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/home/home.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/home/home.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/services/auth-guard.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/services/auth-guard.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/services/properties.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/services/properties.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/services/users.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/services/users.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PublicProperties/PropertyListDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application.Contracts/PublicProperties/PropertyListDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PublicProperties/PublicPropertiesAppService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Application/PublicProperties/PublicPropertiesAppService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/PropertyOwnerDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/aspnet-core/src/SawaTech.PropertyMini.Domain/PropertyEntities/PropertyOwnerDto.cs" afterDir="false" />
-    </list>
+    <list default="true" id="e9f27306-c951-4355-bf25-39c0ce74982e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,22 +27,22 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitLabMergeRequestFiltersHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPENED",
-    "assignee": {
-      "type": "org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue",
-      "username": "hmuwonge",
-      "fullname": "MUWONGE HASSAN"
+  <component name="GitLabMergeRequestFiltersHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPENED&quot;,
+    &quot;assignee&quot;: {
+      &quot;type&quot;: &quot;org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue&quot;,
+      &quot;username&quot;: &quot;hmuwonge&quot;,
+      &quot;fullname&quot;: &quot;MUWONGE HASSAN&quot;
     }
   }
-}]]></component>
-  <component name="GitLabMergeRequestsSettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "first": "https://gitlab.com/hmuwonge/sawatech-practical-assignment.git",
-    "second": "8c37c282-a153-4eb5-b11a-51d0eb000b7d"
+}</component>
+  <component name="GitLabMergeRequestsSettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;first&quot;: &quot;https://gitlab.com/hmuwonge/sawatech-practical-assignment.git&quot;,
+    &quot;second&quot;: &quot;8c37c282-a153-4eb5-b11a-51d0eb000b7d&quot;
   }
-}]]></component>
+}</component>
   <component name="GitToolBoxStore">
     <option name="recentBranches">
       <RecentBranches>

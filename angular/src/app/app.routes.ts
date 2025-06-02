@@ -51,7 +51,7 @@ export const routes: Routes = [
   },
    {
     path: 'auth/dashboard/create-property', component: CreatePropertyComponent,
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
     data: { role: 'agent', expectedRole: 'agent' }
   },
   {
