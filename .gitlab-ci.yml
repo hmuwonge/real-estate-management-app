@@ -68,8 +68,8 @@ dockerize:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - docker build -t $PROJECT_NAME-backend $BACKEND_PATH/src/SawaTech.PropertyMini.HttpApi.Host
-    - docker build -t $PROJECT_NAME-frontend $FRONTEND_PATH
+    - docker build -t $PROJECT_NAME-backend-api ./$BACKEND_PATH/src/SawaTech.PropertyMini.HttpApi.Host
+    - docker build -t $PROJECT_NAME-angular $FRONTEND_PATH
     - docker-compose up -d
 
 # Local Deploy (dev machine with SSH access)

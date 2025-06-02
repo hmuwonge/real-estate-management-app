@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./src/**/*.{html,ts}",
   ],
+
   theme: {
     extend: {
       colors: {
@@ -12,6 +13,7 @@ module.exports = {
         }
       }
     },
+      safelist: ['py-2', 'py-4', 'px-2', 'px-4'],
   },
   plugins: [  ],
 }
