@@ -14,7 +14,7 @@ import { Region } from '../../shared/models/region.model';
 })
 export class PropertiesService {
   private baseURL: string = environment.baseURL;
-  
+
   constructor(private http: HttpClient) { }
 
   getProperties(searchString:string): Observable<GeneralResponse<HomeProperty[]>> {
@@ -36,7 +36,7 @@ export class PropertiesService {
 
   getUserProperties(id:string):Observable<GeneralResponse<SimilarProperty[]>>{
 
-    const url =`${this.baseURL}app/property/${encodeURIComponent(id)}/user-list?maxResults=4`;
+    const url =`${this.baseURL}app/public-properties/public-property-list`   //property/${encodeURIComponent(id)}/user-list?maxResults=4`;
     return this.http.get<any>(url);
   }
 

@@ -22,8 +22,9 @@ import { FeaturesService } from '../../../../services/features/features.service'
 import { handleResponse } from '../../../../shared/utils/HandleResponse';
 import { catchError, of } from 'rxjs';
 import { AmenitiesService } from '../../../../services/amenities/amenities.service';
+import { UsersService } from '../../../../services/users/users.service';
 
-type PropertyStatus = 'ForSale' | 'ForRent' | 'Sold' | 'Rented';
+type PropertyStatus = 'Sell' | 'Rent' | 'Sold' | 'Rented';
 
 @Component({
   selector: 'app-create-property',
@@ -38,7 +39,7 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
   submitted = false;
   loading = false;
   newNearbyPlace = '';
-  
+
   steps = [
     { number: 1, title: 'Basic Info' },
     { number: 2, title: 'Property Details' },
@@ -50,7 +51,7 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
   governorates: Governorate[] = [];
   allFeatures: Feature[] = [];
   allAmenities: Amenity[] = [];
-  propertyStatuses: PropertyStatus[] = ['ForSale', 'ForRent', 'Sold', 'Rented'];
+  propertyStatuses: PropertyStatus[] = ['Sell', 'Rent',];
 
   selectedFeatures: string[] = [];
   selectedAmenities: string[] = [];
@@ -63,8 +64,11 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     @Inject(PropertiesService) private propertiesService: PropertiesService,
     private featuresService: FeaturesService,
-    private amenitiesService: AmenitiesService
+    private amenitiesService: AmenitiesService,
+    private userService: UsersService
   ) {
+
+     const user = this.userService.getCurrentUser();
     this.form = this.fb.group({
       // Step 1
       title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(128)]],
@@ -80,11 +84,12 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
       insurancePayment: [0, Validators.min(0)],
       area: [0, [Validators.required, Validators.min(0)]],
       rooms: [0, [Validators.min(0), Validators.max(1000)]],
-      status: ['ForSale'],
+      status: ['Sell', Validators.required],
       paymentType: [''],
       address: [''],
       latitude: [0, Validators.required],
       longitude: [0, Validators.required],
+      ownerId:user.id,
 
       // Step 4
       terms: [false, Validators.requiredTrue]
@@ -102,7 +107,7 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
     this.propertiesService.getPropertyTypes().subscribe(
       (response: GeneralResponse<PropertyType[]>) => {
         if (response && response.payload) {
-          this.propertyTypes = response.payload; 
+          this.propertyTypes = response.payload;
         } else {
           this.propertyTypes = [];
           console.error('Error loading property types: Payload is null or response is invalid');
@@ -116,7 +121,7 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
     this.propertiesService.getRegions().subscribe(
       (response: GeneralResponse<Region[]>) => {
         if (response && response.payload) {
-          this.governorates = response.payload; 
+          this.governorates = response.payload;
         } else {
           this.governorates = [];
           console.error('Error loading governorates: Payload is null or response is invalid');
@@ -144,7 +149,7 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
         if(res){
           this.allFeatures = res;
           this.filteredFeatures = [...res]; // Initialize filtered list
-        } 
+        }
       },
       error: (err) => {
         if(err){
@@ -174,7 +179,7 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
       next: (res) => {
         if(res){
           this.allAmenities = res;
-        } 
+        }
       },
       error: (err) => {
         if(err){
@@ -298,7 +303,7 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
     return this.selectedFeatures.includes(featureId);
   }
 
-  
+
 
   // removeFeature(featureId: string): void {
   //   this.selectedFeatures = this.selectedFeatures.filter(id => id !== featureId);
@@ -369,7 +374,7 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
     }
     return '';
   }
-  
+
   removeMainImage(): void {
     this.form.patchValue({ mainImage: null });
     // If you need to clear the file input as well
@@ -378,20 +383,20 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
       fileInput.value = '';
     }
   }
-  
+
   // removeAdditionalImage(index: number): void {
   //   const currentPhotos = [...this.form.get('photoUrls')?.value];
   //   currentPhotos.splice(index, 1);
   //   this.form.patchValue({ photoUrls: currentPhotos });
   // }
-  
+
   // Don't forget to revoke object URLs when component is destroyed
   ngOnDestroy(): void {
     // Revoke all image preview URLs to prevent memory leaks
     if (this.form.get('mainImage')?.value) {
       URL.revokeObjectURL(this.getImagePreview(this.form.get('mainImage')?.value));
     }
-    
+
     this.form.get('photoUrls')?.value?.forEach((image: File) => {
       URL.revokeObjectURL(this.getImagePreview(image));
     });
@@ -400,34 +405,35 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     if (this.form.valid) {
       this.loading = true;
-      
+
       const formData = new FormData();
       formData.append('title', this.form.value.title);
       formData.append('description', this.form.value.description);
       formData.append('propertyTypeId', this.form.value.propertyTypeId);
       formData.append('governorateId', this.form.value.governorateId);
       formData.append('mainImage', this.form.value.mainImage);
-      
+
       if (this.form.value.photoUrls) {
         this.form.value.photoUrls.forEach((file: File) => {
           formData.append('photoUrls', file);
         });
       }
-      
+
       if (this.form.value.videoUrl) {
         formData.append('videoUrl', this.form.value.videoUrl);
       }
-      
+
       formData.append('price', this.form.value.price.toString());
       formData.append('insurancePayment', this.form.value.insurancePayment.toString());
       formData.append('area', this.form.value.area.toString());
       formData.append('rooms', this.form.value.rooms.toString());
       formData.append('status', this.form.value.status);
+      formData.append('ownerId', this.form.value.ownerId);
       formData.append('paymentType', this.form.value.paymentType);
       formData.append('address', this.form.value.address);
       formData.append('latitude', this.form.value.latitude.toString());
       formData.append('longitude', this.form.value.longitude.toString());
-      
+
       // Add arrays
       this.selectedFeatures.forEach(f => formData.append('features', f));
       this.selectedAmenities.forEach(a => formData.append('amenities', a));
