@@ -1,0 +1,19 @@
+
+<div class="py-4 md:max-w-7xl mx-auto md:min-h-svh">
+  <h2 class=" text-purple-700 mb-4 font-bold text-lg"> Features Dashboard</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <app-features-list
+      [features]="features"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+    ></app-features-list>
+
+    <app-feature-form
+      [feature]="selectedEntity"
+      (formSubmit)="onSubmit($event)"
+      (cancel)="resetForm()"
+    ></app-feature-form>
+  </div>
+
+</div>

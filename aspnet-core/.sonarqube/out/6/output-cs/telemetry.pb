@@ -1,0 +1,1 @@
+¶RèD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi.Client\SawaTech.PropertyMini.HttpApi.Client.csproj¢net9.0ÚCSharp13

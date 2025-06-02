@@ -1,0 +1,1 @@
+ÅR®D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\test\SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp\SawaTech.PropertyMini.HttpApi.Client.ConsoleTestApp.csproj¢net9.0òCSharp13

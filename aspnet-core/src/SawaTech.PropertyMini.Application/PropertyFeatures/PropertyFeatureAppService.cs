@@ -4,29 +4,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 using SawaTech.PropertyMini.PropertyTypes;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using SawaTech.PropertyMini.AuthResponses;
+using SawaTech.PropertyMini.Amenities;
+using SawaTech.PropertyMini.PropertyAmenities;
+using Volo.Abp.ObjectMapping;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace SawaTech.PropertyMini.PropertyFeatures
 {
-    [Authorize]
-    public class PropertyFeatureAppService: ApplicationService, IPropertyFeatureAppService
+    //[Authorize]
+    public class PropertyFeatureAppService : ApplicationService, IPropertyFeatureAppService
     {
-        private readonly IRepository<PropertyFeature, Guid> _repository;
+        private readonly IRepository<Feature, Guid> _repository;
+        private readonly IMemoryCache _memoryCache;
 
-        public PropertyFeatureAppService(IRepository<PropertyFeature, Guid> repository)
+        public PropertyFeatureAppService(IRepository<Feature, Guid> repository, IMemoryCache memoryCache)
         {
             _repository = repository;
+            _memoryCache = memoryCache;
         }
 
 
-        public async Task<List<PropertyFeatureDto>> GetListAsync()
+        public async Task<GeneralResponse> GetListAsync()
         {
+            try
+            {
+                const string cacheKey = "PublicFeatureList";
 
-            var propertyFeatures = await _repository.GetListAsync();
-            return ObjectMapper.Map<List<PropertyFeature>, List<PropertyFeatureDto>>(propertyFeatures);
+                if (!_memoryCache.TryGetValue(cacheKey, out List<PropertyFeatureDto>? cachedList)) // Use nullable type for cachedList  
+                {
+                    var features = await _repository.GetListAsync();
+                    cachedList = ObjectMapper.Map<List<Feature>, List<PropertyFeatureDto>>(features);
+
+                    // Cache for 5 minutes  
+                    _memoryCache.Set(cacheKey, cachedList, TimeSpan.FromMinutes(5));
+                }
+
+                return new GeneralResponse(true, "Success", cachedList);
+            }
+            catch (Exception ex)
+            {
+                return new GeneralResponse(false, ex.Message, ex.StackTrace);
+            }
+          
         }
 
         public async Task<PropertyFeatureDto> GetAsync(Guid id)
@@ -36,15 +60,17 @@ namespace SawaTech.PropertyMini.PropertyFeatures
             return ObjectMapper.Map<PropertyFeature, PropertyFeatureDto>(propertyFeature);
         }
 
-        public async Task<PropertyFeatureDto> CreateAsync(CreateUpdatePropertyFeaturesDto input)
+        public async Task<GeneralResponse> CreateAsync(CreateUpdatePropertyFeaturesDto input)
         {
-            var propertyFeature = new PropertyFeature
+
+            var propertyFeature = new Feature
             {
                 Name = input.Name,
                 IconUrl = input.IconUrl
             };
             await _repository.InsertAsync(propertyFeature);
-            return ObjectMapper.Map<PropertyFeature, PropertyFeatureDto>(propertyFeature);
+            var amenity= ObjectMapper.Map<Feature, PropertyFeatureDto>(propertyFeature);
+            return new GeneralResponse(true, "Successfully create amenity", amenity);
         }
 
         public async Task<PropertyFeatureDto> UpdateAsync(Guid id, CreateUpdatePropertyFeaturesDto input)

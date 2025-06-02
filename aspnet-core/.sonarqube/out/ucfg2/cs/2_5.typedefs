@@ -1,0 +1,268 @@
+:
+8SawaTech.PropertyMini.Data.IPropertyMiniDbSchemaMigratorö
+'SawaTech.PropertyMini.Amenities.Amenity<Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<TKey>DVolo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<TKey>,Volo.Abp.Domain.Entities.AggregateRoot<TKey>1Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>%Volo.Abp.Domain.Entities.Entity<TKey>Volo.Abp.Domain.Entities.Entityobject>
+	Amenity()1SawaTech.PropertyMini.Amenities.Amenity.Amenity()<
+Name.get0SawaTech.PropertyMini.Amenities.Amenity.Name.get<
+Name.set0SawaTech.PropertyMini.Amenities.Amenity.Name.setó
+;SawaTech.PropertyMini.Data.NullPropertyMiniDbSchemaMigratorobject8SawaTech.PropertyMini.Data.IPropertyMiniDbSchemaMigrator1Volo.Abp.DependencyInjection.ITransientDependency\
+MigrateAsync()JSawaTech.PropertyMini.Data.NullPropertyMiniDbSchemaMigrator.MigrateAsync()Ñ
+"NullPropertyMiniDbSchemaMigrator()^SawaTech.PropertyMini.Data.NullPropertyMiniDbSchemaMigrator.NullPropertyMiniDbSchemaMigrator()ÿ
+.SawaTech.PropertyMini.Governorates.Governorate<Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<TKey>DVolo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<TKey>,Volo.Abp.Domain.Entities.AggregateRoot<TKey>1Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>%Volo.Abp.Domain.Entities.Entity<TKey>Volo.Abp.Domain.Entities.EntityobjectM
+Governorate()<SawaTech.PropertyMini.Governorates.Governorate.Governorate()C
+Name.get7SawaTech.PropertyMini.Governorates.Governorate.Name.getC
+Name.set7SawaTech.PropertyMini.Governorates.Governorate.Name.setK
+Property.get;SawaTech.PropertyMini.Governorates.Governorate.Property.getK
+Property.set;SawaTech.PropertyMini.Governorates.Governorate.Property.setà
+.SawaTech.PropertyMini.NearbyPlaces.NearbyPlace<Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<TKey>DVolo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<TKey>,Volo.Abp.Domain.Entities.AggregateRoot<TKey>1Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>%Volo.Abp.Domain.Entities.Entity<TKey>Volo.Abp.Domain.Entities.EntityobjectM
+NearbyPlace()<SawaTech.PropertyMini.NearbyPlaces.NearbyPlace.NearbyPlace()C
+Name.get7SawaTech.PropertyMini.NearbyPlaces.NearbyPlace.Name.getC
+Name.set7SawaTech.PropertyMini.NearbyPlaces.NearbyPlace.Name.setc
+PropertyNearbyPlaces.getGSawaTech.PropertyMini.NearbyPlaces.NearbyPlace.PropertyNearbyPlaces.getc
+PropertyNearbyPlaces.setGSawaTech.PropertyMini.NearbyPlaces.NearbyPlace.PropertyNearbyPlaces.setÓ
+.SawaTech.PropertyMini.PublicProperties.Feature<Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<TKey>DVolo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<TKey>,Volo.Abp.Domain.Entities.AggregateRoot<TKey>1Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>%Volo.Abp.Domain.Entities.Entity<TKey>Volo.Abp.Domain.Entities.EntityobjectE
+	Feature()8SawaTech.PropertyMini.PublicProperties.Feature.Feature()C
+Name.get7SawaTech.PropertyMini.PublicProperties.Feature.Name.getC
+Name.set7SawaTech.PropertyMini.PublicProperties.Feature.Name.setI
+IconUrl.get:SawaTech.PropertyMini.PublicProperties.Feature.IconUrl.getI
+IconUrl.set:SawaTech.PropertyMini.PublicProperties.Feature.IconUrl.setO
+Properties.get=SawaTech.PropertyMini.PublicProperties.Feature.Properties.getO
+Properties.set=SawaTech.PropertyMini.PublicProperties.Feature.Properties.set◊
+2SawaTech.PropertyMini.PublicProperties.LocationDtoobjectQ
+LocationDto()@SawaTech.PropertyMini.PublicProperties.LocationDto.LocationDto()O
+Latitude.get?SawaTech.PropertyMini.PublicProperties.LocationDto.Latitude.getO
+Latitude.set?SawaTech.PropertyMini.PublicProperties.LocationDto.Latitude.setQ
+Longitude.get@SawaTech.PropertyMini.PublicProperties.LocationDto.Longitude.getQ
+Longitude.set@SawaTech.PropertyMini.PublicProperties.LocationDto.Longitude.set«
+DSawaTech.PropertyMini.Settings.PropertyMiniSettingDefinitionProvider+Volo.Abp.Settings.SettingDefinitionProviderobjectØ
+3Define(Volo.Abp.Settings.ISettingDefinitionContext)xSawaTech.PropertyMini.Settings.PropertyMiniSettingDefinitionProvider.Define(Volo.Abp.Settings.ISettingDefinitionContext)ó
+'PropertyMiniSettingDefinitionProvider()lSawaTech.PropertyMini.Settings.PropertyMiniSettingDefinitionProvider.PropertyMiniSettingDefinitionProvider()∆
+'SawaTech.PropertyMini.Addresses.Address<Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<TKey>DVolo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<TKey>,Volo.Abp.Domain.Entities.AggregateRoot<TKey>1Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>%Volo.Abp.Domain.Entities.Entity<TKey>Volo.Abp.Domain.Entities.Entityobject>
+	Address()1SawaTech.PropertyMini.Addresses.Address.Address()J
+Governorate.get7SawaTech.PropertyMini.Addresses.Address.Governorate.getJ
+Governorate.set7SawaTech.PropertyMini.Addresses.Address.Governorate.setD
+District.get4SawaTech.PropertyMini.Addresses.Address.District.getD
+District.set4SawaTech.PropertyMini.Addresses.Address.District.set@
+
+Street.get2SawaTech.PropertyMini.Addresses.Address.Street.get@
+
+Street.set2SawaTech.PropertyMini.Addresses.Address.Street.set¸
+6SawaTech.PropertyMini.PublicProperties.PropertyAmenity<Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<TKey>DVolo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<TKey>,Volo.Abp.Domain.Entities.AggregateRoot<TKey>1Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>%Volo.Abp.Domain.Entities.Entity<TKey>Volo.Abp.Domain.Entities.Entityobject]
+PropertyAmenity()HSawaTech.PropertyMini.PublicProperties.PropertyAmenity.PropertyAmenity()W
+PropertyId.getESawaTech.PropertyMini.PublicProperties.PropertyAmenity.PropertyId.getW
+PropertyId.setESawaTech.PropertyMini.PublicProperties.PropertyAmenity.PropertyId.setU
+AmenityId.getDSawaTech.PropertyMini.PublicProperties.PropertyAmenity.AmenityId.getU
+AmenityId.setDSawaTech.PropertyMini.PublicProperties.PropertyAmenity.AmenityId.setS
+Property.getCSawaTech.PropertyMini.PublicProperties.PropertyAmenity.Property.getS
+Property.setCSawaTech.PropertyMini.PublicProperties.PropertyAmenity.Property.setQ
+Amenity.getBSawaTech.PropertyMini.PublicProperties.PropertyAmenity.Amenity.getQ
+Amenity.setBSawaTech.PropertyMini.PublicProperties.PropertyAmenity.Amenity.set˙
+.SawaTech.PropertyMini.PropertyMiniDomainModuleVolo.Abp.Modularity.AbpModuleobject∑
+BConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)qSawaTech.PropertyMini.PropertyMiniDomainModule.ConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)g
+PropertyMiniDomainModule()ISawaTech.PropertyMini.PropertyMiniDomainModule.PropertyMiniDomainModule()œ
+6SawaTech.PropertyMini.PublicProperties.PropertyFeatureobject]
+PropertyFeature()HSawaTech.PropertyMini.PublicProperties.PropertyFeature.PropertyFeature()W
+PropertyId.getESawaTech.PropertyMini.PublicProperties.PropertyFeature.PropertyId.getW
+PropertyId.setESawaTech.PropertyMini.PublicProperties.PropertyFeature.PropertyId.setS
+Property.getCSawaTech.PropertyMini.PublicProperties.PropertyFeature.Property.getS
+Property.setCSawaTech.PropertyMini.PublicProperties.PropertyFeature.Property.setU
+FeatureId.getDSawaTech.PropertyMini.PublicProperties.PropertyFeature.FeatureId.getU
+FeatureId.setDSawaTech.PropertyMini.PublicProperties.PropertyFeature.FeatureId.setQ
+Feature.getBSawaTech.PropertyMini.PublicProperties.PropertyFeature.Feature.getQ
+Feature.setBSawaTech.PropertyMini.PublicProperties.PropertyFeature.Feature.setá
+(SawaTech.PropertyMini.Helpers.JwtSectionobjectE
+JwtSection()5SawaTech.PropertyMini.Helpers.JwtSection.JwtSection();
+Key.get0SawaTech.PropertyMini.Helpers.JwtSection.Key.get;
+Key.set0SawaTech.PropertyMini.Helpers.JwtSection.Key.setA
+
+Issuer.get3SawaTech.PropertyMini.Helpers.JwtSection.Issuer.getA
+
+Issuer.set3SawaTech.PropertyMini.Helpers.JwtSection.Issuer.setE
+Audience.get5SawaTech.PropertyMini.Helpers.JwtSection.Audience.getE
+Audience.set5SawaTech.PropertyMini.Helpers.JwtSection.Audience.set‘
+4SawaTech.PropertyMini.PublicProperties.PropertyImage<Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<TKey>DVolo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<TKey>,Volo.Abp.Domain.Entities.AggregateRoot<TKey>1Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>%Volo.Abp.Domain.Entities.Entity<TKey>Volo.Abp.Domain.Entities.EntityobjectW
+PropertyImage()DSawaTech.PropertyMini.PublicProperties.PropertyImage.PropertyImage()G
+Url.get<SawaTech.PropertyMini.PublicProperties.PropertyImage.Url.getG
+Url.set<SawaTech.PropertyMini.PublicProperties.PropertyImage.Url.setS
+MediaType.getBSawaTech.PropertyMini.PublicProperties.PropertyImage.MediaType.getS
+MediaType.setBSawaTech.PropertyMini.PublicProperties.PropertyImage.MediaType.setU
+PropertyId.getCSawaTech.PropertyMini.PublicProperties.PropertyImage.PropertyId.getU
+PropertyId.setCSawaTech.PropertyMini.PublicProperties.PropertyImage.PropertyId.setQ
+Property.getASawaTech.PropertyMini.PublicProperties.PropertyImage.Property.getQ
+Property.setASawaTech.PropertyMini.PublicProperties.PropertyImage.Property.setÀ
+7SawaTech.PropertyMini.PublicProperties.PropertyImageDtoobject`
+PropertyImageDto()JSawaTech.PropertyMini.PublicProperties.PropertyImageDto.PropertyImageDto()H
+Id.get>SawaTech.PropertyMini.PublicProperties.PropertyImageDto.Id.getH
+Id.set>SawaTech.PropertyMini.PublicProperties.PropertyImageDto.Id.setJ
+Url.get?SawaTech.PropertyMini.PublicProperties.PropertyImageDto.Url.getJ
+Url.set?SawaTech.PropertyMini.PublicProperties.PropertyImageDto.Url.setP
+
+IsMain.getBSawaTech.PropertyMini.PublicProperties.PropertyImageDto.IsMain.getP
+
+IsMain.setBSawaTech.PropertyMini.PublicProperties.PropertyImageDto.IsMain.setV
+SortOrder.getESawaTech.PropertyMini.PublicProperties.PropertyImageDto.SortOrder.getV
+SortOrder.setESawaTech.PropertyMini.PublicProperties.PropertyImageDto.SortOrder.setR
+FullUrl.getCSawaTech.PropertyMini.PublicProperties.PropertyImageDto.FullUrl.getR
+FullUrl.setCSawaTech.PropertyMini.PublicProperties.PropertyImageDto.FullUrl.setÚ
+'SawaTech.PropertyMini.Users.AccountUser<Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<TKey>DVolo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<TKey>,Volo.Abp.Domain.Entities.AggregateRoot<TKey>1Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>%Volo.Abp.Domain.Entities.Entity<TKey>Volo.Abp.Domain.Entities.EntityobjectF
+AccountUser()5SawaTech.PropertyMini.Users.AccountUser.AccountUser()<
+Type.get0SawaTech.PropertyMini.Users.AccountUser.Type.get<
+Type.set0SawaTech.PropertyMini.Users.AccountUser.Type.set>
+	Email.get1SawaTech.PropertyMini.Users.AccountUser.Email.get>
+	Email.set1SawaTech.PropertyMini.Users.AccountUser.Email.setD
+UserName.get4SawaTech.PropertyMini.Users.AccountUser.UserName.getD
+UserName.set4SawaTech.PropertyMini.Users.AccountUser.UserName.setD
+Password.get4SawaTech.PropertyMini.Users.AccountUser.Password.getD
+Password.set4SawaTech.PropertyMini.Users.AccountUser.Password.setJ
+CompanyName.get7SawaTech.PropertyMini.Users.AccountUser.CompanyName.getJ
+CompanyName.set7SawaTech.PropertyMini.Users.AccountUser.CompanyName.setL
+CompanyEmail.get8SawaTech.PropertyMini.Users.AccountUser.CompanyEmail.getL
+CompanyEmail.set8SawaTech.PropertyMini.Users.AccountUser.CompanyEmail.setH
+Department.get6SawaTech.PropertyMini.Users.AccountUser.Department.getH
+Department.set6SawaTech.PropertyMini.Users.AccountUser.Department.setJ
+JobPosition.get7SawaTech.PropertyMini.Users.AccountUser.JobPosition.getJ
+JobPosition.set7SawaTech.PropertyMini.Users.AccountUser.JobPosition.set>
+	Phone.get1SawaTech.PropertyMini.Users.AccountUser.Phone.get>
+	Phone.set1SawaTech.PropertyMini.Users.AccountUser.Phone.setD
+WhatsApp.get4SawaTech.PropertyMini.Users.AccountUser.WhatsApp.getD
+WhatsApp.set4SawaTech.PropertyMini.Users.AccountUser.WhatsApp.setB
+Country.get3SawaTech.PropertyMini.Users.AccountUser.Country.getB
+Country.set3SawaTech.PropertyMini.Users.AccountUser.Country.setV
+ProfilePictureUrl.get=SawaTech.PropertyMini.Users.AccountUser.ProfilePictureUrl.getV
+ProfilePictureUrl.set=SawaTech.PropertyMini.Users.AccountUser.ProfilePictureUrl.setH
+Properties.get6SawaTech.PropertyMini.Users.AccountUser.Properties.getH
+Properties.set6SawaTech.PropertyMini.Users.AccountUser.Properties.setü
+:SawaTech.PropertyMini.PublicProperties.PropertyNearbyPlaceobjecti
+PropertyNearbyPlace()PSawaTech.PropertyMini.PublicProperties.PropertyNearbyPlace.PropertyNearbyPlace()[
+PropertyId.getISawaTech.PropertyMini.PublicProperties.PropertyNearbyPlace.PropertyId.get[
+PropertyId.setISawaTech.PropertyMini.PublicProperties.PropertyNearbyPlace.PropertyId.setW
+Property.getGSawaTech.PropertyMini.PublicProperties.PropertyNearbyPlace.Property.getW
+Property.setGSawaTech.PropertyMini.PublicProperties.PropertyNearbyPlace.Property.seta
+NearbyPlaceId.getLSawaTech.PropertyMini.PublicProperties.PropertyNearbyPlace.NearbyPlaceId.geta
+NearbyPlaceId.setLSawaTech.PropertyMini.PublicProperties.PropertyNearbyPlace.NearbyPlaceId.set]
+NearbyPlace.getJSawaTech.PropertyMini.PublicProperties.PropertyNearbyPlace.NearbyPlace.get]
+NearbyPlace.setJSawaTech.PropertyMini.PublicProperties.PropertyNearbyPlace.NearbyPlace.set»#
+/SawaTech.PropertyMini.PublicProperties.Property<Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<TKey>DVolo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<TKey>,Volo.Abp.Domain.Entities.AggregateRoot<TKey>1Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>%Volo.Abp.Domain.Entities.Entity<TKey>Volo.Abp.Domain.Entities.EntityobjectH
+
+Property():SawaTech.PropertyMini.PublicProperties.Property.Property()F
+	Title.get9SawaTech.PropertyMini.PublicProperties.Property.Title.getF
+	Title.set9SawaTech.PropertyMini.PublicProperties.Property.Title.setJ
+OwnerId.get;SawaTech.PropertyMini.PublicProperties.Property.OwnerId.getJ
+OwnerId.set;SawaTech.PropertyMini.PublicProperties.Property.OwnerId.setV
+GovernorateId.getASawaTech.PropertyMini.PublicProperties.Property.GovernorateId.getV
+GovernorateId.setASawaTech.PropertyMini.PublicProperties.Property.GovernorateId.setF
+	Owner.get9SawaTech.PropertyMini.PublicProperties.Property.Owner.getF
+	Owner.set9SawaTech.PropertyMini.PublicProperties.Property.Owner.setR
+Description.get?SawaTech.PropertyMini.PublicProperties.Property.Description.getR
+Description.set?SawaTech.PropertyMini.PublicProperties.Property.Description.setX
+PropertyTypeId.getBSawaTech.PropertyMini.PublicProperties.Property.PropertyTypeId.getX
+PropertyTypeId.setBSawaTech.PropertyMini.PublicProperties.Property.PropertyTypeId.setT
+PropertyType.get@SawaTech.PropertyMini.PublicProperties.Property.PropertyType.getT
+PropertyType.set@SawaTech.PropertyMini.PublicProperties.Property.PropertyType.setR
+PaymentType.get?SawaTech.PropertyMini.PublicProperties.Property.PaymentType.getR
+PaymentType.set?SawaTech.PropertyMini.PublicProperties.Property.PaymentType.setH
+
+Status.get:SawaTech.PropertyMini.PublicProperties.Property.Status.getH
+
+Status.set:SawaTech.PropertyMini.PublicProperties.Property.Status.setJ
+Address.get;SawaTech.PropertyMini.PublicProperties.Property.Address.getJ
+Address.set;SawaTech.PropertyMini.PublicProperties.Property.Address.setN
+MainImage.get=SawaTech.PropertyMini.PublicProperties.Property.MainImage.getN
+MainImage.set=SawaTech.PropertyMini.PublicProperties.Property.MainImage.setF
+	Price.get9SawaTech.PropertyMini.PublicProperties.Property.Price.getF
+	Price.set9SawaTech.PropertyMini.PublicProperties.Property.Price.set\
+InsurancePayment.getDSawaTech.PropertyMini.PublicProperties.Property.InsurancePayment.get\
+InsurancePayment.setDSawaTech.PropertyMini.PublicProperties.Property.InsurancePayment.setD
+Area.get8SawaTech.PropertyMini.PublicProperties.Property.Area.getD
+Area.set8SawaTech.PropertyMini.PublicProperties.Property.Area.setF
+	Rooms.get9SawaTech.PropertyMini.PublicProperties.Property.Rooms.getF
+	Rooms.set9SawaTech.PropertyMini.PublicProperties.Property.Rooms.setL
+Latitude.get<SawaTech.PropertyMini.PublicProperties.Property.Latitude.getL
+Latitude.set<SawaTech.PropertyMini.PublicProperties.Property.Latitude.setN
+Longitude.get=SawaTech.PropertyMini.PublicProperties.Property.Longitude.getN
+Longitude.set=SawaTech.PropertyMini.PublicProperties.Property.Longitude.set^
+PropertyAmenities.getESawaTech.PropertyMini.PublicProperties.Property.PropertyAmenities.get^
+PropertyAmenities.setESawaTech.PropertyMini.PublicProperties.Property.PropertyAmenities.set\
+PropertyFeatures.getDSawaTech.PropertyMini.PublicProperties.Property.PropertyFeatures.get\
+PropertyFeatures.setDSawaTech.PropertyMini.PublicProperties.Property.PropertyFeatures.setN
+Amenities.get=SawaTech.PropertyMini.PublicProperties.Property.Amenities.getN
+Amenities.set=SawaTech.PropertyMini.PublicProperties.Property.Amenities.setL
+Features.get<SawaTech.PropertyMini.PublicProperties.Property.Features.getL
+Features.set<SawaTech.PropertyMini.PublicProperties.Property.Features.setX
+PropertyImages.getBSawaTech.PropertyMini.PublicProperties.Property.PropertyImages.getX
+PropertyImages.setBSawaTech.PropertyMini.PublicProperties.Property.PropertyImages.setV
+PropertyVideo.getASawaTech.PropertyMini.PublicProperties.Property.PropertyVideo.getV
+PropertyVideo.setASawaTech.PropertyMini.PublicProperties.Property.PropertyVideo.setd
+PropertyNearbyPlaces.getHSawaTech.PropertyMini.PublicProperties.Property.PropertyNearbyPlaces.getd
+PropertyNearbyPlaces.setHSawaTech.PropertyMini.PublicProperties.Property.PropertyNearbyPlaces.setR
+Governorate.get?SawaTech.PropertyMini.PublicProperties.Property.Governorate.getR
+Governorate.set?SawaTech.PropertyMini.PublicProperties.Property.Governorate.setÛ
+7SawaTech.PropertyMini.PublicProperties.PropertyOwnerDtoobject`
+PropertyOwnerDto()JSawaTech.PropertyMini.PublicProperties.PropertyOwnerDto.PropertyOwnerDto()H
+Id.get>SawaTech.PropertyMini.PublicProperties.PropertyOwnerDto.Id.getH
+Id.set>SawaTech.PropertyMini.PublicProperties.PropertyOwnerDto.Id.setL
+Name.get@SawaTech.PropertyMini.PublicProperties.PropertyOwnerDto.Name.getL
+Name.set@SawaTech.PropertyMini.PublicProperties.PropertyOwnerDto.Name.setN
+	Email.getASawaTech.PropertyMini.PublicProperties.PropertyOwnerDto.Email.getN
+	Email.setASawaTech.PropertyMini.PublicProperties.PropertyOwnerDto.Email.setZ
+PhoneNumber.getGSawaTech.PropertyMini.PublicProperties.PropertyOwnerDto.PhoneNumber.getZ
+PhoneNumber.setGSawaTech.PropertyMini.PublicProperties.PropertyOwnerDto.PhoneNumber.setb
+ProfileImageUrl.getKSawaTech.PropertyMini.PublicProperties.PropertyOwnerDto.ProfileImageUrl.getb
+ProfileImageUrl.setKSawaTech.PropertyMini.PublicProperties.PropertyOwnerDto.ProfileImageUrl.setå
+$SawaTech.PropertyMini.Users.UserTypeSystem.EnumSystem.ValueTypeobject=
+
+UserType()/SawaTech.PropertyMini.Users.UserType.UserType()‘
+3SawaTech.PropertyMini.PublicProperties.PropertyType<Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<TKey>DVolo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<TKey>,Volo.Abp.Domain.Entities.AggregateRoot<TKey>1Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>%Volo.Abp.Domain.Entities.Entity<TKey>Volo.Abp.Domain.Entities.EntityobjectT
+PropertyType()BSawaTech.PropertyMini.PublicProperties.PropertyType.PropertyType()H
+Name.get<SawaTech.PropertyMini.PublicProperties.PropertyType.Name.getH
+Name.set<SawaTech.PropertyMini.PublicProperties.PropertyType.Name.setÍ
+9SawaTech.PropertyMini.Data.PropertyMiniDbMigrationServiceobject1Volo.Abp.DependencyInjection.ITransientDependency¬
+¡PropertyMiniDbMigrationService(Volo.Abp.Data.IDataSeeder, System.Collections.Generic.IEnumerable<SawaTech.PropertyMini.Data.IPropertyMiniDbSchemaMigrator>, Volo.Abp.MultiTenancy.ICurrentTenant)˚SawaTech.PropertyMini.Data.PropertyMiniDbMigrationService.PropertyMiniDbMigrationService(Volo.Abp.Data.IDataSeeder, System.Collections.Generic.IEnumerable<SawaTech.PropertyMini.Data.IPropertyMiniDbSchemaMigrator>, Volo.Abp.MultiTenancy.ICurrentTenant)Z
+MigrateAsync()HSawaTech.PropertyMini.Data.PropertyMiniDbMigrationService.MigrateAsync()v
+MigrateDatabaseSchemaAsync()VSawaTech.PropertyMini.Data.PropertyMiniDbMigrationService.MigrateDatabaseSchemaAsync()\
+SeedDataAsync()ISawaTech.PropertyMini.Data.PropertyMiniDbMigrationService.SeedDataAsync()|
+AddInitialMigrationIfNotExist()YSawaTech.PropertyMini.Data.PropertyMiniDbMigrationService.AddInitialMigrationIfNotExist()t
+DbMigrationsProjectExists()USawaTech.PropertyMini.Data.PropertyMiniDbMigrationService.DbMigrationsProjectExists()n
+MigrationsFolderExists()RSawaTech.PropertyMini.Data.PropertyMiniDbMigrationService.MigrationsFolderExists()h
+AddInitialMigration()OSawaTech.PropertyMini.Data.PropertyMiniDbMigrationService.AddInitialMigration()ê
+)GetEntityFrameworkCoreProjectFolderPath()cSawaTech.PropertyMini.Data.PropertyMiniDbMigrationService.GetEntityFrameworkCoreProjectFolderPath()r
+GetSolutionDirectoryPath()TSawaTech.PropertyMini.Data.PropertyMiniDbMigrationService.GetSolutionDirectoryPath()R
+
+Logger.getDSawaTech.PropertyMini.Data.PropertyMiniDbMigrationService.Logger.getR
+
+Logger.setDSawaTech.PropertyMini.Data.PropertyMiniDbMigrationService.Logger.setÀ
+6SawaTech.PropertyMini.PublicProperties.PropertyTypeDtoobject]
+PropertyTypeDto()HSawaTech.PropertyMini.PublicProperties.PropertyTypeDto.PropertyTypeDto()G
+Id.get=SawaTech.PropertyMini.PublicProperties.PropertyTypeDto.Id.getG
+Id.set=SawaTech.PropertyMini.PublicProperties.PropertyTypeDto.Id.setK
+Name.get?SawaTech.PropertyMini.PublicProperties.PropertyTypeDto.Name.getK
+Name.set?SawaTech.PropertyMini.PublicProperties.PropertyTypeDto.Name.set“
+,SawaTech.PropertyMini.Users.RefreshTokenInfo<Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<TKey>DVolo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<TKey>,Volo.Abp.Domain.Entities.AggregateRoot<TKey>1Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>%Volo.Abp.Domain.Entities.Entity<TKey>Volo.Abp.Domain.Entities.EntityobjectU
+RefreshTokenInfo()?SawaTech.PropertyMini.Users.RefreshTokenInfo.RefreshTokenInfo()C
+	Token.get6SawaTech.PropertyMini.Users.RefreshTokenInfo.Token.getC
+	Token.set6SawaTech.PropertyMini.Users.RefreshTokenInfo.Token.setE
+
+UserId.get7SawaTech.PropertyMini.Users.RefreshTokenInfo.UserId.getE
+
+UserId.set7SawaTech.PropertyMini.Users.RefreshTokenInfo.UserId.set™
+4SawaTech.PropertyMini.PublicProperties.PropertyVideo<Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<TKey>DVolo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<TKey>,Volo.Abp.Domain.Entities.AggregateRoot<TKey>1Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>%Volo.Abp.Domain.Entities.Entity<TKey>Volo.Abp.Domain.Entities.EntityobjectW
+PropertyVideo()DSawaTech.PropertyMini.PublicProperties.PropertyVideo.PropertyVideo()G
+Url.get<SawaTech.PropertyMini.PublicProperties.PropertyVideo.Url.getG
+Url.set<SawaTech.PropertyMini.PublicProperties.PropertyVideo.Url.setU
+PropertyId.getCSawaTech.PropertyMini.PublicProperties.PropertyVideo.PropertyId.getU
+PropertyId.setCSawaTech.PropertyMini.PublicProperties.PropertyVideo.PropertyId.setQ
+Property.getASawaTech.PropertyMini.PublicProperties.PropertyVideo.Property.getQ
+Property.setASawaTech.PropertyMini.PublicProperties.PropertyVideo.Property.set¿
+6SawaTech.PropertyMini.PropertyAppDataSeederContributorobject"Volo.Abp.Data.IDataSeedContributorÀ
+áPropertyAppDataSeederContributor(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.Feature, System.Guid>)æSawaTech.PropertyMini.PropertyAppDataSeederContributor.PropertyAppDataSeederContributor(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.Feature, System.Guid>)ã
+(SeedAsync(Volo.Abp.Data.DataSeedContext)_SawaTech.PropertyMini.PropertyAppDataSeederContributor.SeedAsync(Volo.Abp.Data.DataSeedContext)Å
+>SawaTech.PropertyMini.OpenIddict.OpenIddictDataSeedContributorobject"Volo.Abp.Data.IDataSeedContributor1Volo.Abp.DependencyInjection.ITransientDependency◊
+…OpenIddictDataSeedContributor(Microsoft.Extensions.Configuration.IConfiguration, Volo.Abp.OpenIddict.Applications.IOpenIddictApplicationRepository, Volo.Abp.OpenIddict.Applications.IAbpApplicationManager, Volo.Abp.OpenIddict.Scopes.IOpenIddictScopeRepository, OpenIddict.Abstractions.IOpenIddictScopeManager, Volo.Abp.PermissionManagement.IPermissionDataSeeder, Microsoft.Extensions.Localization.IStringLocalizer<OpenIddict.Abstractions.OpenIddictResponse>)àSawaTech.PropertyMini.OpenIddict.OpenIddictDataSeedContributor.OpenIddictDataSeedContributor(Microsoft.Extensions.Configuration.IConfiguration, Volo.Abp.OpenIddict.Applications.IOpenIddictApplicationRepository, Volo.Abp.OpenIddict.Applications.IAbpApplicationManager, Volo.Abp.OpenIddict.Scopes.IOpenIddictScopeRepository, OpenIddict.Abstractions.IOpenIddictScopeManager, Volo.Abp.PermissionManagement.IPermissionDataSeeder, Microsoft.Extensions.Localization.IStringLocalizer<OpenIddict.Abstractions.OpenIddictResponse>)ì
+(SeedAsync(Volo.Abp.Data.DataSeedContext)gSawaTech.PropertyMini.OpenIddict.OpenIddictDataSeedContributor.SeedAsync(Volo.Abp.Data.DataSeedContext)i
+CreateScopesAsync()RSawaTech.PropertyMini.OpenIddict.OpenIddictDataSeedContributor.CreateScopesAsync()u
+CreateApplicationsAsync()XSawaTech.PropertyMini.OpenIddict.OpenIddictDataSeedContributor.CreateApplicationsAsync()Ò
+÷CreateApplicationAsync(string, string, string, string, string?, System.Collections.Generic.List<string>, System.Collections.Generic.List<string>, string?, string?, string?, System.Collections.Generic.List<string>?)ïSawaTech.PropertyMini.OpenIddict.OpenIddictDataSeedContributor.CreateApplicationAsync(string, string, string, string, string?, System.Collections.Generic.List<string>, System.Collections.Generic.List<string>, string?, string?, string?, System.Collections.Generic.List<string>?)—
+ÜHasSameRedirectUris(Volo.Abp.OpenIddict.Applications.OpenIddictApplication, Volo.Abp.OpenIddict.Applications.AbpApplicationDescriptor)≈SawaTech.PropertyMini.OpenIddict.OpenIddictDataSeedContributor.HasSameRedirectUris(Volo.Abp.OpenIddict.Applications.OpenIddictApplication, Volo.Abp.OpenIddict.Applications.AbpApplicationDescriptor)≈
+ÄHasSameScopes(Volo.Abp.OpenIddict.Applications.OpenIddictApplication, Volo.Abp.OpenIddict.Applications.AbpApplicationDescriptor)øSawaTech.PropertyMini.OpenIddict.OpenIddictDataSeedContributor.HasSameScopes(Volo.Abp.OpenIddict.Applications.OpenIddictApplication, Volo.Abp.OpenIddict.Applications.AbpApplicationDescriptor)π
+!Volo.Abp.Emailing.NullEmailSender!Volo.Abp.Emailing.EmailSenderBaseobject 
+ëNullEmailSender(Volo.Abp.MultiTenancy.ICurrentTenant, Volo.Abp.Emailing.IEmailSenderConfiguration, Volo.Abp.BackgroundJobs.IBackgroundJobManager)≥Volo.Abp.Emailing.NullEmailSender.NullEmailSender(Volo.Abp.MultiTenancy.ICurrentTenant, Volo.Abp.Emailing.IEmailSenderConfiguration, Volo.Abp.BackgroundJobs.IBackgroundJobManager)|
++SendEmailAsync(System.Net.Mail.MailMessage)MVolo.Abp.Emailing.NullEmailSender.SendEmailAsync(System.Net.Mail.MailMessage)2Volo.Abp.Emailing.IEmailSender

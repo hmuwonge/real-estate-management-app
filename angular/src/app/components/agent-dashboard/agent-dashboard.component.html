@@ -1,0 +1,58 @@
+<div class="bg-gray-50 flex items-center justify-center min-h-screen p-6">
+
+  <!-- Content Container -->
+  <div class="w-full max-w-5xl text-center top-10">
+
+    <!-- Heading -->
+    <h1 class="text-2xl font-semibold text-gray-800 mb-4">
+      What do you want to Manage
+    </h1>
+
+    <div class="grid grid-cols-3 md:grid-cols-4 gap-6">
+      <!-- Estate Card -->
+      <div [routerLink]="['/auth/manage-properties']" class="bg-white shadow-lg rounded-lg p-6 cursor-pointer hover:shadow-xl transition duration-300">
+        <div class="flex justify-center mb-4">
+          <!-- Icon (SVG for house icon) -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-16 h-16 text-purple-700">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2 7-7 7 7 2 2M5 12h14v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-8z"/>
+          </svg>
+        </div>
+        <p class="text-sm text-purple-700">Your Estates</p>
+      </div>
+
+      <div [routerLink]="['/auth/dashboard/features']" class="bg-white shadow-lg rounded-lg p-6 cursor-pointer hover:shadow-xl transition duration-300">
+        <div class="flex justify-center mb-4">
+          <!-- Icon (SVG for house icon) -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-16 h-16 text-purple-700">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2 7-7 7 7 2 2M5 12h14v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-8z"/>
+          </svg>
+        </div>
+        <p class="text-sm text-purple-700">Your Features</p>
+      </div>
+
+      <div [routerLink]="['/auth/dashboard/amenities']" class="bg-white shadow-lg rounded-lg p-6 cursor-pointer hover:shadow-xl transition duration-300">
+        <div class="flex justify-center mb-4">
+          <!-- Icon (SVG for house icon) -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-16 h-16 text-purple-700">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2 7-7 7 7 2 2M5 12h14v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-8z"/>
+          </svg>
+        </div>
+        <p class="text-sm text-purple-700">Your Amenities</p>
+      </div>
+
+      <div class="bg-white shadow-lg rounded-lg p-6 cursor-pointer hover:shadow-xl transition duration-300">
+        <div class="flex justify-center mb-4">
+          <!-- Icon (SVG for house icon) -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-16 h-16 text-purple-700">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2 7-7 7 7 2 2M5 12h14v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-8z"/>
+          </svg>
+        </div>
+        <p class="text-sm text-purple-700">Your Nearby Places</p>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+

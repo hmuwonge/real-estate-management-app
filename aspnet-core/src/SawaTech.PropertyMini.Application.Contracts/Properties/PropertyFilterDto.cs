@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
 
 namespace SawaTech.PropertyMini.Properties
 {

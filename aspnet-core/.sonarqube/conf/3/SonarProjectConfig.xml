@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SonarProjectConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/analyzer/2021/1">
+  <AnalysisConfigPath>D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\.sonarqube\conf\SonarQubeAnalysisConfig.xml</AnalysisConfigPath>
+  <ProjectPath>D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application.Contracts\SawaTech.PropertyMini.Application.Contracts.csproj</ProjectPath>
+  <FilesToAnalyzePath>D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\.sonarqube\conf\3\FilesToAnalyze.txt</FilesToAnalyzePath>
+  <OutPath>D:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\.sonarqube\out\3</OutPath>
+  <ProjectType>Product</ProjectType>
+  <TargetFramework>net9.0</TargetFramework>
+</SonarProjectConfig>

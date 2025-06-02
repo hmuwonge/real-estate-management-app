@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SawaTech.PropertyMini.PropertyEntities
+namespace SawaTech.PropertyMini.PublicProperties
 {
     public class PropertyOwnerDto
     {
@@ -11,6 +11,7 @@ namespace SawaTech.PropertyMini.PropertyEntities
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; }= string.Empty;
         public string PhoneNumber { get; set; }= string.Empty;
+        public string WhatsApp { get; set; }= string.Empty;
         public string ProfileImageUrl { get; set; }= string.Empty;
     }
 }

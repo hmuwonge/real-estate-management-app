@@ -1,0 +1,1 @@
+¥RùD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Application.Contracts\SawaTech.PropertyMini.Application.Contracts.csproj¢net9.0ÚCSharp13

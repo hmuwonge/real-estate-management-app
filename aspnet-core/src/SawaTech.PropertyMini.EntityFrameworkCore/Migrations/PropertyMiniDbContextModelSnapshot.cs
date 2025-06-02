@@ -29,7 +29,50 @@ namespace SawaTech.PropertyMini.Migrations
                     b.Property<Guid>("FeaturesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("PropertiesId")
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<string>("ExtraProperties")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppPropertyAmenities", (string)null);
+                });
+
+            modelBuilder.Entity("SawaTech.PropertyMini.Governorates.Governorate", b =>
+                {
+                    b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("FeaturesId", "PropertiesId");
@@ -64,6 +107,10 @@ namespace SawaTech.PropertyMini.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("datetime2")
                         .HasColumnName("LastModificationTime");
@@ -76,7 +123,14 @@ namespace SawaTech.PropertyMini.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("PropertyId")
+                    b.HasKey("Id");
+
+                    b.ToTable("AppNearbyPlaces", (string)null);
+                });
+
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.Feature", b =>
+                {
+                    b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -86,7 +140,7 @@ namespace SawaTech.PropertyMini.Migrations
                     b.ToTable("AppPropertyAmenities", (string)null);
                 });
 
-            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.Property", b =>
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.Property", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -140,6 +194,10 @@ namespace SawaTech.PropertyMini.Migrations
                     b.Property<double>("Longitude")
                         .HasColumnType("float");
 
+                    b.Property<string>("MainImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier");
 
@@ -174,7 +232,7 @@ namespace SawaTech.PropertyMini.Migrations
                     b.ToTable("AppProperties", (string)null);
                 });
 
-            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyFeature", b =>
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.PropertyAmenity", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -211,16 +269,32 @@ namespace SawaTech.PropertyMini.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("LastModifierId");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("PropertyId", "AmenityId");
+
+                    b.HasIndex("AmenityId");
+
+                    b.ToTable("PropertyAmenity");
+                });
+
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.PropertyFeature", b =>
+                {
+                    b.Property<Guid>("PropertyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FeatureId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("PropertyId", "FeatureId");
 
                     b.HasKey("Id");
 
                     b.ToTable("AppPropertyFeatures", (string)null);
                 });
 
-            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyImage", b =>
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.PropertyImage", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -271,7 +345,26 @@ namespace SawaTech.PropertyMini.Migrations
                     b.ToTable("AppPropertyImages", (string)null);
                 });
 
-            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyType", b =>
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.PropertyNearbyPlace", b =>
+                {
+                    b.Property<Guid>("PropertyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("NearbyPlaceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PropertyId", "NearbyPlaceId");
+
+                    b.HasIndex("NearbyPlaceId");
+
+                    b.ToTable("AppPropertyNearbyPlaces", (string)null);
+                });
+
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.PropertyType", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -314,7 +407,7 @@ namespace SawaTech.PropertyMini.Migrations
                     b.ToTable("AppPropertyTypes", (string)null);
                 });
 
-            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyVideo", b =>
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.PropertyVideo", b =>
                 {
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(450)");
@@ -1945,40 +2038,62 @@ namespace SawaTech.PropertyMini.Migrations
                     b.ToTable("AbpSettingDefinitions", (string)null);
                 });
 
-            modelBuilder.Entity("PropertyPropertyFeature", b =>
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.Property", b =>
                 {
-                    b.HasOne("SawaTech.PropertyMini.PropertyEntities.PropertyFeature", null)
-                        .WithMany()
-                        .HasForeignKey("FeaturesId")
+                    b.HasOne("SawaTech.PropertyMini.PublicProperties.Feature", null)
+                        .WithMany("Properties")
+                        .HasForeignKey("FeatureId");
+
+                    b.HasOne("SawaTech.PropertyMini.Governorates.Governorate", "Governorate")
+                        .WithMany("Property")
+                        .HasForeignKey("GovernorateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SawaTech.PropertyMini.PropertyEntities.Property", null)
-                        .WithMany()
-                        .HasForeignKey("PropertiesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SawaTech.PropertyMini.Amenities.Amenity", b =>
-                {
-                    b.HasOne("SawaTech.PropertyMini.PropertyEntities.Property", null)
-                        .WithMany("Amenities")
-                        .HasForeignKey("PropertyId");
-                });
-
-            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.Property", b =>
-                {
                     b.HasOne("SawaTech.PropertyMini.Users.AccountUser", "Owner")
                         .WithMany("Properties")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("SawaTech.PropertyMini.PropertyEntities.PropertyType", "PropertyType")
-                        .WithMany("Properties")
-                        .HasForeignKey("Type")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("SawaTech.PropertyMini.PublicProperties.PropertyType", "PropertyType")
+                        .WithMany()
+                        .HasForeignKey("PropertiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.PropertyAmenity", b =>
+                {
+                    b.HasOne("SawaTech.PropertyMini.Amenities.Amenity", "Amenity")
+                        .WithMany()
+                        .HasForeignKey("AmenityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SawaTech.PropertyMini.PublicProperties.Property", "Property")
+                        .WithMany("PropertyAmenities")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Amenity");
+
+                    b.Navigation("Property");
+                });
+
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.PropertyFeature", b =>
+                {
+                    b.HasOne("SawaTech.PropertyMini.PublicProperties.Feature", "Feature")
+                        .WithMany()
+                        .HasForeignKey("FeatureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SawaTech.PropertyMini.PublicProperties.Property", "Property")
+                        .WithMany("PropertyFeatures")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Owner");
@@ -1986,9 +2101,9 @@ namespace SawaTech.PropertyMini.Migrations
                     b.Navigation("PropertyType");
                 });
 
-            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyImage", b =>
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.PropertyImage", b =>
                 {
-                    b.HasOne("SawaTech.PropertyMini.PropertyEntities.Property", "Property")
+                    b.HasOne("SawaTech.PropertyMini.PublicProperties.Property", "Property")
                         .WithMany("PropertyImages")
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1997,11 +2112,30 @@ namespace SawaTech.PropertyMini.Migrations
                     b.Navigation("Property");
                 });
 
-            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.PropertyVideo", b =>
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.PropertyNearbyPlace", b =>
                 {
-                    b.HasOne("SawaTech.PropertyMini.PropertyEntities.Property", "Property")
+                    b.HasOne("SawaTech.PropertyMini.NearbyPlaces.NearbyPlace", "NearbyPlace")
+                        .WithMany("PropertyNearbyPlaces")
+                        .HasForeignKey("NearbyPlaceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SawaTech.PropertyMini.PublicProperties.Property", "Property")
+                        .WithMany("PropertyNearbyPlaces")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("NearbyPlace");
+
+                    b.Navigation("Property");
+                });
+
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.PropertyVideo", b =>
+                {
+                    b.HasOne("SawaTech.PropertyMini.PublicProperties.Property", "Property")
                         .WithOne("PropertyVideo")
-                        .HasForeignKey("SawaTech.PropertyMini.PropertyEntities.PropertyVideo", "PropertyId")
+                        .HasForeignKey("SawaTech.PropertyMini.PublicProperties.PropertyVideo", "PropertyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2141,7 +2275,22 @@ namespace SawaTech.PropertyMini.Migrations
                         .HasForeignKey("AuthorizationId");
                 });
 
-            modelBuilder.Entity("SawaTech.PropertyMini.PropertyEntities.Property", b =>
+            modelBuilder.Entity("SawaTech.PropertyMini.Governorates.Governorate", b =>
+                {
+                    b.Navigation("Property");
+                });
+
+            modelBuilder.Entity("SawaTech.PropertyMini.NearbyPlaces.NearbyPlace", b =>
+                {
+                    b.Navigation("PropertyNearbyPlaces");
+                });
+
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.Feature", b =>
+                {
+                    b.Navigation("Properties");
+                });
+
+            modelBuilder.Entity("SawaTech.PropertyMini.PublicProperties.Property", b =>
                 {
                     b.Navigation("Amenities");
 

@@ -1,0 +1,92 @@
+°
+.SawaTech.PropertyMini.PropertyGalleryContainerobjectg
+PropertyGalleryContainer()ISawaTech.PropertyMini.PropertyGalleryContainer.PropertyGalleryContainer()ˆ
+>SawaTech.PropertyMini.PropertyMiniApplicationAutoMapperProfileAutoMapper.Profileobjectó
+*PropertyMiniApplicationAutoMapperProfile()iSawaTech.PropertyMini.PropertyMiniApplicationAutoMapperProfile.PropertyMiniApplicationAutoMapperProfile()À
+,SawaTech.PropertyMini.PropertyMiniAppService0Volo.Abp.Application.Services.ApplicationServiceobjecta
+PropertyMiniAppService()ESawaTech.PropertyMini.PropertyMiniAppService.PropertyMiniAppService()’	
+9SawaTech.PropertyMini.PropertyAmenities.AmenityAppService0Volo.Abp.Application.Services.ApplicationServiceobject:SawaTech.PropertyMini.PropertyAmenities.IAmenityAppService°
+qAmenityAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Amenities.Amenity, System.Guid>)´SawaTech.PropertyMini.PropertyAmenities.AmenityAppService.AmenityAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Amenities.Amenity, System.Guid>)’
+KCreateAsync(SawaTech.PropertyMini.PropertyAmenities.CreateUpdateAmenityDto)ÖSawaTech.PropertyMini.PropertyAmenities.AmenityAppService.CreateAsync(SawaTech.PropertyMini.PropertyAmenities.CreateUpdateAmenityDto)n
+DeleteAsync(System.Guid)RSawaTech.PropertyMini.PropertyAmenities.AmenityAppService.DeleteAsync(System.Guid)h
+GetAsync(System.Guid)OSawaTech.PropertyMini.PropertyAmenities.AmenityAppService.GetAsync(System.Guid)Z
+GetListAsync()HSawaTech.PropertyMini.PropertyAmenities.AmenityAppService.GetListAsync()Ô
+XUpdateAsync(System.Guid, SawaTech.PropertyMini.PropertyAmenities.CreateUpdateAmenityDto)íSawaTech.PropertyMini.PropertyAmenities.AmenityAppService.UpdateAsync(System.Guid, SawaTech.PropertyMini.PropertyAmenities.CreateUpdateAmenityDto)∆
+
+9SawaTech.PropertyMini.NearbyPlaces.NearbyPlacesAppService0Volo.Abp.Application.Services.ApplicationServiceobject:SawaTech.PropertyMini.NearByPlaces.INearbyPlacesAppServiceπ
+}NearbyPlacesAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.NearbyPlaces.NearbyPlace, System.Guid>)∑SawaTech.PropertyMini.NearbyPlaces.NearbyPlacesAppService.NearbyPlacesAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.NearbyPlaces.NearbyPlace, System.Guid>)„
+RCreateNearbyPlaceAsync(SawaTech.PropertyMini.NearByPlaces.CreateUpdateNearbyPlace)åSawaTech.PropertyMini.NearbyPlaces.NearbyPlacesAppService.CreateNearbyPlaceAsync(SawaTech.PropertyMini.NearByPlaces.CreateUpdateNearbyPlace)Ñ
+#DeleteNearbyPlaceAsync(System.Guid)]SawaTech.PropertyMini.NearbyPlaces.NearbyPlacesAppService.DeleteNearbyPlaceAsync(System.Guid)~
+ GetNearbyPlaceAsync(System.Guid)ZSawaTech.PropertyMini.NearbyPlaces.NearbyPlacesAppService.GetNearbyPlaceAsync(System.Guid)j
+GetNearbyPlacesAsync()PSawaTech.PropertyMini.NearbyPlaces.NearbyPlacesAppService.GetNearbyPlacesAsync()˝
+_UpdateNearbyPlaceAsync(System.Guid, SawaTech.PropertyMini.NearByPlaces.CreateUpdateNearbyPlace)ôSawaTech.PropertyMini.NearbyPlaces.NearbyPlacesAppService.UpdateNearbyPlaceAsync(System.Guid, SawaTech.PropertyMini.NearByPlaces.CreateUpdateNearbyPlace)Ã
+
+@SawaTech.PropertyMini.PropertyFeatures.PropertyFeatureAppService0Volo.Abp.Application.Services.ApplicationServiceobjectASawaTech.PropertyMini.PropertyFeatures.IPropertyFeatureAppService«
+ÄPropertyFeatureAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.Feature, System.Guid>)¡SawaTech.PropertyMini.PropertyFeatures.PropertyFeatureAppService.PropertyFeatureAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.Feature, System.Guid>)a
+GetListAsync()OSawaTech.PropertyMini.PropertyFeatures.PropertyFeatureAppService.GetListAsync()o
+GetAsync(System.Guid)VSawaTech.PropertyMini.PropertyFeatures.PropertyFeatureAppService.GetAsync(System.Guid)Ï
+SCreateAsync(SawaTech.PropertyMini.PropertyFeatures.CreateUpdatePropertyFeaturesDto)îSawaTech.PropertyMini.PropertyFeatures.PropertyFeatureAppService.CreateAsync(SawaTech.PropertyMini.PropertyFeatures.CreateUpdatePropertyFeaturesDto)Ü
+`UpdateAsync(System.Guid, SawaTech.PropertyMini.PropertyFeatures.CreateUpdatePropertyFeaturesDto)°SawaTech.PropertyMini.PropertyFeatures.PropertyFeatureAppService.UpdateAsync(System.Guid, SawaTech.PropertyMini.PropertyFeatures.CreateUpdatePropertyFeaturesDto)u
+DeleteAsync(System.Guid)YSawaTech.PropertyMini.PropertyFeatures.PropertyFeatureAppService.DeleteAsync(System.Guid)◊	
+:SawaTech.PropertyMini.PublicProperties.PropertyFilterInputobjecti
+PropertyFilterInput()PSawaTech.PropertyMini.PublicProperties.PropertyFilterInput.PropertyFilterInput()a
+GovernorateId.getLSawaTech.PropertyMini.PublicProperties.PropertyFilterInput.GovernorateId.geta
+GovernorateId.setLSawaTech.PropertyMini.PublicProperties.PropertyFilterInput.GovernorateId.setO
+Type.getCSawaTech.PropertyMini.PublicProperties.PropertyFilterInput.Type.getO
+Type.setCSawaTech.PropertyMini.PublicProperties.PropertyFilterInput.Type.setW
+MinPrice.getGSawaTech.PropertyMini.PublicProperties.PropertyFilterInput.MinPrice.getW
+MinPrice.setGSawaTech.PropertyMini.PublicProperties.PropertyFilterInput.MinPrice.setW
+MaxPrice.getGSawaTech.PropertyMini.PublicProperties.PropertyFilterInput.MaxPrice.getW
+MaxPrice.setGSawaTech.PropertyMini.PublicProperties.PropertyFilterInput.MaxPrice.setU
+MinArea.getFSawaTech.PropertyMini.PublicProperties.PropertyFilterInput.MinArea.getU
+MinArea.setFSawaTech.PropertyMini.PublicProperties.PropertyFilterInput.MinArea.setU
+MaxArea.getFSawaTech.PropertyMini.PublicProperties.PropertyFilterInput.MaxArea.getU
+MaxArea.setFSawaTech.PropertyMini.PublicProperties.PropertyFilterInput.MaxArea.setì
+3SawaTech.PropertyMini.PropertyMiniApplicationModuleVolo.Abp.Modularity.AbpModuleobjectº
+BConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)vSawaTech.PropertyMini.PropertyMiniApplicationModule.ConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)v
+PropertyMiniApplicationModule()SSawaTech.PropertyMini.PropertyMiniApplicationModule.PropertyMiniApplicationModule()m
+8SawaTech.PropertyMini.UserProfile.IUserProflieAppService1Volo.Abp.Application.Services.IApplicationService˝	
+<SawaTech.PropertyMini.GovernoratesApp.GovernoratesAppService0Volo.Abp.Application.Services.ApplicationServiceobject9SawaTech.PropertyMini.Governorates.IGovernorateAppServiceº
+}GovernoratesAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Governorates.Governorate, System.Guid>)∫SawaTech.PropertyMini.GovernoratesApp.GovernoratesAppService.GovernoratesAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Governorates.Governorate, System.Guid>)÷
+JCreateAsync(SawaTech.PropertyMini.Governorates.CreateUpdateGovernorateDto)áSawaTech.PropertyMini.GovernoratesApp.GovernoratesAppService.CreateAsync(SawaTech.PropertyMini.Governorates.CreateUpdateGovernorateDto)q
+DeleteAsync(System.Guid)USawaTech.PropertyMini.GovernoratesApp.GovernoratesAppService.DeleteAsync(System.Guid)k
+GetAsync(System.Guid)RSawaTech.PropertyMini.GovernoratesApp.GovernoratesAppService.GetAsync(System.Guid)]
+GetListAsync()KSawaTech.PropertyMini.GovernoratesApp.GovernoratesAppService.GetListAsync()
+WUpdateAsync(System.Guid, SawaTech.PropertyMini.Governorates.CreateUpdateGovernorateDto)îSawaTech.PropertyMini.GovernoratesApp.GovernoratesAppService.UpdateAsync(System.Guid, SawaTech.PropertyMini.Governorates.CreateUpdateGovernorateDto)±
+7SawaTech.PropertyMini.UserProfile.UserProfileAppService0Volo.Abp.Application.Services.ApplicationServiceobject8SawaTech.PropertyMini.UserProfile.IUserProflieAppService¬
+¬UserProfileAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Users.AccountUser, System.Guid>, Volo.Abp.Users.ICurrentUser, Microsoft.AspNetCore.Http.IHttpContextAccessor)˙SawaTech.PropertyMini.UserProfile.UserProfileAppService.UserProfileAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Users.AccountUser, System.Guid>, Volo.Abp.Users.ICurrentUser, Microsoft.AspNetCore.Http.IHttpContextAccessor)º
+@UpdateAsync(SawaTech.PropertyMini.UserProfile.UpdateAccountDto?)xSawaTech.PropertyMini.UserProfile.UserProfileAppService.UpdateAsync(SawaTech.PropertyMini.UserProfile.UpdateAccountDto?)Ñ
+
+:SawaTech.PropertyMini.PropertyTypes.PropertyTypeAppService0Volo.Abp.Application.Services.ApplicationServiceobject;SawaTech.PropertyMini.PropertyTypes.IPropertyTypeAppService≈
+ÇPropertyTypeAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.PropertyType, System.Guid>)ΩSawaTech.PropertyMini.PropertyTypes.PropertyTypeAppService.PropertyTypeAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.PropertyType, System.Guid>)ÿ
+LCreateAsync(SawaTech.PropertyMini.PropertyTypes.CreateUpdatePropertyTypeDto)áSawaTech.PropertyMini.PropertyTypes.PropertyTypeAppService.CreateAsync(SawaTech.PropertyMini.PropertyTypes.CreateUpdatePropertyTypeDto)o
+DeleteAsync(System.Guid)SSawaTech.PropertyMini.PropertyTypes.PropertyTypeAppService.DeleteAsync(System.Guid)i
+GetAsync(System.Guid)PSawaTech.PropertyMini.PropertyTypes.PropertyTypeAppService.GetAsync(System.Guid)[
+GetListAsync()ISawaTech.PropertyMini.PropertyTypes.PropertyTypeAppService.GetListAsync()Ú
+YUpdateAsync(System.Guid, SawaTech.PropertyMini.PropertyTypes.CreateUpdatePropertyTypeDto)îSawaTech.PropertyMini.PropertyTypes.PropertyTypeAppService.UpdateAsync(System.Guid, SawaTech.PropertyMini.PropertyTypes.CreateUpdatePropertyTypeDto)∏
+7SawaTech.PropertyMini.UserAccount.UserAccountAppService0Volo.Abp.Application.Services.ApplicationServiceobject8SawaTech.PropertyMini.UserAccount.IUserAccountAppServiceÙ
+€UserAccountAppService(Microsoft.Extensions.Options.IOptions<SawaTech.PropertyMini.Helpers.JwtSection>, Microsoft.AspNetCore.Http.IHttpContextAccessor, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Users.AccountUser, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Users.RefreshTokenInfo, System.Guid>)ìSawaTech.PropertyMini.UserAccount.UserAccountAppService.UserAccountAppService(Microsoft.Extensions.Options.IOptions<SawaTech.PropertyMini.Helpers.JwtSection>, Microsoft.AspNetCore.Http.IHttpContextAccessor, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Users.AccountUser, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Users.RefreshTokenInfo, System.Guid>)Õ
+HRegisterAsync(SawaTech.PropertyMini.UserAccount.CreateUpdateAccountDto?)ÄSawaTech.PropertyMini.UserAccount.UserAccountAppService.RegisterAsync(SawaTech.PropertyMini.UserAccount.CreateUpdateAccountDto?)j
+FindUserByEmail(string)OSawaTech.PropertyMini.UserAccount.UserAccountAppService.FindUserByEmail(string)™
+7LoginAsync(SawaTech.PropertyMini.UserAccount.LoginDto?)oSawaTech.PropertyMini.UserAccount.UserAccountAppService.LoginAsync(SawaTech.PropertyMini.UserAccount.LoginDto?)Æ
+9GenerateJwtToken(SawaTech.PropertyMini.Users.AccountUser)qSawaTech.PropertyMini.UserAccount.UserAccountAppService.GenerateJwtToken(SawaTech.PropertyMini.Users.AccountUser)ƒ
+DRefreshTokenAsync(SawaTech.PropertyMini.UserAccount.RefreshTokenDto)|SawaTech.PropertyMini.UserAccount.UserAccountAppService.RefreshTokenAsync(SawaTech.PropertyMini.UserAccount.RefreshTokenDto)º
+@UpdateAsync(SawaTech.PropertyMini.UserProfile.UpdateAccountDto?)xSawaTech.PropertyMini.UserAccount.UserAccountAppService.UpdateAsync(SawaTech.PropertyMini.UserProfile.UpdateAccountDto?)r
+GetUserProfile(System.Guid)SSawaTech.PropertyMini.UserAccount.UserAccountAppService.GetUserProfile(System.Guid)ê
+
+ASawaTech.PropertyMini.PublicProperties.PublicPropertiesAppService0Volo.Abp.Application.Services.ApplicationServiceobject@SawaTech.PropertyMini.PublicProperties.IPublicPropertyAppServiceŒ
+√PublicPropertiesAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.Property, System.Guid>, SawaTech.PropertyMini.EntityFrameworkCore.PropertyMiniDbContext)ÖSawaTech.PropertyMini.PublicProperties.PublicPropertiesAppService.PublicPropertiesAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.Property, System.Guid>, SawaTech.PropertyMini.EntityFrameworkCore.PropertyMiniDbContext)~
+GetPublicPropertyListAsync()^SawaTech.PropertyMini.PublicProperties.PublicPropertiesAppService.GetPublicPropertyListAsync()å
+#GetPublicPropertyAsync(System.Guid)eSawaTech.PropertyMini.PublicProperties.PublicPropertiesAppService.GetPublicPropertyAsync(System.Guid)„
+NGetFilteredPropertiesAsync(SawaTech.PropertyMini.Properties.PropertyFilterDto)êSawaTech.PropertyMini.PublicProperties.PublicPropertiesAppService.GetFilteredPropertiesAsync(SawaTech.PropertyMini.Properties.PropertyFilterDto)à
+!GetExploreHomePropertyListAsync()cSawaTech.PropertyMini.PublicProperties.PublicPropertiesAppService.GetExploreHomePropertyListAsync()ö
+5SawaTech.PropertyMini.PropertyData.PropertyAppService0Volo.Abp.Application.Services.ApplicationServiceobject4SawaTech.PropertyMini.Properties.IPropertyAppService1Volo.Abp.DependencyInjection.ITransientDependency∞
+∫PropertyAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.Property, System.Guid>, Volo.Abp.BlobStoring.IBlobContainer<SawaTech.PropertyMini.PropertyGalleryContainer>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.PropertyImage, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.PropertyVideo, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Amenities.Amenity, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Users.AccountUser, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Governorates.Governorate, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.PropertyType, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.Feature, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.NearbyPlaces.NearbyPlace, System.Guid>, Microsoft.AspNetCore.Http.IHttpContextAccessor)SawaTech.PropertyMini.PropertyData.PropertyAppService.PropertyAppService(Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.Property, System.Guid>, Volo.Abp.BlobStoring.IBlobContainer<SawaTech.PropertyMini.PropertyGalleryContainer>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.PropertyImage, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.PropertyVideo, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Amenities.Amenity, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Users.AccountUser, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.Governorates.Governorate, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.PropertyType, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.PublicProperties.Feature, System.Guid>, Volo.Abp.Domain.Repositories.IRepository<SawaTech.PropertyMini.NearbyPlaces.NearbyPlace, System.Guid>, Microsoft.AspNetCore.Http.IHttpContextAccessor)Á
+VGetListAsync(SawaTech.PropertyMini.Properties.PropertyFilterDto?, string?, bool, int?)åSawaTech.PropertyMini.PropertyData.PropertyAppService.GetListAsync(SawaTech.PropertyMini.Properties.PropertyFilterDto?, string?, bool, int?)d
+GetAsync(System.Guid)KSawaTech.PropertyMini.PropertyData.PropertyAppService.GetAsync(System.Guid)ƒ
+ECreateAsync(SawaTech.PropertyMini.Properties.CreateUpdatePropertyDto){SawaTech.PropertyMini.PropertyData.PropertyAppService.CreateAsync(SawaTech.PropertyMini.Properties.CreateUpdatePropertyDto)ﬂ
+RUpdateAsync(System.Guid, SawaTech.PropertyMini.Properties.CreateUpdatePropertyDto)àSawaTech.PropertyMini.PropertyData.PropertyAppService.UpdateAsync(System.Guid, SawaTech.PropertyMini.Properties.CreateUpdatePropertyDto)j
+DeleteAsync(System.Guid)NSawaTech.PropertyMini.PropertyData.PropertyAppService.DeleteAsync(System.Guid)d
+GetImageAsync(string)KSawaTech.PropertyMini.PropertyData.PropertyAppService.GetImageAsync(string)d
+GetVideoAsync(string)KSawaTech.PropertyMini.PropertyData.PropertyAppService.GetVideoAsync(string)Ÿ
+OValidateRelationships(SawaTech.PropertyMini.Properties.CreateUpdatePropertyDto)ÖSawaTech.PropertyMini.PropertyData.PropertyAppService.ValidateRelationships(SawaTech.PropertyMini.Properties.CreateUpdatePropertyDto)

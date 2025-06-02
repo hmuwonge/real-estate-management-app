@@ -1,0 +1,147 @@
+˚
+rSawaTech.PropertyMini.PropertyMiniHttpApiModule.ConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)É
+yD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\PropertyMiniHttpApiModule.cs (*"0*
+0 (*
+1*∏
+1 ( £
+†
+ (
+
+%0void"GSawaTech.PropertyMini.PropertyMiniHttpApiModule.ConfigureLocalization()*?
+ (31
+/SawaTech.PropertyMini.PropertyMiniHttpApiModule*
+2*.
+2 ("
+ (
+implicit return:F
++ (N:
+context/Volo.Abp.Modularity.ServiceConfigurationContextB31
+/SawaTech.PropertyMini.PropertyMiniHttpApiModuleX˜
+4SawaTech.PropertyMini.Models.Test.TestModel.Name.get
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs ("0*â
+0 (‚
+ﬂ
+
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs (
+%retstring?"__id*ƒ
+
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs (A*?-
++SawaTech.PropertyMini.Models.Test.TestModel"
+Namestring"î
+
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs (
+
+%retstring?B/-
++SawaTech.PropertyMini.Models.Test.TestModel¶
+GSawaTech.PropertyMini.PropertyMiniHttpApiModule.ConfigureLocalization()É
+yD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\PropertyMiniHttpApiModule.cs (&"0*
+0 (*
+1*÷
+1  '(¡
+æ
+  '(
+
+
+%0void"JVolo.Abp.Modularity.AbpModule.Configure<TOptions>(System.Action<TOptions>)*?
+   ()31
+/SawaTech.PropertyMini.PropertyMiniHttpApiModule*
+ * '(	
+	{unknown}*
+2*.
+2( (("
+( ((
+implicit returnB31
+/SawaTech.PropertyMini.PropertyMiniHttpApiModuleX◊
+QSawaTech.PropertyMini.Controllers.PropertyMiniController.PropertyMiniController()ç
+ÇD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Controllers\PropertyMiniController.cs
+ 
+($"0*
+0
+ 
+(*
+1*Í
+1
+ (<ì
+ê
+
+ (
+
+%0void"=Volo.Abp.AspNetCore.Mvc.AbpControllerBase.AbpControllerBase()*9
+
+ (-+
+)Volo.Abp.AspNetCore.Mvc.AbpControllerBaseø
+º
+ (;
+%1System.Type"BVolo.Abp.AspNetCore.Mvc.AbpControllerBase.LocalizationResource.set*H
+ (<:
+8SawaTech.PropertyMini.Controllers.PropertyMiniController*
+	{unknown}*
+2*.
+2 ("
+ (
+implicit returnB<:
+8SawaTech.PropertyMini.Controllers.PropertyMiniControllerXå
+4SawaTech.PropertyMini.Models.Test.TestModel.Name.set
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs (""0*â
+0# (#‡
+›
+
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs ("?-
++SawaTech.PropertyMini.Models.Test.TestModel"
+Namestring"__id*
+
+valuestring"ñ
+
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs ("
+implicit return:
+valuestringB/-
++SawaTech.PropertyMini.Models.Test.TestModelX‡
+7SawaTech.PropertyMini.Models.Test.TestModel.TestModel()
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs ("0*n
+0R
+P
+
+%0void"object.Object()*1/-
++SawaTech.PropertyMini.Models.Test.TestModel"
+implicit returnB/-
++SawaTech.PropertyMini.Models.Test.TestModelXú
+KSawaTech.PropertyMini.PropertyMiniHttpApiModule.PropertyMiniHttpApiModule()É
+yD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\PropertyMiniHttpApiModule.cs (&"0*å
+0p
+n
+
+%0void")Volo.Abp.Modularity.AbpModule.AbpModule()*531
+/SawaTech.PropertyMini.PropertyMiniHttpApiModule"
+implicit returnB31
+/SawaTech.PropertyMini.PropertyMiniHttpApiModuleX±
+9SawaTech.PropertyMini.Models.Test.TestModel.BirthDate.set
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs	% 	(("0*†
+0	) 	()˜
+Ù
+
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs	% 	((M-
++SawaTech.PropertyMini.Models.Test.TestModel"
+	BirthDateSystem.DateTime"__id*
+
+valueSystem.DateTime"ñ
+
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs	% 	((
+implicit return:
+valueSystem.DateTimeB/-
++SawaTech.PropertyMini.Models.Test.TestModelXö
+9SawaTech.PropertyMini.Models.Test.TestModel.BirthDate.get
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs	  	(#"0*ß
+0	$ 	($¯
+ı
+
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs	  	(#
+%retSystem.DateTime"__id*“
+
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs	  	(#O*M-
++SawaTech.PropertyMini.Models.Test.TestModel"
+	BirthDateSystem.DateTime"ú
+
+uD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.HttpApi\Models\Test\TestModel.cs	  	(#
+
+%retSystem.DateTimeB/-
++SawaTech.PropertyMini.Models.Test.TestModel

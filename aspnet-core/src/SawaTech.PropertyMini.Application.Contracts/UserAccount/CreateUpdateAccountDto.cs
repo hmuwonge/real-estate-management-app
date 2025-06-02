@@ -1,21 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
 namespace SawaTech.PropertyMini.UserAccount
 {
     public class CreateUpdateAccountDto: AccountBase
     {
+        public Guid Id { get; set; } 
         [Required]
         [MaxLength(100)]
         [MinLength(3)]
         public string UserName { get; set; } = null!;
 
         public string UserType { get; set; } = string.Empty;
-
-        //[DataType(DataType.Password)]
-        //[Required]
-        //public string? Password { get; set; }
-
 
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]

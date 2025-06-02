@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SawaTech.PropertyMini.Amenities;
+using SawaTech.PropertyMini.AuthResponses;
+using SawaTech.PropertyMini.Governorates;
+using SawaTech.PropertyMini.NearbyPlaces;
 using SawaTech.PropertyMini.Properties;
-using SawaTech.PropertyMini.PropertyEntities;
+using SawaTech.PropertyMini.PublicProperties;
+using SawaTech.PropertyMini.Users;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BlobStoring;
@@ -16,9 +23,9 @@ using static Volo.Abp.Http.MimeTypes;
 
 namespace SawaTech.PropertyMini.PropertyData;
 
+[Authorize]
 public class PropertyAppService(
     IRepository<Property, Guid> repository,
-    IBlobContainer<PropertyGalleryContainer> blobContainer,
     IRepository<PropertyImage, Guid> propertyImageRepository,
     IRepository<PropertyVideo, Guid> propertyVideoRepository,
     IRepository<Amenity, Guid> propertyAmenityRepository,
@@ -26,15 +33,19 @@ public class PropertyAppService(
     IRepository<Governorate, Guid> governorateRepository,
     IRepository<PropertyType, Guid> propertyTypeRepository,
     IRepository<Feature, Guid> propertyFeaturesRepository,
-    IUnitOfWorkManager unitOfWorkManager)
+    IRepository<NearbyPlace, Guid> propertyNearbyPlacesRepository,
+    IHttpContextAccessor httpContextAccessor
+    )
     : ApplicationService, IPropertyAppService, ITransientDependency
 {
     private readonly IRepository<PropertyVideo, Guid> _propertViedoRepository = propertyVideoRepository;
 
-    public async Task<ListResultDto<PropertyDto>> GetListAsync(
-    PropertyFilterDto? filterDto = null,
-    string? sortBy = null,
-    bool sortDescending = false,int? maxResults=10)
+    public async Task<GeneralResponse> GetListAsync(
+        PropertyFilterDto? filterDto = null,
+        string? sortBy = null,
+        bool sortDescending = false,
+        int? maxResults = 10
+    )
     {
         // 1. Get base queryable
         var queryable = (await repository.GetQueryableAsync()).AsQueryable();
@@ -60,15 +71,6 @@ public class PropertyAppService(
             if (filterDto.MaxPrice.HasValue)
                 queryable = queryable.Where(p => p.Price <= filterDto.MaxPrice.Value);
 
-            //if(filterDto.Type.HasValue)
-            //{
-            //    queryable = queryable.Where(p => p.Type == filterDto.Type.Value);
-            //}
-
-            //if (filterDto.Status.HasValue)
-            //{
-            //    queryable = queryable.Where(p => p.Status == filterDto.Status.Value);
-            //}
         }
 
         // 4. Apply maxResults if specified
@@ -93,123 +95,235 @@ public class PropertyAppService(
 
         // 4. Execute query and map results
         var properties = await AsyncExecuter.ToListAsync(queryable);
-        return new ListResultDto<PropertyDto>(
-            ObjectMapper.Map<List<Property>, List<PropertyDto>>(properties));
+        var results = new ListResultDto<PropertyDto>(
+            ObjectMapper.Map<List<Property>, List<PropertyDto>>(properties)
+        );
+
+        return new GeneralResponse(true,"Properties retrieved successfully",results);
     }
-    public async Task<PropertyDto> GetAsync(Guid id)
+
+    public async Task<GeneralResponse> GetUserListAsync(Guid id,int? maxResults = 10
+   )
+    {
+        try
+        {
+            // 1. Get base queryable
+            var queryable = (await repository.GetQueryableAsync()).AsQueryable();
+
+            // 2. Apply filters
+            if (id != Guid.Empty)
+            {
+
+                // Rooms filter (updated with proper validation)
+                {
+                    queryable = queryable.Where(p => p.OwnerId == id);
+                }
+
+            }
+
+            // 4. Apply maxResults if specified
+            if (maxResults.HasValue && maxResults > 0)
+            {
+                queryable = queryable.Take(maxResults.Value);
+            }
+
+
+            // 4. Execute query and map results
+            var properties = await AsyncExecuter.ToListAsync(queryable);
+            var results = ObjectMapper.Map<List<Property>, List<PropertyDto>>(properties);
+
+            return new GeneralResponse(true, "Properties retrieved successfully", results);
+        }
+        catch (Exception ex)
+        {
+            return new GeneralResponse(false, ex.Message, ex.StackTrace);
+        }
+      
+    }
+
+    public async Task<GeneralResponse> GetAsync(Guid id)
     {
         var property = await repository.GetAsync(id);
-        return ObjectMapper.Map<Property, PropertyDto>(property);
+        var results = ObjectMapper.Map<Property, PropertyDto>(property);
+        return new GeneralResponse(true, "Success", results);
     }
-    public async Task<PropertyDto> CreateAsync([FromForm]  CreateUpdatePropertyDto input)
+
+    private static async Task<string> SaveMainImageAsync(IFormFile mainImage, string uploadsPath, string baseUrl)
     {
-        var property = ObjectMapper.Map<CreateUpdatePropertyDto, Property>(input);
-        await _repository.InsertAsync(property);
+        var mainFileName = Path.GetFileName(mainImage.FileName);
+        var mainUniqueFileName = $"{Guid.NewGuid()}_{mainFileName}";
+        var mainFilePath = Path.Combine(uploadsPath, mainUniqueFileName);
 
-        var images = input.PhotoUrls;
-        var video = input.VideoUrl;
-        
-        Console.WriteLine($" Property being saved::{property}" );
-        // await _repository.InsertAsync(property, autoSave: true);
-
-        using (var uow = unitOfWorkManager.Begin(requiresNew: true))
+        await using (var mainStream = new FileStream(mainFilePath, FileMode.Create))
         {
+            await mainImage.CopyToAsync(mainStream);
+        }
+
+        return $"{baseUrl}/uploads/{mainUniqueFileName}";
+    }
+
+    public async Task<  GeneralResponse> CreateAsync([FromForm] CreateUpdatePropertyDto input)
+    {
+        try
+        {
+            await ValidateRelationships(input);
+
+            var property = new Property
+            {
+                Title = input.Title,
+                Description = input.Description,
+                Price = input.Price,
+                PaymentType = input.PaymentType,
+                Area = input.Area,
+                Rooms = input.Rooms,
+                Latitude = input.Latitude,
+                Longitude = input.Longitude,
+                InsurancePayment = input.InsurancePayment,
+                PropertyTypeId = input.PropertyTypeId,
+                OwnerId = input.OwnerId,
+                GovernorateId = input.GovernorateId,
+                Status = input.Status.ToString(),
+            };
+
+            var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+
+            if (!Directory.Exists(uploadsPath))
+                Directory.CreateDirectory(uploadsPath);
+
+            var request = httpContextAccessor.HttpContext?.Request;
+            var baseUrl = $"{request?.Scheme}://{request?.Host}";
+
+            // Extracted nested block into SaveMainImageAsync method
+            property.MainImage = await SaveMainImageAsync(input.MainImage, uploadsPath, baseUrl);
+
+            var images = input.PhotoUrls;
+            var video = input.VideoUrl;
+
+            await repository.InsertAsync(property, autoSave: true);
+
             try
             {
                 if (images?.Count > 0)
                 {
-                    // save property images/photos
                     foreach (var image in images)
                     {
-                        var blobName =
-                            $"images/{property.Id}/{Guid.NewGuid()}{Path.GetExtension(image.FileName)}"; // $"/{property.Id}/gallery/{Guid.NewGuid()}_{image.FileName}";
-                        await using var stream = image.OpenReadStream();
-                    
-                        await blobContainer.SaveAsync(blobName, stream, overrideExisting: true);
-                    
+                        var fileName = Path.GetFileName(image.FileName);
+                        var uniqueFileName = $"{Guid.NewGuid()}_{fileName}";
+                        var filePath = Path.Combine(uploadsPath, uniqueFileName);
+
+                        await using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await image.CopyToAsync(stream);
+                        }
+
+                        var fullUrl = $"{baseUrl}/uploads/{uniqueFileName}";
+
                         var propertyImage = new PropertyImage
                         {
-                            Url = blobName,
+                            Url = fullUrl,
                             MediaType = MediaTypeEnum.Image,
                             PropertyId = property.Id,
                         };
                         await propertyImageRepository.InsertAsync(propertyImage);
                     }
                 }
-        
+
+                if (video != null)
+                {
+                    var fileName = Path.GetFileName(video.FileName);
+                    var uniqueFileName = $"{Guid.NewGuid()}_{fileName}";
+                    var filePath = Path.Combine(uploadsPath, uniqueFileName);
+
+                    await using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await video.CopyToAsync(stream);
+                    }
+
+                    var fullUrl = $"{baseUrl}/uploads/videos/{uniqueFileName}";
+
+                    var propertyVideo = new PropertyVideo
+                    {
+                        PropertyId = property.Id,
+                        Url = fullUrl
+                    };
+
+                    property.PropertyVideo = propertyVideo;
+                    await repository.UpdateAsync(property);
+                }
+
                 if (input.Amenities?.Count > 0)
                 {
                     var amenityGuids = input.Amenities.Select(Guid.Parse).ToList();
                     var amenities = await propertyAmenityRepository.GetListAsync(
                         a => amenityGuids.Contains(a.Id));
-                    
-                    property.PropertyAmenities = amenities.Select(a=>new PropertyAmenity
+
+                    property.PropertyAmenities = amenities.Select(a => new PropertyAmenity
                     {
                         AmenityId = a.Id
                     }).ToList();
                 }
-                
-                
-                //save property related features
+
                 if (input.Features?.Count > 0)
                 {
                     var featureGuids = input.Features.Select(Guid.Parse).ToList();
                     var features = await propertyFeaturesRepository.GetListAsync(
                         a => featureGuids.Contains(a.Id));
-                    
-                    property.PropertyFeatures = features.Select(a=>new PropertyFeature
+
+                    property.PropertyFeatures = features.Select(a => new PropertyFeature
                     {
                         FeatureId = a.Id
                     }).ToList();
                 }
-                Console.WriteLine($" Property being saved::{property}" );
-                await repository.InsertAsync(property, autoSave: true);
-        
+
+                if (input.NearbyPlaces?.Count > 0)
+                {
+                    var nearbyGuids = input.NearbyPlaces.Select(Guid.Parse).ToList();
+                    var places = await propertyNearbyPlacesRepository.GetListAsync(
+                        a => nearbyGuids.Contains(a.Id));
+
+                    property.PropertyNearbyPlaces = places.Select(a => new PropertyNearbyPlace
+                    {
+                        NearbyPlaceId = a.Id
+                    }).ToList();
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
+
+            var result = ObjectMapper.Map<Property, PropertyDetailDto>(property);
+            return new GeneralResponse(true, "Successfully created new property", result);
         }
-
-        
-
-        
-
-        // Save video
-        //if (video != null)
-        //{
-        //    var blobName = $"properties/{property.Id}/videos/{Guid.NewGuid()}_{video.FileName}";
-        //    using var stream = video.OpenReadStream();
-        //    await _blobContainer.SaveAsync(blobName, stream, overrideExisting: true);
-        //    property.PropertyVideo = blobName;
-        //}
-
-        return ObjectMapper.Map<Property, PropertyDto>(property);
+        catch (Exception e)
+        {
+            return new GeneralResponse(false, e.Message, e.StackTrace);
+        }
     }
-    public async Task<PropertyDto> UpdateAsync(Guid id, CreateUpdatePropertyDto input)
+
+    public async Task<GeneralResponse> UpdateAsync(Guid id, CreateUpdatePropertyDto input)
     {
         var property = await repository.GetAsync(id);
         ObjectMapper.Map(input, property);
         await repository.UpdateAsync(property);
-        return ObjectMapper.Map<Property, PropertyDto>(property);
-    }
-    public async Task DeleteAsync(Guid id)
-    {
-        await repository.DeleteAsync(id);
+        var data = ObjectMapper.Map<Property, PropertyDto>(property);
+        return new GeneralResponse(true, "Success", data);
     }
 
-    public async Task<Stream> GetImageAsync(string blobName)
+    public async Task<GeneralResponse> DeleteAsync(Guid id)
     {
-        return await blobContainer.GetAsync(blobName);
+        var property = await repository.GetAsync(id);
+        if (property == null)
+        {
+            return new GeneralResponse(false, "Property not found", null);
+        }
+
+        await repository.DeleteAsync(id); // Fix: Removed pattern matching on void return type
+        return new GeneralResponse(true, "Success", null);
     }
 
-    public async Task<Stream> GetVideoAsync(string blobName)
-    {
-        return await blobContainer.GetAsync(blobName);
-    }
-
+   
     private async Task ValidateRelationships(CreateUpdatePropertyDto input)
     {
         
@@ -243,4 +357,24 @@ public class PropertyAppService(
         //     }
         // }
     }
+    private async Task<string> SaveFileAsync(IFormFile file, string uploadsPath, string baseUrl, string subFolder = "")
+    {
+        var fileName = Path.GetFileName(file.FileName);
+        var uniqueFileName = $"{Guid.NewGuid()}_{fileName}";
+        var filePath = Path.Combine(uploadsPath, subFolder, uniqueFileName);
+
+        if (!string.IsNullOrEmpty(subFolder) && !Directory.Exists(Path.Combine(uploadsPath, subFolder)))
+        {
+            Directory.CreateDirectory(Path.Combine(uploadsPath, subFolder));
+        }
+
+        await using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await file.CopyToAsync(stream);
+        }
+
+        return $"{baseUrl}/uploads/{subFolder}/{uniqueFileName}".TrimEnd('/');
+    }
+
+
 }

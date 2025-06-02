@@ -1,0 +1,1 @@
+§RçD:\PROJECTS\.NET\ABP Framework\SawaTech assign\aspnet-core\src\SawaTech.PropertyMini.Domain.Shared\SawaTech.PropertyMini.Domain.Shared.csproj¢net9.0ÚCSharp13

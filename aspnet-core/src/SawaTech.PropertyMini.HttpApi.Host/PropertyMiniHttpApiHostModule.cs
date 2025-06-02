@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
@@ -8,17 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SawaTech.PropertyMini.EntityFrameworkCore;
-using SawaTech.PropertyMini.MultiTenancy;
-// using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
-// using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
 using Microsoft.OpenApi.Models;
-//using OpenIddict.Validation.AspNetCore;
 using Volo.Abp;
-using Volo.Abp.Account;
-//using Volo.Abp.Account.Web;
-//using Volo.Abp.AspNetCore.MultiTenancy;
+using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
@@ -31,21 +23,20 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.BlobStoring.FileSystem;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SawaTech.PropertyMini.Helpers;
 using Volo.Abp.Security.Claims;
+using Microsoft.Extensions.Hosting.Internal;
+using Volo.Abp.OpenIddict;
 
 namespace SawaTech.PropertyMini;
 
 [DependsOn(
     typeof(PropertyMiniHttpApiModule),
     typeof(AbpAutofacModule),
-    //typeof(AbpAspNetCoreMultiTenancyModule),
     typeof(PropertyMiniApplicationModule),
     typeof(PropertyMiniEntityFrameworkCoreModule),
-    // typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule),
@@ -59,15 +50,31 @@ public class PropertyMiniHttpApiHostModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
-        //PreConfigure<OpenIddictBuilder>(builder =>
-        //{
-        //    builder.AddValidation(options =>
-        //    {
-        //        options.AddAudiences("PropertyMini");
-        //        options.UseLocalServer();
-        //        options.UseAspNetCore();
-        //    });
-        //});
+        var hostingEnvironment = context.Services.GetHostingEnvironment();
+        var configuration = context.Services.GetConfiguration();
+        PreConfigure<OpenIddictBuilder>(builder =>
+        {
+            builder.AddValidation(options =>
+            {
+                options.AddAudiences("PropertMini");
+                options.UseLocalServer();
+                options.UseAspNetCore();
+            });
+        });
+
+        if (!hostingEnvironment.IsDevelopment())
+        {
+            PreConfigure<AbpOpenIddictAspNetCoreOptions>(options =>
+            {
+                options.AddDevelopmentEncryptionAndSigningCertificate = false;
+            });
+
+            PreConfigure<OpenIddictServerBuilder>(serverBuilder =>
+            {
+                serverBuilder.AddProductionEncryptionAndSigningCertificate("openiddict.pfx", configuration["AuthServer:CertificatePassPhrase"]!);
+                serverBuilder.SetIssuer(new Uri(configuration["AuthServer:Authority"]!));
+            });
+        }
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -104,17 +111,19 @@ public class PropertyMiniHttpApiHostModule : AbpModule
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
-        //context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
         context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
         {
             options.IsDynamicClaimsEnabled = true;
         });
         var configuration = context.Services.GetConfiguration();
 
-
         context.Services.Configure<JwtSection>(configuration.GetSection("JwtSection"));
         var jwtSection = configuration.GetSection(nameof(JwtSection)).Get<JwtSection>();
 
+        if (jwtSection?.Key == null)
+        {
+            throw new InvalidOperationException("JwtSection.Key cannot be null. Please ensure it is configured properly in the application settings.");
+        }
 
         context.Services.AddAuthentication(options =>
         {
@@ -125,17 +134,16 @@ public class PropertyMiniHttpApiHostModule : AbpModule
             options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
             {
                 ValidateIssuer = true,
-                ValidIssuer = configuration["AuthServer:Authority"],  //jwtSection!.Issuer,
+                ValidIssuer = configuration["AuthServer:Authority"],
                 ValidateAudience = true,
-                ValidAudience = configuration["AuthServer:Audience"],//jwtSection.Audience 
+                ValidAudience = configuration["AuthServer:Audience"],
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.Key!))
-                
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.Key))
             };
         });
     }
-
+    
    
 
     private void ConfigureUrls(IConfiguration configuration)
@@ -143,10 +151,6 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         Configure<AppUrlOptions>(options =>
         {
             options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
-            options.RedirectAllowedUrls.AddRange(configuration["App:RedirectAllowedUrls"]?.Split(',') ?? Array.Empty<string>());
-
-            options.Applications["Angular"].RootUrl = configuration["App:ClientUrl"];
-            options.Applications["Angular"].Urls[AccountUrlNames.PasswordReset] = "account/reset-password";
         });
     }
 
@@ -184,18 +188,18 @@ public class PropertyMiniHttpApiHostModule : AbpModule
 
     private static void ConfigureSwaggerServices(ServiceConfigurationContext context, IConfiguration configuration)
     {
-        context.Services.AddAbpSwaggerGenWithOAuth(
-            configuration["AuthServer:Authority"]!,
-            new Dictionary<string, string>
-            {
-                    {"PropertyMini", "PropertyMini API"}
-            },
-            options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "PropertyMini API", Version = "v1" });
-                options.DocInclusionPredicate((docName, description) => true);
-                options.CustomSchemaIds(type => type.FullName);
-            });
+        context.Services.AddAbpSwaggerGen(
+             options =>
+             {
+                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "SawaTech Property Management API", Version = "v1.0",
+                 Description = "This Swagger collection documentation has been developed for a min property real-estate" +
+                 " mangement system using asp.net core"
+                 });
+                 options.DocInclusionPredicate((docName, description) => true);
+                 options.CustomSchemaIds(type => type.FullName);
+             }
+            );
+       
     }
 
     private static void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)

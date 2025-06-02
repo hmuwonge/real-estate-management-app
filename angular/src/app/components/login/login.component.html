@@ -4,7 +4,7 @@
       <span class="login-title">Login As_User</span>
     </h2>
   </div>
-  <div class="max-w-lg w-full bg-white px-20 py-4 rounded-2xl border-2 border-purple-400">
+  <div class="max-w-lg w-full bg-white px-6 py-4 rounded-2xl border-2 border-purple-400">
     <form [formGroup]="loginForm" (ngSubmit)="login($event)" class="mt-8 space-y-6">
       <div class="space-y-4">
         <div>
@@ -15,7 +15,7 @@
             name="email"
             type="text"
             required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full  py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
 
           <div
@@ -37,7 +37,7 @@
             name="password"
             type="password"
             required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full  py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
           <div
             *ngIf="

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SawaTech.PropertyMini.AuthResponses;
 using SawaTech.PropertyMini.Governorates;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
@@ -21,14 +22,34 @@ namespace SawaTech.PropertyMini.GovernoratesApp
             return ObjectMapper.Map<Governorate, GovernorateDto>(governorate);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task<GeneralResponse> DeleteAsync(Guid id)
         {
-            var governorate = await repository.GetAsync(id);
-            if (governorate == null)
+            try
             {
-                throw new Exception("Property governorate not found");
+                var governorate = await repository.GetAsync(id);
+                if (governorate == null)
+                {
+                    return new GeneralResponse(
+                        false,
+                        "Property governorate not found",
+                        null
+                    );
+                }
+                await repository.DeleteAsync(governorate);
+                return new GeneralResponse(
+                    true,
+                    "Governorate deleted successfully",
+                    null
+                );
             }
-            await repository.DeleteAsync(governorate);
+            catch (Exception ex)
+            {
+                return new GeneralResponse(
+                    false,
+                    ex.Message,
+                    ex.StackTrace
+                );
+            }
         }
 
         public async Task<GovernorateDto> GetAsync(Guid id)
@@ -37,10 +58,11 @@ namespace SawaTech.PropertyMini.GovernoratesApp
             return ObjectMapper.Map<Governorate, GovernorateDto>(governorate);
         }
 
-        public async Task<List<GovernorateDto>> GetListAsync()
+        public async Task<GeneralResponse> GetListAsync()
         {
             var governorates = await repository.GetListAsync();
-            return ObjectMapper.Map<List<Governorate>, List<GovernorateDto>>(governorates);
+            var list = ObjectMapper.Map<List<Governorate>, List<GovernorateDto>>(governorates);
+            return new GeneralResponse(true, "success", list);
         }
 
         public async Task<GovernorateDto> UpdateAsync(Guid id, CreateUpdateGovernorateDto input)

@@ -1,0 +1,193 @@
+﻿{
+   "ConnectionStringName": "dab-connection-string",
+   "Dacpac": null,
+   "DatabaseType": 3,
+   "MergeDacpacs": false,
+   "ProjectPath": "D:\\PROJECTS\\.NET\\ABP Framework\\SawaTech assign\\aspnet-core\\src\\SawaTech.PropertyMini.HttpApi.Host",
+   "Tables": [
+      {
+         "Name": "[dbo].[AbpAuditLogActions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpAuditLogs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpBackgroundJobs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpClaimTypes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpEntityChanges]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpEntityPropertyChanges]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpFeatureGroups]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpFeatures]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpFeatureValues]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpLinkUsers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpOrganizationUnitRoles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpOrganizationUnits]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpPermissionGrants]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpPermissionGroups]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpPermissions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpRoleClaims]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpRoles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpSecurityLogs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpSessions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpSettingDefinitions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpSettings]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpUserClaims]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpUserDelegations]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpUserLogins]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpUserOrganizationUnits]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpUserRoles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpUsers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AbpUserTokens]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AppAccountUsers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AppGovernorates]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AppNearbyPlaces]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AppProperties]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AppPropertyAmenities]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AppPropertyFeatures]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AppPropertyImages]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AppPropertyNearbyPlaces]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AppPropertyTypes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Features]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OpenIddictApplications]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OpenIddictAuthorizations]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OpenIddictScopes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OpenIddictTokens]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PropertyAmenity]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PropertyVideos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RefreshTokens]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[sp_FilterProperties]",
+         "ObjectType": 1
+      }
+   ]
+}

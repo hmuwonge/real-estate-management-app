@@ -1,6 +1,6 @@
 using System;
 
-namespace SawaTech.PropertyMini.PropertyEntities;
+namespace SawaTech.PropertyMini.PublicProperties;
 
 public class PropertyTypeDto
 {
