@@ -101,8 +101,11 @@
   </component>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 40cdf71 (fix: resolve ci yml file)
+=======
+>>>>>>> 8e7cd41602817188d5ea7c80f3087ba44bba219d
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     ".NET Launch Settings Profile.SawaTech.PropertyMini.HttpApi.Host.executor": "Run",
@@ -114,6 +117,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "git-widget-placeholder": "main-fix-backup",
 =======
     "git-widget-placeholder": "9d6b2539",
@@ -121,12 +125,16 @@
 =======
     "git-widget-placeholder": "develop",
 >>>>>>> 40cdf71 (fix: resolve ci yml file)
+=======
+    "git-widget-placeholder": "develop",
+>>>>>>> 8e7cd41602817188d5ea7c80f3087ba44bba219d
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   <component name="PropertiesComponent">{
@@ -148,6 +156,8 @@
 >>>>>>> stablise-main
 =======
 >>>>>>> 40cdf71 (fix: resolve ci yml file)
+=======
+>>>>>>> 8e7cd41602817188d5ea7c80f3087ba44bba219d
   }
 }]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.SawaTech.PropertyMini.HttpApi.Host: IIS Express">
@@ -260,6 +270,7 @@
       <workItem from="1748618705004" duration="170000" />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> stablise-main
 =======
       <workItem from="1748890878046" duration="781000" />
@@ -267,6 +278,9 @@
 =======
       <workItem from="1748890878046" duration="2435000" />
 >>>>>>> 8e7cd41 (fix: fix gitlab cicd path issue)
+=======
+      <workItem from="1748890878046" duration="2435000" />
+>>>>>>> 8e7cd41602817188d5ea7c80f3087ba44bba219d
     </task>
     <servers />
   </component>

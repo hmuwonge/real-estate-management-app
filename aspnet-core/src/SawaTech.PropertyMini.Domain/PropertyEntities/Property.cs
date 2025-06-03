@@ -13,7 +13,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace SawaTech.PropertyMini.PublicProperties;
 
-public class Property: AuditedAggregateRoot<Guid>
+public class Property : AuditedAggregateRoot<Guid>
 {
     public string Title { get; set; } = string.Empty;
     public Guid OwnerId { get; set; }
@@ -49,7 +49,10 @@ public class Property: AuditedAggregateRoot<Guid>
 
     [JsonIgnore]
     public List<PropertyImage> PropertyImages { get; } = [];
+
     [JsonIgnore]
     public PropertyVideo? PropertyVideo { get; set; }
-    public PropertyType PropertyType { get; set; } = null!;
+
+    public virtual ICollection<PropertyNearbyPlace> PropertyNearbyPlaces { get; set; } = null!;
+    public Governorate Governorate { get; set; } = null!;
 }

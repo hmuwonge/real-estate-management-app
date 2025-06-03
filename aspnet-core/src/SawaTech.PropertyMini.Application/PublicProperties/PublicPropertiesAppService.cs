@@ -21,7 +21,7 @@ using Property = SawaTech.PropertyMini.PublicProperties.Property;
 namespace SawaTech.PropertyMini.PublicProperties;
 
 public class PublicPropertiesAppService(IMemoryCache cache,
-    PropertyMiniDbContext dbContext, IRepository<Property,Guid> _propertyRepository)
+    PropertyMiniDbContext dbContext, IRepository<Property, Guid> _propertyRepository)
     : ApplicationService,
         IPublicPropertyAppService
 {
@@ -107,8 +107,8 @@ public class PublicPropertiesAppService(IMemoryCache cache,
                             p.Area <= currentProperty.Area * 1.2f) // Area within ±20%
                 .OrderBy(p => Math.Abs(p.Price - currentProperty.Price)) // Closest price first
                 .ThenBy(p => Math.Abs(p.Area - currentProperty.Area)) // Then closest size
-                .Include(p=>p.PropertyAmenities)
-                .ThenInclude(p=>p.Amenity)
+                .Include(p => p.PropertyAmenities)
+                .ThenInclude(p => p.Amenity)
                 .Take(maxResults)
                 .ToList();
 

@@ -14,6 +14,7 @@ using SawaTech.PropertyMini.Users;
 using PropertyTypeDto = SawaTech.PropertyMini.PropertyTypes.PropertyTypeDto;
 using SawaTech.PropertyMini.NearbyPlaces;
 using SawaTech.PropertyMini.NearByPlaces;
+using SawaTech.PropertyMini.Governorates;
 
 namespace SawaTech.PropertyMini;
 
@@ -30,13 +31,13 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
              .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.PropertyImages))
             .ForMember(dest => dest.PropertyType,
                 opt => opt.MapFrom(src => src.PropertyType));
-        
+
         CreateMap<Property, PropertyListDto>()
             .ForMember(dest => dest.Rooms, opt => opt.MapFrom(src => src.Rooms))
-            .ForMember(dest => dest.PropertyType, 
+            .ForMember(dest => dest.PropertyType,
                 opt => opt.MapFrom(src => src.PropertyType)
             )
-            .ForMember(dest=>dest.Owner, opt=>opt.MapFrom(src=>src.Owner));
+            .ForMember(dest => dest.Owner, opt => opt.MapFrom(src => src.Owner));
 
         CreateMap<Property, PropertyDetailDto>()
             .ForMember(
@@ -53,7 +54,7 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
          );
 
         CreateMap<AccountUser, PropertyOwnerDto>()
-            .ForMember(dest=>dest.Name, opt=>opt.MapFrom(src=>src.UserName));
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UserName));
 
         CreateMap<PropertyImage, PropertyImageDto>()
            .ForMember(dest => dest.Url, opt => opt.MapFrom(src => src.Url));
@@ -74,11 +75,11 @@ public class PropertyMiniApplicationAutoMapperProfile : Profile
 
 
         CreateMap<PropertyTypeDto, PropertyType>()
-            .ForMember(dest=>dest.Name, opt=>opt.MapFrom(src=>src.Name))
-            .ForMember(dest=>dest.Id, opt=>opt.MapFrom(src=>src.Id)); 
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
         CreateMap<CreateUpdatePropertyTypeDto, PropertyType>()
-            .ForMember(dest=>dest.Name, opt=>opt.MapFrom(src=>src.Name));
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
 
         CreateMap<Amenity, AmenityDto>();
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SawaTech.PropertyMini.AuthResponses;
-using SawaTech.PropertyMini.PropertyTypes;
 using Volo.Abp.Application.Services;
 
 namespace SawaTech.PropertyMini.PropertyFeatures

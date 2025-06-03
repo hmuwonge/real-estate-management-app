@@ -17,7 +17,7 @@ namespace SawaTech.PropertyMini;
 
 [DependsOn(
     //typeof(AbpAuditLoggingDomainSharedModule),
-    typeof(AbpBackgroundJobsDomainSharedModule)
+    typeof(AbpBackgroundJobsDomainSharedModule),
     //typeof(AbpFeatureManagementDomainSharedModule),
     typeof(AbpIdentityDomainSharedModule),
     typeof(AbpOpenIddictDomainSharedModule),

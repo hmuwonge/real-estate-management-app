@@ -11,7 +11,7 @@ namespace SawaTech.PropertyMini
 {
     public class PropertyAppDataSeederContributor : IDataSeedContributor
     {
-        private readonly IRepository<PropertyFeature, Guid> _propertyFeatureRepository;
+        private readonly IRepository<Feature, Guid> _propertyFeatureRepository;
 
         public PropertyAppDataSeederContributor(IRepository<Feature, Guid> repository)
         {

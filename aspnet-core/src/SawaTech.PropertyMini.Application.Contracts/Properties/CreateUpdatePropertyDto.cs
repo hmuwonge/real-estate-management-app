@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
@@ -8,10 +9,10 @@ namespace SawaTech.PropertyMini.Properties;
 public class CreateUpdatePropertyDto
 {
     [Required]
-    [StringLength(128)]
-    public string Title { get; set; }
+    public Guid PropertyTypeId { get; set; } = Guid.NewGuid();
 
-    public string OwnerId { get; set; }
+    [Required]
+    public Guid GovernorateId { get; set; }
 
     [Required]
     [StringLength(128, MinimumLength = 5)]
@@ -25,13 +26,19 @@ public class CreateUpdatePropertyDto
     public string? Description { get; set; }
 
     //location properties
-    public string Address { get; set; }
-    
+    public string? Address { get; set; } = string.Empty;
+    public string? PaymentType { get; set; } = string.Empty;
+
     // main property info
     [Required]
+    [Range(0, double.MaxValue)]
     public decimal Price { get; set; }
+
     public decimal InsurancePayment { get; set; }
+
     public float Area { get; set; }
+
+    [Range(0, 1000)]
     public int Rooms { get; set; }
 
     [Required]
@@ -45,7 +52,7 @@ public class CreateUpdatePropertyDto
     public List<string>? NearbyPlaces { get; set; } = [];
 
     [Required]
-    public required IFormFile MainImage {  get; set; }
+    public required IFormFile MainImage { get; set; }
 
     [Required]
     public List<IFormFile>? PhotoUrls { get; set; }
@@ -53,6 +60,7 @@ public class CreateUpdatePropertyDto
 
     [Required]
     public double Latitude { get; set; }
+
     [Required]
     public double Longitude { get; set; }
 }

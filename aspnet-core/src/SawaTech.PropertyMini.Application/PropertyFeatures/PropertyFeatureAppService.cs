@@ -28,7 +28,6 @@ namespace SawaTech.PropertyMini.PropertyFeatures
             _memoryCache = memoryCache;
         }
 
-
         public async Task<GeneralResponse> GetListAsync()
         {
             try
@@ -50,14 +49,13 @@ namespace SawaTech.PropertyMini.PropertyFeatures
             {
                 return new GeneralResponse(false, ex.Message, ex.StackTrace);
             }
-          
+
         }
 
         public async Task<PropertyFeatureDto> GetAsync(Guid id)
         {
-
             var propertyFeature = await _repository.GetAsync(id);
-            return ObjectMapper.Map<PropertyFeature, PropertyFeatureDto>(propertyFeature);
+            return ObjectMapper.Map<Feature, PropertyFeatureDto>(propertyFeature);
         }
 
         public async Task<GeneralResponse> CreateAsync(CreateUpdatePropertyFeaturesDto input)
@@ -66,26 +64,27 @@ namespace SawaTech.PropertyMini.PropertyFeatures
             var propertyFeature = new Feature
             {
                 Name = input.Name,
-                IconUrl = input.IconUrl
+                IconUrl = input.IconUrl,
             };
             await _repository.InsertAsync(propertyFeature);
-            var amenity= ObjectMapper.Map<Feature, PropertyFeatureDto>(propertyFeature);
+            var amenity = ObjectMapper.Map<Feature, PropertyFeatureDto>(propertyFeature);
             return new GeneralResponse(true, "Successfully create amenity", amenity);
         }
 
-        public async Task<PropertyFeatureDto> UpdateAsync(Guid id, CreateUpdatePropertyFeaturesDto input)
+        public async Task<PropertyFeatureDto> UpdateAsync(
+            Guid id,
+            CreateUpdatePropertyFeaturesDto input
+        )
         {
-
             var propertyFeature = await _repository.GetAsync(id);
             propertyFeature.Name = input.Name;
             propertyFeature.IconUrl = input.IconUrl;
             await _repository.UpdateAsync(propertyFeature);
-            return ObjectMapper.Map<PropertyFeature, PropertyFeatureDto>(propertyFeature);
+            return ObjectMapper.Map<Feature, PropertyFeatureDto>(propertyFeature);
         }
 
         public async Task DeleteAsync(Guid id)
         {
-
             var propertyFeature = await _repository.GetAsync(id);
             if (propertyFeature == null)
             {
@@ -94,5 +93,4 @@ namespace SawaTech.PropertyMini.PropertyFeatures
             await _repository.DeleteAsync(propertyFeature);
         }
     }
-    
 }

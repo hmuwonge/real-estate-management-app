@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SawaTech.PropertyMini.PropertyTypes
+namespace SawaTech.PropertyMini.PropertyFeatures
 {
     public class PropertyFeatureDto
     {
