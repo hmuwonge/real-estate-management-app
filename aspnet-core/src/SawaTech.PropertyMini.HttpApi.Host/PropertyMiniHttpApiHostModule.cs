@@ -1,34 +1,35 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
+using Asp.Versioning;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SawaTech.PropertyMini.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting.Internal;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SawaTech.PropertyMini.EntityFrameworkCore;
+using SawaTech.PropertyMini.Helpers;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
+using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
+using Volo.Abp.BlobStoring;
+using Volo.Abp.BlobStoring.FileSystem;
 using Volo.Abp.Modularity;
+using Volo.Abp.OpenIddict;
+using Volo.Abp.Security.Claims;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
-using Volo.Abp.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Volo.Abp.BlobStoring;
-using Volo.Abp.BlobStoring.FileSystem;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using SawaTech.PropertyMini.Helpers;
-using Volo.Abp.Security.Claims;
-using Microsoft.Extensions.Hosting.Internal;
-using Volo.Abp.OpenIddict;
 
 namespace SawaTech.PropertyMini;
 
@@ -40,8 +41,7 @@ namespace SawaTech.PropertyMini;
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule),
-    // typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
-
+    typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
     //for blob storage module
     typeof(AbpBlobStoringModule),
     typeof(AbpBlobStoringFileSystemModule)
@@ -71,7 +71,10 @@ public class PropertyMiniHttpApiHostModule : AbpModule
 
             PreConfigure<OpenIddictServerBuilder>(serverBuilder =>
             {
-                serverBuilder.AddProductionEncryptionAndSigningCertificate("openiddict.pfx", configuration["AuthServer:CertificatePassPhrase"]!);
+                serverBuilder.AddProductionEncryptionAndSigningCertificate(
+                    "openiddict.pfx",
+                    configuration["AuthServer:CertificatePassPhrase"]!
+                );
                 serverBuilder.SetIssuer(new Uri(configuration["AuthServer:Authority"]!));
             });
         }
@@ -100,13 +103,33 @@ public class PropertyMiniHttpApiHostModule : AbpModule
             });
         });
 
+        // API versioning
+        ConfigureApiVersion(context);
 
+        // context.Services
+
+        //optional : Explorer support for swagger
+        // context.Services.AddVersionedApiExplorer(options =>
+        // {
+        //     options.GroupNameFormat = "'v'1.0";
+        //     options.SubstituteApiVersionInUrl = true;
+        // });
 
         Configure<FormOptions>(options =>
         {
             options.MultipartBodyLengthLimit = 104857600; // 100 MB
         });
+    }
 
+    private void ConfigureApiVersion(ServiceConfigurationContext context)
+    {
+        context.Services.AddAbpApiVersioning(options =>
+        {
+            options.DefaultApiVersion = new ApiVersion(1.0);
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            options.ReportApiVersions = true;
+            options.ApiVersionReader = new UrlSegmentApiVersionReader();
+        });
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
@@ -122,29 +145,34 @@ public class PropertyMiniHttpApiHostModule : AbpModule
 
         if (jwtSection?.Key == null)
         {
-            throw new InvalidOperationException("JwtSection.Key cannot be null. Please ensure it is configured properly in the application settings.");
+            throw new InvalidOperationException(
+                "JwtSection.Key cannot be null. Please ensure it is configured properly in the application settings."
+            );
         }
 
-        context.Services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        context
+            .Services.AddAuthentication(options =>
             {
-                ValidateIssuer = true,
-                ValidIssuer = configuration["AuthServer:Authority"],
-                ValidateAudience = true,
-                ValidAudience = configuration["AuthServer:Audience"],
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.Key))
-            };
-        });
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters =
+                    new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = configuration["AuthServer:Authority"],
+                        ValidateAudience = true,
+                        ValidAudience = configuration["AuthServer:Audience"],
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(jwtSection.Key)
+                        ),
+                    };
+            });
     }
-    
-   
 
     private void ConfigureUrls(IConfiguration configuration)
     {
@@ -163,17 +191,29 @@ public class PropertyMiniHttpApiHostModule : AbpModule
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
                 options.FileSets.ReplaceEmbeddedByPhysical<PropertyMiniDomainSharedModule>(
-                    Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}SawaTech.PropertyMini.Domain.Shared"));
+                    Path.Combine(
+                        hostingEnvironment.ContentRootPath,
+                        $"..{Path.DirectorySeparatorChar}SawaTech.PropertyMini.Domain.Shared"
+                    )
+                );
                 options.FileSets.ReplaceEmbeddedByPhysical<PropertyMiniDomainModule>(
-                    Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}SawaTech.PropertyMini.Domain"));
+                    Path.Combine(
+                        hostingEnvironment.ContentRootPath,
+                        $"..{Path.DirectorySeparatorChar}SawaTech.PropertyMini.Domain"
+                    )
+                );
                 options.FileSets.ReplaceEmbeddedByPhysical<PropertyMiniApplicationContractsModule>(
-                    Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}SawaTech.PropertyMini.Application.Contracts"));
+                    Path.Combine(
+                        hostingEnvironment.ContentRootPath,
+                        $"..{Path.DirectorySeparatorChar}SawaTech.PropertyMini.Application.Contracts"
+                    )
+                );
                 options.FileSets.ReplaceEmbeddedByPhysical<PropertyMiniApplicationModule>(
-                    Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}SawaTech.PropertyMini.Application"));
+                    Path.Combine(
+                        hostingEnvironment.ContentRootPath,
+                        $"..{Path.DirectorySeparatorChar}SawaTech.PropertyMini.Application"
+                    )
+                );
             });
         }
     }
@@ -186,33 +226,45 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         });
     }
 
-    private static void ConfigureSwaggerServices(ServiceConfigurationContext context, IConfiguration configuration)
+    private static void ConfigureSwaggerServices(
+        ServiceConfigurationContext context,
+        IConfiguration configuration
+    )
     {
-        context.Services.AddAbpSwaggerGen(
-             options =>
-             {
-                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "SawaTech Property Management API", Version = "v1.0",
-                 Description = "This Swagger collection documentation has been developed for a min property real-estate" +
-                 " mangement system using asp.net core"
-                 });
-                 options.DocInclusionPredicate((docName, description) => true);
-                 options.CustomSchemaIds(type => type.FullName);
-             }
+        context.Services.AddAbpSwaggerGen(options =>
+        {
+            options.SwaggerDoc(
+                "v1",
+                new OpenApiInfo
+                {
+                    Title = "SawaTech Property Management API",
+                    Version = "v1.0",
+                    Description =
+                        "This Swagger collection documentation has been developed for a min property real-estate"
+                        + " mangement system using asp.net core",
+                }
             );
-       
+            options.DocInclusionPredicate((docName, description) => true);
+            options.CustomSchemaIds(type => type.FullName);
+        });
     }
 
-    private static void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
+    private static void ConfigureCors(
+        ServiceConfigurationContext context,
+        IConfiguration configuration
+    )
     {
         context.Services.AddCors(options =>
         {
             options.AddDefaultPolicy(builder =>
             {
                 builder
-                    .WithOrigins(configuration["App:CorsOrigins"]?
-                        .Split(",", StringSplitOptions.RemoveEmptyEntries)
-                        .Select(o => o.RemovePostFix("/"))
-                        .ToArray() ?? Array.Empty<string>())
+                    .WithOrigins(
+                        configuration["App:CorsOrigins"]
+                            ?.Split(",", StringSplitOptions.RemoveEmptyEntries)
+                            .Select(o => o.RemovePostFix("/"))
+                            .ToArray() ?? Array.Empty<string>()
+                    )
                     .WithAbpExposedHeaders()
                     .SetIsOriginAllowedToAllowWildcardSubdomains()
                     .AllowAnyHeader()
@@ -256,7 +308,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
 
         app.UseUnitOfWork();
         app.UseDynamicClaims();
-        // app.UseAuthorization();
+        app.UseAuthorization();
 
         app.UseSwagger();
         app.UseAbpSwaggerUI(c =>
@@ -268,7 +320,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
             c.OAuthScopes("PropertyMini");
         });
 
-        // app.UseAuditing();
+        app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();
     }
