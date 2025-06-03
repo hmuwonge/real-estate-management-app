@@ -323,5 +323,6 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();
+        
     }
 }
