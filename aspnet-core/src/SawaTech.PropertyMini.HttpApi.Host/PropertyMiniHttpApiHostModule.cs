@@ -52,6 +52,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
+
         PreConfigure<OpenIddictBuilder>(builder =>
         {
             builder.AddValidation(options =>
@@ -66,7 +67,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         {
             PreConfigure<AbpOpenIddictAspNetCoreOptions>(options =>
             {
-                options.AddDevelopmentEncryptionAndSigningCertificate = false;
+                options.AddDevelopmentEncryptionAndSigningCertificate = true;
             });
 
             PreConfigure<OpenIddictServerBuilder>(serverBuilder =>
@@ -90,7 +91,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
         ConfigureConventionalControllers();
         ConfigureVirtualFileSystem(context);
         ConfigureCors(context, configuration);
-        ConfigureSwaggerServices(context, configuration);
+        ConfigureSwaggerServices(context);
 
         Configure<AbpBlobStoringOptions>(options =>
         {
@@ -227,8 +228,7 @@ public class PropertyMiniHttpApiHostModule : AbpModule
     }
 
     private static void ConfigureSwaggerServices(
-        ServiceConfigurationContext context,
-        IConfiguration configuration
+        ServiceConfigurationContext context
     )
     {
         context.Services.AddAbpSwaggerGen(options =>

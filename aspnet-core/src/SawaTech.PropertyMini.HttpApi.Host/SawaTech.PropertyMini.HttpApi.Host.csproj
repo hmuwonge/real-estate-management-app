@@ -50,4 +50,12 @@
     <None Include="dab-options.json.user" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="openiddict.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+ 
+
+
 </Project>
