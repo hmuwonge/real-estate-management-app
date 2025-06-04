@@ -84,40 +84,61 @@ namespace SawaTech.PropertyMini.PropertyAmenities
             catch (Exception ex)
             {
                 return new GeneralResponse(false, ex.Message, ex.StackTrace);
-            }
-            
+            }           
 
         }
 
-        public async Task<AmenityDto> GetAsync(Guid id)
+        public async Task<GeneralResponse> GetAsync(Guid id)
         {
-            var propertyType = await _repository.GetAsync(id);
-            return ObjectMapper.Map<Amenity, AmenityDto>(propertyType);
+            try
+            {
+                var propertyType = await _repository.GetAsync(id);
+                var result = ObjectMapper.Map<Amenity, AmenityDto>(propertyType);
+                return new GeneralResponse(true, "Success", result);
+            }
+            catch (Exception ex)
+            {
+                return new GeneralResponse(true, ex.Message,ex.StackTrace);
+            }
         }
 
         public async Task<GeneralResponse> GetListAsync()
         {
-
-            const string cacheKey = "PublicPropertyList";
-
-            if (!_cache.TryGetValue(cacheKey, out List<AmenityDto>? cachedList)) // Use nullable type for cachedList  
+            try
             {
-                var amenities = await _repository.GetListAsync();
+                const string cacheKey = "PublicPropertyList";
 
-                cachedList = ObjectMapper.Map<List<Amenity>, List<AmenityDto>>(amenities);
+                if (!_cache.TryGetValue(cacheKey, out List<AmenityDto>? cachedList)) // Use nullable type for cachedList  
+                {
+                    var amenities = await _repository.GetListAsync();
 
-                // Cache for 5 minutes  
-                _cache.Set(cacheKey, cachedList, TimeSpan.FromMinutes(5));
+                    cachedList = ObjectMapper.Map<List<Amenity>, List<AmenityDto>>(amenities);
+
+                    // Cache for 5 minutes  
+                    _cache.Set(cacheKey, cachedList, TimeSpan.FromMinutes(5));
+                }
+
+                return new GeneralResponse(true, "Success", cachedList);
+            }catch(Exception ex)
+            {
+                return new GeneralResponse(false, ex.Message, ex.StackTrace);
             }
+         }
 
-            return new GeneralResponse(true, "Success", cachedList);
-        }
-
-        public async Task<AmenityDto> UpdateAsync(Guid id,[FromForm] CreateUpdateAmenityDto input)
+        public async Task<GeneralResponse> UpdateAsync(Guid id,[FromForm] CreateUpdateAmenityDto input)
         {
-            var propertyType = await _repository.GetAsync(id);
-            ObjectMapper.Map(input, propertyType);
-            return ObjectMapper.Map<Amenity, AmenityDto>(propertyType);
+            try
+            {
+                var propertyType = await _repository.GetAsync(id);
+                ObjectMapper.Map(input, propertyType);
+                var results = ObjectMapper.Map<Amenity, AmenityDto>(propertyType);
+                return new GeneralResponse(true, "Success", results);
+            }
+            catch (Exception ex)
+            {
+                return new GeneralResponse(false, ex.Message, ex.StackTrace);
+            }
+            
         }
 
         private static async Task<string> SaveMainImageAsync(IFormFile mainImage, string uploadsPath, string baseUrl)

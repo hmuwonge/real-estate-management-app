@@ -4,7 +4,6 @@ import { UsersService } from './services/users/users.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  standalone: false,
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet,RouterLink,CommonModule],

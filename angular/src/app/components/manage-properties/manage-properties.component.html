@@ -1,49 +1,47 @@
 
-<div class="bg-gray-50 p-6 font-sans mx-auto" *ngIf="properties && properties.length > 0 && !isLoading else loading">
+<div class="bg-gray-50 p-6 font-sans mx-auto">
 
   <h1 class="text-xl font-semibold mb-6 border-b pb-2">Manage Your Estates</h1>
 
   <!-- Section Template -->
-<!-- Section Template -->
-<section class="mb-10">
-  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2 sm:gap-0">
-    <h2 class="text-lg font-semibold">Published:</h2>
-    <select class="py-1 px-2 border rounded text-sm w-full sm:w-auto">
-      <option>Buy</option>
-    </select>
-  </div>
-
-  <!-- Cards Grid -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-    <!-- Create New Estate Card -->
-    <div [routerLink]="['/auth/dashboard/create-property']" class="flex items-center
-     justify-center h-48 bg-purple-700 text-white rounded-lg cursor-pointer hover:bg-purple-800 transition-colors">
-      <div class="text-center">
-        <div class="text-4xl font-bold">＋</div>
-        <div class="text-md mt-2 font-bold">Create New Estate</div>
-      </div>
+  <section class="mb-10">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-semibold">Published:</h2>
+      <select class=" py-1 border rounded text-sm">
+        <option>Buy</option>
+      </select>
     </div>
 
-    <!-- Estate Card -->
-    <div class="bg-white rounded-lg shadow overflow-hidden hover:shadow-md transition-shadow" *ngFor="let estate of properties">
-      <div class="relative">
-        <img [src]="estate.mainImage || '/images/placeholder.jpg'" class="w-full h-32 object-cover" alt="Estate image"/>
-        <span class="absolute top-2 right-2 bg-white text-purple-700 text-xs px-2 py-1 rounded shadow">Buy</span>
-      </div>
-      <div class="p-2 text-sm">
-        <p class="font-semibold">{{estate.price}} <span class="ml-2 text-gray-600">{{estate.rooms}} rooms</span></p>
-        <p class="text-gray-500 text-xs">London Street 1st floor</p>
-        <div class="mt-2 flex flex-wrap gap-1 text-xs">
-          <button class="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200">Edit Info</button>
-          <button class="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200">Renewal</button>
-          <button class="px-2 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200">Delete</button>
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-5 gap-4">
+      <!-- Create New Estate Card -->
+      <div [routerLink]="['/auth/dashboard/create-property']" class="flex items-center justify-center h-48 bg-purple-700 text-white rounded-lg cursor-pointer">
+        <div class="text-center">
+          <div class="text-4xl">＋</div>
+          <div class="text-sm font-medium mt-2">Create New Estate</div>
         </div>
       </div>
-    </div>
 
-    <!-- Repeat Estate Cards as Needed -->
-  </div>
-</section>
+      <!-- Estate Card -->
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="relative">
+          <img src="REPLACE_WITH_IMAGE.jpg" class="w-full h-32 object-cover" />
+          <span class="absolute top-2 right-2 bg-white text-purple-700 text-xs  py-1 rounded shadow">Buy</span>
+        </div>
+        <div class="p-2 text-sm">
+          <p class="font-semibold">1200$ <span class="ml-2 text-gray-600">2 rooms</span></p>
+          <p class="text-gray-500 text-xs">London Street 1st floor</p>
+          <div class="mt-2 flex flex-wrap gap-1 text-xs">
+            <button class=" py-1 bg-gray-100 rounded">Edit Info</button>
+            <button class=" py-1 bg-gray-100 rounded">Renewal</button>
+            <button class=" py-1 bg-red-100 text-red-600 rounded">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Repeat Estate Cards as Needed -->
+    </div>
+  </section>
 
   <!-- Payment Needed -->
   <section class="mb-10">
@@ -57,7 +55,7 @@
       <!-- Estate Card -->
       <div class="bg-white rounded-lg shadow overflow-hidden">
         <div class="relative">
-          <img [src]="defaultImage || '/images/placeholder.jpg'" class="w-full h-32 object-cover" />
+          <img src="REPLACE_WITH_IMAGE.jpg" class="w-full h-32 object-cover" />
           <span class="absolute top-2 right-2 bg-white text-purple-700 text-xs  py-1 rounded shadow">Buy</span>
         </div>
         <div class="p-2 text-sm">
@@ -81,7 +79,7 @@
       <!-- Estate Card -->
       <div class="bg-white rounded-lg shadow overflow-hidden">
         <div class="relative">
-          <img [src]="defaultImage || '/images/placeholder.jpg'" class="w-full h-32 object-cover" />
+          <img src="REPLACE_WITH_IMAGE.jpg" class="w-full h-32 object-cover" />
           <span class="absolute top-2 right-2 bg-white text-purple-700 text-xs  py-1 rounded shadow">Buy</span>
         </div>
         <div class="p-2 text-sm">
@@ -105,7 +103,7 @@
       <!-- Estate Card -->
       <div class="bg-white rounded-lg shadow overflow-hidden">
         <div class="relative">
-          <img [src]="defaultImage || '/images/placeholder.jpg'" class="w-full h-32 object-cover" />
+          <img src="REPLACE_WITH_IMAGE.jpg" class="w-full h-32 object-cover" />
           <span class="absolute top-2 right-2 bg-white text-purple-700 text-xs  py-1 rounded shadow">Buy</span>
         </div>
         <div class="p-2 text-sm">
@@ -117,11 +115,4 @@
   </section>
 
 </div>
-
-<ng-template #loading>
-  <div class="flex items-center justify-center h-screen">
-    <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-500"></div>
-    <p class="text-gray-500 text-lg ml-4">Loading properties...</p>
-  </div>
-</ng-template>
 

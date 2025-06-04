@@ -1,5 +1,5 @@
 export interface BaseEntity {
-  id: string;
+  id?: string;
   name: string;
   icon: string;
 }

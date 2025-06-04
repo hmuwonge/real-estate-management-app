@@ -10,12 +10,11 @@ import { PropertyType } from '../shared/models/type.mode';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  standalone: false,
   selector: 'app-home',
   standalone: true,
   imports: [HomeCarouselComponent, HeaderCarouselComponent,CommonModule,ReactiveFormsModule],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
   products: HomeProperty[] = [];
@@ -107,7 +106,4 @@ export class HomeComponent implements OnInit {
 
   searchProperties(): void {}
 
-  login() {
-    this.authService.navigateToLogin();
-  }
 }

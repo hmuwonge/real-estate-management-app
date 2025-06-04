@@ -6,7 +6,7 @@ import { GeneralResponse } from '../../shared/utils/GeneralResponse';
 import { HomeProperty } from '../../models/HomeProperty.model';
 import { PropertyDetail } from '../../models/PropertyDetails.mode';
 import { SimilarProperty } from '../../models/SimilarProperty.model';
-import { PropertyType } from '../../shared/models/property.model';
+import { PropertyType } from '../../shared/models/type.mode';
 import { Region } from '../../shared/models/region.model';
 
 @Injectable({
@@ -36,7 +36,7 @@ export class PropertiesService {
 
   getUserProperties(id:string):Observable<GeneralResponse<SimilarProperty[]>>{
 
-    const url =`${this.baseURL}app/public-properties/public-property-list`   //property/${encodeURIComponent(id)}/user-list?maxResults=4`;
+    const url =`${this.baseURL}app/property/${encodeURIComponent(id)}/user-list?maxResults=4`;
     return this.http.get<any>(url);
   }
 
@@ -73,13 +73,6 @@ export class PropertiesService {
   getRegions(): Observable<GeneralResponse<Region[]>> {
     return this.http.get<GeneralResponse<Region[]>>(
       `${this.baseURL}app/governorates`
-    );
-  }
-
-  createProperty(formData: FormData): Observable<GeneralResponse<any>> {
-    return this.http.post<GeneralResponse<any>>(
-      `${this.baseURL}app/property`,
-      formData
     );
   }
 

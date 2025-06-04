@@ -23,7 +23,7 @@ export class HomeCarouselComponent implements OnInit, OnDestroy {
   private resizeObserver: ResizeObserver;
   visibleItems = 1;
   arrowRightIcon = featherAirplay;
-  defaultImage: string ='/images/placeholder.jpg';
+  defaultImage: string ='images/nofeatureimage.jpg';
 
   constructor(private router: Router) {
     this.updateVisibleItems();
