@@ -24,6 +24,7 @@
     "@angular/router": "~19.1.0",
     "@angular/service-worker": "~19.1.0",
     "@asymmetrik/ngx-leaflet": "^18.0.1",
+    "@bluehalo/ngx-leaflet": "^19.0.0",
     "@fortawesome/angular-fontawesome": "^1.0.0",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@ng-icons/core": "^31.4.0",
@@ -58,6 +59,7 @@
     "@typescript-eslint/parser": "7.16.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^8.0.0",
+    "init": "^0.1.2",
     "jasmine-core": "~4.0.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
@@ -66,6 +68,8 @@
     "karma-jasmine-html-reporter": "^1.7.0",
     "karma-sonarqube-unit-reporter": "^0.0.23",
     "sonarqube-scanner": "^4.3.0",
-    "typescript": "~5.6.0"
+    "tailwindcss": "^4.1.8",
+    "typescript": "~5.6.0",
+    "yarn": "^1.22.22"
   }
 }
