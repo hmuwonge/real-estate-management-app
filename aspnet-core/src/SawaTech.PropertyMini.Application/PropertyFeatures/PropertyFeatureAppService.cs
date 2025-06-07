@@ -68,7 +68,7 @@ namespace SawaTech.PropertyMini.PropertyFeatures
             };
             await _repository.InsertAsync(propertyFeature);
             var amenity = ObjectMapper.Map<Feature, PropertyFeatureDto>(propertyFeature);
-            return new GeneralResponse(true, "Successfully create amenity", amenity);
+            return new GeneralResponse(true, "Successfully create feature", amenity);
         }
 
         public async Task<PropertyFeatureDto> UpdateAsync(

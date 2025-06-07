@@ -41,8 +41,11 @@ public class Property : AuditedAggregateRoot<Guid>
     [JsonIgnore]
     public virtual ICollection<PropertyFeature> PropertyFeatures { get; set; } = [];
 
+    //[NotMapped]
+    //public List<Amenity>? Amenities => PropertyAmenities?.Select(static pa => pa.Amenity).ToList();
+    private List<Amenity>? _amenities;
     [NotMapped]
-    public List<Amenity>? Amenities => PropertyAmenities?.Select(static pa => pa.Amenity).ToList();
+    public List<Amenity>? Amenities => _amenities ??= PropertyAmenities?.Select(pa => pa.Amenity).ToList();
 
     [NotMapped]
     public List<Feature>? Features => PropertyFeatures?.Select(pa => pa.Feature).ToList();

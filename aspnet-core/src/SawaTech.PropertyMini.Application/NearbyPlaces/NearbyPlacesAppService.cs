@@ -22,11 +22,26 @@ namespace SawaTech.PropertyMini.NearbyPlaces
         }
         public async Task<GeneralResponse> CreateNearbyPlaceAsync(CreateUpdateNearbyPlace input)
         {
-            var nearbyPlace = ObjectMapper.Map<CreateUpdateNearbyPlace, NearbyPlace>(input);
-            // Here you would typically save the nearbyPlace to a database
-             await _repository.InsertAsync(nearbyPlace);
-            // For now, we will just return a success response with the created nearby place
-            return new GeneralResponse(true, "Nearby place created successfully", nearbyPlace);
+            try
+            {
+                if (string.IsNullOrWhiteSpace(input.Name))
+                {
+                    return new GeneralResponse(false, "Name is required", null);
+                }
+                var place = new NearbyPlace
+                {
+                    Name = input.Name,
+                    Icon = input.Icon
+                };
+                await _repository.InsertAsync(place);
+                var createdPlace = ObjectMapper.Map<NearbyPlace, NearbyPlaceDto>(place);
+                return new GeneralResponse(true, "Successfully created place", createdPlace);
+
+            }
+            catch (Exception ex)
+            {
+                return new GeneralResponse(false, ex.Message, ex.StackTrace);
+            }
         }
 
         public async Task<GeneralResponse> DeleteNearbyPlaceAsync(Guid id)
@@ -53,29 +68,49 @@ namespace SawaTech.PropertyMini.NearbyPlaces
 
         public async Task<GeneralResponse> GetNearbyPlaceAsync(Guid id)
         {
-            var place = await _repository.GetAsync(id);
-            var result = ObjectMapper.Map<NearbyPlace, NearbyPlaceDto>(place);
-            if (result != null)
+            try
             {
+                if (id == Guid.Empty)
+                {
+                    return new GeneralResponse(false, "Id is required", null);
+                }
+                var place = await _repository.GetAsync(id);
+                var result = ObjectMapper.Map<NearbyPlace, NearbyPlaceDto>(place);
+                if (result != null)
+                {
 
-                return new GeneralResponse(true, "Success", result);
+                    return new GeneralResponse(true, "Success", result);
+                }
+                else
+                {
+                    return new GeneralResponse(false, "Failed, Item not found", null);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return new GeneralResponse(false, "Failed, Item not found", null);
+                return new GeneralResponse(false, ex.Message, ex.StackTrace);
+                var place = await _repository.GetAsync(id);
             }
 
         }
 
         public async Task<GeneralResponse> GetNearbyPlacesAsync()
         {
-            var nearbyPlaces = await _repository.GetListAsync();
-            var places= ObjectMapper.Map<List<NearbyPlace>, List<NearbyPlaceDto>>(
-                nearbyPlaces
-            );
+            try
+            {
+                var nearbyPlaces = await _repository.GetListAsync();
+                var places = ObjectMapper.Map<List<NearbyPlace>, List<NearbyPlaceDto>>(
+                    nearbyPlaces
+                );
 
-            return new GeneralResponse(true, "Success", places);
-        }
+                return new GeneralResponse(true, "Success", places);
+            }
+            catch (Exception ex)
+            {
+                return new GeneralResponse(false, ex.Message, ex.StackTrace);
+            }
+
+            }
 
         public async Task<GeneralResponse> UpdateNearbyPlaceAsync(Guid id, CreateUpdateNearbyPlace input)
         {

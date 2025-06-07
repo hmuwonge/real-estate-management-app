@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-image-slider',
   imports: [CommonModule],

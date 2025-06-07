@@ -11,7 +11,7 @@ namespace SawaTech.PropertyMini.PropertyTypes
     {
         Task<GeneralResponse> GetListAsync();
         Task<PropertyTypeDto> GetAsync(Guid id);
-        Task<PropertyTypeDto> CreateAsync(CreateUpdatePropertyTypeDto input);
+        Task<GeneralResponse> CreateAsync(CreateUpdatePropertyTypeDto input);
         Task<PropertyTypeDto> UpdateAsync(Guid id, CreateUpdatePropertyTypeDto input);
         Task DeleteAsync(Guid id);
     }

@@ -4,6 +4,7 @@ import { RouterOutlet, RouterLink, Router, ActivatedRoute } from '@angular/route
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { UsersService } from '../../services/users/users.service';
 import { LoginResponse } from '../../models/AuthenticationResponse';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent {
 
 
   constructor(private userService: UsersService,
+    private toastr: ToastrService,
     private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
 
 
@@ -51,9 +53,12 @@ export class LoginComponent {
         this.isLoading = false;
         if (response.flag === false) {
           this.errorMessage = response.message || 'Login failed. Please check your credentials and try again.';
+          // console.error('Login failed:', response.message);
+          this.toastr.error(this.errorMessage, 'Login Error');
           return;
         }
 
+        this.toastr.success('Login successful!', 'Success');
         this.userService.setAuthStatus(true, response.userData, response.accessToken);
 
 

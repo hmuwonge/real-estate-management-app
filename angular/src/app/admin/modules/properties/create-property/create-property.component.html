@@ -2,7 +2,7 @@
   <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
     <!-- Header -->
     <div class="bg-white px-6 py-4 border-b border-gray-200">
-      <h1 class="text-2xl font-bold text-gray-800">Create a new estate</h1>
+      <h1 class="text-2xl font-bold text-gray-800">Create a new property</h1>
     </div>
 
     <!-- Progress Steps -->
@@ -34,476 +34,697 @@
 
     <!-- Form Content -->
     <form *ngIf="!submitted" [formGroup]="form" (ngSubmit)="onSubmit()" class="p-6">
-      <!-- Step 1: Info & Images -->
-      <div
-        class="grid grid-cols-2 md:grid-cols-2 gap-6"
-        *ngIf="currentStep === 1"
-        class="space-y-6"
-      >
+      <!-- Step 1: Basic Info -->
+      <div *ngIf="currentStep === 1" class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Property Info -->
-        <div class="bg-white p-6 rounded-lg shadow">
-          <label for="propertyName" class="block mb-1 text-sm font-medium">Property Name</label>
-
-          <input
-            type="text"
-            id="propertyName"
-            formControlName="propertyName"
-            class="w-full p-2 border rounded mb-4"
-          />
-          <div
-            *ngIf="step1Controls['propertyName'].errors && step1Controls['propertyName'].touched"
-            class="text-red-500 text-xs mt-1"
-          >
-            Property name is required
+        <div class="space-y-4">
+          <div>
+            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+            <input
+              type="text"
+              id="title"
+              formControlName="title"
+              class="w-full p-2 border border-purple-600 rounded"
+            />
+            <div
+              *ngIf="form.get('title')?.invalid && form.get('title')?.touched"
+              class="text-red-500 text-xs mt-1"
+            >
+              Title is required (5-128 characters)
+            </div>
           </div>
 
-          <label for="description" class="block mb-1 text-sm font-medium">Description</label>
-          <textarea
-            id="description"
-            formControlName="description"
-            rows="6"
-            class="w-full p-2 border rounded"
-          ></textarea>
-          <div
-            *ngIf="step1Controls['description'].errors && step1Controls['description'].touched"
-            class="text-red-500 text-xs mt-1"
-          >
-            Description is required
+          <div>
+            <label for="description" class="block text-sm font-medium text-gray-700"
+              >Description</label
+            >
+            <textarea
+              id="description"
+              formControlName="description"
+              rows="6"
+              class="w-full p-2 border border-purple-600 rounded"
+            ></textarea>
+            <div
+              *ngIf="form.get('description')?.invalid && form.get('description')?.touched"
+              class="text-red-500 text-xs mt-1"
+            >
+              Description is required
+            </div>
+          </div>
+
+          <div>
+            <label for="propertyTypeId" class="block text-sm font-medium text-gray-700"
+              >Property Type</label
+            >
+            <select
+              id="propertyTypeId"
+              formControlName="propertyTypeId"
+              class="w-full p-2 border border-purple-600 rounded"
+            >
+              <option value="">Select property type</option>
+              <option *ngFor="let type of propertyTypes" [value]="type.id">{{ type.name }}</option>
+            </select>
+            <div
+              *ngIf="form.get('propertyTypeId')?.invalid && form.get('propertyTypeId')?.touched"
+              class="text-red-500 text-xs mt-1"
+            >
+              Property type is required
+            </div>
+          </div>
+
+          <div>
+            <label for="governorateId" class="block text-sm font-medium text-gray-700"
+              >Governorate</label
+            >
+            <select
+              id="governorateId"
+              formControlName="governorateId"
+              class="w-full p-2 border border-purple-600 rounded"
+            >
+              <option value="">Select governorate</option>
+              <option *ngFor="let gov of governorates" [value]="gov.id">{{ gov.name }}</option>
+            </select>
+            <div
+              *ngIf="form.get('governorateId')?.invalid && form.get('governorateId')?.touched"
+              class="text-red-500 text-xs mt-1"
+            >
+              Governorate is required
+            </div>
           </div>
         </div>
 
         <!-- Property Images -->
-        <div class="bg-white p-6 rounded-lg shadow">
-          <label class="block mb-3 text-sm font-medium">Property Images</label>
-          <div class="flex space-x-3 overflow-x-auto mb-4">
-            <!-- <div *ngFor="let img of property.images" class="relative">
-              <img [src]="img.src" class="w-24 h-20 object-cover rounded" />
-              <div class="flex justify-between mt-2">
-                <button class="text-xs bg-gray-300  py-1 rounded">↕</button>
-                <button
-                  (click)="deleteImage(img)"
-                  class="text-xs bg-red-500 text-white  py-1 rounded"
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Main Image</label>
+            <input
+              type="file"
+              id="mainImageInput"
+              (change)="onMainImageChange($event)"
+              accept="image/*"
+              class="hidden"
+            />
+            <label
+              for="mainImageInput"
+              class="block w-full p-4 border-2 border-dashed rounded-lg text-center cursor-pointer hover:border-blue-500"
+            >
+              <div class="flex flex-col items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-12 w-12 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  Delete
-                </button>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                <span class="mt-2 text-sm font-medium text-gray-700">
+                  {{ form.get('mainImage')?.value ? 'Change main image' : 'Upload main image' }}
+                </span>
+                <span class="text-xs text-gray-500">PNG, JPG, JPEG up to 5MB</span>
               </div>
-            </div> -->
-          </div>
+            </label>
 
-          <div class="border-2 border-dashed border-purple-300 rounded-lg p-6 text-center">
-            <div class="text-purple-600 text-xl mb-2">📷</div>
-            <p class="text-sm">Drag and drop photos here</p>
-            <p class="text-xs text-gray-400">(JPG/PNG/JPEG Files Required)</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 2: Services -->
-      <!-- Step 2: Services -->
-      <div *ngIf="currentStep === 2" class="space-y-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-gray-50 rounded-lg p-4">
-            <h3 class="text-xl font-semibold text-gray-800">Unit Details</h3>
-
-            <div class=" p-4 ">
-              <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">New Detail</label>
-                <input
-                  type="text"
-                  formControlName="newDetail"
-                  class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
-                  placeholder="Enter new detail"
+            <div *ngIf="form.get('mainImage')?.value" class="mt-4">
+              <h4 class="text-sm font-medium text-gray-700 mb-2">Main Image Preview</h4>
+              <div class="relative w-36 h-36 border rounded-md overflow-hidden">
+                <img
+                  [src]="getImagePreview(form.get('mainImage')?.value)"
+                  alt="Main image preview"
+                  class="w-full h-full object-cover"
                 />
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Rooms</label>
-                  <input
-                    type="number"
-                    formControlName="rooms"
-                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
-                    placeholder="3"
-                  />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Baths</label>
-                  <input
-                    type="number"
-                    formControlName="baths"
-                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
-                    placeholder="1"
-                  />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Area (sqft)</label>
-                  <input
-                    type="number"
-                    formControlName="area"
-                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
-                    placeholder="--"
-                  />
-                </div>
-              </div>
-
-              <div class="mt-4 flex space-x-2">
-                <div
-                  class="bg-white  py-1 rounded-full text-sm font-medium text-gray-700 border border-gray-300"
+                <button
+                  type="button"
+                  (click)="removeMainImage()"
+                  class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
                 >
-                  Rooms: {{ form.value.unitDetails?.rooms || '--' }}
-                </div>
-                <div
-                  class="bg-white  py-1 rounded-full text-sm font-medium text-gray-700 border border-gray-300"
-                >
-                  Baths: {{ form.value.unitDetails?.baths || '--' }}
-                </div>
-                <div
-                  class="bg-white  py-1 rounded-full text-sm font-medium text-gray-700 border border-gray-300"
-                >
-                  Baths: {{ form.value.unitDetails?.baths || '--' }}
-                </div>
-              </div>
-
-              <div class="mt-2 flex space-x-2">
-                <div
-                  class="bg-white  py-1 rounded-full text-sm font-medium text-gray-700 border border-gray-300"
-                >
-                  Rooms: {{ form.value.unitDetails?.rooms || '--' }}
-                </div>
-                <div
-                  class="bg-white  py-1 rounded-full text-sm font-medium text-gray-700 border border-gray-300"
-                >
-                  Baths: {{ form.value.unitDetails?.baths || '--' }}
-                </div>
-              </div>
-            </div>
-
-            <h3 class="text-xl font-semibold text-gray-800 mt-6">Unit Facilities</h3>
-
-            <div class="">
-              <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">New Facilities</label>
-                <div class="flex space-x-2">
-                  <input
-                    type="text"
-                    formControlName="newFacilities"
-                    class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
-                    placeholder="Enter facility"
-                  />
-                  <button
-                    type="button"
-                    (click)="addFacility()"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
                   >
-                    Add
-                  </button>
-                </div>
-              </div>
-
-              <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                <textarea
-                  formControlName="description"
-                  rows="2"
-                  class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
-                  placeholder="description here"
-                ></textarea>
-              </div>
-
-              <div *ngIf="facilities.controls.length > 0" class="space-y-2">
-                <div
-                  *ngFor="let facility of facilities.controls; let i = index"
-                  class="flex items-center space-x-2"
-                >
-                  <!--              <input-->
-                  <!--                type="text"-->
-                  <!--                [formControl]="facility"-->
-                  <!--                class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"-->
-                  <!--                placeholder="Facility"-->
-                  <!--              />-->
-
-                  <input
-                    type="text"
-                    [formControl]="getFormControl(facility)"
-                    class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
-                    placeholder="Facility"
-                  />
-                  <button
-                    type="button"
-                    (click)="removeFacility(i)"
-                    class="text-red-500 hover:text-red-700"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              <div class="mt-4 flex flex-wrap gap-2">
-                <div
-                  *ngFor="let facility of facilities.value"
-                  class="bg-white  py-1 rounded-full text-sm font-medium text-gray-700 border border-gray-300"
-                >
-                  Facility: {{ facility || '--' }}
-                </div>
-                <div *ngIf="!facilities.value[0]" class="text-gray-400 text-sm">
-                  No facilities added yet
-                </div>
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
 
           <div>
-            <h3 class="text-xl font-semibold text-gray-800 mt-6">Add Features Tags</h3>
+            <label class="block text-sm font-medium text-gray-700">Additional Images</label>
+            <!-- <input
+              type="file"
+              multiple
+              (change)="onAdditionalImagesChange($event)"
+              accept="image/*"
+              class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            />
+            <div class="mt-2 space-y-1">
+              <div
+                *ngFor="let img of form.get('photoUrls')?.value; let i = index"
+                class="flex items-center"
+              >
+                <span class="text-sm text-gray-600">{{ img?.name }}</span>
+                <button
+                  type="button"
+                  (click)="removeAdditionalImage(i)"
+                  class="ml-2 text-red-500 hover:text-red-700"
+                >
+                  ×
+                </button>
+              </div>
+            </div> -->
+            <input
+              type="file"
+              id="additionalImagesInput"
+              multiple
+              (change)="onAdditionalImagesChange($event)"
+              accept="image/*"
+              class="hidden"
+            />
+            <label
+              for="additionalImagesInput"
+              class="block w-full p-4 border-2 border-dashed rounded-lg text-center cursor-pointer hover:border-blue-500 mt-4"
+            >
+              <div class="flex flex-col items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-12 w-12 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+                <span class="mt-2 text-sm font-medium text-gray-700"> Add more images </span>
+                <span class="text-xs text-gray-500">Select multiple images</span>
+              </div>
+            </label>
+          </div>
 
-            <div class="bg-gray-50 p-4 rounded-lg">
-              <div class="flex space-x-2 mb-4">
-                <input
-                  type="text"
-                  class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
-                  placeholder="Add title here..."
+          <!-- Additional Images Previews -->
+          <div *ngIf="form.get('photoUrls')?.value?.length" class="mt-6">
+            <h4 class="text-sm font-medium text-gray-700 mb-2">Additional Images Previews</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+              <div
+                *ngFor="let image of form.get('photoUrls')?.value; let i = index"
+                class="relative w-40 h-40 border rounded-md overflow-hidden"
+              >
+                <img
+                  [src]="getImagePreview(image)"
+                  alt="Additional image preview"
+                  class="w-full h-full object-cover"
                 />
                 <button
                   type="button"
-                  (click)="addTag()"
-                  class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                  [disabled]="featuresTags.length >= 5"
+                  (click)="removeAdditionalImage(i)"
+                  class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
                 >
-                  Add
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
                 </button>
               </div>
+            </div>
+          </div>
 
-              <div class="flex flex-wrap gap-2 mb-2">
-                <div
-                  *ngFor="let tag of featuresTags.controls; let i = index"
-                  class="flex items-center bg-blue-100  py-1 rounded-full text-sm font-medium text-blue-800"
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Video Tour (Optional)</label>
+            <input
+              type="file"
+              (change)="onVideoChange($event)"
+              accept="video/*"
+              class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            />
+            <div *ngIf="form.get('videoUrl')?.value" class="mt-2 flex items-center">
+              <span class="text-sm text-gray-600">{{ form.get('videoUrl')?.value?.name }}</span>
+              <button
+                type="button"
+                (click)="form.patchValue({ videoUrl: null })"
+                class="ml-2 text-red-500 hover:text-red-700"
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Property Details -->
+      <div *ngIf="currentStep === 2" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Basic Details -->
+          <div class="space-y-4">
+            <div>
+              <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+              <input
+                type="number"
+                id="price"
+                formControlName="price"
+                min="0"
+                step="0.01"
+                class="w-full p-2 border rounded"
+              />
+              <div
+                *ngIf="form.get('price')?.invalid && form.get('price')?.touched"
+                class="text-red-500 text-xs mt-1"
+              >
+                Valid price is required
+              </div>
+            </div>
+
+            <div>
+              <label for="insurancePayment" class="block text-sm font-medium text-gray-700"
+                >Insurance Payment</label
+              >
+              <input
+                type="number"
+                id="insurancePayment"
+                formControlName="insurancePayment"
+                min="0"
+                step="0.01"
+                class="w-full p-2 border rounded"
+              />
+            </div>
+
+            <div>
+              <label for="area" class="block text-sm font-medium text-gray-700">Area (sqm)</label>
+              <input
+                type="number"
+                id="area"
+                formControlName="area"
+                min="0"
+                step="0.1"
+                class="w-full p-2 border rounded"
+              />
+              <div
+                *ngIf="form.get('area')?.invalid && form.get('area')?.touched"
+                class="text-red-500 text-xs mt-1"
+              >
+                Valid area is required
+              </div>
+            </div>
+
+            <div>
+              <label for="rooms" class="block text-sm font-medium text-gray-700">Rooms</label>
+              <input
+                type="number"
+                id="rooms"
+                formControlName="rooms"
+                min="0"
+                max="1000"
+                class="w-full p-2 border rounded"
+              />
+            </div>
+
+            <div>
+              <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+              <select id="status" formControlName="status" class="w-full p-2 border rounded">
+                <option *ngFor="let status of propertyStatuses" [value]="status">
+                  {{ status }}
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <label for="paymentType" class="block text-sm font-medium text-gray-700"
+                >Payment Type</label
+              >
+              <input
+                type="text"
+                id="paymentType"
+                formControlName="paymentType"
+                class="w-full p-2 border rounded"
+              />
+            </div>
+          </div>
+
+          <!-- Location -->
+          <div class="space-y-4">
+            <div>
+              <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+              <input
+                type="text"
+                id="address"
+                formControlName="address"
+                class="w-full p-2 border rounded"
+              />
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="latitude" class="block text-sm font-medium text-gray-700"
+                  >Latitude</label
                 >
-                  {{ tag.value || 'New Tag' }}
+                <input
+                  type="number"
+                  id="latitude"
+                  formControlName="latitude"
+                  step="any"
+                  class="w-full p-2 border rounded"
+                />
+                <div
+                  *ngIf="form.get('latitude')?.invalid && form.get('latitude')?.touched"
+                  class="text-red-500 text-xs mt-1"
+                >
+                  Latitude is required
+                </div>
+              </div>
+
+              <div>
+                <label for="longitude" class="block text-sm font-medium text-gray-700"
+                  >Longitude</label
+                >
+                <input
+                  type="number"
+                  id="longitude"
+                  formControlName="longitude"
+                  step="any"
+                  class="w-full p-2 border rounded"
+                />
+                <div
+                  *ngIf="form.get('longitude')?.invalid && form.get('longitude')?.touched"
+                  class="text-red-500 text-xs mt-1"
+                >
+                  Longitude is required
+                </div>
+              </div>
+            </div>
+
+            <!-- Map preview would go here -->
+            <div class="h-48 bg-gray-100 rounded-md flex items-center justify-center">
+              <span class="text-gray-400">Map preview will be shown here</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Features & Amenities -->
+      <div *ngIf="currentStep === 3" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Features -->
+          <!-- <div class="space-y-4">
+            <h3 class="text-lg font-medium text-gray-900">Features</h3>
+            <div class="space-y-2">
+              <div *ngFor="let feature of allFeatures" class="flex items-center">
+                <input
+                  type="checkbox"
+                  [id]="'feature-' + feature.id"
+                  [value]="feature.id"
+                  (change)="onFeatureToggle(feature.id, $event)"
+                  [checked]="isFeatureSelected(feature.id)"
+                  class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <label [for]="'feature-' + feature.id" class="ml-2 text-sm text-gray-700">
+                  {{ feature.name }}
+                </label>
+              </div>
+            </div>
+
+            <div *ngIf="selectedFeatures.length > 0" class="mt-4">
+              <h4 class="text-sm font-medium text-gray-700 mb-2">Selected Features:</h4>
+              <div class="flex flex-wrap gap-2">
+                <div *ngFor="let feature of selectedFeatures" class="bg-blue-100 px-3 py-1 rounded-full text-xs text-blue-800">
+                  {{ getFeatureName(feature) }}
                   <button
                     type="button"
-                    (click)="removeTag(i)"
+                    (click)="removeFeature(feature)"
                     class="ml-1 text-blue-600 hover:text-blue-800"
                   >
                     ×
                   </button>
                 </div>
-                <div *ngIf="featuresTags.length === 0" class="text-gray-400 text-sm">
-                  No tags added yet
-                </div>
-              </div>
-
-              <div class="flex flex-wrap gap-2">
-                <div
-                  class="bg-white  py-1 rounded-full text-sm font-medium text-gray-700 border border-gray-300"
-                >
-                  Wifi
-                </div>
-                <div
-                  class="bg-white  py-1 rounded-full text-sm font-medium text-gray-700 border border-gray-300"
-                >
-                  Nice View
-                </div>
-                <div
-                  class="bg-white  py-1 rounded-full text-sm font-medium text-gray-700 border border-gray-300"
-                >
-                  Garden
-                </div>
-              </div>
-
-              <div class="text-xs text-gray-500 mt-2">
-                <span *ngIf="featuresTags.length < 5"
-                  >You can add up to {{ 5 - featuresTags.length }} more tags</span
-                >
-                <span *ngIf="featuresTags.length >= 5" class="text-red-500"
-                  >Only 5 tags are allowed</span
-                >
               </div>
             </div>
+          </div> -->
 
-            <h3 class="text-xl font-semibold text-gray-800 mt-6">
-              Video Tour (MP4 Max - 50MB File)
-            </h3>
+          <!-- Step 3: Features & Amenities -->
+          <div *ngIf="currentStep === 3" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Features Section -->
+              <div class="space-y-4">
+                <h3 class="text-lg font-medium text-gray-900">Features</h3>
 
-            <div class="bg-gray-50 p-4 rounded-lg">
-              <div class="flex items-center space-x-4">
-                <div class="flex-1">
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Upload Video</label>
+                <!-- Search input for features -->
+                <div class="relative">
                   <input
-                    type="file"
-                    accept="video/mp4"
-                    (change)="onVideoChange($event)"
-                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                    type="text"
+                    [(ngModel)]="featureSearchQuery"
+                    (ngModelChange)="filterFeatures()"
+                    [ngModelOptions]="{ standalone: true }"
+                    placeholder="Search features..."
+                    class="w-full p-2 border rounded"
                   />
-                  <p class="text-xs text-gray-500 mt-1">Supported format: MP4 (max 50MB)</p>
+                  <svg
+                    *ngIf="featureSearchQuery"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 absolute right-2 top-2.5 text-gray-400 cursor-pointer"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    (click)="clearFeatureSearch()"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
                 </div>
 
-                <div
-                  *ngIf="form.value.videoTour"
-                  class="bg-white p-2 rounded border border-gray-200"
-                >
-                  <div class="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-6 w-6 text-red-500"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                      />
-                    </svg>
-                    <span class="ml-2 text-sm font-medium">{{
-                      form.value.videoTour.name || 'house-tour.mp4'
-                    }}</span>
-                    <button
-                      type="button"
-                      (click)="form.patchValue({ videoTour: null })"
-                      class="ml-2 text-gray-400 hover:text-gray-600"
-                    >
-                      ×
-                    </button>
+                <!-- Features list with checkboxes -->
+                <div class="max-h-60 overflow-y-auto border rounded p-2">
+                  <div
+                    *ngFor="let feature of filteredFeatures"
+                    class="flex items-center p-2 hover:bg-gray-50"
+                  >
+                    <input
+                      type="checkbox"
+                      [id]="'feature-' + feature.id"
+                      [checked]="isFeatureSelected(feature.id)"
+                      (change)="toggleFeatureSelection(feature)"
+                      class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label [for]="'feature-' + feature.id" class="ml-2 text-sm text-gray-700">
+                      {{ feature.name }}
+                    </label>
+                  </div>
+                  <div *ngIf="filteredFeatures.length === 0" class="text-center text-gray-500 py-2">
+                    No features found
                   </div>
                 </div>
               </div>
+
+              <!-- Selected Features Section -->
+              <div class="space-y-4">
+                <h3 class="text-lg font-medium text-gray-900">Selected Features</h3>
+                <div *ngIf="selectedFeatures.length > 0" class="border rounded p-4 min-h-[200px]">
+                  <div class="flex flex-wrap gap-2">
+                    <div
+                      *ngFor="let feature of selectedFeatures"
+                      class="bg-blue-100 px-3 py-1 rounded-full flex items-center"
+                    >
+                      <span class="text-xs text-blue-800">{{ getFeatureName(feature) }}</span>
+                      <button
+                        type="button"
+                        (click)="removeSelectedFeature(feature)"
+                        class="ml-1 text-blue-600 hover:text-blue-800 text-xs"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  *ngIf="selectedFeatures.length === 0"
+                  class="border rounded p-4 min-h-[200px] flex items-center justify-center text-gray-400"
+                >
+                  No features selected yet
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Amenities -->
+          <div class="space-y-4">
+            <h3 class="text-lg font-medium text-gray-900">Amenities</h3>
+            <div class="space-y-2">
+              <div *ngFor="let amenity of allAmenities" class="flex items-center">
+                <input
+                  type="checkbox"
+                  [id]="'amenity-' + amenity.id"
+                  [value]="amenity.id"
+                  (change)="onAmenityToggle(amenity.id, $event)"
+                  [checked]="isAmenitySelected(amenity.id)"
+                  class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <label [for]="'amenity-' + amenity.id" class="ml-2 text-sm text-gray-700">
+                  {{ amenity.name }}
+                </label>
+              </div>
+            </div>
+
+            <div *ngIf="selectedAmenities.length > 0" class="mt-4">
+              <h4 class="text-sm font-medium text-gray-700 mb-2">Selected Amenities:</h4>
+              <div class="flex flex-wrap gap-2">
+                <div
+                  *ngFor="let amenity of selectedAmenities"
+                  class="bg-green-100 px-3 py-1 rounded-full text-xs text-green-800"
+                >
+                  {{ getAmenityName(amenity) }}
+                  <button
+                    type="button"
+                    (click)="removeAmenity(amenity)"
+                    class="ml-1 text-green-600 hover:text-green-800"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nearby Places -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-medium text-gray-900">Nearby Places</h3>
+          <div class="flex space-x-2">
+            <input
+              type="text"
+              [(ngModel)]="newNearbyPlace"
+              [ngModelOptions]="{ standalone: true }"
+              class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
+              placeholder="Add nearby place"
+            />
+            <button
+              type="button"
+              (click)="addNearbyPlace()"
+              class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            >
+              Add
+            </button>
+          </div>
+
+          <div *ngIf="nearbyPlaces.length > 0" class="mt-2">
+            <div class="flex flex-wrap gap-2">
+              <div
+                *ngFor="let place of nearbyPlaces; let i = index"
+                class="bg-gray-100 px-3 py-1 rounded-full text-xs text-gray-800"
+              >
+                {{ place }}
+                <button
+                  type="button"
+                  (click)="removeNearbyPlace(i)"
+                  class="ml-1 text-gray-600 hover:text-gray-800"
+                >
+                  ×
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Step 3: Price & Location -->
-      <div *ngIf="currentStep === 3" class="space-y-6">
-        <div>
-          <label for="priceEstimate" class="block text-sm font-medium text-gray-700"
-            >Price Estimate</label
-          >
-          <div class="mt-1 relative rounded-md shadow-sm">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span class="text-gray-500 sm:text-sm">$</span>
-            </div>
-            <input
-              type="text"
-              id="priceEstimate"
-              formControlName="priceEstimate"
-              class="block w-full pl-7 pr-12 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              placeholder="786,700"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label for="monthlyPayment" class="block text-sm font-medium text-gray-700"
-            >Estimated Monthly Payment</label
-          >
-          <div class="mt-1 relative rounded-md shadow-sm">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span class="text-gray-500 sm:text-sm">$</span>
-            </div>
-            <input
-              type="text"
-              id="monthlyPayment"
-              formControlName="monthlyPayment"
-              class="block w-full pl-7 pr-12 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              placeholder="5,324"
-            />
-            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <span class="text-gray-500 sm:text-sm">/mo</span>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <label for="locationDetails" class="block text-sm font-medium text-gray-700"
-            >Location Details</label
-          >
-          <textarea
-            id="locationDetails"
-            formControlName="locationDetails"
-            rows="3"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
-          ></textarea>
-        </div>
-
-        <div class="flex space-x-4">
-          <button
-            type="button"
-            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            Get pre-qualified
-          </button>
-        </div>
-      </div>
-
-      <!-- Step 4: Your Plan -->
+      <!-- Step 4: Review & Submit -->
       <div *ngIf="currentStep === 4" class="space-y-6">
-        <h3 class="text-lg font-medium text-gray-900">Select Your Plan</h3>
+        <h3 class="text-xl font-semibold text-gray-800">Review Your Property</h3>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div
-            [ngClass]="{ 'border-blue-500 bg-blue-50': form.value.plan === 'basic' }"
-            class="border rounded-md p-4 cursor-pointer"
-            (click)="form.patchValue({ plan: 'basic' })"
-          >
-            <input
-              type="radio"
-              id="basic"
-              formControlName="plan"
-              value="basic"
-              class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-            />
-            <label for="basic" class="ml-2 block text-sm font-medium text-gray-700">Basic</label>
-            <p class="mt-1 text-sm text-gray-500">Essential listing features</p>
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="text-lg font-medium text-gray-700 mb-2">Basic Information</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Title</p>
+              <p class="font-medium">{{ form.value.title }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Property Type</p>
+              <p class="font-medium">{{ getPropertyTypeName(form.value.propertyTypeId) }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Governorate</p>
+              <p class="font-medium">{{ getGovernorateName(form.value.governorateId) }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Status</p>
+              <p class="font-medium">{{ form.value.status }}</p>
+            </div>
           </div>
+        </div>
 
-          <div
-            [ngClass]="{ 'border-blue-500 bg-blue-50': form.value.plan === 'premium' }"
-            class="border rounded-md p-4 cursor-pointer"
-            (click)="form.patchValue({ plan: 'premium' })"
-          >
-            <input
-              type="radio"
-              id="premium"
-              formControlName="plan"
-              value="premium"
-              class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-            />
-            <label for="premium" class="ml-2 block text-sm font-medium text-gray-700"
-              >Premium</label
-            >
-            <p class="mt-1 text-sm text-gray-500">Enhanced visibility</p>
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="text-lg font-medium text-gray-700 mb-2">Property Details</h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Price</p>
+              <p class="font-medium">{{ form.value.price | currency }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Area</p>
+              <p class="font-medium">{{ form.value.area }} sqm</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Rooms</p>
+              <p class="font-medium">{{ form.value.rooms }}</p>
+            </div>
           </div>
+        </div>
 
-          <div
-            [ngClass]="{ 'border-blue-500 bg-blue-50': form.value.plan === 'enterprise' }"
-            class="border rounded-md p-4 cursor-pointer"
-            (click)="form.patchValue({ plan: 'enterprise' })"
-          >
-            <input
-              type="radio"
-              id="enterprise"
-              formControlName="plan"
-              value="enterprise"
-              class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-            />
-            <label for="enterprise" class="ml-2 block text-sm font-medium text-gray-700"
-              >Enterprise</label
+        <div class="bg-gray-50 p-4 rounded-lg" *ngIf="selectedFeatures.length > 0">
+          <h4 class="text-lg font-medium text-gray-700 mb-2">Selected Features</h4>
+          <div class="flex flex-wrap gap-2">
+            <div
+              *ngFor="let feature of selectedFeatures"
+              class="bg-blue-100 px-3 py-1 rounded-full text-xs text-blue-800"
             >
-            <p class="mt-1 text-sm text-gray-500">Full marketing package</p>
+              {{ getFeatureName(feature) }}
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg" *ngIf="selectedAmenities.length > 0">
+          <h4 class="text-lg font-medium text-gray-700 mb-2">Selected Amenities</h4>
+          <div class="flex flex-wrap gap-2">
+            <div
+              *ngFor="let amenity of selectedAmenities"
+              class="bg-green-100 px-3 py-1 rounded-full text-xs text-green-800"
+            >
+              {{ getAmenityName(amenity) }}
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg" *ngIf="nearbyPlaces.length > 0">
+          <h4 class="text-lg font-medium text-gray-700 mb-2">Nearby Places</h4>
+          <div class="flex flex-wrap gap-2">
+            <div
+              *ngFor="let place of nearbyPlaces"
+              class="bg-gray-200 px-3 py-1 rounded-full text-xs text-gray-800"
+            >
+              {{ place }}
+            </div>
           </div>
         </div>
 
@@ -526,7 +747,7 @@
           </div>
         </div>
         <div
-          *ngIf="form.controls['terms'].errors && form.controls['terms'].touched"
+          *ngIf="form.get('terms')?.invalid && form.get('terms')?.touched"
           class="text-red-500 text-xs"
         >
           You must accept the terms and conditions
@@ -541,31 +762,25 @@
           (click)="prevStep()"
           class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
-          Cancel
+          Back
         </button>
         <div *ngIf="currentStep < 4" class="ml-auto">
           <button
             type="button"
             (click)="nextStep()"
-            class="inline-flex justify-center py-2 px-4 border border-transparent
-            shadow-sm text-sm font-medium rounded-md text-white bg-blue-600
-             hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2
-              focus:ring-blue-500"
+            [disabled]="!isCurrentStepValid()"
+            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Next
-
           </button>
         </div>
         <div *ngIf="currentStep === 4" class="ml-auto">
           <button
             type="submit"
             [disabled]="loading || !form.valid"
-            class="inline-flex justify-center py-2 px-4 border border-transparent
-             shadow-sm text-sm font-medium rounded-md text-white
-              bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2
-               focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <span *ngIf="!loading">Create Estate</span>
+            <span *ngIf="!loading">Create Property</span>
             <span *ngIf="loading" class="flex items-center">
               <svg
                 class="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
@@ -597,14 +812,14 @@
     <!-- Success Message -->
     <div *ngIf="submitted" class="p-6 text-center">
       <div class="text-green-500 text-5xl mb-4">✓</div>
-      <h2 class="text-2xl font-bold text-gray-800 mb-2">Estate Created Successfully!</h2>
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">Property Created Successfully!</h2>
       <p class="text-gray-600">Your new property listing has been submitted.</p>
       <button
         type="button"
-        (click)="currentStep = 1; submitted = false; form.reset()"
+        (click)="resetForm()"
         class="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
       >
-        Create Another Listing
+        Create Another Property
       </button>
     </div>
   </div>

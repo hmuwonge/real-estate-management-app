@@ -20,15 +20,23 @@ namespace SawaTech.PropertyMini.PropertyTypes
             _repository = repository;
         }
 
-        public async Task<PropertyTypeDto> CreateAsync(CreateUpdatePropertyTypeDto input)
+        public async Task<GeneralResponse> CreateAsync(CreateUpdatePropertyTypeDto input)
         {
-            var propertyType = new PropertyType
+            try
             {
-                Name = input.Name
-            };
-            await _repository.InsertAsync(propertyType);
+                var propertyType = new PropertyType
+                {
+                    Name = input.Name
+                };
+                await _repository.InsertAsync(propertyType);
 
-            return ObjectMapper.Map<PropertyType, PropertyTypeDto>(propertyType);
+                var obj = ObjectMapper.Map<PropertyType, PropertyTypeDto>(propertyType);
+                return new GeneralResponse(true, "Property type created successfully", obj);
+            }
+            catch (Exception ex)
+            {
+                return new GeneralResponse(false, "Error creating property type: " + ex.Message);
+            }
         }
 
         public async Task DeleteAsync(Guid id)
@@ -51,10 +59,25 @@ namespace SawaTech.PropertyMini.PropertyTypes
 
         public async Task<GeneralResponse> GetListAsync()
         {
+            try
+            {
+                // Check if the repository is null
+                if (_repository == null)
+                {
+                    return new GeneralResponse(false, "Repository is not initialized.");
+                }
+                // Retrieve all property types from the repository
+                var propertyTypes = await _repository.GetListAsync();
+                // Map the list of PropertyType entities to a list of PropertyTypeDto
+                var propertyTypeDtos = propertyTypes.Select(pt => ObjectMapper.Map<PropertyType, PropertyTypeDto>(pt)).ToList();
+                // Return the list wrapped in a GeneralResponse
+                return new GeneralResponse(true, "Property types retrieved successfully", propertyTypeDtos);
+            }
+            catch (Exception ex)
+            {
+                return new GeneralResponse(false, "Error retrieving property types: " + ex.Message);
 
-            var propertyTypes = await _repository.GetListAsync(); // Await the Task to get the actual List<PropertyType>
-            var results =  ObjectMapper.Map<List<PropertyType>, List<PropertyTypeDto>>(propertyTypes);
-            return new GeneralResponse(true, "Success", results);
+            }
         }
 
         public async Task<PropertyTypeDto> UpdateAsync(Guid id, CreateUpdatePropertyTypeDto input)

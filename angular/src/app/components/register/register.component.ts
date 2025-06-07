@@ -1,158 +1,179 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators,ReactiveFormsModule, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UsersService } from '../../services/users/users.service';
 import { countries } from 'country-list-json';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register',
-  standalone:true,
-  imports: [RouterLink,ReactiveFormsModule,CommonModule],
+  standalone: true,
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
   registrationForm: FormGroup;
-selectedFile: File | null=null;
-isLoading: boolean = false;
-errorMessage: string | null =null;
-countries: any[]=[];
+  selectedFile: File | null = null;
+  isLoading: boolean = false;
+  errorMessage: string | null = null;
+  countries: any[] = [];
 
-constructor(private fb:FormBuilder,private userService:UsersService,
-  private router:Router){
-  this.registrationForm=this.fb.group({
-    username: ['', Validators.required],
-    phone: ['', Validators.required],
-    password: ['', Validators.required],
-    whatsapp: ['', Validators.required],
-    rePassword: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    country: ['', Validators.required],
-    companyName: ['', Validators.required],
-    companyEmail: ['', [Validators.required, Validators.email]],
-    department: ['', Validators.required],
-    jobPosition: ['', Validators.required]
+  constructor(private fb: FormBuilder, private userService: UsersService,
+    private toastr: ToastrService,
+    private router: Router) {
+    this.registrationForm = this.fb.group({
+      username: ['', Validators.required],
+      phone: ['', Validators.required],
+      password: ['', Validators.required],
+      whatsapp: ['', Validators.required],
+      rePassword: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      country: ['', Validators.required],
+      companyName: ['', Validators.required],
+      companyEmail: ['', [Validators.required, Validators.email]],
+      department: ['', Validators.required],
+      jobPosition: ['', Validators.required]
 
-  });
+    });
 
-  this.countries=countries;
+    this.countries = countries;
 
-  this.registrationForm.get('country')?.setValue(countries[0].name);
-}
-
-onFileSelected(event:any):void{
-  const file=event.target.files[0];
-  console.log(file);
-  if(file){
-    this.selectedFile=file;
-  }
-}
-
-onSubmit(): void {
-  if (this.registrationForm.invalid || !this.selectedFile) {
-    this.registrationForm.markAllAsTouched();
-    return;
+    this.registrationForm.get('country')?.setValue(countries[0].name);
   }
 
-  this.isLoading=true;
-  this.errorMessage=null;
-
-  const {username,
-    phone,password,
-    whatsapp,
-    rePassword,
-    email,country,
-    companyName,companyEmail,department,
-    jobPosition}=this.registrationForm.value;
-
-  if(password!==rePassword){
-    this.errorMessage='Passwords do not match.';
-    this.isLoading=false;
-    return;
-  }
-
-  // console.log(this.registrationForm.value);
-
-  const formData=new FormData();
-  formData.append('username',username);
-  formData.append('phone',phone);
-  formData.append('password',password);
-  formData.append('confirmPassword',rePassword);
-  formData.append('whatsapp',whatsapp);
-  formData.append('email',email);
-  formData.append('country',country);
-  formData.append('companyName',companyName);
-  formData.append('companyEmail',companyEmail);
-  formData.append('department',department);
-  formData.append('jobPosition',jobPosition);
-  formData.append('profilePicture',this.selectedFile,this.selectedFile?.name);
-
-  console.log(formData.getAll);
-
-  this.userService.register(formData).subscribe({
-    next:(response:any)=>{
-      this.isLoading=false;
-      // console.log('Registration successful:',response);
-      // this.router.navigate(['/auth/login']);
-
-      if(response.error)
-      {
-        this.errorMessage=response.error.message||'Registration failed. Please try again.';
-        return;
-      }
-
-      this.router.navigate(['/auth/login']);
-    },
-    error:(error:any)=>{
-      this.isLoading=false;
-      this.errorMessage=error.error?.details||'Registration failed. Please try again.';
-      console.error('Registration failed:',error.error?.message || error);
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    console.log(file);
+    if (file) {
+      this.selectedFile = file;
     }
-  })
-}
+  }
 
-get usernameFormControl(): FormControl {
-  return this.registrationForm.get('username') as FormControl;
-}
+  onSubmit(): void {
+    if (this.registrationForm.invalid || !this.selectedFile) {
+      this.registrationForm.markAllAsTouched();
+      return;
+    }
 
-get passwordFormControl(): FormControl {
-  return this.registrationForm.get('password') as FormControl;
-}
+    this.isLoading = true;
+    this.errorMessage = null;
 
-get rePasswordFormControl(): FormControl {
-  return this.registrationForm.get('rePassword') as FormControl;
-}
+    const { username,
+      phone, password,
+      whatsapp,
+      rePassword,
+      email, country,
+      companyName, companyEmail, department,
+      jobPosition } = this.registrationForm.value;
 
-get emailFormControl(): FormControl {
-  return this.registrationForm.get('email') as FormControl;
-}
+    if (password !== rePassword) {
+      this.errorMessage = 'Passwords do not match.';
+      this.isLoading = false;
+      return;
+    }
 
-get phoneFormControl(): FormControl {
-  return this.registrationForm.get('phone') as FormControl;
-}
+    // console.log(this.registrationForm.value);
 
-get whatsappFormControl(): FormControl {
-  return this.registrationForm.get('whatsapp') as FormControl;
-}
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('phone', phone);
+    formData.append('password', password);
+    formData.append('confirmPassword', rePassword);
+    formData.append('whatsapp', whatsapp);
+    formData.append('email', email);
+    formData.append('country', country);
+    formData.append('companyName', companyName);
+    formData.append('companyEmail', companyEmail);
+    formData.append('department', department);
+    formData.append('jobPosition', jobPosition);
+    formData.append('profilePicture', this.selectedFile, this.selectedFile?.name);
 
-get countryFormControl(): FormControl {
-  return this.registrationForm.get('country') as FormControl;
-}
+    console.log(formData.getAll);
 
-get companyNameFormControl(): FormControl {
-  return this.registrationForm.get('companyName') as FormControl;
-}
+    this.userService.register(formData).subscribe({
+      next: (response: any) => {
+        this.isLoading = false;
 
-get companyEmailFormControl(): FormControl {
-  return this.registrationForm.get('companyEmail') as FormControl;
-}
+        if (response.flag === false) {
+          console.error('Registration failed:', response.message);
+          // this.toastr.error(response.message, 'Registration Error');
+          this.errorMessage = response.message || 'Registration failed. Please try again.';
+          this.toastr.error(this.errorMessage, 'Error', {
+            timeOut: 3000,
+            positionClass: 'toast-top-right'
+          });
+          return;
+        }
 
-get departmentFormControl(): FormControl {
-  return this.registrationForm.get('department') as FormControl;
-}
+        this.toastr.success('Registration successful! Please log in.', 'Success', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right'
+        });
+        this.registrationForm.reset();
+        this.selectedFile = null;
+        this.errorMessage = null;
+        // Redirect to login page after successful registration
+        this.isLoading = false;
+        // this.toastr.clear();
 
-get jobPositionFormControl(): FormControl {
-  return this.registrationForm.get('jobPosition') as FormControl;
-}
+
+
+        this.router.navigate(['/auth/login']);
+      },
+      error: (error: any) => {
+        this.isLoading = false;
+        this.errorMessage = error.error?.details || 'Registration failed. Please try again.';
+        this.toastr.error(this.errorMessage, 'Success', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right'
+        });
+      }
+    })
+  }
+
+  get usernameFormControl(): FormControl {
+    return this.registrationForm.get('username') as FormControl;
+  }
+
+  get passwordFormControl(): FormControl {
+    return this.registrationForm.get('password') as FormControl;
+  }
+
+  get rePasswordFormControl(): FormControl {
+    return this.registrationForm.get('rePassword') as FormControl;
+  }
+
+  get emailFormControl(): FormControl {
+    return this.registrationForm.get('email') as FormControl;
+  }
+
+  get phoneFormControl(): FormControl {
+    return this.registrationForm.get('phone') as FormControl;
+  }
+
+  get whatsappFormControl(): FormControl {
+    return this.registrationForm.get('whatsapp') as FormControl;
+  }
+
+  get countryFormControl(): FormControl {
+    return this.registrationForm.get('country') as FormControl;
+  }
+
+  get companyNameFormControl(): FormControl {
+    return this.registrationForm.get('companyName') as FormControl;
+  }
+
+  get companyEmailFormControl(): FormControl {
+    return this.registrationForm.get('companyEmail') as FormControl;
+  }
+
+  get departmentFormControl(): FormControl {
+    return this.registrationForm.get('department') as FormControl;
+  }
+
+  get jobPositionFormControl(): FormControl {
+    return this.registrationForm.get('jobPosition') as FormControl;
+  }
 
 }

@@ -6,10 +6,11 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withXsrfConfiguration } from '@angular/common/http';
 import { authInterceptor } from './auth.interceptor';
 import { provideServiceWorker } from '@angular/service-worker';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-
+provideToastr(),
     provideRouter(routes),
     provideAnimations(),
     provideHttpClient(

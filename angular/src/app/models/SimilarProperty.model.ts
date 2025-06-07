@@ -11,7 +11,7 @@ export interface SimilarProperty {
   mainImage: string;
   owner: any | null;
   governorate: any | null;
-  propertyType: any | null;
+  propertyType: string | null;
   amenities: Amenity[];
   propertyNearbyPlaces: any[];
   features: any[];

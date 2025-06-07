@@ -12,15 +12,41 @@ namespace SawaTech.PropertyMini.GovernoratesApp
     public class GovernoratesAppService(IRepository<Governorate, Guid> repository)
         : ApplicationService, IGovernorateAppService
     {
-        public async Task<GovernorateDto> CreateAsync(CreateUpdateGovernorateDto input)
+        public async Task<GeneralResponse> CreateAsync(CreateUpdateGovernorateDto input)
         {
-            var governorate = new Governorate
+            try
             {
-                Name = input.Name
-            };
-            await repository.InsertAsync(governorate);
-            return ObjectMapper.Map<Governorate, GovernorateDto>(governorate);
-        }
+                var existingGovernorate = await repository.FirstOrDefaultAsync(g => g.Name == input.Name);
+                if (existingGovernorate != null)
+                {
+                    return new GeneralResponse(
+                        false,
+                        "Governorate with this name already exists",
+                        null
+                    );
+                }
+                var governorate = new Governorate
+                {
+                    Name =  (input.Name).Trim()
+                };
+                await repository.InsertAsync(governorate);
+                return new GeneralResponse(
+                    true,
+                    "Governorate created successfully",
+                    ObjectMapper.Map<Governorate, GovernorateDto>(governorate)
+                );
+            }
+            catch (Exception ex)
+            {
+                return new GeneralResponse(
+                    false,
+                    ex.Message,
+                    ex.StackTrace
+                );
+               
+            }
+
+            }
 
         public async Task<GeneralResponse> DeleteAsync(Guid id)
         {

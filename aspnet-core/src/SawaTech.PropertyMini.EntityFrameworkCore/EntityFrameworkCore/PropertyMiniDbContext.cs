@@ -58,7 +58,7 @@ public class PropertyMiniDbContext : AbpDbContext<PropertyMiniDbContext>, IIdent
     // property
     public DbSet<Property> Properties { get; set; }
     public DbSet<AccountUser> AccountUsers { get; set; }
-    public DbSet<Amenity> PropertyAmenities { get; set; }
+    public DbSet<Amenity>Amenities { get; set; }
     public DbSet<Feature> Features { get; set; }
     public DbSet<PropertyType> PropertyTypes { get; set; }
     public DbSet<PropertyImage> PropertyMedias { get; set; }
@@ -69,6 +69,7 @@ public class PropertyMiniDbContext : AbpDbContext<PropertyMiniDbContext>, IIdent
     public DbSet<RefreshTokenInfo> RefreshTokens { get; set; }
     public DbSet<PropertyNearbyPlace> PropertyNearbyPlaces { get; set; }
     public DbSet<PropertyFeature> PropertyFeatures { get; set; }
+
 
     #endregion
 
@@ -137,7 +138,15 @@ public class PropertyMiniDbContext : AbpDbContext<PropertyMiniDbContext>, IIdent
         modelBuilder.Entity<Amenity>(a =>
         {
             a.ToTable(
-                PropertyMiniConsts.DbTablePrefix + "PropertyAmenities",
+                PropertyMiniConsts.DbTablePrefix + "Amenities",
+                PropertyMiniConsts.DbSchema
+            );
+        });
+
+        modelBuilder.Entity<Feature>(a =>
+        {
+            a.ToTable(
+                PropertyMiniConsts.DbTablePrefix + "Features",
                 PropertyMiniConsts.DbSchema
             );
         });
@@ -163,27 +172,27 @@ public class PropertyMiniDbContext : AbpDbContext<PropertyMiniDbContext>, IIdent
                 .HasForeignKey(x => x.NearbyPlaceId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
-        modelBuilder.Entity<PropertyFeature>(a =>
-        {
-            a.ToTable(
-                PropertyMiniConsts.DbTablePrefix + "PropertyFeatures",
-                PropertyMiniConsts.DbSchema
-            );
-        });
+        //modelBuilder.Entity<PropertyFeature>(a =>
+        //{
+        //    a.ToTable(
+        //        PropertyMiniConsts.DbTablePrefix + "PropertyFeatures",
+        //        PropertyMiniConsts.DbSchema
+        //    );
+        //});
 
-        modelBuilder.Entity<PropertyImage>(a =>
+        modelBuilder.Entity<PropertyVideo>(a =>
         {
             a.ToTable(
                 PropertyMiniConsts.DbTablePrefix + "PropertyVideos",
                 PropertyMiniConsts.DbSchema
             );
             a.Property(x => x.Url).HasMaxLength(2000);
-            //a.Property(x => x.MediaType).HasConversion<string>();
             a.HasOne(x => x.Property)
-                .WithMany(x => x.PropertyImages)
-                .HasForeignKey(x => x.PropertyId)
+                .WithOne(x => x.PropertyVideo)
+                .HasForeignKey<PropertyVideo>(x => x.PropertyId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
+
 
         modelBuilder.Entity<PropertyImage>(a =>
         {

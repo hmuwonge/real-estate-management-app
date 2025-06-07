@@ -36,7 +36,7 @@ export class PropertiesService {
 
   getUserProperties(id:string):Observable<GeneralResponse<SimilarProperty[]>>{
 
-    const url =`${this.baseURL}app/property/${encodeURIComponent(id)}/user-list?maxResults=4`;
+    const url =`${this.baseURL}app/public-properties/public-property-list`   //property/${encodeURIComponent(id)}/user-list?maxResults=4`;
     return this.http.get<any>(url);
   }
 
@@ -74,6 +74,18 @@ export class PropertiesService {
     return this.http.get<GeneralResponse<Region[]>>(
       `${this.baseURL}app/governorates`
     );
+  }
+
+  createProperty(formData: FormData): Observable<GeneralResponse<any>> {
+    return this.http.post<GeneralResponse<any>>(
+      `${this.baseURL}app/property`,
+      formData
+    );
+  }
+
+  filter(status: string): Observable<GeneralResponse<SimilarProperty[]>> {
+    const url = `${this.baseURL}app/public-properties/filter?status=${encodeURIComponent(status)}`;
+    return this.http.get<GeneralResponse<SimilarProperty[]>>(url);
   }
 
 }

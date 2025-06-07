@@ -10,7 +10,7 @@ public interface IGovernorateAppService : IApplicationService
 {
     Task<GeneralResponse> GetListAsync();
     Task<GovernorateDto> GetAsync(Guid id);
-    Task<GovernorateDto> CreateAsync(CreateUpdateGovernorateDto input);
+    Task<GeneralResponse> CreateAsync(CreateUpdateGovernorateDto input);
     Task<GovernorateDto> UpdateAsync(Guid id, CreateUpdateGovernorateDto input);
     Task<GeneralResponse> DeleteAsync(Guid id);
 }
