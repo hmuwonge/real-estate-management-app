@@ -4,15 +4,24 @@ import { HomeProperty } from '../../models/HomeProperty.model';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { featherAirplay } from '@ng-icons/feather-icons';
-import { heroUsers } from '@ng-icons/heroicons/outline';
+import { heroUsers, heroArrowLongLeft, heroArrowRight,heroArrowLeft } from '@ng-icons/heroicons/outline';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-carousel',
-  imports: [CommonModule, NgIcon],
+  imports: [CommonModule, NgIcon,],
   templateUrl: './home-carousel.component.html',
   standalone: true,
-  styleUrl: './home-carousel.component.css'
+  styleUrl: './home-carousel.component.css',
+  providers: [
+    provideIcons({
+      featherAirplay,
+      heroUsers,
+      heroArrowLongLeft,
+      heroArrowRight,
+      heroArrowLeft
+    })
+  ]
 })
 export class HomeCarouselComponent implements OnInit, OnDestroy {
   @Input() items: HomeProperty[] = [];

@@ -25,6 +25,8 @@ export class PropertyDetailsComponent implements OnInit {
   amenities: string[] = [];
   isLoading = true;
 
+  showWhatsAppModal = false;
+
   constructor(
     private route: ActivatedRoute,
     private propertyService: PropertiesService
@@ -56,6 +58,8 @@ export class PropertyDetailsComponent implements OnInit {
             this.property = response;
             if (this.property?.propertyImages) {
               this.imageUrls = this.property.propertyImages.map(img => img.url);
+
+              console.log(this.imageUrls);
               this.nearbyPlaces = this.property.propertyNearbyPlaces || [];
             }
 
@@ -103,4 +107,7 @@ export class PropertyDetailsComponent implements OnInit {
   //   }
   // }
 
+  toggleWhatsAppModal() {
+  this.showWhatsAppModal = !this.showWhatsAppModal;
+}
 }

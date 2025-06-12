@@ -1,70 +1,74 @@
 <!-- Main Image Display -->
-<div class="w-full max-w-4xl mx-auto rounded-lg overflow-hidden mb-4">
-    <img 
-      [src]="selectedImage" 
-      alt="Selected" 
+<div class="w-full max-w-4xl mx-auto rounded-lg overflow-hidden mb-4" *ngIf="selectedImage">
+  <div class="relative">
+    <button
+      class="absolute top-2 right-2 text-gray-700 text-2xl font-bold hover:text-red-600"
+      (click)="selectImage(null)"
+    >&times;</button>
+    <img
+      [src]="selectedImage"
+      alt="Selected"
       class="w-full h-[350px] object-cover"
     />
   </div>
-  
+
   <!-- Thumbnails Row -->
   <div class="flex gap-4 justify-center mb-6">
     <ng-container *ngFor="let img of images.slice(0, previewLimit); let i = index">
-      <img 
-        [src]="img" 
-        (click)="selectImage(img)" 
+      <img
+        [src]="img"
+        (click)="selectImage(img)"
         class="w-36 h-24 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-blue-500 transition-all"
         alt="Thumbnail"
       />
     </ng-container>
-  
+
     <!-- "+N Images" button -->
-    <div 
+    <div
       class="relative w-36 h-24 cursor-pointer rounded-lg overflow-auto-x"
-      (click)="openModal(previewLimit)"
+      (click)="openModal(previewLimit)" *ngIf="images.length > previewLimit"
     >
-      <img [src]="images[previewLimit]" class="w-full h-full object-cover " alt="More">
+      <img [src]="images[previewLimit]" class="w-full h-full object-cover rounded-md " alt="More">
       <div class="absolute inset-0 bg-transparent bg-opacity-50  flex items-center justify-center
        text-white font-semibold text-lg rounded-lg">
         +{{ images.length - previewLimit }} Images
       </div>
     </div>
   </div>
-  
+
   <!-- Modal -->
-  <div 
-    *ngIf="isModalOpen" 
+  <div
+    *ngIf="isModalOpen"
     class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center"
     (click)="closeModal()"
   >
-    <div 
+    <div
       class="bg-white rounded-lg max-w-2xl w-full p-4 relative"
       (click)="$event.stopPropagation()"
     >
       <!-- Close Button -->
-      <button 
+      <button
         class="absolute top-2 right-2 text-gray-700 text-2xl font-bold hover:text-red-600"
         (click)="closeModal()"
       >&times;</button>
-  
+
       <!-- Carousel Content -->
       <div class="flex items-center justify-center gap-4">
-        <button 
+        <button
           class="text-3xl text-gray-500 hover:text-gray-800"
           (click)="prevImage()"
         >❮</button>
-  
-        <img 
-          [src]="images[currentModalIndex]" 
+
+        <img
+          [src]="images[currentModalIndex]"
           class="h-[350px] w-full object-cover rounded shadow-md"
           alt="Carousel Image"
         />
-  
-        <button 
+
+        <button
           class="text-3xl text-gray-500 hover:text-gray-800"
           (click)="nextImage()"
         >❯</button>
       </div>
     </div>
   </div>
-  

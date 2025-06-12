@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PropertiesService } from '../../services/properties/properties.service';
 import { SimilarProperty } from '../../models/SimilarProperty.model';
 import { handleResponse } from '../../shared/utils/HandleResponse';
@@ -21,7 +21,9 @@ export class ManagePropertiesComponent implements OnInit {
   isError: boolean = false;
   defaultImage: string = '/images/placeholder.jpg';
 
-  constructor(private propertiesServices: PropertiesService, private userService: UsersService) {
+  constructor(private propertiesServices: PropertiesService,
+    private router: Router,
+    private userService: UsersService) {
     this.userId = localStorage.getItem('userId');
   }
   ngOnInit(): void {
@@ -49,9 +51,14 @@ export class ManagePropertiesComponent implements OnInit {
 
         })
     }
+  }
 
-
-
+  onEditProperty(property: SimilarProperty) {
+    console.log(property);
+    // Implement your edit property logic here
+    this.router.navigate(['/auth/dashboard/edit-property'],{
+      state: { property:property }
+    });
   }
 
   getPropertiesByStatus(status: string) {

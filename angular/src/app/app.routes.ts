@@ -55,6 +55,11 @@ export const routes: Routes = [
     data: { role: 'agent', expectedRole: 'agent' }
   },
   {
+    path: 'auth/dashboard/edit-property', component: CreatePropertyComponent,
+    canActivate: [AuthGuardService],
+    data: { role: 'agent', expectedRole: 'agent' }
+  },
+  {
     path: 'auth/dashboard/amenities', component: AmenitiesComponent,
     canActivate: [AuthGuardService],
     data: { role: 'agent', expectedRole: 'agent' }

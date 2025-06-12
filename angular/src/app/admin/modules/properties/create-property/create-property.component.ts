@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Inject, NgModule, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, NgModule, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -23,6 +23,9 @@ import { catchError, of } from 'rxjs';
 import { AmenitiesService } from '../../../../services/amenities/amenities.service';
 import { UsersService } from '../../../../services/users/users.service';
 import { Governorate } from 'src/app/shared/models/governorate.model';
+import { SimilarProperty } from 'src/app/models/SimilarProperty.model';
+import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
 
 type PropertyStatus = 'Sell' | 'Rent' | 'Sold' | 'Rented';
 
@@ -33,7 +36,7 @@ templateUrl: './create-property.component.html',
   standalone: true,
   styleUrls: ['./create-property.component.css']
 })
-export class CreatePropertyComponent implements OnInit, OnDestroy {
+export class CreatePropertyComponent implements OnInit, OnDestroy, OnChanges {
   currentStep = 1;
   form: FormGroup;
   submitted = false;
@@ -60,12 +63,19 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
   featureSearchQuery = '';
   filteredFeatures: Feature[] = [];
 
+   propertyForm: FormGroup;
+  isEditMode = false;
+  propertyId: string | null = null;
+
   constructor(
     private fb: FormBuilder,
     @Inject(PropertiesService) private propertiesService: PropertiesService,
     private featuresService: FeaturesService,
     private amenitiesService: AmenitiesService,
-    private userService: UsersService
+    private userService: UsersService,
+     private toastr: ToastrService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
 
      const user = this.userService.getCurrentUser();
@@ -94,6 +104,14 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
       // Step 4
       terms: [false, Validators.requiredTrue]
     });
+
+    //  this.propertyForm = this.fb.group({
+    //   address: ['', Validators.required],
+    //   price: ['', Validators.required],
+    //   rooms: ['', Validators.required],
+    //   paymentType: ['Buy', Validators.required],
+      // Add other form fields as needed
+    // });
   }
 
   ngOnInit(): void {
@@ -101,6 +119,23 @@ export class CreatePropertyComponent implements OnInit, OnDestroy {
     this.loadGovernorates();
     this.loadFeatures();
     this.loadAmenities();
+
+
+     // Check if we're in edit mode (received property data via state)
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state as { property: SimilarProperty };
+
+    if (state?.property) {
+      this.isEditMode = true;
+      this.propertyId = state.property.id;
+      this.form.patchValue(state.property);
+    }
   }
 
   loadPropertyTypes(): void {

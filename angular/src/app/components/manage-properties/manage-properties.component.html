@@ -50,7 +50,7 @@
               </p>
               <p class="text-gray-500 text-xs truncate">{{estate.address}}</p>
               <div class="mt-2 flex flex-wrap gap-1 text-xs">
-                <button class="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200">Edit Info</button>
+                <button class="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200 cursor-pointer" (click)="onEditProperty(estate)">Edit Info</button>
                 <button class="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200">Renewal</button>
                 <button class="px-2 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200">Delete</button>
               </div>
