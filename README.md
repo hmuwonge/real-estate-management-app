@@ -1,4 +1,4 @@
-# 🧩 SawaTech Mini Property Management Project Setup Guide
+# 🧩 RealEstate Mini Property Management Project Setup Guide (.Net Core and Angular)
 
 Welcome to the documentation for this project built with **ABP Framework** on the backend and **Angular** on the frontend.
 
@@ -6,7 +6,7 @@ Welcome to the documentation for this project built with **ABP Framework** on th
 
 ## 📦 Technologies Used
 
-* **Backend**: [ABP Framework](https://abp.io) (.NET Core)
+* **Backend**: .NET Core
 * **Frontend**: [Angular](https://angular.io)
 * **Database**: (e.g., SQL Server, PostgreSQL — update accordingly)
 * **Authentication**: (e.g., JWT / Identity Server — update if needed)
